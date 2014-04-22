@@ -19,7 +19,6 @@ import java.util.HashMap;
 
 import static ru.onyx.clipper.model.Report.*;
 
-
 /**
  * User: MasterSPB
  * Date: 13.03.12
