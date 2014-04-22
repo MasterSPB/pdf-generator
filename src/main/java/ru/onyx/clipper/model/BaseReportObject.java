@@ -986,6 +986,7 @@ public abstract class BaseReportObject {
     }
 
     protected String ConvertPropertyToSpecificDateFormat(String propertyValue) {
+        //TODO сожержимое метода не должно находится в этом классе, его лучше вынести в DateUtil как в всю бизнесс логику работы с датами
         Date s = propertyGetter.GetPropertyStringAsDate(propertyValue, getDateFormat());
         if (s == null) return getDefaultNullValue();
                 //"\"----\"-------------\"";

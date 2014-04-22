@@ -18,7 +18,6 @@ import javax.xml.xpath.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,7 +91,7 @@ public class Report {
     public void LoadMarkup(String xmlMarkup, HashMap<String, byte[]> pFontBodies, PropertyGetter pGetter) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, DocumentException, ParseException {
         fontBodies = pFontBodies;
 
-        // step 2
+        // step 2      //TODO а где степ 1 ??  разбить мтеод на шаги... инициализация, загрузка шрифтов... проход по тегам...
         DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         InputSource is = new InputSource();
         is.setCharacterStream(new StringReader(xmlMarkup));
@@ -119,7 +118,7 @@ public class Report {
         repPageNumHPos = parseAttribute(attrs, Report.pagenumhpos, "blank");
         repPageNumVPos = parseAttribute(attrs, Report.pagenumvpos, "bottom");
 
-
+        // TODO в последующем предусмотреть другие размеры
         if (pageSize.equalsIgnoreCase(A4) && orientation.equalsIgnoreCase(portrait)) {
             _doc.setPageSize(PageSize.A4);
         }
@@ -131,6 +130,7 @@ public class Report {
 
         _doc.setMargins(marginLeft, marginRight, marginTop, marginBottom);
 
+        // TODO сделать так чтобы шрифты грузились из внешнего источника  не из jar...
         for (int i = 0; i < result.getLength(); i++) {
             String fontName = result.item(i).getAttributes().getNamedItem(name).getTextContent();
             String fontPath = result.item(i).getAttributes().getNamedItem(path).getTextContent();
@@ -176,18 +176,13 @@ public class Report {
         }
     }
 
-
-    public HashMap<String, byte[]> getFontBodies() {
-        return fontBodies;
-    }
-
     public static String parseAttribute(NamedNodeMap attrs, String attrName, String defaultValue) {
         if (attrs == null) return defaultValue;
         Node attrObj = attrs.getNamedItem(attrName);
         if (attrObj == null) return defaultValue;
         return attrObj.getTextContent();
     }
-
+    //TODO нумерацию старниц выделить в отдельный метод см тодо ниже  (причем один метод есть... как то логика нумерирования оказалось разбитой по методам...)
     public byte[] GetDocument() throws DocumentException, ParseException, IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PdfWriter wr = PdfWriter.getInstance(_doc, byteArrayOutputStream);
@@ -232,7 +227,7 @@ public class Report {
             }
         }
 
-
+        // TODO нумерацию сделать необязательной (настройка в шаблоне (например: осутсвует, число, число из + число + текст)
         PdfAction ac = PdfAction.gotoLocalPage(1, new
                 PdfDestination(PdfDestination.XYZ, 0, _doc.getPageSize().getHeight(), 1f), wr);
         wr.setOpenAction(ac);
@@ -281,7 +276,7 @@ public class Report {
             }
         }
     }
-
+    //  TODO зачем такой кусок кода??? можно же сделать класс ReportIfStatement и туда перенести всю логику...
     protected void parseIfStatement(NodeList ifStatementItems, PropertyGetter pGetter) {
         String[] operands;
         boolean conditionResult=false;
@@ -307,7 +302,7 @@ public class Report {
                 if(operands[1].equals("neq") && (operands[0]!=null && operands[2]!=null))
                     if(!operands[0].equals(operands[2])) conditionResult=true; //if we are checking tokens to be not equal
             }
-
+            // TODO зачем тут буловское значение сравнивается с true ???
             if (conditionResult==true && nodeName.equals(paragraph)) //now, if condition is TRUE, add all paragraphs to markup
                 try {
                     items.add(new ReportParagraph(ifStatementItems.item(t), fonts, null, pGetter));
