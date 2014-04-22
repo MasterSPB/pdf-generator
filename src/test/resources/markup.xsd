@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ru.pega/doc/generator"
+ xmlns:tns="http://ru.pega/doc/generator" elementFormDefault="qualified">
+
+
+    <complexType name="reportDefinition">
+    	<sequence>
+
+    		<element name="fonts" type="tns:fonts" maxOccurs="1" minOccurs="1"></element>
+    		<element name="report" type="tns:report"
+    			maxOccurs="1" minOccurs="1">
+    		</element>
+
+    	</sequence>
+    </complexType>
+
+    <complexType name="baseFont">
+    	<attribute name="name" type="string"></attribute>
+    	<attribute name="path" type="string"></attribute>
+    </complexType>
+
+    <complexType name="report">
+    	<sequence>
+    		<element name="items" type="tns:items" minOccurs="0" maxOccurs="unbounded"></element>
+    	</sequence>
+    	<attribute name="marginleft" type="float" use="required"></attribute>
+    	<attribute name="marginright" type="float" use="required"></attribute>
+    	<attribute name="margintop" type="float" use="required"></attribute>
+    	<attribute name="marginbottom" type="float" use="required"></attribute>
+        <attribute name="pagenumvpos" type="tns:pageNumberVPos"></attribute>
+        <attribute name="pageFont" type="string"></attribute>
+        <attribute name="pagenumhpos" type="tns:pageNumberHPos"></attribute>
+    </complexType>
+
+    <complexType name="table">
+    	<sequence>
+    		<element name="cell" type="tns:cell"
+    			maxOccurs="unbounded">
+    		</element>
+    	</sequence>
+    	<attribute name="columns" type="int" use="required"></attribute>
+    	<attribute name="font" type="string"></attribute>
+    	<attribute name="fontweight" type="float"></attribute>
+    	<attribute name="widthpercentage" type="float"></attribute>
+    	<attribute name="borderwidth" type="float"></attribute>
+    	<attribute name="widthcellspercentage" type="string"></attribute>
+    	<attribute name="halign" type="tns:halign"></attribute>
+    	<attribute name="spacingafter" type="float"></attribute>
+    	<attribute name="mode" type="tns:cellModeType"></attribute>
+        <attribute name="verticalalignment" type="string"></attribute>
+    </complexType>
+
+    <complexType name="paragraph">
+    	<sequence minOccurs="0" maxOccurs="unbounded">
+
+
+
+    		<element name="items" type="tns:items" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="table" type="tns:table" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="repeatingrow" type="tns:repeatingrow"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</element>
+    		<element name="phrase" type="tns:phrase" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="paragraph" type="tns:paragraph" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="chunk" type="tns:chunk" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="wordsplitter" type="tns:wordsplitter"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</element>
+    		<element name="dateparagraph" type="tns:dateparagraph" minOccurs="0" maxOccurs="unbounded"></element>
+    	</sequence>
+    	<attribute name="halign" type="tns:paragraphAlignType">
+    	</attribute>
+    	<attribute name="htextalign" type="tns:paragraphAlignType"></attribute>
+    	<attribute name="font" type="string" use="optional"></attribute>
+    	<attribute name="spacingbefore" type="float">
+    		<annotation>
+    			<documentation>Отступ до(margin)</documentation>
+    		</annotation>
+    	</attribute>
+    	<attribute name="spacingafter" type="float">
+    		<annotation>
+    			<documentation>Отступ после(margin)</documentation>
+    		</annotation>
+    	</attribute>
+    	<attribute name="fontweight" type="float" use="optional"></attribute>
+    	<attribute name="leading" type="float">
+    		<annotation>
+    			<documentation>Межстрочный интервал</documentation>
+    		</annotation>
+    	</attribute>
+    	<attribute name="indentationleft" type="float">
+    		<annotation>
+    			<documentation>Отступ слева(margin)</documentation>
+    		</annotation>
+    	</attribute>
+    	<attribute name="indentationright" type="float">
+    		<annotation>
+    			<documentation>Отступ справа(margin)</documentation>
+    		</annotation>
+    	</attribute>
+    	<attribute name="firstlineindentation" type="float">
+    		<annotation>
+    			<documentation>
+    				Отступ первой строки(красная строка)
+    			</documentation>
+    		</annotation>
+    	</attribute>
+    	<attribute name="fontstyle" type="tns:fontStyles"></attribute>
+    </complexType>
+
+    <complexType name="repeatingrow">
+    	<sequence>
+    		<element name="cell" type="tns:cell" minOccurs="1"
+    			maxOccurs="unbounded">
+    		</element>
+    	</sequence>
+    	<attribute name="columns" type="int"></attribute>
+    	<attribute name="pagename" type="string"></attribute>
+    	<attribute name="widthpercentage" type="float"></attribute>
+    	<attribute name="widthcellspercentage" type="string"></attribute>
+    	<attribute name="borderwidth" type="float"></attribute>
+    	<attribute name="font" type="string"></attribute>
+    	<attribute name="fontweight" type="float"></attribute>
+    	<attribute name="mode" type="tns:cellModeType"></attribute>
+        <attribute name="reprowfpagerows" type="int"></attribute>
+        <attribute name="reprowotherpagerows" type="int"></attribute>
+        <attribute name="fixedheight" type="float"></attribute>
+        <attribute name="reprowfpageheight" type="float"></attribute>
+        <attribute name="reprowotherpageheight" type="float"></attribute>
+        <attribute name="replicateheader" type="boolean"></attribute>
+    </complexType>
+
+    <simpleType name="paragraphAlignType">
+    	<restriction base="string">
+    		<enumeration value="left"></enumeration>
+    		<enumeration value="right"></enumeration>
+    		<enumeration value="center"></enumeration>
+    		<enumeration value="justify"></enumeration>
+    		<enumeration value="justifyall"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <element name="reportDefinition" type="tns:reportDefinition"></element>
+
+    <complexType name="chunk">
+    	<simpleContent>
+    		<extension base="string">
+    			<attribute name="leading" type="float"></attribute>
+    			<attribute name="font" type="string"></attribute>
+    			<attribute name="fontweight" type="float"></attribute>
+    			<attribute name="property" type="string"></attribute>
+    			<attribute name="fontstyle" type="tns:fontStyles"></attribute>
+    			<attribute name="dateformat" type="string">
+    				<annotation>
+    					<documentation>Используется вместе с заданным значением property. Задаёт формат даты значения property</documentation>
+    				</annotation></attribute>
+    			<attribute name="todateformat" type="string">
+    				<annotation>
+    					<documentation>Используется вместе с заданным значением Property и dateformat. Задаёт формат даты, в которую надо преобразовать property</documentation>
+    				</annotation></attribute>
+    		</extension>
+    	</simpleContent>
+    </complexType>
+
+    <complexType name="phrase">
+    	<sequence>
+
+    		<element name="chunk" type="tns:chunk" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    	</sequence>
+    	<attribute name="leading" type="float"></attribute>
+    </complexType>
+
+
+
+    <complexType name="fonts">
+    	<sequence>
+    		<element name="baseFont" type="tns:baseFont" maxOccurs="unbounded"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="cell" mixed="true">
+    	<sequence>
+
+    		<element name="items" type="tns:items" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    	</sequence>
+    	<attribute name="mode" type="tns:cellModeType"></attribute>
+    	<attribute name="property" type="string"></attribute>
+    	<attribute name="halign" type="tns:halign"></attribute>
+    	<attribute name="font" type="string"></attribute>
+    	<attribute name="fontweight" type="float"></attribute>
+    	<attribute name="borderwidth" type="float"></attribute>
+    	<attribute name="borderwidthleft" type="float"></attribute>
+    	<attribute name="borderwidthtop" type="float"></attribute>
+    	<attribute name="borderwidthright" type="float"></attribute>
+    	<attribute name="borderwidthbottom" type="float"></attribute>
+    	<attribute name="fixedheight" type="float"></attribute>
+    	<attribute name="minimumheight" type="float"></attribute>
+    	<attribute name="colspan" type="int"></attribute>
+    	<attribute name="rowspan" type="int"></attribute>
+    	<attribute name="valign" type="string"></attribute>
+    	<attribute name="leading" type="float"></attribute>
+        <attribute name="vtextalign" type="string"></attribute>
+        <attribute name="fontstyle" type="tns:fontStyles"></attribute>
+        <attribute name="paddings">
+    		<annotation>
+    			<documentation>
+    				Отступы внутри ячейки. Задаётся в виде
+    				paddings="0,2,0,2"
+    			</documentation>
+    		</annotation>
+    		<simpleType>
+    			<restriction base="string">
+    				<pattern value="\d,\d,\d,\d"></pattern>
+    			</restriction>
+    		</simpleType>
+        </attribute>
+    	<attribute name="useborderpaddings"
+    		type="tns:useBorderPaddingsModes">
+    		<annotation>
+    			<documentation>
+    				Использовать ли высоту границы ячейки при
+    				отступах(paddings)
+    			</documentation>
+    		</annotation>
+    	</attribute>
+    	<attribute name="dateformat" type="string">
+    		<annotation>
+    			<documentation>
+    				Используется вместе с заданным значением property.
+    				Задаёт формат даты значения property
+    			</documentation>
+    		</annotation>
+    	</attribute>
+    	<attribute name="todateformat" type="string">
+    		<annotation>
+    			<documentation>
+    				Используется вместе с заданным значением Property и
+    				dateformat. Задаёт формат даты, в которую надо
+    				преобразовать property
+    			</documentation>
+    		</annotation>
+    	</attribute>
+    	<attribute name="customtext" type="string">
+    		<annotation>
+    			<documentation>Значение этого атрибута будет выведено в текст ячейки. Используется совместно с   repeatingrow</documentation>
+    		</annotation></attribute>
+    </complexType>
+
+    <complexType name="items">
+    	<sequence maxOccurs="unbounded" minOccurs="0">
+
+    		<element name="table" type="tns:table" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="repeatingrow" type="tns:repeatingrow"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</element>
+    		<element name="phrase" type="tns:phrase" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="paragraph" type="tns:paragraph" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="chunk" type="tns:chunk" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="wordsplitter" type="tns:wordsplitter"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</element>
+    		<element name="dateparagraph" type="tns:dateparagraph" minOccurs="0" maxOccurs="unbounded"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="wordsplitter">
+    	<attribute name="borderwidth" type="float"></attribute>
+    	<attribute name="widthpercentage" type="float"></attribute>
+    	<attribute name="columns" type="int"></attribute>
+    	<attribute name="param" type="string"></attribute>
+    	<attribute name="wordalign" type="tns:wordalign"></attribute>
+    	<attribute name="halign" type="tns:halign"></attribute>
+    	<attribute name="cellheight" type="float"></attribute>
+    	<attribute name="font" type="string"></attribute>
+    	<attribute name="fontweight" type="float"></attribute>
+    </complexType>
+
+    <simpleType name="halign">
+    	<restriction base="string">
+    		<enumeration value="left"></enumeration>
+    		<enumeration value="center"></enumeration>
+    		<enumeration value="right"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="cellModeType">
+    	<restriction base="string">
+    		<enumeration value="text"></enumeration>
+    		<enumeration value="composite"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="pageNumberHPos">
+        <restriction base="string">
+            <enumeration value="left"></enumeration>
+            <enumeration value="center"></enumeration>
+            <enumeration value="right"></enumeration>
+            <enumeration value="blank"></enumeration>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="pageNumberVPos">
+        <restriction base="string">
+            <enumeration value="top"></enumeration>
+            <enumeration value="bottom"></enumeration>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="wordalign">
+    	<restriction base="string">
+    		<enumeration value="left"></enumeration>
+    		<enumeration value="center"></enumeration>
+    		<enumeration value="right"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="valign">
+    	<restriction base="string">
+    		<enumeration value="top"></enumeration>
+    		<enumeration value="midle"></enumeration>
+    		<enumeration value="bottom"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <complexType name="dateparagraph">
+    	<sequence minOccurs="0" maxOccurs="unbounded">
+    		<element name="chunk" type="tns:chunk" minOccurs="0" maxOccurs="unbounded"></element>
+    		<element name="day" type="tns:day" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="month" type="tns:month" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="year" type="tns:year" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</element>
+    	</sequence>
+    	<attribute name="halign" type="tns:paragraphAlignType">
+    	</attribute>
+    	<attribute name="htextalign" type="tns:paragraphAlignType"></attribute>
+    	<attribute name="font" type="string" use="optional"></attribute>
+    	<attribute name="spacingafter" type="float"></attribute>
+    	<attribute name="fontweight" type="float" use="optional"></attribute>
+    	<attribute name="leading" type="float"></attribute>
+    	<attribute name="property" type="string"></attribute>
+    </complexType>
+
+    <complexType name="day">
+    	<attribute name="font" type="string"></attribute>
+    	<attribute name="fontstyle" type="string"></attribute>
+    	<attribute name="fontweight" type="float"></attribute>
+    </complexType>
+
+    <complexType name="month"></complexType>
+
+    <complexType name="year"></complexType>
+
+    <simpleType name="paddingsType">
+    	<restriction base="string"></restriction>
+    </simpleType>
+
+    <simpleType name="useBorderPaddingsModes">
+    	<restriction base="string">
+    		<enumeration value="true"></enumeration>
+    		<enumeration value="false"></enumeration>
+    	</restriction>
+    </simpleType>
+
+
+    <simpleType name="fontStyles">
+    	<restriction base="string">
+    		<enumeration value="underline"></enumeration>
+    		<enumeration value="italic"></enumeration>
+    		<enumeration value="bold"></enumeration>
+    		<enumeration value="bolditalic"></enumeration>
+    		<enumeration value="striked"></enumeration>
+    		<enumeration value="normal"></enumeration>
+    		<enumeration value="default"></enumeration>
+    		<enumeration value="undefined"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="htextalign">
+    	<restriction base="string">
+    		<enumeration value="left"></enumeration>
+    		<enumeration value="center"></enumeration>
+    		<enumeration value="right"></enumeration>
+    		<enumeration value="justify"></enumeration>
+    		<enumeration value="justifyall"></enumeration>
+    	</restriction>
+    </simpleType>
+
+    <simpleType name="vtextalign">
+    	<restriction base="string">
+    		<enumeration value="top"></enumeration>
+    		<enumeration value="middle"></enumeration>
+    		<enumeration value="bottom"></enumeration>
+    	</restriction>
+    </simpleType>
+</schema>

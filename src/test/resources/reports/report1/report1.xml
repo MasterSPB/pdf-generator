@@ -1,0 +1,25 @@
+<reportDefinition>
+    <fonts>
+        <baseFont name="arial" path="arial.ttf"/>
+    </fonts>
+    <report marginleft="35" marginright="35" margintop="35" marginbottom="0" orientation="portrait">
+        <items>
+            <paragraph htextalign="center" font="arial" fontweight="12" fontstyle="bold">
+                <chunk>Отметка о причине возврата справки о валютной операции</chunk>
+                <chunk property="$.test" />
+            </paragraph>
+            <paragraph>
+                <chunk property="$.test2.p2"/>
+            </paragraph>
+            <paragraph>
+                <chunk property="$.test2.p3[1]"/>
+            </paragraph>
+            <paragraph>
+                <chunk property="$.test3[1]"/>
+            </paragraph>
+            <paragraph>
+                <chunk property="$.test4[1]"/>
+            </paragraph>
+        </items>
+    </report>
+</reportDefinition>
