@@ -7,6 +7,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import ru.onyx.clipper.data.PropertyGetter;
+import ru.onyx.clipper.utils.DateUtils;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -25,6 +26,8 @@ import static ru.onyx.clipper.model.Report.*;
  * Time: 18:26
  */
 public abstract class BaseReportObject {
+
+    public static final String COMPOSITE = "composite";
 
     public abstract Element getPdfObject() throws DocumentException, ParseException, IOException;
 
@@ -99,6 +102,7 @@ public abstract class BaseReportObject {
             bgimage = parseAttribute(attrObj, BGIMAGE, null);
             keepTogether = Boolean.parseBoolean(parseAttribute(attrObj, KEEPTOGETHER, "false"));
             replicateHeader = Boolean.parseBoolean(parseAttribute(attrObj, REPLICATE_HEADER, "false"));
+            decseparator = parseAttribute(attrObj, DECIMAL_SEPARATOR, null);
 
             paddingLeft = -1f;
             paddingRight = -1f;
@@ -290,6 +294,9 @@ public abstract class BaseReportObject {
                     case chunk:
                         items.add(new ReportChunk(item, fonts, pParent, pGetter));
                         break;
+                    case moneychunk:
+                        items.add(new ReportMoneyChunk(item, fonts, pParent, pGetter));
+                        break;
                     case phrase:
                         items.add(new ReportPhrase(item, fonts, pParent, pGetter));
                         break;
@@ -337,6 +344,7 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String DECIMAL_SEPARATOR="decseparator";
     protected static final String REPLICATE_HEADER="replicateheader";
     protected static final String REPROW_FPAGE_HEIGHT = "reprowfpageheight";
     protected static final String REPROW_OTHER_PAGE_HEIGHT = "reprowotherpageheight";
@@ -450,6 +458,7 @@ public abstract class BaseReportObject {
     protected Integer firstSymbols;
     protected Integer lastSymbols;
 
+    protected String decseparator;
     protected String defaultnullvalue;
     protected String stringformat;
     protected String bgimage;
@@ -704,6 +713,11 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected String getDecimalSeparator(){
+        if(decseparator!=null) return decseparator;
+        return null;
+    }
+
 
     protected int getRepRowFPageRows(){
         if(reprowfpagerows!=null) return reprowfpagerows;
@@ -764,22 +778,6 @@ public abstract class BaseReportObject {
         return 2;
     }
 
-    /*
-    String attributes                               wid
-    protected String fontName;
-    protected String propertyName;
-    protected String cellMode;
-    protected String pageName;
-    protected ArrayList<BaseReportObject> childs = new ArrayList<BaseReportObject>();
-    protected Boolean useBorderPadding;
-     */
-
-    protected int getFirstSymbolsNum() {
-        if (firstSymbols != null) {
-            return firstSymbols;
-        }
-        return -1;
-    }
 
     protected int getLastSymbolsNum() {
         if (lastSymbols != null) {
@@ -794,7 +792,7 @@ public abstract class BaseReportObject {
         } else if (parent != null) {
             return parent.getCellMode();
         }
-        return "composite";
+        return COMPOSITE;
     }
 
     protected String getPosition() {
@@ -986,37 +984,11 @@ public abstract class BaseReportObject {
     }
 
     protected String ConvertPropertyToSpecificDateFormat(String propertyValue) {
-        //TODO сожержимое метода не должно находится в этом классе, его лучше вынести в DateUtil как в всю бизнесс логику работы с датами
+
         Date s = propertyGetter.GetPropertyStringAsDate(propertyValue, getDateFormat());
-        if (s == null) return getDefaultNullValue();
-                //"\"----\"-------------\"";
-        DateFormat df;
+        String defaultNullValue = getDefaultNullValue();
         String format = getToDateFormat();
-        String[] russianMonth = {
-                "января",
-                "февраля",
-                "марта",
-                "апреля",
-                "мая",
-                "июня",
-                "июля",
-                "августа",
-                "сентября",
-                "октября",
-                "ноября",
-                "декабря"
-        };
 
-        if(format.toLowerCase().contains("::r")) {
-            format = format.substring(0, format.indexOf("::R"));
-            DateFormatSymbols russSymbol = new DateFormatSymbols();
-            russSymbol.setMonths(russianMonth);
-            df = new SimpleDateFormat(format,russSymbol);
-        }
-        else {
-            df = new SimpleDateFormat(format);
-        }
-
-        return df.format(s);
+        return DateUtils.getFormattedDate(defaultNullValue, s, format);
     }
 }

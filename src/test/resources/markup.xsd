@@ -28,8 +28,9 @@
     	<attribute name="margintop" type="float" use="required"></attribute>
     	<attribute name="marginbottom" type="float" use="required"></attribute>
         <attribute name="pagenumvpos" type="tns:pageNumberVPos"></attribute>
-        <attribute name="pageFont" type="string"></attribute>
+        <attribute name="pagefont" type="string"></attribute>
         <attribute name="pagenumhpos" type="tns:pageNumberHPos"></attribute>
+        <attribute name="pagefontweight" type="int"></attribute>
     </complexType>
 
     <complexType name="table">
@@ -48,6 +49,7 @@
     	<attribute name="spacingafter" type="float"></attribute>
     	<attribute name="mode" type="tns:cellModeType"></attribute>
         <attribute name="verticalalignment" type="string"></attribute>
+        <attribute name="decseparator" type="string"></attribute>
     </complexType>
 
     <complexType name="paragraph">

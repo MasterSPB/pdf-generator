@@ -39,4 +39,8 @@ public class ReportBaseFont {
         Font font = new Font(baseFont,weight,style);
         return font;
     }
+
+    public BaseFont getBaseFont(){
+        return baseFont;
+    }
 }

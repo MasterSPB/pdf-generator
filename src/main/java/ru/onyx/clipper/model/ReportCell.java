@@ -4,6 +4,7 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import org.w3c.dom.Node;
 import ru.onyx.clipper.data.PropertyGetter;
+import ru.onyx.clipper.utils.StrUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -109,6 +110,10 @@ public class ReportCell extends BaseReportObject {
             }
         }
 
+        if (getDecimalSeparator() != null) {
+            celltext = StrUtils.replaceDecSeparator(celltext, getDecimalSeparator());
+        }
+
         if (customtext != null) {
             celltext = customtext;
             if (getDateFormat() != null && getToDateFormat() != null) {
@@ -117,6 +122,10 @@ public class ReportCell extends BaseReportObject {
 
             if (getStringformat() != null) {
                     celltext = String.format(getStringformat(), Float.parseFloat(celltext));
+            }
+
+            if (getDecimalSeparator() != null) {
+                celltext = StrUtils.replaceDecSeparator(celltext, getDecimalSeparator());
             }
         }
 

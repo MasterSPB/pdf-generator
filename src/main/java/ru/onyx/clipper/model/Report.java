@@ -49,6 +49,7 @@ public class Report {
     public static final String wordsplitter = "wordsplitter";
     public static final String newpage = "newpage";
     public static final String chunk = "chunk";
+    public static final String moneychunk = "moneychunk";
     public static final String phrase = "phrase";
     public static final String cell = "cell";
     public static final String day = "day";
@@ -60,16 +61,18 @@ public class Report {
     public static final String ifcondition = "if";
     public static final String elsecondition = "else";
     public static final String logicalcondition = "condition";
+    public static final String pagefontweight = "pagefontweight";
 
     private static int curPage=1;
+    private static int pageFontWeight;
 
     private HashMap<String, byte[]> fontBodies;
     private HashMap<String, ReportBaseFont> fonts = new HashMap<String, ReportBaseFont>();
     private ArrayList<BaseReportObject> items = new ArrayList<BaseReportObject>();
     private ArrayList<BaseReportObject> headerItems = new ArrayList<BaseReportObject>();
-    private String repPageNumHPos ="blank";
-    private String pageFont="arial";
-    private String repPageNumVPos="bottom";
+    private String repPageNumHPos;
+    private String pageFont;
+    private String repPageNumVPos;
 
     Document _doc = new Document();
 
@@ -117,6 +120,7 @@ public class Report {
         pageFont = parseAttribute(attrs,Report.pagefont, "arial");
         repPageNumHPos = parseAttribute(attrs, Report.pagenumhpos, "blank");
         repPageNumVPos = parseAttribute(attrs, Report.pagenumvpos, "bottom");
+        pageFontWeight = Integer.parseInt(parseAttribute(attrs, pagefontweight, "10"));
 
         // TODO в последующем предусмотреть другие размеры
         if (pageSize.equalsIgnoreCase(A4) && orientation.equalsIgnoreCase(portrait)) {
@@ -130,13 +134,11 @@ public class Report {
 
         _doc.setMargins(marginLeft, marginRight, marginTop, marginBottom);
 
-        // TODO сделать так чтобы шрифты грузились из внешнего источника  не из jar...
         for (int i = 0; i < result.getLength(); i++) {
             String fontName = result.item(i).getAttributes().getNamedItem(name).getTextContent();
             String fontPath = result.item(i).getAttributes().getNamedItem(path).getTextContent();
             ReportBaseFont baseFont = new ReportBaseFont(fontName, fontPath, fontBodies.get(fontName));
             fonts.put(fontName, baseFont);
-
         }
 
         XPathExpression exprRepParagraph = xpath.compile("reportDefinition/report/items/*");
@@ -149,7 +151,6 @@ public class Report {
                 NodeList headerChildList = repChilds.item(t).getChildNodes();
                 parseHeader(headerChildList, pGetter);
             }
-
             if (nodeName.equals(paragraph)) {
                 items.add(new ReportParagraph(repChilds.item(t), fonts, null, pGetter));
             }
@@ -197,9 +198,7 @@ public class Report {
 
             if (item instanceof ReportNewPage) {
 
-                if(!repPageNumHPos.equalsIgnoreCase("blank") && curPage>1) {
-                    setPageNumber(pageBF,10,wr);
-                } else if (curPage==1) curPage++;
+                 setPageNumber(wr);
 
                 _doc.newPage();
             }
@@ -209,10 +208,8 @@ public class Report {
                 {
                     if(reportRepeatingRowItem==null){
 
-                        if(!repPageNumHPos.equalsIgnoreCase("blank") && curPage>1) {
-                            setPageNumber(pageBF,10,wr); // Sets the page number
-                            drawHeader(wr,headerItems); // Draws header on all pages but first and last
-                        } else if (curPage==1) curPage++;
+                        if(curPage>1) drawHeader(wr,headerItems); // Draws header on all pages but first and last
+                        setPageNumber(wr); // Sets the page number
 
                         _doc.newPage();
                     }
@@ -222,7 +219,7 @@ public class Report {
             } else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
 
             if (--size==0){
-                setPageNumber(pageBF, 10, wr); // Sets the last page number
+                setPageNumber(wr); // Sets the last page number
                 drawHeader(wr,headerItems); // Draws header on the last page
             }
         }
@@ -276,6 +273,7 @@ public class Report {
             }
         }
     }
+
     //  TODO зачем такой кусок кода??? можно же сделать класс ReportIfStatement и туда перенести всю логику...
     protected void parseIfStatement(NodeList ifStatementItems, PropertyGetter pGetter) {
         String[] operands;
@@ -302,15 +300,15 @@ public class Report {
                 if(operands[1].equals("neq") && (operands[0]!=null && operands[2]!=null))
                     if(!operands[0].equals(operands[2])) conditionResult=true; //if we are checking tokens to be not equal
             }
-            // TODO зачем тут буловское значение сравнивается с true ???
-            if (conditionResult==true && nodeName.equals(paragraph)) //now, if condition is TRUE, add all paragraphs to markup
+
+            if (conditionResult && nodeName.equals(paragraph)) //now, if condition is TRUE, add all paragraphs to markup
                 try {
                     items.add(new ReportParagraph(ifStatementItems.item(t), fonts, null, pGetter));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
-            if (conditionResult==false && nodeName.equals(elsecondition)){ //if condition is false, find else statement...
+            if (!conditionResult && nodeName.equals(elsecondition)){ //if condition is false, find else statement...
                 NodeList elseStatementItems = ifStatementItems.item(t).getChildNodes(); //...get its child nodes
                 for (int i=0; i < elseStatementItems.getLength(); i++){
                     nodeName = elseStatementItems.item(i).getNodeName();
@@ -327,23 +325,28 @@ public class Report {
     }
 
 
-    protected void setPageNumber(BaseFont baseFont, int fontSize, PdfWriter writer){
+    protected void setPageNumber(PdfWriter writer){
         float verticalPosition;
+        BaseFont pageBF = fonts.get(pageFont).getBaseFont();
 
         if(repPageNumVPos.equalsIgnoreCase("top")){
             verticalPosition=0.96f;
         } else verticalPosition=0.05f;
 
-        PdfContentByte cb = writer.getDirectContent();
-        cb.saveState();
-        cb.beginText();
-        if(repPageNumHPos.equalsIgnoreCase("right")) cb.moveText((float) (_doc.getPageSize().getWidth()*0.96 - _doc.rightMargin() ), (float) (_doc.getPageSize().getHeight()*verticalPosition));
-        if(repPageNumHPos.equalsIgnoreCase("center")) cb.moveText((float) (_doc.getPageSize().getWidth()*0.5 ), (float) (_doc.getPageSize().getHeight()*verticalPosition));
-        if(repPageNumHPos.equalsIgnoreCase("left")) cb.moveText((float) (_doc.getPageSize().getWidth()*0.05 + _doc.leftMargin()), (float) (_doc.getPageSize().getHeight()*verticalPosition));
-        cb.setFontAndSize(baseFont, fontSize);
-        cb.showText("Лист " + curPage);
-        curPage++;
-        cb.endText();
-        cb.restoreState();
+        if( (!repPageNumHPos.equalsIgnoreCase("blank") && curPage>1) || (!repPageNumHPos.equalsIgnoreCase("blank") && curPage>1) ){
+            PdfContentByte cb = writer.getDirectContent();
+            cb.saveState();
+            cb.beginText();
+            if(repPageNumHPos.equalsIgnoreCase("right")) cb.moveText((float) (_doc.getPageSize().getWidth()*0.96 - _doc.rightMargin() ), (float) (_doc.getPageSize().getHeight()*verticalPosition));
+            if(repPageNumHPos.equalsIgnoreCase("center")) cb.moveText((float) (_doc.getPageSize().getWidth()*0.5 ), (float) (_doc.getPageSize().getHeight()*verticalPosition));
+            if(repPageNumHPos.equalsIgnoreCase("left")) cb.moveText((float) (_doc.getPageSize().getWidth()*0.05 + _doc.leftMargin()), (float) (_doc.getPageSize().getHeight()*verticalPosition));
+            cb.setFontAndSize(pageBF, pageFontWeight);
+            cb.showText("Лист " + curPage);
+            curPage++;
+            cb.endText();
+            cb.restoreState();
+        } else if (curPage==1) curPage++;
+
+
     }
 }

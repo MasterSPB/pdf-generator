@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.xml.sax.SAXException;
 import ru.onyx.clipper.data.PropertyGetter;
+import ru.onyx.clipper.utils.ConversionUtils;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
@@ -53,11 +54,13 @@ public class TestReport {
         fontBodies.put("wingding", getFileFontByteContent("wingding"));
 
 
-        PropertyGetter getterTest = new PropertyGetterTest2(new ClassPathResource("reports/report1/invoice.json").getFile().getPath());
+        ConversionUtils.XMLtoJSON(new ClassPathResource("reports/report1/reportData.xml").getFile().getAbsolutePath(),new ClassPathResource("reports/report1/example.json").getFile().getAbsolutePath());
+
+        /*PropertyGetter getterTest = new PropertyGetterTest2(new ClassPathResource("reports/report1/invoice.json").getFile().getPath());
         Object rep = Reporting.CreateDocumentEx(markup, fontBodies, getterTest);
-        File f = new File("test.pdf");
+        File f = new File("test_invoice.pdf");
         FileOutputStream file = new FileOutputStream(f);
-        file.write((byte[]) rep);
+        file.write((byte[]) rep);*/
 
     }
 }

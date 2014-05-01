@@ -7,7 +7,7 @@
         <baseFont name="arialbd" path="arialbd.ttf"/>
         <baseFont name="wingding" path="wingding.ttf"/>
     </fonts>
-    <report marginleft="10" marginright="20" margintop="35" marginbottom="20" orientation="landscape" pagenumhpos="right" pagenumvpos="top" pagefont="arial">
+    <report marginleft="10" marginright="20" margintop="35" marginbottom="20" orientation="landscape" pagenumhpos="right" pagenumvpos="top" pagefont="arial" pagefontweight="10" pagenumtype="simple" pagetext="Лист">
         <items>
             <header>
                 <paragraph leading="10" spacingafter="4" htextalign="left" font="arial" fontweight="14" fontstyle="bold">
@@ -149,7 +149,7 @@ c налогом - всего</cell>
 
             </repeatingrow>
 
-            <table paddings="1,1,1,1" widthcellspercentage="1.78,0.99,0.87,1,1.145,0.11,1.16,0.7,1.08" mode="text" font="arial" fontweight="7" columns="9" borderwidth="1" halign="left" widthpercentage="76.37" spacingafter="0">
+            <table paddings="1,1,1,1" widthcellspercentage="1.78,0.99,0.87,1,1.145,0.11,1.16,0.7,1.08" mode="text" font="arial" fontweight="7" columns="9" borderwidth="1" halign="left" widthpercentage="76.37" spacingafter="10">
                 <cell colspan="4" vtextalign="middle" htextalign="left" fontstyle="bold">Всего к оплате</cell>
                 <cell stringformat="%,6.2f" vtextalign="middle" htextalign="right" property="$sum"/>
                 <cell colspan="2" vtextalign="middle" htextalign="center" fontstyle="bold">X</cell>
@@ -157,23 +157,39 @@ c налогом - всего</cell>
                 <cell stringformat="%,6.2f" vtextalign="middle" htextalign="right" property="$sumWithVat"/>
             </table>
 
-            <table paddings="2,2,2,2" widthcellspercentage="3,2.1,0.5,2.5,0.5,2.5,2,1,2.5" mode="text" font="arial" fontweight="8" columns="9" borderwidth="0" htextalign="center" widthpercentage="100" halign="center" spacingafter="0">
-                <cell mode="text" vtextalign="bottom" htextalign="left" property="$fromSigners.ceo.position"/>
+            <table paddings="2,2,0,0" widthcellspercentage="3,2.1,0.5,2.5,0.5,2.5,2,1,2.5" mode="text" font="arial" fontweight="8" columns="9" borderwidth="0" htextalign="center" widthpercentage="100" halign="center" spacingafter="0">
+                <cell mode="text" vtextalign="bottom" htextalign="left" >
+                    <paragraph leading="3">
+                        <chunk property="$fromSigners.ceo.position"/>
+                    </paragraph>
+                    <paragraph leading="3">
+                        <chunk>или иное уполномоченное лицо </chunk>
+                    </paragraph>
+                </cell>
+
                 <cell vtextalign="bottom" borderwidthbottom="1"/>
                 <cell vtextalign="bottom"></cell>
                 <cell vtextalign="bottom" borderwidthbottom="1" mode="text"> <paragraph htextalign="left"> <chunk property="$fromSigners.ceo.thirdName"/><chunk> </chunk><chunk property="$fromSigners.ceo.name"/><chunk>. </chunk><chunk property="$fromSigners.ceo.secondName"/><chunk>.</chunk></paragraph></cell>
-                <cell vtextalign="bottom"></cell>
-                <cell mode="text" vtextalign="bottom" htextalign="right" property="$fromSigners.accountant.position"/>
+
+                <cell colspan="2" mode="text" vtextalign="bottom" htextalign="left" >
+                    <paragraph leading="3">
+                        <chunk property="$fromSigners.accountant.position"/>
+                    </paragraph>
+                    <paragraph leading="3">
+                        <chunk>или иное уполномоченное лицо </chunk>
+                    </paragraph>
+                </cell>
+
                 <cell vtextalign="bottom" borderwidthbottom="1"/>
                 <cell vtextalign="bottom"></cell>
                 <cell vtextalign="bottom" borderwidthbottom="1" mode="text"> <paragraph htextalign="left"> <chunk property="$fromSigners.accountant.thirdName"/><chunk> </chunk><chunk property="$fromSigners.accountant.name"/><chunk>. </chunk><chunk property="$fromSigners.accountant.secondName"/><chunk>.</chunk></paragraph></cell>
 
-                <cell mode="text" vtextalign="middle" htextalign="left">или иное уполномоченное лицо</cell>
+                <cell mode="text" vtextalign="middle" htextalign="left"></cell>
                 <cell vtextalign="middle" htextalign="center">(подпись)</cell>
                 <cell vtextalign="middle"></cell>
                 <cell vtextalign="middle" htextalign="center">(ФИО)</cell>
                 <cell vtextalign="middle"></cell>
-                <cell vtextalign="middle">или иное уполномоченное лицо</cell>
+                <cell vtextalign="middle"></cell>
                 <cell vtextalign="middle" htextalign="center">(подпись)</cell>
                 <cell vtextalign="middle"></cell>
                 <cell vtextalign="middle" htextalign="center">(ФИО)</cell>
