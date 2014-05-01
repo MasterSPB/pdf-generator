@@ -8,6 +8,7 @@ import java.io.*;
 
 /**
  * Created by anton on 30.04.14.
+ * Utils to convert files between formats
  */
 public class ConversionUtils {
     public static int PRETTY_PRINT_INDENT_FACTOR = 4;
@@ -34,7 +35,6 @@ public class ConversionUtils {
                         e.printStackTrace();
                     }
                 }
-                //String everything = sb.toString();
 
                 try {
                     JSONObject xmlJSONObj = XML.toJSONObject(sb.toString());

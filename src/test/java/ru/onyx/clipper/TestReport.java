@@ -56,11 +56,10 @@ public class TestReport {
 
         ConversionUtils.XMLtoJSON(new ClassPathResource("reports/report1/reportData.xml").getFile().getAbsolutePath(),new ClassPathResource("reports/report1/example.json").getFile().getAbsolutePath());
 
-        /*PropertyGetter getterTest = new PropertyGetterTest2(new ClassPathResource("reports/report1/invoice.json").getFile().getPath());
+        PropertyGetter getterTest = new PropertyGetterTest2(new ClassPathResource("reports/report1/invoice.json").getFile().getPath());
         Object rep = Reporting.CreateDocumentEx(markup, fontBodies, getterTest);
         File f = new File("test_invoice.pdf");
         FileOutputStream file = new FileOutputStream(f);
-        file.write((byte[]) rep);*/
-
+        file.write((byte[]) rep);
     }
 }
