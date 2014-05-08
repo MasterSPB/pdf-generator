@@ -44,7 +44,14 @@ public class ReportChunk extends BaseReportObject {
             content = "\uf0A8";
         }
 
+
         Chunk ch = new Chunk(content);
+
+        if(getChunkIndex().equals("upper")){
+            ch.setTextRise(ch.getFont().getCalculatedSize()/5);
+        } else if(getChunkIndex().equals("lower")){
+            ch.setTextRise(-ch.getFont().getCalculatedSize()/5);
+        }
 
         Font f = getFont();
 

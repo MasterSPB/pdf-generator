@@ -363,6 +363,7 @@ public class JSONObject {
      *             If the value is an invalid number or if the key is null.
      */
     public JSONObject accumulate(String key, Object value) throws JSONException {
+        key = key.replace('.', '_');
         testValidity(value);
         Object object = this.opt(key);
         if (object == null) {

@@ -406,19 +406,30 @@
 
     <simpleType name="htextalign">
     	<restriction base="string">
-    		<enumeration value="left"></enumeration>
-    		<enumeration value="center"></enumeration>
-    		<enumeration value="right"></enumeration>
-    		<enumeration value="justify"></enumeration>
-    		<enumeration value="justifyall"></enumeration>
+    		<enumeration value="left"/>
+    		<enumeration value="center"/>
+    		<enumeration value="right"/>
+    		<enumeration value="justify"/>
+    		<enumeration value="justifyall"/>
     	</restriction>
     </simpleType>
 
     <simpleType name="vtextalign">
     	<restriction base="string">
-    		<enumeration value="top"></enumeration>
-    		<enumeration value="middle"></enumeration>
-    		<enumeration value="bottom"></enumeration>
+    		<enumeration value="top"/>
+    		<enumeration value="middle"/>
+    		<enumeration value="bottom"/>
     	</restriction>
+    </simpleType>
+
+    <simpleType name="negativeembrace">
+        <restriction base="boolean"/>
+    </simpleType>
+
+    <simpleType name="index">
+        <restriction base="string">
+            <enumeration value="upper"/>
+            <enumeration value="lower"/>
+        </restriction>
     </simpleType>
 </schema>

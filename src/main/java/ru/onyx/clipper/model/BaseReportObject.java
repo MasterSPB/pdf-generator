@@ -10,10 +10,7 @@ import ru.onyx.clipper.data.PropertyGetter;
 import ru.onyx.clipper.utils.DateUtils;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.DateFormatSymbols;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -53,6 +50,9 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+            index = parseAttribute(attrObj, CHUNK_INDEX, null);
+            negativeEmbrace = Boolean.parseBoolean(parseAttribute(attrObj, NEGATIVE_EMBRACE, null));
+            borderstyle = parseAttribute(attrObj, BORDER_STYLE_ATT, null);
             reprowfpageheight = Float.parseFloat(parseAttribute(attrObj, REPROW_FPAGE_HEIGHT, "-1f"));
             reprowotherpageheight = Float.parseFloat(parseAttribute(attrObj, REPROW_OTHER_PAGE_HEIGHT, "-1f"));
             defaultnullvalue = parseAttribute(attrObj, DEFAULT_NULL_VALUE, "");
@@ -344,6 +344,9 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String CHUNK_INDEX="index";
+    protected static final String NEGATIVE_EMBRACE="negativeembrace";
+    protected static final String BORDER_STYLE_ATT="borderstyle";
     protected static final String DECIMAL_SEPARATOR="decseparator";
     protected static final String REPLICATE_HEADER="replicateheader";
     protected static final String REPROW_FPAGE_HEIGHT = "reprowfpageheight";
@@ -458,6 +461,8 @@ public abstract class BaseReportObject {
     protected Integer firstSymbols;
     protected Integer lastSymbols;
 
+    protected String index;
+    protected String borderstyle;
     protected String decseparator;
     protected String defaultnullvalue;
     protected String stringformat;
@@ -489,6 +494,7 @@ public abstract class BaseReportObject {
     protected Boolean stopInherit;
     protected Boolean keepTogether;
     protected Boolean replicateHeader;
+    protected Boolean negativeEmbrace;
 
     protected float[] getScalePercent() {
         if (scalepercent == null) return null;
@@ -672,6 +678,13 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected String getBorderStyle() {
+        if (borderstyle != null) {
+            return borderstyle;
+        }
+        return null;
+    }
+
     protected Float getFontWeight() {
         if (fontWeight == null) return null;
         if (fontWeight > 0) {
@@ -786,6 +799,7 @@ public abstract class BaseReportObject {
         return -1;
     }
 
+
     protected String getCellMode() {
         if (cellMode != null) {
             return cellMode;
@@ -828,6 +842,22 @@ public abstract class BaseReportObject {
     protected String getWordAlign() {
         if (wordalign != null) return wordalign;
         return null;
+    }
+
+    protected String getChunkIndex() {
+        if (index != null)
+            return index;
+
+        return "normal";
+    }
+
+    protected Boolean getNegativeEmbrace() {
+        if (negativeEmbrace != null) {
+            return negativeEmbrace;
+        } else if (parent != null && parent.getNegativeEmbrace() != null) {
+            return parent.getNegativeEmbrace();
+        }
+        return false;
     }
 
     protected Boolean getUseBorderPadding() {

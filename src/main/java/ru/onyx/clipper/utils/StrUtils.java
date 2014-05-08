@@ -20,4 +20,15 @@ public class StrUtils {
         }
         return null;
     }
+
+    public static String embraceNegativeValue(String inputString){
+        if ( inputString.matches("[0-9-]*") ) {
+            if (Double.parseDouble(inputString) >= 0)
+                return inputString;
+
+            inputString = inputString.replace('-', '(');
+            inputString = inputString+')';
+        }
+        return inputString;
+    }
 }
