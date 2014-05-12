@@ -144,24 +144,25 @@
 
     <simpleType name="paragraphAlignType">
     	<restriction base="string">
-    		<enumeration value="left"></enumeration>
-    		<enumeration value="right"></enumeration>
-    		<enumeration value="center"></enumeration>
-    		<enumeration value="justify"></enumeration>
-    		<enumeration value="justifyall"></enumeration>
+    		<enumeration value="left"/>
+    		<enumeration value="right"/>
+    		<enumeration value="center"/>
+    		<enumeration value="justify"/>
+    		<enumeration value="justifyall"/>
     	</restriction>
     </simpleType>
 
-    <element name="reportDefinition" type="tns:reportDefinition"></element>
+
+    <element name="reportDefinition" type="tns:reportDefinition"/>
 
     <complexType name="chunk">
     	<simpleContent>
     		<extension base="string">
-    			<attribute name="leading" type="float"></attribute>
-    			<attribute name="font" type="string"></attribute>
-    			<attribute name="fontweight" type="float"></attribute>
-    			<attribute name="property" type="string"></attribute>
-    			<attribute name="fontstyle" type="tns:fontStyles"></attribute>
+    			<attribute name="leading" type="float"/>
+    			<attribute name="font" type="string"/>
+    			<attribute name="fontweight" type="float"/>
+    			<attribute name="property" type="string"/>
+    			<attribute name="fontstyle" type="tns:fontStyles"/>
     			<attribute name="dateformat" type="string">
     				<annotation>
     					<documentation>Используется вместе с заданным значением property. Задаёт формат даты значения property</documentation>
@@ -173,6 +174,17 @@
     		</extension>
     	</simpleContent>
     </complexType>
+
+    <simpleType name="charspacing">
+        <restriction base="int"/>
+    </simpleType>
+
+    <simpleType name="textcase">
+        <restriction base="string">
+            <enumeration value="lower"/>
+            <enumeration value="upper"/>
+        </restriction>
+    </simpleType>
 
     <complexType name="phrase">
     	<sequence>

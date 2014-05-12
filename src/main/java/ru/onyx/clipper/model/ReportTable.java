@@ -32,7 +32,7 @@ public class ReportTable extends BaseReportObject {
             canvas.setLineCap(PdfContentByte.LINE_CAP_PROJECTING_SQUARE);
             canvas.setLineDash(new float[] {0.125f, 3.0f}, 5.0f);
             float llx = widths[0][0];
-            float urx = widths[0][widths.length];
+            float urx = widths[0][widths[0].length -1];
             for (int i = 0; i < heights.length; i++) {
                 canvas.moveTo(llx, heights[i]);
                 canvas.lineTo(urx, heights[i]);
@@ -82,6 +82,7 @@ public class ReportTable extends BaseReportObject {
             table.setWidths(cellsPercs);
         }
         }
+
         for (BaseReportObject item : items) {
             PdfPCell obj = ((ReportCell) item).getPdfObject();
             table.addCell(obj);

@@ -54,7 +54,7 @@ public class TestReport {
         fontBodies.put("wingding", getFileFontByteContent("wingding"));
 
 
-       // ConversionUtils.XMLtoJSON(new ClassPathResource("reports/report1/financialstatementdata.xml").getFile().getAbsolutePath(),new ClassPathResource("reports/report1/financialstatementdata.json").getFile().getAbsolutePath());
+        //ConversionUtils.XMLtoJSON(new ClassPathResource("reports/report1/financialstatementdata.xml").getFile().getAbsolutePath(),new ClassPathResource("reports/report1/financialstatementdata.json").getFile().getAbsolutePath());
 
         PropertyGetter getterTest = new PropertyGetterTest2(new ClassPathResource("reports/report1/financialstatementdata.json").getFile().getPath());
         Object rep = Reporting.CreateDocumentEx(markup, fontBodies, getterTest);

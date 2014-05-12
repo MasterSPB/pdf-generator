@@ -44,6 +44,10 @@ public class ReportChunk extends BaseReportObject {
             content = "\uf0A8";
         }
 
+        if(getTextCase() != null) {
+            if (getTextCase().equals("upper")) content=content.toUpperCase();
+            if (getTextCase().equals("lower")) content=content.toLowerCase();
+        }
 
         Chunk ch = new Chunk(content);
 
@@ -59,6 +63,11 @@ public class ReportChunk extends BaseReportObject {
         if(color != null) f.setColor(color[0],color[1],color[2]);
 
         if (f != null) ch.setFont(f);
+
+        if (getCharspacing() > 0) {
+            ch.setCharacterSpacing(getCharspacing());
+        }
+
         return ch;
     }
 

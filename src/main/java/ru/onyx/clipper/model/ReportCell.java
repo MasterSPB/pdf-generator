@@ -136,6 +136,11 @@ public class ReportCell extends BaseReportObject {
             celltext = StrUtils.embraceNegativeValue(celltext);
         }
 
+        if(getTextCase() != null) {
+            if (getTextCase().equals("upper")) celltext=celltext.toUpperCase();
+            if (getTextCase().equals("lower")) celltext=celltext.toLowerCase();
+        }
+
         if (celltext.equalsIgnoreCase("true")) {
             celltext = "\uf0FE";
         }

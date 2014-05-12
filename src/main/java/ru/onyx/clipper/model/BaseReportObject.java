@@ -8,6 +8,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import ru.onyx.clipper.data.PropertyGetter;
 import ru.onyx.clipper.utils.DateUtils;
+import ru.onyx.clipper.utils.StrUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -50,6 +51,8 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+            textcase = parseAttribute(attrObj, TEXT_CASE, "null");
+            charspacing = Integer.parseInt(parseAttribute(attrObj, CHARACTER_SPACING, "-1"));
             index = parseAttribute(attrObj, CHUNK_INDEX, null);
             negativeEmbrace = Boolean.parseBoolean(parseAttribute(attrObj, NEGATIVE_EMBRACE, null));
             borderstyle = parseAttribute(attrObj, BORDER_STYLE_ATT, null);
@@ -344,6 +347,8 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String TEXT_CASE="textcase";
+    protected static final String CHARACTER_SPACING="charspacing";
     protected static final String CHUNK_INDEX="index";
     protected static final String NEGATIVE_EMBRACE="negativeembrace";
     protected static final String BORDER_STYLE_ATT="borderstyle";
@@ -460,7 +465,10 @@ public abstract class BaseReportObject {
     protected Integer monthFormat;
     protected Integer firstSymbols;
     protected Integer lastSymbols;
+    protected Integer charspacing;
 
+
+    protected String textcase;
     protected String index;
     protected String borderstyle;
     protected String decseparator;
@@ -732,6 +740,13 @@ public abstract class BaseReportObject {
     }
 
 
+    protected String getTextCase() {
+        if (textcase != null) return textcase;
+        else if (parent != null) return parent.getTextCase();
+
+        return null;
+    }
+
     protected int getRepRowFPageRows(){
         if(reprowfpagerows!=null) return reprowfpagerows;
         return 0;
@@ -744,6 +759,13 @@ public abstract class BaseReportObject {
 
     protected Integer getColumns() {
         if (columns > 0) return columns;
+        return -1;
+    }
+
+    protected Integer getCharspacing() {
+        if (charspacing > 0) return charspacing;
+        else if (parent != null) return parent.getCharspacing();
+
         return -1;
     }
 
