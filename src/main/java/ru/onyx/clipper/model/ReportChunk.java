@@ -37,6 +37,12 @@ public class ReportChunk extends BaseReportObject {
             }
         }
 
+        Font NullF = null;
+        if(content == null){
+            content = getDefaultNullValue();
+            NullF = getNullFont();
+        }
+
         if (content.equalsIgnoreCase("true")) {
             content = "\uf0FE";
         }
@@ -59,10 +65,12 @@ public class ReportChunk extends BaseReportObject {
 
         Font f = getFont();
 
+
         int[] color = getTextColor();
         if(color != null) f.setColor(color[0],color[1],color[2]);
 
-        if (f != null) ch.setFont(f);
+        if (f != null && getNullFontStyle()==null && NullF==null) ch.setFont(f);
+        else ch.setFont(NullF);
 
         if (getCharspacing() > 0) {
             ch.setCharacterSpacing(getCharspacing());

@@ -403,7 +403,7 @@
     </simpleType>
 
 
-    <simpleType name="fontStyles">
+    <simpleType name="fontStyle">
     	<restriction base="string">
     		<enumeration value="underline"></enumeration>
     		<enumeration value="italic"></enumeration>
@@ -414,6 +414,19 @@
     		<enumeration value="default"></enumeration>
     		<enumeration value="undefined"></enumeration>
     	</restriction>
+    </simpleType>
+
+    <simpleType name="nullFontStyle">
+        <restriction base="string">
+            <enumeration value="underline"></enumeration>
+            <enumeration value="italic"></enumeration>
+            <enumeration value="bold"></enumeration>
+            <enumeration value="bolditalic"></enumeration>
+            <enumeration value="striked"></enumeration>
+            <enumeration value="normal"></enumeration>
+            <enumeration value="default"></enumeration>
+            <enumeration value="undefined"></enumeration>
+        </restriction>
     </simpleType>
 
     <simpleType name="htextalign">

@@ -42,7 +42,8 @@
                     <chunk charspacing="1"> субъектов малого предпринимательства </chunk>
                 </paragraph>
 
-                <table paddings="3,1,1,1" mode="text" font="times"  fontweight="9" charspacing="5" columns="6" widthcellspercentage="1,0.25,1.3,0.8,1,0.6" halign="center" borderstyle="regular" widthpercentage="100" borderwidth="0" spacingafter="10" spacingbefore="10">
+                <table paddings="3,1,1,1" mode="text" font="times"  fontweight="9" charspacing="5" columns="6" widthcellspercentage="1,0.25,1.3,0.8,1,0.6" halign="center" borderstyle="regular"
+                       widthpercentage="100" borderwidth="0" spacingafter="5" spacingbefore="10">
                     <cell fixedheight="20f" htextalign="left" vtextalign="bottom">Номер корректировки</cell>
                     <cell htextalign="left" fontweight="14" vtextalign="bottom"><paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.НомКорр" ></chunk></paragraph></cell>
                     <cell htextalign="right" vtextalign="bottom"> Отчетный период (код) </cell>
@@ -50,27 +51,30 @@
                     <cell htextalign="right" vtextalign="bottom"> Отчетный год </cell>
                     <cell htextalign="right" fontweight="14" vtextalign="bottom"><paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ОтчетГод"></chunk></paragraph></cell>
                 </table>
+
                 <table paddings="1,1,1,1" mode="text" font="times" fontweight="14" fontstyle="normal" columns="1" widthpercentage="100" borderwidth="0" spacingafter="0" spacingbefore="0">
-                    <cell htextalign="left" vtextalign="top" fixedheight="80f"><paragraph spacingafter="0" spacingbefore="0" leading="20"><chunk charspacing="3" textcase="upper" property="$Файл.Документ.СвНП.НПЮЛ.НаимОрг"></chunk></paragraph></cell>
+                    <cell htextalign="left" vtextalign="top" fixedheight="80f"><paragraph spacingafter="0" spacingbefore="0" leading="20"><chunk charspacing="3" textcase="upper"
+                   property="$Файл.Документ.СвНП.НПЮЛ.НаимОрг"></chunk></paragraph></cell>
                 </table>
-                <paragraph leading="10" spacingafter="0" spacingbefore="0" htextalign="center" font="times" fontweight="5" fontstyle="normal">
+                <paragraph leading="10" spacingafter="0" spacingbefore="0" htextalign="center" font="times" fontweight="6" fontstyle="normal">
                     <chunk>(наименование организации)</chunk>
                 </paragraph>
-                <table paddings="1,1,1,1" mode="text" font="times"  fontweight="8"  columns="2" halign="center" borderstyle="regular" widthpercentage="100" widthcellspercentage="1,0.9" borderwidth="0" spacingafter="0" spacingbefore="5">
+                <table paddings="1,1,1,1" mode="text" font="times"  fontweight="9"  columns="2" halign="center" borderstyle="regular" widthpercentage="100" widthcellspercentage="1,0.9"
+                       borderwidth="0" spacingafter="0" spacingbefore="8">
                     <cell fixedheight="25f" htextalign="left" vtextalign="bottom">Код вида экономической деятельности по классификатору ОКВЭД</cell>
-                    <cell htextalign="left" property="$Файл.Документ.СвНП.ОКВЭД" fontweight="14" vtextalign="bottom"/>
+                    <cell paddings="7,1,1,1" htextalign="left" fontweight="14" vtextalign="bottom"><paragraph spacingafter="0" spacingbefore="0"><chunk nullfontstyle="striked" defaultnullvalue="                          ⁶" charspacing="5" property="$Файл.Документ.СвНП.ОКВЭД"></chunk></paragraph></cell>
 
                     <cell fixedheight="25f" htextalign="left" vtextalign="bottom">Код по ОКПО</cell>
-                    <cell htextalign="left" property="$Файл.Документ.СвНП.ОКПО" fontweight="14" vtextalign="bottom" defaultnullvalue="__________"/>
+                    <cell paddings="7,1,1,1" htextalign="left" fontweight="14" vtextalign="bottom"><paragraph spacingafter="0" spacingbefore="0"><chunk nullfontstyle="striked" defaultnullvalue="                          ⁶" property="$Файл.Документ.СвНП.ОКПО" charspacing="5"></chunk></paragraph></cell>
 
                     <cell fixedheight="25f" htextalign="left" vtextalign="bottom">Форма собственности (по ОКФС)</cell>
-                    <cell htextalign="left" property="$Файл.Документ.СвНП.ОКФС" fontweight="14" vtextalign="bottom"/>
+                    <cell paddings="7,1,1,1" htextalign="left"  fontweight="14" vtextalign="bottom"><paragraph spacingafter="0" spacingbefore="0"><chunk nullfontstyle="striked" defaultnullvalue="                          ⁶" property="$Файл.Документ.СвНП.ОКФС" charspacing="5"></chunk></paragraph></cell>
 
                     <cell fixedheight="25f" htextalign="left" vtextalign="bottom">Организационно-правовая форма (по ОКОПФ)</cell>
-                    <cell htextalign="left" property="$Файл.Документ.СвНП.ОКОПФ" fontweight="14" vtextalign="bottom"/>
+                    <cell paddings="7,1,1,1" htextalign="left" fontweight="14" vtextalign="bottom"><paragraph spacingafter="0" spacingbefore="0"><chunk nullfontstyle="striked" defaultnullvalue="                          ⁶" property="$Файл.Документ.СвНП.ОКОПФ" charspacing="5"></chunk></paragraph></cell>
 
                     <cell fixedheight="25f" htextalign="left" vtextalign="bottom">Единица измерения: (тыс. руб. / млн. руб. - код по ОКЕИ)</cell>
-                    <cell htextalign="left" property="$Файл.Документ.ОКЕИ" fontweight="14" vtextalign="bottom"/>
+                    <cell paddings="7,1,1,1" htextalign="left" fontweight="14" vtextalign="bottom"><paragraph spacingafter="0" spacingbefore="0"><chunk nullfontstyle="striked" defaultnullvalue="                          ⁶" property="$Файл.Документ.ОКЕИ" charspacing="5"></chunk></paragraph></cell>
                 </table>
 
                 <table paddings="1,1,1,1" mode="text" font="times"  fontweight="8"  columns="2" halign="center" borderstyle="regular" widthpercentage="100" widthcellspercentage="0.9,1" borderwidth="0" spacingafter="10" spacingbefore="0">

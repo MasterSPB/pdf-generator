@@ -94,12 +94,14 @@ public class ReportCell extends BaseReportObject {
 
     public PdfPCell getPdfObject() throws DocumentException, ParseException, IOException {
         String celltext = "";
+        Font NullF = null;
         if (getText() != null) celltext = getText();
 
         if (getPropertyName() != null && customtext == null) {
             celltext = propertyGetter.GetProperty(getPropertyName());
             if (celltext == null)
             {
+                NullF = getNullFont();
                 celltext = getDefaultNullValue();
             }
             if (getDateFormat() != null && getToDateFormat() != null) {
@@ -162,6 +164,13 @@ public class ReportCell extends BaseReportObject {
                 par = new Paragraph(ch);
             } else {
                 par = new Paragraph(celltext);
+            }
+
+            if (NullF != null) {
+                int[] color = getTextColor();
+                if(color != null) NullF.setColor(color[0],color[1],color[2]);
+                ch = new Chunk(celltext, NullF);
+                par = new Paragraph(ch);
             }
 
             if (getLeading() >= 0) par.setLeading(getLeading());

@@ -8,7 +8,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import ru.onyx.clipper.data.PropertyGetter;
 import ru.onyx.clipper.utils.DateUtils;
-import ru.onyx.clipper.utils.StrUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -129,6 +128,7 @@ public abstract class BaseReportObject {
 
             SetMonthFormat(attrObj);
             SetFontStyle(attrObj);
+            SetNullFontStyle(attrObj);
             SetHorizontalTextAlignment(attrObj);
             SetVerticalTextAlignment(attrObj);
             SetHorizontalAlignment(attrObj);
@@ -206,6 +206,34 @@ public abstract class BaseReportObject {
         }
         if (style.equalsIgnoreCase("undefined")) {
             fontStyle = Font.UNDEFINED;
+        }
+    }
+
+    protected void SetNullFontStyle(NamedNodeMap attrObj) {
+        String style = parseAttribute(attrObj, NULL_FONT_STYLE_ATT_NAME, "");
+        if (style.equalsIgnoreCase("underline")) {
+            nullFontStyle = Font.UNDERLINE;
+        }
+        if (style.equalsIgnoreCase("striked")) {
+            nullFontStyle = Font.STRIKETHRU;
+        }
+        if (style.equalsIgnoreCase("normal")) {
+            nullFontStyle = Font.NORMAL;
+        }
+        if (style.equalsIgnoreCase("italic")) {
+            nullFontStyle = Font.ITALIC;
+        }
+        if (style.equalsIgnoreCase("bold")) {
+            nullFontStyle = Font.BOLD;
+        }
+        if (style.equalsIgnoreCase("bolditalic")) {
+            nullFontStyle = Font.BOLDITALIC;
+        }
+        if (style.equalsIgnoreCase("default")) {
+            nullFontStyle = Font.DEFAULTSIZE;
+        }
+        if (style.equalsIgnoreCase("undefined")) {
+            nullFontStyle = Font.UNDEFINED;
         }
     }
 
@@ -361,6 +389,7 @@ public abstract class BaseReportObject {
     protected static final String REPROW_OTHER_PAGE_ROWS = "reprowotherpagerows";
     protected static final String STRING_FORMAT_ATT_NAME = "stringformat";
     protected static final String FONT_STYLE_ATT_NAME = "fontstyle";
+    protected static final String NULL_FONT_STYLE_ATT_NAME = "nullfontstyle";
     protected static final String FONT_ATT_NAME = "font";
     protected static final String FONT_WEIGHT_ATT_NAME = "fontweight";
     protected static final String LEADING_ATT_NAME = "leading";
@@ -455,6 +484,7 @@ public abstract class BaseReportObject {
     protected Integer reprowfpagerows;
     protected Integer reprowotherpagerows;
     protected Integer fontStyle;
+    protected Integer nullFontStyle;
     protected Integer columns;
     protected Integer colSpan;
     protected Integer rowSpan;
@@ -722,6 +752,7 @@ public abstract class BaseReportObject {
 
     protected String getDefaultNullValue(){
         if(defaultnullvalue!=null) return defaultnullvalue;
+        else if(parent != null ) return parent.getDefaultNullValue();
         return null;
     }
 
@@ -976,10 +1007,30 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected Integer getNullFontStyle() {
+        if (nullFontStyle != null) return nullFontStyle;
+        if (parent != null) return parent.getNullFontStyle();
+
+        return null;
+    }
+
     public Font getFont() {
         String f = getFontName();
         Float fw = getFontWeight();
         Integer style = getFontStyle();
+        if (f != null && fw > 0 && style == null) {
+            return _fonts.get(f).getCustomFont(fw);
+        }
+        if (f != null && fw > 0 && style != null) {
+            return _fonts.get(f).getCustomFont(fw, style);
+        }
+        return null;
+    }
+
+    public Font getNullFont() {
+        String f = getFontName();
+        Float fw = getFontWeight();
+        Integer style = getNullFontStyle();
         if (f != null && fw > 0 && style == null) {
             return _fonts.get(f).getCustomFont(fw);
         }
