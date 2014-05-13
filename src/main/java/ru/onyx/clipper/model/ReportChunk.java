@@ -5,6 +5,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import org.w3c.dom.Node;
 import ru.onyx.clipper.data.PropertyGetter;
+import ru.onyx.clipper.utils.StrUtils;
 
 import java.util.HashMap;
 
@@ -53,6 +54,10 @@ public class ReportChunk extends BaseReportObject {
         if(getTextCase() != null) {
             if (getTextCase().equals("upper")) content=content.toUpperCase();
             if (getTextCase().equals("lower")) content=content.toLowerCase();
+        }
+
+        if (getNegativeEmbrace()){
+            content = StrUtils.embraceNegativeValue(content);
         }
 
         Chunk ch = new Chunk(content);
