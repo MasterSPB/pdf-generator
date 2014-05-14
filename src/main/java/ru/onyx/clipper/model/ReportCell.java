@@ -150,7 +150,6 @@ public class ReportCell extends BaseReportObject {
             celltext = "\uf0A8";
         }
 
-
         PdfPCell cell;
 
         if (getCellMode().equalsIgnoreCase("text")) {

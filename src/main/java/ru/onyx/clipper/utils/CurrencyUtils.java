@@ -11,14 +11,8 @@ import java.util.Collections;
 
     public class CurrencyUtils {
 
-        /**
-         * Сумма денег
-         */
         private BigDecimal amount;
 
-        /**
-         * Конструктор из Long
-         */
         public CurrencyUtils(long l) {
             String strValue = String.valueOf(l);
             if (!strValue.contains(".") )
@@ -26,9 +20,7 @@ import java.util.Collections;
             this.amount = new BigDecimal( strValue );
         }
 
-        /**
-         * Конструктор из Double
-         */
+
         public CurrencyUtils(double l) {
             String strValue = String.valueOf(l);
             if (!strValue.contains(".") )
@@ -36,33 +28,27 @@ import java.util.Collections;
             this.amount = new BigDecimal( strValue );
         }
 
-        /**
-         * Конструктор из String
-         */
+
         public CurrencyUtils(String strValue) {
             if (!strValue.contains(".") )
                 strValue += ".0";
             this.amount = new BigDecimal( strValue );
         }
 
-        /**
-         * Вернуть сумму как строку
-         */
+
         public String asString() {
             return amount.toString();
         }
 
-        /**
-         * Вернуть сумму прописью, с точностью до копеек
-         */
+
         public String num2str() {
             return num2str(false);
         }
 
         /**
-         * Выводим сумму прописью
-         * @param stripkop boolean флаг - показывать копейки или нет
-         * @return String Сумма прописью
+         * Output of sum
+         * @param stripkop boolean - does it need to strip kops or not
+         *
          */
         public String num2str(boolean stripkop) {
             String[][] kind = {
@@ -79,13 +65,12 @@ import java.util.Collections;
                     {"миллион", "миллиона", "миллионов", "0"},
                     {"миллиард","миллиарда","миллиардов","0"},
                     {"триллион","триллиона","триллионов","0"},
-                    // можно добавлять дальше секстиллионы и т.д.
             };
-            // получаем отдельно рубли и копейки
+            // get rubles and kops
             long rub = amount.longValue();
             String[] moi = amount.toString().split("\\.");
             long kop = Long.valueOf(moi[1]);
-            if (!moi[1].substring( 0,1).equals("0") ){// начинается не с нуля
+            if (!moi[1].substring( 0,1).equals("0") ){// begins not from zero
                 if (kop<10 )
                     kop *=10;
             }
@@ -93,7 +78,7 @@ import java.util.Collections;
             if (kops.length()==1 )
                 kops = "0"+kops;
             long rub_tmp = rub;
-            // Разбиватель суммы на сегменты по 3 цифры с конца
+            // cuts the sum into triads beginning from the end
             ArrayList segments = new ArrayList();
             while(rub_tmp>999) {
                 long seg = rub_tmp/1000;
@@ -102,48 +87,48 @@ import java.util.Collections;
             }
             segments.add( rub_tmp );
             Collections.reverse(segments);
-            // Анализируем сегменты
+            // segment analyze
             String o = "";
-            if (rub== 0) {// если Ноль
+            if (rub== 0) {// if zero
                 o = "ноль "+morph( 0, forms[1][ 0],forms[1][1],forms[1][2]);
                 if (stripkop)
                     return o;
                 else
                     return o +" "+kop+" "+morph(kop,forms[ 0][ 0],forms[ 0][1],forms[ 0][2]);
             }
-            // Больше нуля
-            int lev = segments.size();
-            for (int i= 0; i<segments.size(); i++ ) {// перебираем сегменты
-                int sexi = Integer.valueOf( forms[lev][3].toString() );// определяем род
-                int ri = Integer.valueOf( segments.get(i).toString() );// текущий сегмент
-                if (ri== 0 && lev>1) {// если сегмент ==0 И не последний уровень(там Units)
-                    lev--;
+            // positive
+            int level = segments.size();
+            for (int i= 0; i<segments.size(); i++ ) {// segment iterator
+                int sexi = Integer.valueOf( forms[level][3].toString() );// get sex
+                int currentSegment = Integer.valueOf( segments.get(i).toString() );
+                if (currentSegment == 0 && level>1) {
+                    level--;
                     continue;
                 }
-                String rs = String.valueOf(ri); // число в строку
+                String rs = String.valueOf(currentSegment);
                 // нормализация
-                if (rs.length()==1) rs = "00"+rs;// два нулика в префикс?
-                if (rs.length()==2) rs = "0"+rs; // или лучше один?
-                // получаем циферки для анализа
-                int r1 = Integer.valueOf( rs.substring( 0,1) ); //первая цифра
-                int r2 = Integer.valueOf( rs.substring(1,2) ); //вторая
-                int r3 = Integer.valueOf( rs.substring(2,3) ); //третья
-                int r22= Integer.valueOf( rs.substring(1,3) ); //вторая и третья
-                // Супер-нано-анализатор циферок
-                if (ri>99) o += strHundreds[r1]+" "; // Сотни
-                if (r22>20) {// >20
-                    o += strTens[r2]+" ";
-                    o += kind[ sexi ][r3]+" ";
+                if (rs.length()==1) rs = "00"+rs;// adds two or
+                if (rs.length()==2) rs = "0"+rs; // one zeroes to prefix
+
+                int firstDigit = Integer.valueOf( rs.substring( 0,1) );
+                int secondDigit = Integer.valueOf( rs.substring(1,2) );
+                int thirdDigit = Integer.valueOf( rs.substring(2,3) );
+                int secondAndThirdDigit= Integer.valueOf( rs.substring(1,3) );
+
+                if (currentSegment>99) o += strHundreds[firstDigit]+" "; // hundreds
+                if (secondAndThirdDigit>20) {// >20
+                    o += strTens[secondDigit]+" ";
+                    o += kind[ sexi ][thirdDigit]+" ";
                 }
                 else { // <=20
-                    if (r22>9) o += strTeens[r22-9]+" "; // 10-20
-                    else o += kind[ sexi ][r3]+" "; // 0-9
+                    if (secondAndThirdDigit>9) o += strTeens[secondAndThirdDigit-9]+" "; // 10-20
+                    else o += kind[ sexi ][thirdDigit]+" "; // 0-9
                 }
-                // Единицы измерения (рубли...)
-                o += morph(ri, forms[lev][ 0],forms[lev][1],forms[lev][2])+" ";
-                lev--;
+                // Units (rubles, dollars...)
+                o += morph(currentSegment, forms[level][ 0],forms[level][1],forms[level][2])+" ";
+                level--;
             }
-            // Копейки в цифровом виде
+            // Kops in digital representation
             if (stripkop) {
                 o = o.replaceAll(" {2,}", " ");
             }

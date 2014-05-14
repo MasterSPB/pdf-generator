@@ -1,7 +1,5 @@
 package ru.onyx.clipper.utils;
 
-import ru.onyx.clipper.data.PropertyGetter;
-
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;

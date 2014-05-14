@@ -402,10 +402,6 @@ public abstract class BaseReportObject {
     protected static final String BORDER_WIDTH_TOP_ATT_NAME = "borderwidthtop";
     protected static final String BORDER_WIDTH_BOTTOM_ATT_NAME = "borderwidthbottom";
     protected static final String PADDINGS_ATT_NAME = "paddings";
-    protected static final String PADDING_LEFT_ATT_NAME = "paddingleft";
-    protected static final String PADDING_RIGHT_ATT_NAME = "paddingright";
-    protected static final String PADDING_TOP_ATT_NAME = "paddingtop";
-    protected static final String PADDING_BOTTOM_ATT_NAME = "paddingbottom";
     protected static final String CELL_MODE_ATT_NAME = "mode";
     protected static final String HORIZONTAL_TEXT_ALIGNMENT_ATT_NAME = "htextalign";
     protected static final String VERTICAL_TEXT_ALIGNMENT_ATT_NAME = "vtextalign";
@@ -423,8 +419,6 @@ public abstract class BaseReportObject {
     protected static final String TOTAL_WIDTH_ATT_NAME = "totalwidth";
     protected static final String CELL_HEIGHT_ATT_NAME = "cellheight";
     protected static final String WORD_SPLITTER_ALIGN_ATT_NAME = "wordalign";
-    protected static final String NBSP_SYMBOL = "&#160;";
-    protected static final String RN_BREAK_SYMBOLS = "&#13;&#10;";
     protected static final String MONTH_FORMAT_ATT_NAME = "format";
     protected static final String DATE_FORMAT_ATT_NAME = "dateformat";
     protected static final String TO_DATE_FORMAT_ATT_NAME = "todateformat";
