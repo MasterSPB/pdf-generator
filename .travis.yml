@@ -2,3 +2,8 @@ language: java
 script: mvn package
 jdk:
 - openjdk6
+
+env:
+  global:
+     secure: "QaTaqVtMYZZa7/9Xzek3Mi2gBbBRObpD/SLMmsPFcPDCNEoBig0aZfGV1ZT+OqZCelC376MA4OWn/102E8tnIOEyMm6SWnCo0ulqQZqOaNXsMFkhKaG7o+GgQoBmersZuIGUvHqwzBCfhInRtrHHV+dK5QGGQwK0ffRi1OVC7RI="
+     secure: "Mofsv0yIbjMfMcqQRc87WafinFdPwo3/z4u47ZmpVE/+iWiu6BY6XQW1TQWxdZVCM6ZgSDgwhDDA4/sPemluy5Nb2FYSDaMkAAqZCBOvkTPdcm7/56y8iGDEfWaLtNOZZVPZl4SuEe+Us1mIRCUHqlqs34egapzsIB4hwlzKVIU="
