@@ -3,13 +3,9 @@ script: mvn package
 jdk:
 - openjdk7
 after_success:
-
-
-after_success:
-  - '[[ $TRAVIS_BRANCH == "master" ]] && [[ $TRAVIS_PULL_REQUEST == "false" ]] && mvn deploy --settings travisDeploySettings.xml -Dmaven.test.skip=true'
-  
-
+- '[[ $TRAVIS_BRANCH == "master" ]] && [[ $TRAVIS_PULL_REQUEST == "false" ]] && mvn
+  deploy --settings travisDeploySettings.xml -Dmaven.test.skip=true'
 env:
   global:
-    secure: "RuIuObQUWwONjfNvvAlmxkTwgVtDjgYo26ftP/rwBxBGWUx/WjhkMBjZzPeGG3RMmQrnPZEG6JjZv6+gv7F45ZTnwfcTE4ovrf9xLYUKNeNMlFH6ZcfBOzUeiIsIYvjpejc2GZiaa/CQJArt+5hWd3gSWczhyXgCaNGt70yylyE="
-    secure: "ZhdSO+zAI1vOV3xD8O9c8R5h+BOi4MpbqfGgJYZ5mK6it/2KOQMbeo4B9IpES6+X593g/exM43Ipginhp1H4V/PaHVm/P9clCNa1/a0r8rVMnWVzQOQCMbzTWNobQPHayL+mBYrextk60Ug4eqnWcdCDF+Qvxtm5tdVQsD8xTA0="
+  - secure: XtFnjLqYwyoWN541b+ganbbYOUNYfigt59Z1ko+JJcSnNkBOdy03S+lu7CrFELNth0KHJJZgxFxKLiz3j2u/cK3wl2hB7MnKhsRBd8XriaYVkqrcAFINTZpP1/F9NrikdoGuHGz+2ai466JSBGt9gPz2TvVjz/0PhErXY7BpdYA=
+  - secure: BX3Z3YHLmtBv5m6mM8QI8s2ZFq2+rf+8jbIbhLLVNMMxuxzM3C+bWVBkUJKltpsjr5kGkugc3yJ1wmJaQUsbGYLa5AxxPn3dR/dx0VZH2pbuR8MAETR/FZ2sk7g0s6fTwbDUao6xSoRb7WS+ig+Zf1+xrvsbRW/mLDSrnlLeUIA=
