@@ -68,7 +68,13 @@
             <version>4.0.2.RELEASE</version>
         </dependency>
     </dependencies>
-
+    <repositories>
+        <repository>
+            <id>sonatype</id>
+            <name>Sonatype</name>
+            <url>https://oss.sonatype.org/</url>
+        </repository>
+    </repositories>
     <distributionManagement>
         <snapshotRepository>
             <id>sonatype-snapshot</id>
