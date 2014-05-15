@@ -4,7 +4,7 @@
     <groupId>ru.northyard</groupId>
     <artifactId>pdf-generator</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>pdf-generator</name>
 
     <properties>
