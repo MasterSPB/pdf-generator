@@ -1,9 +1,13 @@
 package ru.onyx.clipper.model;
 
 import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPCellEvent;
+import com.itextpdf.text.pdf.PdfPTable;
 import org.w3c.dom.Node;
 import ru.onyx.clipper.data.PropertyGetter;
+import ru.onyx.clipper.utils.StrUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -17,18 +21,18 @@ import java.util.HashMap;
  */
 public class ReportCell extends BaseReportObject {
 
+    class DashedCell implements PdfPCellEvent {
+        public void cellLayout(PdfPCell cell, Rectangle rect,
+                               PdfContentByte[] canvas) {
+            PdfContentByte cb = canvas[PdfPTable.LINECANVAS];
+            cb.setLineCap(PdfContentByte.LINE_CAP_PROJECTING_SQUARE);
+            cb.setLineDash(new float[] {0.125f, 8.0f}, 5.0f);
+            cb.stroke();
+        }
+    }
 
-    /**
-     * Custom constructor for wordsplitter tag
-     *
-     * @param pfixedHeight
-     * @param text
-     * @param htextalign
-     * @param pFontName
-     * @param pFontName
-     * @param fontW
-     * @param borderwidth
-     */
+    //---------------------------------------------------
+
     public ReportCell(float pfixedHeight, String text, int vtextalign, int htextalign, String pFontName, Float fontW, float borderwidth, float pleading, float[] paddings, Boolean usebPaddings, int[] bgColorp, int[] borderColorp, PropertyGetter pGetter, HashMap<String, ReportBaseFont> pFonts) {
         _fonts = pFonts;
         propertyGetter = pGetter;
@@ -90,12 +94,14 @@ public class ReportCell extends BaseReportObject {
 
     public PdfPCell getPdfObject() throws DocumentException, ParseException, IOException {
         String celltext = "";
+        Font NullF = null;
         if (getText() != null) celltext = getText();
 
         if (getPropertyName() != null && customtext == null) {
             celltext = propertyGetter.GetProperty(getPropertyName());
             if (celltext == null)
             {
+                NullF = getNullFont();
                 celltext = getDefaultNullValue();
             }
             if (getDateFormat() != null && getToDateFormat() != null) {
@@ -109,6 +115,10 @@ public class ReportCell extends BaseReportObject {
             }
         }
 
+        if (getDecimalSeparator() != null) {
+            celltext = StrUtils.replaceDecSeparator(celltext, getDecimalSeparator());
+        }
+
         if (customtext != null) {
             celltext = customtext;
             if (getDateFormat() != null && getToDateFormat() != null) {
@@ -118,6 +128,19 @@ public class ReportCell extends BaseReportObject {
             if (getStringformat() != null) {
                     celltext = String.format(getStringformat(), Float.parseFloat(celltext));
             }
+
+            if (getDecimalSeparator() != null) {
+                celltext = StrUtils.replaceDecSeparator(celltext, getDecimalSeparator());
+            }
+        }
+
+        if (getNegativeEmbrace()){
+            celltext = StrUtils.embraceNegativeValue(celltext);
+        }
+
+        if(getTextCase() != null) {
+            if (getTextCase().equals("upper")) celltext=celltext.toUpperCase();
+            if (getTextCase().equals("lower")) celltext=celltext.toLowerCase();
         }
 
         if (celltext.equalsIgnoreCase("true")) {
@@ -127,8 +150,8 @@ public class ReportCell extends BaseReportObject {
             celltext = "\uf0A8";
         }
 
-
         PdfPCell cell;
+
         if (getCellMode().equalsIgnoreCase("text")) {
             Paragraph par;
             Chunk ch;
@@ -140,6 +163,13 @@ public class ReportCell extends BaseReportObject {
                 par = new Paragraph(ch);
             } else {
                 par = new Paragraph(celltext);
+            }
+
+            if (NullF != null) {
+                int[] color = getTextColor();
+                if(color != null) NullF.setColor(color[0],color[1],color[2]);
+                ch = new Chunk(celltext, NullF);
+                par = new Paragraph(ch);
             }
 
             if (getLeading() >= 0) par.setLeading(getLeading());
@@ -206,12 +236,16 @@ public class ReportCell extends BaseReportObject {
         int[] bgColor = getBGColor();
         if(bgColor != null) cell.setBackgroundColor(new BaseColor(bgColor[0],bgColor[1],bgColor[2]));
 
-         cell.setVerticalAlignment(getVerticalTextAlignment());
+        cell.setVerticalAlignment(getVerticalTextAlignment());
 
         for (int y = 0; y < items.size(); y++) {
             cell.addElement(items.get(y).getPdfObject());
         }
 
+        if(getBorderStyle() != null && getBorderStyle().equals("dotted")) {
+            DashedCell border = new DashedCell();
+            cell.setCellEvent(border);
+        }
 
         return cell;  //To change body of implemented methods use File | Settings | File Templates.
     }

@@ -31,6 +31,16 @@ public class Report {
     public static final String pagenumvpos = "pagenumvpos";
     public static final String pagenumhpos = "pagenumhpos";
     public static final String A4 = "a4";
+    public static final String A3 = "a3";
+    public static final String A2 = "a2";
+    public static final String A1 = "a1";
+    public static final String A0 = "a0";
+
+    public static final String B4 = "b4";
+    public static final String B3 = "b3";
+    public static final String B2 = "b2";
+    public static final String B1 = "b1";
+    public static final String B0 = "b0";
     public static final String portrait = "portrait";
     public static final String landscape = "landscape";
     public static final String marginleft = "marginleft";
@@ -49,6 +59,7 @@ public class Report {
     public static final String wordsplitter = "wordsplitter";
     public static final String newpage = "newpage";
     public static final String chunk = "chunk";
+    public static final String moneychunk = "moneychunk";
     public static final String phrase = "phrase";
     public static final String cell = "cell";
     public static final String day = "day";
@@ -60,16 +71,26 @@ public class Report {
     public static final String ifcondition = "if";
     public static final String elsecondition = "else";
     public static final String logicalcondition = "condition";
+    public static final String pagefontweight = "pagefontweight";
 
     private static int curPage=1;
+    private static int pageFontWeight;
+
+    private float marginLeft;
+    private float marginRight;
+    private float marginBottom;
+    private float marginTop;
 
     private HashMap<String, byte[]> fontBodies;
     private HashMap<String, ReportBaseFont> fonts = new HashMap<String, ReportBaseFont>();
     private ArrayList<BaseReportObject> items = new ArrayList<BaseReportObject>();
     private ArrayList<BaseReportObject> headerItems = new ArrayList<BaseReportObject>();
-    private String repPageNumHPos ="blank";
-    private String pageFont="arial";
-    private String repPageNumVPos="bottom";
+    private String repPageNumHPos;
+    private String pageFont;
+    private String repPageNumVPos;
+    private String pageSize;
+    private String pageOrientation;
+
 
     Document _doc = new Document();
 
@@ -91,7 +112,6 @@ public class Report {
     public void LoadMarkup(String xmlMarkup, HashMap<String, byte[]> pFontBodies, PropertyGetter pGetter) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, DocumentException, ParseException {
         fontBodies = pFontBodies;
 
-        // step 2      //TODO а где степ 1 ??  разбить мтеод на шаги... инициализация, загрузка шрифтов... проход по тегам...
         DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         InputSource is = new InputSource();
         is.setCharacterStream(new StringReader(xmlMarkup));
@@ -100,48 +120,88 @@ public class Report {
         XPathFactory factory = XPathFactory.newInstance();
         XPath xpath = factory.newXPath();
         xpath.setNamespaceContext(new SkeletonNameSpaceContext());
-        XPathExpression expr = xpath.compile("reportDefinition/fonts/baseFont");
-        NodeList result = (NodeList) expr.evaluate(xmlDoc, XPathConstants.NODESET);
 
+        LoadFonts(xpath, xmlDoc);
 
-        expr = xpath.compile("reportDefinition/report");
+        XPathExpression expr = xpath.compile("reportDefinition/report");
         org.w3c.dom.Node reportNode = (org.w3c.dom.Node) expr.evaluate(xmlDoc, XPathConstants.NODE);
 
         NamedNodeMap attrs = reportNode.getAttributes();
-        float marginLeft = Float.parseFloat(parseAttribute(attrs, marginleft, margin_value));
-        float marginTop = Float.parseFloat(parseAttribute(attrs, margintop, margin_value));
-        float marginRight = Float.parseFloat(parseAttribute(attrs, marginright, margin_value));
-        float marginBottom = Float.parseFloat(parseAttribute(attrs, marginbottom, margin_value));
-        String pageSize = parseAttribute(attrs, pagesize, A4);
-        String orientation = parseAttribute(attrs, Report.orientation, portrait);
-        pageFont = parseAttribute(attrs,Report.pagefont, "arial");
-        repPageNumHPos = parseAttribute(attrs, Report.pagenumhpos, "blank");
-        repPageNumVPos = parseAttribute(attrs, Report.pagenumvpos, "bottom");
 
-        // TODO в последующем предусмотреть другие размеры
-        if (pageSize.equalsIgnoreCase(A4) && orientation.equalsIgnoreCase(portrait)) {
-            _doc.setPageSize(PageSize.A4);
-        }
+        initAttrs(attrs);
 
-        if (pageSize.equalsIgnoreCase(A4) && orientation.equalsIgnoreCase(landscape)) {
-            _doc.setPageSize(PageSize.A4.rotate());
-
-        }
-
+        setPageSize(pageSize, pageOrientation);
         _doc.setMargins(marginLeft, marginRight, marginTop, marginBottom);
-
-        // TODO сделать так чтобы шрифты грузились из внешнего источника  не из jar...
-        for (int i = 0; i < result.getLength(); i++) {
-            String fontName = result.item(i).getAttributes().getNamedItem(name).getTextContent();
-            String fontPath = result.item(i).getAttributes().getNamedItem(path).getTextContent();
-            ReportBaseFont baseFont = new ReportBaseFont(fontName, fontPath, fontBodies.get(fontName));
-            fonts.put(fontName, baseFont);
-
-        }
 
         XPathExpression exprRepParagraph = xpath.compile("reportDefinition/report/items/*");
         NodeList repChilds = (NodeList) exprRepParagraph.evaluate(xmlDoc, XPathConstants.NODESET);
 
+        parseDocument(repChilds, pGetter);
+    }
+
+    private void initAttrs(NamedNodeMap attrs) {
+        marginLeft = Float.parseFloat(parseAttribute(attrs, marginleft, margin_value));
+        marginTop = Float.parseFloat(parseAttribute(attrs, margintop, margin_value));
+        marginRight = Float.parseFloat(parseAttribute(attrs, marginright, margin_value));
+        marginBottom = Float.parseFloat(parseAttribute(attrs, marginbottom, margin_value));
+
+        pageFont = parseAttribute(attrs,Report.pagefont, "arial");
+        repPageNumHPos = parseAttribute(attrs, Report.pagenumhpos, "blank");
+        repPageNumVPos = parseAttribute(attrs, Report.pagenumvpos, "bottom");
+        pageFontWeight = Integer.parseInt(parseAttribute(attrs, pagefontweight, "10"));
+
+        pageSize = parseAttribute(attrs, pagesize, A4);
+        pageOrientation = parseAttribute(attrs, orientation, portrait);
+    }
+
+    private void setPageSize(String pageSize, String orientation) {
+
+        if (pageSize.equalsIgnoreCase(A4)) {
+            _doc.setPageSize(PageSize.A4);
+        }
+
+        if (pageSize.equalsIgnoreCase(A3)) {
+            _doc.setPageSize(PageSize.A3);
+        }
+
+        if (pageSize.equalsIgnoreCase(A2)) {
+            _doc.setPageSize(PageSize.A2);
+        }
+
+        if (pageSize.equalsIgnoreCase(A1)) {
+            _doc.setPageSize(PageSize.A1);
+        }
+
+        if (pageSize.equalsIgnoreCase(A0)) {
+            _doc.setPageSize(PageSize.A0);
+        }
+
+        if (pageSize.equalsIgnoreCase(B0)) {
+            _doc.setPageSize(PageSize.B0);
+        }
+
+        if (pageSize.equalsIgnoreCase(B1)) {
+            _doc.setPageSize(PageSize.B1);
+        }
+
+        if (pageSize.equalsIgnoreCase(B2)) {
+            _doc.setPageSize(PageSize.B2);
+        }
+
+        if (pageSize.equalsIgnoreCase(B3)) {
+            _doc.setPageSize(PageSize.B3);
+        }
+
+        if (pageSize.equalsIgnoreCase(B4)) {
+            _doc.setPageSize(PageSize.B4);
+        }
+
+        if (orientation.equalsIgnoreCase(landscape)) {
+            _doc.setPageSize(_doc.getPageSize().rotate());
+        }
+    }
+
+    private void parseDocument(NodeList repChilds, PropertyGetter pGetter) throws ParseException {
         for (int t = 0; t < repChilds.getLength(); t++) {
             String nodeName = repChilds.item(t).getNodeName();
 
@@ -149,7 +209,6 @@ public class Report {
                 NodeList headerChildList = repChilds.item(t).getChildNodes();
                 parseHeader(headerChildList, pGetter);
             }
-
             if (nodeName.equals(paragraph)) {
                 items.add(new ReportParagraph(repChilds.item(t), fonts, null, pGetter));
             }
@@ -171,7 +230,7 @@ public class Report {
 
             if (nodeName.equals(ifcondition)) {
                 NodeList ifStatementChildren = repChilds.item(t).getChildNodes();
-                parseIfStatement(ifStatementChildren, pGetter);
+                ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, logicalcondition, elsecondition, paragraph, items, fonts);
             }
         }
     }
@@ -182,13 +241,25 @@ public class Report {
         if (attrObj == null) return defaultValue;
         return attrObj.getTextContent();
     }
+
+    private void LoadFonts(XPath xpath, org.w3c.dom.Document xmlDoc) throws XPathExpressionException, IOException, DocumentException {
+        XPathExpression expr = xpath.compile("reportDefinition/fonts/baseFont");
+        NodeList result = (NodeList) expr.evaluate(xmlDoc, XPathConstants.NODESET);
+
+        for (int i = 0; i < result.getLength(); i++) {
+            String fontName = result.item(i).getAttributes().getNamedItem(name).getTextContent();
+            String fontPath = result.item(i).getAttributes().getNamedItem(path).getTextContent();
+            ReportBaseFont baseFont = new ReportBaseFont(fontName, fontPath, fontBodies.get(fontName));
+            fonts.put(fontName, baseFont);
+        }
+    }
+
     //TODO нумерацию старниц выделить в отдельный метод см тодо ниже  (причем один метод есть... как то логика нумерирования оказалось разбитой по методам...)
     public byte[] GetDocument() throws DocumentException, ParseException, IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PdfWriter wr = PdfWriter.getInstance(_doc, byteArrayOutputStream);
         wr.setRgbTransparencyBlending(true);
-        BaseFont pageBF = BaseFont.createFont("/fonts/"+pageFont+".ttf", BaseFont.IDENTITY_H, true); //font for page numbers
-
+        //BaseFont pageBF = BaseFont.createFont("/fonts/"+pageFont+".ttf", BaseFont.IDENTITY_H, true); //font for page numbers
 
         _doc.open();
         int size = items.size(); // size element to set a last page
@@ -197,9 +268,7 @@ public class Report {
 
             if (item instanceof ReportNewPage) {
 
-                if(!repPageNumHPos.equalsIgnoreCase("blank") && curPage>1) {
-                    setPageNumber(pageBF,10,wr);
-                } else if (curPage==1) curPage++;
+                 setPageNumber(wr);
 
                 _doc.newPage();
             }
@@ -209,10 +278,8 @@ public class Report {
                 {
                     if(reportRepeatingRowItem==null){
 
-                        if(!repPageNumHPos.equalsIgnoreCase("blank") && curPage>1) {
-                            setPageNumber(pageBF,10,wr); // Sets the page number
-                            drawHeader(wr,headerItems); // Draws header on all pages but first and last
-                        } else if (curPage==1) curPage++;
+                        if(curPage>1) drawHeader(wr,headerItems); // Draws header on all pages but first and last
+                        setPageNumber(wr); // Sets the page number
 
                         _doc.newPage();
                     }
@@ -222,12 +289,12 @@ public class Report {
             } else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
 
             if (--size==0){
-                setPageNumber(pageBF, 10, wr); // Sets the last page number
+                setPageNumber(wr); // Sets the last page number
                 drawHeader(wr,headerItems); // Draws header on the last page
             }
         }
 
-        // TODO нумерацию сделать необязательной (настройка в шаблоне (например: осутсвует, число, число из + число + текст)
+
         PdfAction ac = PdfAction.gotoLocalPage(1, new
                 PdfDestination(PdfDestination.XYZ, 0, _doc.getPageSize().getHeight(), 1f), wr);
         wr.setOpenAction(ac);
@@ -276,74 +343,27 @@ public class Report {
             }
         }
     }
-    //  TODO зачем такой кусок кода??? можно же сделать класс ReportIfStatement и туда перенести всю логику...
-    protected void parseIfStatement(NodeList ifStatementItems, PropertyGetter pGetter) {
-        String[] operands;
-        boolean conditionResult=false;
 
-        for (int t = 0; t < ifStatementItems.getLength(); t++) {
-            //iteration inside "if" statement
-            String nodeName = ifStatementItems.item(t).getNodeName();
-
-            if (nodeName.equals(logicalcondition)) { //if it is a condition...
-
-                if (ifStatementItems.item(t).getTextContent().contains(" ")) { //...and it has spaces (correct syntax)
-                    operands = ifStatementItems.item(t).getTextContent().split(" "); //split it into tokens
-                    if (operands.length < 3) return; //if there is less than three tokens, it is not a correct statement
-                } else return;//if there are no spaces, it is not a correct statement
-
-                for (int i = 0; i < operands.length; i = i + 2) { //check every second token beginning from first
-                    if (Character.toString(operands[i].charAt(0)).equals("$")) { //if it begins from "$" symbol, it needs to be overwritten by it's json value
-                        operands[i] = pGetter.GetProperty(operands[i]);
-                    }
-                }
-
-                if(operands[1].equals("eq") && operands[0].equals(operands[2])) conditionResult=true; //if we are checking tokens to be equal
-                if(operands[1].equals("neq") && (operands[0]!=null && operands[2]!=null))
-                    if(!operands[0].equals(operands[2])) conditionResult=true; //if we are checking tokens to be not equal
-            }
-            // TODO зачем тут буловское значение сравнивается с true ???
-            if (conditionResult==true && nodeName.equals(paragraph)) //now, if condition is TRUE, add all paragraphs to markup
-                try {
-                    items.add(new ReportParagraph(ifStatementItems.item(t), fonts, null, pGetter));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-            if (conditionResult==false && nodeName.equals(elsecondition)){ //if condition is false, find else statement...
-                NodeList elseStatementItems = ifStatementItems.item(t).getChildNodes(); //...get its child nodes
-                for (int i=0; i < elseStatementItems.getLength(); i++){
-                    nodeName = elseStatementItems.item(i).getNodeName();
-                    if(nodeName.equals(paragraph)){
-                        try {
-                            items.add(new ReportParagraph(ifStatementItems.item(t), fonts, null, pGetter)); //...and add paragraphs to markup from there
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-
-    protected void setPageNumber(BaseFont baseFont, int fontSize, PdfWriter writer){
+    protected void setPageNumber(PdfWriter writer){
         float verticalPosition;
+        BaseFont pageBF = fonts.get(pageFont).getBaseFont();
 
         if(repPageNumVPos.equalsIgnoreCase("top")){
             verticalPosition=0.96f;
         } else verticalPosition=0.05f;
 
-        PdfContentByte cb = writer.getDirectContent();
-        cb.saveState();
-        cb.beginText();
-        if(repPageNumHPos.equalsIgnoreCase("right")) cb.moveText((float) (_doc.getPageSize().getWidth()*0.96 - _doc.rightMargin() ), (float) (_doc.getPageSize().getHeight()*verticalPosition));
-        if(repPageNumHPos.equalsIgnoreCase("center")) cb.moveText((float) (_doc.getPageSize().getWidth()*0.5 ), (float) (_doc.getPageSize().getHeight()*verticalPosition));
-        if(repPageNumHPos.equalsIgnoreCase("left")) cb.moveText((float) (_doc.getPageSize().getWidth()*0.05 + _doc.leftMargin()), (float) (_doc.getPageSize().getHeight()*verticalPosition));
-        cb.setFontAndSize(baseFont, fontSize);
-        cb.showText("Лист " + curPage);
-        curPage++;
-        cb.endText();
-        cb.restoreState();
+        if( (!repPageNumHPos.equalsIgnoreCase("blank") && curPage>1) || (!repPageNumHPos.equalsIgnoreCase("blank") && curPage>1) ){
+            PdfContentByte cb = writer.getDirectContent();
+            cb.saveState();
+            cb.beginText();
+            if(repPageNumHPos.equalsIgnoreCase("right")) cb.moveText((float) (_doc.getPageSize().getWidth()*0.96 - _doc.rightMargin() ), (float) (_doc.getPageSize().getHeight()*verticalPosition));
+            if(repPageNumHPos.equalsIgnoreCase("center")) cb.moveText((float) (_doc.getPageSize().getWidth()*0.5 ), (float) (_doc.getPageSize().getHeight()*verticalPosition));
+            if(repPageNumHPos.equalsIgnoreCase("left")) cb.moveText((float) (_doc.getPageSize().getWidth()*0.05 + _doc.leftMargin()), (float) (_doc.getPageSize().getHeight()*verticalPosition));
+            cb.setFontAndSize(pageBF, pageFontWeight);
+            cb.showText("Лист " + curPage);
+            curPage++;
+            cb.endText();
+            cb.restoreState();
+        } else if (curPage==1) curPage++;
     }
 }

@@ -7,12 +7,10 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import ru.onyx.clipper.data.PropertyGetter;
+import ru.onyx.clipper.utils.DateUtils;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.DateFormatSymbols;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,6 +23,8 @@ import static ru.onyx.clipper.model.Report.*;
  * Time: 18:26
  */
 public abstract class BaseReportObject {
+
+    public static final String COMPOSITE = "composite";
 
     public abstract Element getPdfObject() throws DocumentException, ParseException, IOException;
 
@@ -50,6 +50,11 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+            textcase = parseAttribute(attrObj, TEXT_CASE, "null");
+            charspacing = Integer.parseInt(parseAttribute(attrObj, CHARACTER_SPACING, "-1"));
+            index = parseAttribute(attrObj, CHUNK_INDEX, null);
+            negativeEmbrace = Boolean.parseBoolean(parseAttribute(attrObj, NEGATIVE_EMBRACE, null));
+            borderstyle = parseAttribute(attrObj, BORDER_STYLE_ATT, null);
             reprowfpageheight = Float.parseFloat(parseAttribute(attrObj, REPROW_FPAGE_HEIGHT, "-1f"));
             reprowotherpageheight = Float.parseFloat(parseAttribute(attrObj, REPROW_OTHER_PAGE_HEIGHT, "-1f"));
             defaultnullvalue = parseAttribute(attrObj, DEFAULT_NULL_VALUE, "");
@@ -99,6 +104,7 @@ public abstract class BaseReportObject {
             bgimage = parseAttribute(attrObj, BGIMAGE, null);
             keepTogether = Boolean.parseBoolean(parseAttribute(attrObj, KEEPTOGETHER, "false"));
             replicateHeader = Boolean.parseBoolean(parseAttribute(attrObj, REPLICATE_HEADER, "false"));
+            decseparator = parseAttribute(attrObj, DECIMAL_SEPARATOR, null);
 
             paddingLeft = -1f;
             paddingRight = -1f;
@@ -122,6 +128,7 @@ public abstract class BaseReportObject {
 
             SetMonthFormat(attrObj);
             SetFontStyle(attrObj);
+            SetNullFontStyle(attrObj);
             SetHorizontalTextAlignment(attrObj);
             SetVerticalTextAlignment(attrObj);
             SetHorizontalAlignment(attrObj);
@@ -199,6 +206,34 @@ public abstract class BaseReportObject {
         }
         if (style.equalsIgnoreCase("undefined")) {
             fontStyle = Font.UNDEFINED;
+        }
+    }
+
+    protected void SetNullFontStyle(NamedNodeMap attrObj) {
+        String style = parseAttribute(attrObj, NULL_FONT_STYLE_ATT_NAME, "");
+        if (style.equalsIgnoreCase("underline")) {
+            nullFontStyle = Font.UNDERLINE;
+        }
+        if (style.equalsIgnoreCase("striked")) {
+            nullFontStyle = Font.STRIKETHRU;
+        }
+        if (style.equalsIgnoreCase("normal")) {
+            nullFontStyle = Font.NORMAL;
+        }
+        if (style.equalsIgnoreCase("italic")) {
+            nullFontStyle = Font.ITALIC;
+        }
+        if (style.equalsIgnoreCase("bold")) {
+            nullFontStyle = Font.BOLD;
+        }
+        if (style.equalsIgnoreCase("bolditalic")) {
+            nullFontStyle = Font.BOLDITALIC;
+        }
+        if (style.equalsIgnoreCase("default")) {
+            nullFontStyle = Font.DEFAULTSIZE;
+        }
+        if (style.equalsIgnoreCase("undefined")) {
+            nullFontStyle = Font.UNDEFINED;
         }
     }
 
@@ -290,6 +325,9 @@ public abstract class BaseReportObject {
                     case chunk:
                         items.add(new ReportChunk(item, fonts, pParent, pGetter));
                         break;
+                    case moneychunk:
+                        items.add(new ReportMoneyChunk(item, fonts, pParent, pGetter));
+                        break;
                     case phrase:
                         items.add(new ReportPhrase(item, fonts, pParent, pGetter));
                         break;
@@ -337,6 +375,12 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String TEXT_CASE="textcase";
+    protected static final String CHARACTER_SPACING="charspacing";
+    protected static final String CHUNK_INDEX="index";
+    protected static final String NEGATIVE_EMBRACE="negativeembrace";
+    protected static final String BORDER_STYLE_ATT="borderstyle";
+    protected static final String DECIMAL_SEPARATOR="decseparator";
     protected static final String REPLICATE_HEADER="replicateheader";
     protected static final String REPROW_FPAGE_HEIGHT = "reprowfpageheight";
     protected static final String REPROW_OTHER_PAGE_HEIGHT = "reprowotherpageheight";
@@ -345,6 +389,7 @@ public abstract class BaseReportObject {
     protected static final String REPROW_OTHER_PAGE_ROWS = "reprowotherpagerows";
     protected static final String STRING_FORMAT_ATT_NAME = "stringformat";
     protected static final String FONT_STYLE_ATT_NAME = "fontstyle";
+    protected static final String NULL_FONT_STYLE_ATT_NAME = "nullfontstyle";
     protected static final String FONT_ATT_NAME = "font";
     protected static final String FONT_WEIGHT_ATT_NAME = "fontweight";
     protected static final String LEADING_ATT_NAME = "leading";
@@ -357,10 +402,6 @@ public abstract class BaseReportObject {
     protected static final String BORDER_WIDTH_TOP_ATT_NAME = "borderwidthtop";
     protected static final String BORDER_WIDTH_BOTTOM_ATT_NAME = "borderwidthbottom";
     protected static final String PADDINGS_ATT_NAME = "paddings";
-    protected static final String PADDING_LEFT_ATT_NAME = "paddingleft";
-    protected static final String PADDING_RIGHT_ATT_NAME = "paddingright";
-    protected static final String PADDING_TOP_ATT_NAME = "paddingtop";
-    protected static final String PADDING_BOTTOM_ATT_NAME = "paddingbottom";
     protected static final String CELL_MODE_ATT_NAME = "mode";
     protected static final String HORIZONTAL_TEXT_ALIGNMENT_ATT_NAME = "htextalign";
     protected static final String VERTICAL_TEXT_ALIGNMENT_ATT_NAME = "vtextalign";
@@ -378,8 +419,6 @@ public abstract class BaseReportObject {
     protected static final String TOTAL_WIDTH_ATT_NAME = "totalwidth";
     protected static final String CELL_HEIGHT_ATT_NAME = "cellheight";
     protected static final String WORD_SPLITTER_ALIGN_ATT_NAME = "wordalign";
-    protected static final String NBSP_SYMBOL = "&#160;";
-    protected static final String RN_BREAK_SYMBOLS = "&#13;&#10;";
     protected static final String MONTH_FORMAT_ATT_NAME = "format";
     protected static final String DATE_FORMAT_ATT_NAME = "dateformat";
     protected static final String TO_DATE_FORMAT_ATT_NAME = "todateformat";
@@ -439,6 +478,7 @@ public abstract class BaseReportObject {
     protected Integer reprowfpagerows;
     protected Integer reprowotherpagerows;
     protected Integer fontStyle;
+    protected Integer nullFontStyle;
     protected Integer columns;
     protected Integer colSpan;
     protected Integer rowSpan;
@@ -449,7 +489,13 @@ public abstract class BaseReportObject {
     protected Integer monthFormat;
     protected Integer firstSymbols;
     protected Integer lastSymbols;
+    protected Integer charspacing;
 
+
+    protected String textcase;
+    protected String index;
+    protected String borderstyle;
+    protected String decseparator;
     protected String defaultnullvalue;
     protected String stringformat;
     protected String bgimage;
@@ -480,6 +526,7 @@ public abstract class BaseReportObject {
     protected Boolean stopInherit;
     protected Boolean keepTogether;
     protected Boolean replicateHeader;
+    protected Boolean negativeEmbrace;
 
     protected float[] getScalePercent() {
         if (scalepercent == null) return null;
@@ -663,6 +710,13 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected String getBorderStyle() {
+        if (borderstyle != null) {
+            return borderstyle;
+        }
+        return null;
+    }
+
     protected Float getFontWeight() {
         if (fontWeight == null) return null;
         if (fontWeight > 0) {
@@ -692,6 +746,7 @@ public abstract class BaseReportObject {
 
     protected String getDefaultNullValue(){
         if(defaultnullvalue!=null) return defaultnullvalue;
+        else if(parent != null ) return parent.getDefaultNullValue();
         return null;
     }
 
@@ -704,6 +759,18 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected String getDecimalSeparator(){
+        if(decseparator!=null) return decseparator;
+        return null;
+    }
+
+
+    protected String getTextCase() {
+        if (textcase != null) return textcase;
+        else if (parent != null) return parent.getTextCase();
+
+        return null;
+    }
 
     protected int getRepRowFPageRows(){
         if(reprowfpagerows!=null) return reprowfpagerows;
@@ -717,6 +784,13 @@ public abstract class BaseReportObject {
 
     protected Integer getColumns() {
         if (columns > 0) return columns;
+        return -1;
+    }
+
+    protected Integer getCharspacing() {
+        if (charspacing > 0) return charspacing;
+        else if (parent != null) return parent.getCharspacing();
+
         return -1;
     }
 
@@ -764,22 +838,6 @@ public abstract class BaseReportObject {
         return 2;
     }
 
-    /*
-    String attributes                               wid
-    protected String fontName;
-    protected String propertyName;
-    protected String cellMode;
-    protected String pageName;
-    protected ArrayList<BaseReportObject> childs = new ArrayList<BaseReportObject>();
-    protected Boolean useBorderPadding;
-     */
-
-    protected int getFirstSymbolsNum() {
-        if (firstSymbols != null) {
-            return firstSymbols;
-        }
-        return -1;
-    }
 
     protected int getLastSymbolsNum() {
         if (lastSymbols != null) {
@@ -788,13 +846,14 @@ public abstract class BaseReportObject {
         return -1;
     }
 
+
     protected String getCellMode() {
         if (cellMode != null) {
             return cellMode;
         } else if (parent != null) {
             return parent.getCellMode();
         }
-        return "composite";
+        return COMPOSITE;
     }
 
     protected String getPosition() {
@@ -830,6 +889,22 @@ public abstract class BaseReportObject {
     protected String getWordAlign() {
         if (wordalign != null) return wordalign;
         return null;
+    }
+
+    protected String getChunkIndex() {
+        if (index != null)
+            return index;
+
+        return "normal";
+    }
+
+    protected Boolean getNegativeEmbrace() {
+        if (negativeEmbrace != null) {
+            return negativeEmbrace;
+        } else if (parent != null && parent.getNegativeEmbrace() != null) {
+            return parent.getNegativeEmbrace();
+        }
+        return false;
     }
 
     protected Boolean getUseBorderPadding() {
@@ -926,10 +1001,30 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected Integer getNullFontStyle() {
+        if (nullFontStyle != null) return nullFontStyle;
+        if (parent != null) return parent.getNullFontStyle();
+
+        return null;
+    }
+
     public Font getFont() {
         String f = getFontName();
         Float fw = getFontWeight();
         Integer style = getFontStyle();
+        if (f != null && fw > 0 && style == null) {
+            return _fonts.get(f).getCustomFont(fw);
+        }
+        if (f != null && fw > 0 && style != null) {
+            return _fonts.get(f).getCustomFont(fw, style);
+        }
+        return null;
+    }
+
+    public Font getNullFont() {
+        String f = getFontName();
+        Float fw = getFontWeight();
+        Integer style = getNullFontStyle();
         if (f != null && fw > 0 && style == null) {
             return _fonts.get(f).getCustomFont(fw);
         }
@@ -986,37 +1081,11 @@ public abstract class BaseReportObject {
     }
 
     protected String ConvertPropertyToSpecificDateFormat(String propertyValue) {
-        //TODO сожержимое метода не должно находится в этом классе, его лучше вынести в DateUtil как в всю бизнесс логику работы с датами
+
         Date s = propertyGetter.GetPropertyStringAsDate(propertyValue, getDateFormat());
-        if (s == null) return getDefaultNullValue();
-                //"\"----\"-------------\"";
-        DateFormat df;
+        String defaultNullValue = getDefaultNullValue();
         String format = getToDateFormat();
-        String[] russianMonth = {
-                "января",
-                "февраля",
-                "марта",
-                "апреля",
-                "мая",
-                "июня",
-                "июля",
-                "августа",
-                "сентября",
-                "октября",
-                "ноября",
-                "декабря"
-        };
 
-        if(format.toLowerCase().contains("::r")) {
-            format = format.substring(0, format.indexOf("::R"));
-            DateFormatSymbols russSymbol = new DateFormatSymbols();
-            russSymbol.setMonths(russianMonth);
-            df = new SimpleDateFormat(format,russSymbol);
-        }
-        else {
-            df = new SimpleDateFormat(format);
-        }
-
-        return df.format(s);
+        return DateUtils.getFormattedDate(defaultNullValue, s, format);
     }
 }

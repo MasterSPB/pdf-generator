@@ -3,20 +3,16 @@ package ru.onyx.clipper;
 import com.itextpdf.text.Image;
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
-import net.minidev.json.JSONValue;
-import org.springframework.util.StringUtils;
+
 import ru.onyx.clipper.data.PropertyGetter;
 
 import java.io.*;
-
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
-import java.util.Objects;
 
 
 /**

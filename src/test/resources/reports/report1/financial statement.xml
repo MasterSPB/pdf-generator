@@ -1,0 +1,914 @@
+<reportDefinition>
+    <fonts>
+        <baseFont name="times" path="times.ttf"/>
+        <baseFont name="arialbi" path="arialbi.ttf"/>
+        <baseFont name="arial" path="times.ttf"/>
+        <baseFont name="ariali" path="ariali.ttf"/>
+        <baseFont name="arialbd" path="arialbd.ttf"/>
+        <baseFont name="wingding" path="wingding.ttf"/>
+    </fonts>
+    <report marginleft="68" marginright="22" margintop="6" marginbottom="20" orientation="portrait" pagesize="a4" pagenumhpos="blank" pagenumvpos="top" pagefont="times">
+        <items>
+            <header>
+            </header>
+                <table paddings="1,1,1,1" mode="text" font="times" fontweight="8" columns="5" widthcellspercentage="0.7,0.15,0.75,0.35,1" halign="center" borderstyle="regular" widthpercentage="100" borderwidth="0" spacingafter="0" spacingbefore="0">
+                    <cell/>
+                    <cell htextalign="center" vtextalign="bottom" fixedheight="20f">ИНН</cell>
+                    <cell paddings="3,1,1,1" fixedheight="22f" vtextalign="bottom" htextalign="left" fontweight="14"><paragraph spacingafter="0" spacingbefore="0"><chunk  property="$Файл.Документ.СвНП.НПЮЛ.ИННЮЛ" charspacing="5"></chunk></paragraph></cell>
+                    <cell/>
+                    <cell/>
+
+                    <cell/>
+                    <cell htextalign="center" vtextalign="bottom" fixedheight="20f">КПП </cell>
+                    <cell paddings="3,1,1,1" fixedheight="22f" vtextalign="bottom" htextalign="left" fontweight="14"><paragraph spacingafter="0" spacingbefore="0"><chunk  property="$Файл.Документ.СвНП.НПЮЛ.КПП" charspacing="5"></chunk></paragraph></cell>
+                    <cell htextalign="left" >
+                        <paragraph spacingafter="0" spacingbefore="0" vtextalign="bottom" leading="19">
+                            <chunk>Стр. </chunk><chunk fontweight="16" charspacing="5" htextalign="left">001</chunk>
+                        </paragraph>
+                    </cell>
+                    <cell/>
+                </table>
+
+                <table paddings="1,1,1,1" mode="text" font="times" fontweight="8" columns="4" halign="center" borderstyle="regular" widthpercentage="100" borderwidth="0" spacingafter="0" spacingbefore="8">
+                    <cell/>
+                    <cell fixedheight="20f"/>
+                    <cell/>
+                    <cell paddings="1,15,1,1" htextalign="right" fontstyle="bold"> Форма по КНД 0710098</cell>
+                </table>
+                <paragraph leading="6" spacingafter="4" htextalign="center" font="times" fontweight="10" fontstyle="bold">
+                    <chunk charspacing="1"> Бухгалтерская (финансовая) отчетность </chunk>
+                </paragraph>
+                <paragraph leading="10" spacingafter="4" htextalign="center" font="times" fontweight="10" fontstyle="bold">
+                    <chunk charspacing="1"> субъектов малого предпринимательства </chunk>
+                </paragraph>
+
+                <table paddings="3,1,1,1" mode="text" font="times"  fontweight="9" charspacing="5" columns="6" widthcellspercentage="1,0.25,1.3,0.8,1,0.6" halign="center" borderstyle="regular"
+                       widthpercentage="100" borderwidth="0" spacingafter="5" spacingbefore="10">
+                    <cell fixedheight="20f" htextalign="left" vtextalign="bottom">Номер корректировки</cell>
+                    <cell htextalign="left" fontweight="14" vtextalign="bottom"><paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.НомКорр" ></chunk></paragraph></cell>
+                    <cell htextalign="right" vtextalign="bottom"> Отчетный период (код) </cell>
+                    <cell htextalign="left" fontweight="14" vtextalign="bottom"><paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Период"></chunk></paragraph></cell>
+                    <cell htextalign="right" vtextalign="bottom"> Отчетный год </cell>
+                    <cell htextalign="right" fontweight="14" vtextalign="bottom"><paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ОтчетГод"></chunk></paragraph></cell>
+                </table>
+
+                <table paddings="1,1,1,1" mode="text" font="times" fontweight="14" fontstyle="normal" columns="1" widthpercentage="100" borderwidth="0" spacingafter="0" spacingbefore="0">
+                    <cell htextalign="left" vtextalign="top" fixedheight="80f"><paragraph spacingafter="0" spacingbefore="0" leading="20"><chunk charspacing="3" textcase="upper"
+                   property="$Файл.Документ.СвНП.НПЮЛ.НаимОрг"></chunk></paragraph></cell>
+                </table>
+                <paragraph leading="10" spacingafter="0" spacingbefore="0" htextalign="center" font="times" fontweight="6" fontstyle="normal">
+                    <chunk>(наименование организации)</chunk>
+                </paragraph>
+                <table paddings="1,1,1,1" mode="text" font="times"  fontweight="9"  columns="2" halign="center" borderstyle="regular" widthpercentage="100" widthcellspercentage="1,0.9"
+                       borderwidth="0" spacingafter="0" spacingbefore="8">
+                    <cell fixedheight="25f" htextalign="left" vtextalign="bottom">Код вида экономической деятельности по классификатору ОКВЭД</cell>
+                    <cell paddings="7,1,1,1" htextalign="left" fontweight="14" vtextalign="bottom"><paragraph spacingafter="0" spacingbefore="0"><chunk nullfontstyle="striked" defaultnullvalue="                          ⁶" charspacing="5" property="$Файл.Документ.СвНП.ОКВЭД"></chunk></paragraph></cell>
+
+                    <cell fixedheight="25f" htextalign="left" vtextalign="bottom">Код по ОКПО</cell>
+                    <cell paddings="7,1,1,1" htextalign="left" fontweight="14" vtextalign="bottom"><paragraph spacingafter="0" spacingbefore="0"><chunk nullfontstyle="striked" defaultnullvalue="                          ⁶" property="$Файл.Документ.СвНП.ОКПО" charspacing="5"></chunk></paragraph></cell>
+
+                    <cell fixedheight="25f" htextalign="left" vtextalign="bottom">Форма собственности (по ОКФС)</cell>
+                    <cell paddings="7,1,1,1" htextalign="left"  fontweight="14" vtextalign="bottom"><paragraph spacingafter="0" spacingbefore="0"><chunk nullfontstyle="striked" defaultnullvalue="                          ⁶" property="$Файл.Документ.СвНП.ОКФС" charspacing="5"></chunk></paragraph></cell>
+
+                    <cell fixedheight="25f" htextalign="left" vtextalign="bottom">Организационно-правовая форма (по ОКОПФ)</cell>
+                    <cell paddings="7,1,1,1" htextalign="left" fontweight="14" vtextalign="bottom"><paragraph spacingafter="0" spacingbefore="0"><chunk nullfontstyle="striked" defaultnullvalue="                          ⁶" property="$Файл.Документ.СвНП.ОКОПФ" charspacing="5"></chunk></paragraph></cell>
+
+                    <cell fixedheight="25f" htextalign="left" vtextalign="bottom">Единица измерения: (тыс. руб. / млн. руб. - код по ОКЕИ)</cell>
+                    <cell paddings="7,1,1,1" htextalign="left" fontweight="14" vtextalign="bottom"><paragraph spacingafter="0" spacingbefore="0"><chunk nullfontstyle="striked" defaultnullvalue="                          ⁶" property="$Файл.Документ.ОКЕИ" charspacing="5"></chunk></paragraph></cell>
+                </table>
+
+                <table paddings="1,1,1,1" mode="text" font="times"  fontweight="8"  columns="2" halign="center" borderstyle="regular" widthpercentage="100" widthcellspercentage="0.9,1" borderwidth="0" spacingafter="10" spacingbefore="0">
+                    <cell fixedheight="20f" htextalign="left" vtextalign="bottom"><paragraph spacingafter="0" spacingbefore="0"> <chunk>На </chunk><chunk fontweight="14">4</chunk><chunk> страницах</chunk> </paragraph></cell>
+                    <cell htextalign="left" vtextalign="bottom">
+
+                        <table paddings="0,0,0,0" mode="text" font="times"  fontweight="8"  columns="3" widthpercentage="100" widthcellspercentage="1,0.2,0.3" borderwidth="0" spacingafter="0" spacingbefore="0">
+                            <cell vtextalign="bottom">с приложением документов или их копий на</cell>
+                            <cell fixedheight="16f">
+                                <table paddings="0,0,0,0" mode="text" font="times"  fontweight="6"  columns="3" borderstyle="dotted" widthpercentage="100" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/><cell/><cell/>
+                                </table>
+                            </cell>
+                            <cell htextalign="center" vtextalign="bottom">листах</cell>
+                        </table>
+
+                    </cell>
+                </table>
+
+                <table paddings="1,1,1,1" mode="text" font="times"  fontweight="8"  columns="4" halign="center" borderstyle="regular" widthpercentage="100" borderwidth="0" spacingafter="10" spacingbefore="0">
+                    <cell colspan="2" borderwidthtop="1" fixedheight="30f">
+                        <paragraph leading="15" htextalign="center" vtextalign="middle" fontstyle="bold" spacingafter="0" spacingbefore="0">
+                            <chunk>Достоверность и полноту сведений, указанных</chunk>
+                        </paragraph>
+                        <paragraph leading="10" htextalign="center" vtextalign="middle" fontstyle="bold" spacingafter="0" spacingbefore="0">
+                            <chunk>в настоящем документе, подтверждаю:</chunk>
+                        </paragraph>
+                        </cell>
+                    <cell colspan="2" htextalign="center" vtextalign="middle" fontstyle="bold" borderwidthleft="1" borderwidthtop="1">Заполняется работником налогового органа</cell>
+
+
+
+
+                    <cell colspan="2" >
+                        <table paddings="0,0,0,0" mode="text" font="times"  fontweight="8"  columns="2" widthpercentage="100" widthcellspercentage="0.15,1" borderwidth="0" spacingafter="0" spacingbefore="0">
+                            <cell rowspan="2" property="$Файл.Документ.Подписант.ПрПодп" fontweight="14"/>
+                            <cell htextalign="left">1 - руководитель</cell>
+                            <cell htextalign="left">2 - уполномоченный представитель</cell>
+                        </table>
+                    </cell>
+                    <cell colspan="2" htextalign="bottom" borderwidthleft="1" fontweight="9">Сведения о представлении документа</cell>
+
+
+
+                    <cell colspan="2" paddings="1,1,5,1"  fontweight="14" htextalign="left" fixedheight="25f" ><paragraph spacingafter="0" spacingbefore="0"><chunk textcase="upper" property="Файл.Документ.Подписант.ФИО.Фамилия" charspacing="4"></chunk></paragraph></cell>
+                    <cell colspan="2" borderwidthleft="1">
+                        <table paddings="10,0,0,0" mode="text" font="times" fontweight="9" columns="2" widthpercentage="100" widthcellspercentage="1,0.6" borderwidth="0" spacingafter="0" spacingbefore="0">
+                            <cell vtextalign="bottom" htextalign="left">Данный документ представлен (код)</cell>
+                            <cell fixedheight="16f" >
+                                <table paddings="0,0,0,0" mode="text" columns="2" borderstyle="dotted" halign="left" widthpercentage="30" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/><cell/>
+                                </table>
+                            </cell>
+                        </table>
+
+                    </cell>
+
+                    <cell colspan="2" fontweight="14" htextalign="left" fixedheight="25f" textcase="upper"><paragraph spacingafter="0" spacingbefore="0"><chunk textcase="upper" property="Файл.Документ.Подписант.ФИО.Имя" charspacing="4"></chunk></paragraph></cell>
+                    <cell colspan="2" borderwidthleft="1">
+                        <table paddings="10,0,0,0" mode="text" font="times" fontweight="9" columns="3" widthpercentage="100" widthcellspercentage="0.1,0.2,0.8" borderwidth="0" spacingafter="0" spacingbefore="0">
+                            <cell vtextalign="bottom" htextalign="left">на </cell>
+                            <cell fixedheight="16f" >
+                                <table paddings="0,0,0,0" mode="text" columns="3" borderstyle="dotted" halign="left" widthpercentage="100" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/><cell/><cell/>
+                                </table>
+                            </cell>
+                            <cell vtextalign="bottom" htextalign="left">страницах</cell>
+                        </table>
+                    </cell>
+
+                    <cell colspan="2" fontweight="14" htextalign="left" textcase="upper"><paragraph leading="10" spacingafter="0" spacingbefore="0"><chunk textcase="upper" property="Файл.Документ.Подписант.ФИО.Отчество" charspacing="4"></chunk></paragraph></cell>
+                    <cell colspan="2" borderwidthleft="1">в составе (отметить знаком V)</cell>
+
+                    <cell colspan="2" fontweight="6" >
+                        <paragraph leading="8" htextalign="center" vtextalign="middle" spacingafter="0" spacingbefore="0">
+                            <chunk>(фамилия, имя, отчество* руководителя</chunk>
+                        </paragraph>
+                        <paragraph htextalign="center" vtextalign="middle" leading="8" spacingafter="0" spacingbefore="0">
+                            <chunk>(уполномоченного представителя) полностью)</chunk>
+                        </paragraph>
+                    </cell>
+                    <cell borderwidthleft="1" vtextalign="bottom">
+                        <table paddings="0,0,0,0" mode="text" font="times" fontweight="10" columns="2" widthpercentage="100" widthcellspercentage="1,0.6" borderwidth="0" spacingafter="0" spacingbefore="0">
+                            <cell paddings="40,0,0,0" vtextalign="bottom" htextalign="left" fontstyle="bold">0710001</cell>
+                            <cell paddings="5,0,0,0" fixedheight="16f" >
+                                <table paddings="0,0,0,0" mode="text" font="times"  fontweight="6" columns="1" borderstyle="dotted" halign="left" widthpercentage="33" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/>
+                                </table>
+                            </cell>
+                        </table>
+                    </cell>
+                    <cell vtextalign="bottom">
+                        <table paddings="0,0,0,0" mode="text" font="times" fontweight="10" columns="2" widthpercentage="100" widthcellspercentage="0.7,0.6" borderwidth="0" spacingafter="0" spacingbefore="0">
+                            <cell paddings="30,0,0,0" vtextalign="bottom" htextalign="left" fontstyle="bold">0710002</cell>
+                            <cell paddings="5,0,0,0" fixedheight="16f" >
+                                <table paddings="0,0,0,0" mode="text" font="times"  fontweight="6" columns="1" borderstyle="dotted" halign="left" widthpercentage="25" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/>
+                                </table>
+                            </cell>
+                        </table>
+                    </cell>
+
+
+
+
+
+                    <cell colspan="2">
+                        <table paddings="1,0,0,0" mode="text" font="times" fontweight="8" columns="9" widthpercentage="100" borderwidth="0"
+                               widthcellspercentage="0.8,1,1,0.5,0.1,0.5,0.1,1,0.05" spacingafter="0" spacingbefore="0">
+                            <cell vtextalign="bottom" htextalign="left">Подпись</cell>
+                            <cell borderwidthbottom="1"></cell>
+                            <cell vtextalign="bottom">Дата</cell>
+                            <cell fixedheight="16f" vtextalign="bottom">
+                                <table paddings="0,0,0,0" mode="text" font="times"  fontweight="6" columns="2" borderstyle="dotted" halign="left" widthpercentage="100" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/><cell/>
+                                </table>
+                            </cell>
+                            <cell vtextalign="bottom" fontweight="20">.</cell>
+                            <cell fixedheight="16f" vtextalign="bottom">
+                                <table paddings="0,0,0,0" mode="text" font="times"  fontweight="6" columns="2" borderstyle="dotted" halign="left" widthpercentage="100" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/><cell/>
+                                </table>
+                            </cell>
+                            <cell vtextalign="bottom" fontweight="20">.</cell>
+                            <cell fixedheight="16f" vtextalign="bottom">
+                                <table paddings="0,0,0,0" mode="text" font="times"  fontweight="6" columns="4" borderstyle="dotted" halign="left" widthpercentage="100" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/><cell/><cell/><cell/>
+                                </table>
+                            </cell>
+                            <cell/>
+                        </table>
+                    </cell>
+                    <cell borderwidthleft="1" rowspan="2" vtextalign="middle">
+                        <table paddings="0,0,0,0" mode="text" font="times" fontweight="10" columns="2" widthpercentage="100" widthcellspercentage="1,0.6" borderwidth="0" spacingafter="0" spacingbefore="0">
+                            <cell paddings="40,0,0,0" vtextalign="bottom" htextalign="left" fontstyle="bold">0710003</cell>
+                            <cell paddings="5,0,0,0" fixedheight="16f" >
+                                <table paddings="0,0,0,0" mode="text" font="times"  fontweight="6" columns="1" borderstyle="dotted" halign="left" widthpercentage="33" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/>
+                                </table>
+                            </cell>
+                        </table>
+                    </cell>
+                    <cell vtextalign="middle" rowspan="2">
+                        <table paddings="0,0,0,0" mode="text" font="times" fontweight="10" columns="2" widthpercentage="100" widthcellspercentage="0.7,0.6" borderwidth="0" spacingafter="0" spacingbefore="0">
+                            <cell paddings="30,0,0,0" vtextalign="bottom" htextalign="left" fontstyle="bold">0710004</cell>
+                            <cell paddings="5,0,0,0" fixedheight="16f" >
+                                <table paddings="0,0,0,0" mode="text" font="times"  fontweight="6" columns="1" borderstyle="dotted" halign="left" widthpercentage="25" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/>
+                                </table>
+                            </cell>
+                        </table>
+                    </cell>
+                    <cell colspan="2">
+                        <table paddings="1,0,0,0" mode="text" font="times" fontweight="8" columns="8" widthpercentage="100" borderwidth="0"
+                               widthcellspercentage="0.8,1,1,0.5,0.1,0.5,0.1,1" spacingafter="0" spacingbefore="0">
+                            <cell/>
+                            <cell htextalign="center">МП</cell>
+                            <cell/><cell/><cell/><cell/><cell/><cell/>
+                        </table>
+                    </cell>
+                    <cell colspan="2" borderwidthbottom="0"/>
+
+                    <cell borderwidthleft="1" rowspan="2" vtextalign="middle">
+                        <table paddings="0,0,0,0" mode="text" font="times" fontweight="10" columns="2" widthpercentage="100" widthcellspercentage="1,0.6" borderwidth="0" spacingafter="0" spacingbefore="0">
+                            <cell paddings="40,0,0,0" vtextalign="bottom" htextalign="left" fontstyle="bold">0710005</cell>
+                            <cell paddings="5,0,0,0" fixedheight="16f" >
+                                <table paddings="0,0,0,0" mode="text" font="times"  fontweight="6" columns="1" borderstyle="dotted" halign="left" widthpercentage="33" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/>
+                                </table>
+                            </cell>
+                        </table>
+                    </cell>
+                    <cell vtextalign="middle" rowspan="2">
+                        <table paddings="0,0,0,0" mode="text" font="times" fontweight="10" columns="2" widthpercentage="100" widthcellspercentage="0.7,0.6" borderwidth="0" spacingafter="0" spacingbefore="0">
+                            <cell paddings="30,0,0,0" vtextalign="bottom" htextalign="left" fontstyle="bold">0710006</cell>
+                            <cell paddings="5,0,0,0" fixedheight="16f" >
+                                <table paddings="0,0,0,0" mode="text" font="times"  fontweight="6" columns="1" borderstyle="dotted" halign="left" widthpercentage="25" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/>
+                                </table>
+                            </cell>
+                        </table>
+                    </cell>
+                    <cell colspan="2"/>
+
+                    <cell colspan="2" fixedheight="20f" borderwidthtop="1" borderwidthbottom="1"/>
+                    <cell rowspan="2" borderwidthleft="1" vtextalign="middle" htextalign="left" paddings="10,0,10,0">
+                        <paragraph vtextalign="bottom" spacingafter="0" spacingbefore="0">
+                            <chunk>с приложением</chunk>
+                        </paragraph>
+                        <paragraph leading="8" vtextalign="bottom" spacingafter="0" spacingbefore="0">
+                            <chunk>документов и их копий на</chunk>
+                        </paragraph>
+                    </cell>
+                    <cell rowspan="2" valign="bottom" vtextalign="bottom">
+                        <table paddings="10,0,0,0" mode="text" font="times" fontweight="8" columns="2" widthpercentage="100" widthcellspercentage="1,0.6" borderwidth="0" spacingafter="0" spacingbefore="0">
+                            <cell fixedheight="16f" >
+                                <table paddings="0,0,0,0" mode="text" font="times"  fontweight="6" columns="3" borderstyle="dotted" halign="left" widthpercentage="60" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/><cell/><cell/>
+                                </table>
+                            </cell>
+                            <cell valign="bottom" vtextalign="bottom" htextalign="left">листах</cell>
+                        </table>
+                    </cell>
+                    <cell colspan="2" fixedheight="20f" borderwidthbottom="1"/>
+
+
+                    <cell colspan="2" fontweight="6" vtextalign="middle" htextalign="center">(фамилия, имя, отчество* главного бухгалтера полностью)</cell>
+                    <cell colspan="2" borderwidthleft="1" paddings="10,10,10,0">
+                        <table paddings="1,0,0,0" mode="text" font="times" fontweight="6" columns="6" widthpercentage="100" borderwidth="0"
+                               widthcellspercentage="1,0.5,0.1,0.5,0.1,1" spacingafter="0" spacingbefore="0">
+                            <cell vtextalign="bottom" font="times" fontweight="8" htextalign="left">Дата представления документа</cell>
+                            <cell fixedheight="16f" paddings="5,5,0,0" vtextalign="bottom">
+                                <table paddings="0,0,0,0" mode="text" font="times"  fontweight="6" columns="2" borderstyle="dotted" halign="left" widthpercentage="100" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/><cell/>
+                                </table>
+                            </cell>
+                            <cell vtextalign="bottom" fontweight="20">.</cell>
+                            <cell fixedheight="16f" paddings="5,5,0,0" vtextalign="bottom">
+                                <table paddings="0,0,0,0" mode="text" font="times"  fontweight="6" columns="2" borderstyle="dotted" halign="left" widthpercentage="100" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/><cell/>
+                                </table>
+                            </cell>
+                            <cell vtextalign="bottom" fontweight="20">.</cell>
+                            <cell fixedheight="16f" paddings="5,10,0,0" vtextalign="bottom">
+                                <table paddings="0,0,0,0" mode="text" font="times"  fontweight="6" columns="4" borderstyle="dotted" halign="left" widthpercentage="100" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/><cell/><cell/><cell/>
+                                </table>
+                            </cell>
+                        </table>
+                    </cell>
+
+                    <cell colspan="2" vtextalign="bottom">
+                        <table vtextalign="bottom" paddings="1,0,0,0" mode="text" font="times" fontweight="8" columns="3" widthpercentage="100" borderwidth="0"
+                               widthcellspercentage="0.2,0.25,0.8" spacingafter="0" spacingbefore="0">
+                            <cell htextalign="left">Подпись</cell>
+                            <cell borderwidthbottom="1"></cell>
+                            <cell/>
+                        </table>
+                    </cell>
+                    <cell colspan="2" borderwidthleft="1">
+                        <table paddings="10,0,0,0" mode="text" font="times" fontweight="8" columns="2" widthpercentage="100" widthcellspercentage="0.45,1" borderwidth="0" spacingafter="0" spacingbefore="0">
+                            <cell vtextalign="bottom" htextalign="left">
+                                <paragraph  spacingafter="0" spacingbefore="0">
+                                    <chunk>Зарегистрирован</chunk>
+                                </paragraph>
+                                <paragraph leading="8" spacingafter="0" spacingbefore="0">
+                                    <chunk>за №</chunk>
+                                </paragraph>
+                            </cell>
+                            <cell fixedheight="16f" vtextalign="bottom">
+                                <table paddings="0,0,0,0" mode="text" font="times"  fontweight="6" columns="13" borderstyle="dotted" halign="left" widthpercentage="100" borderwidth="0" spacingafter="0" spacingbefore="0">
+                                    <cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/>
+                                </table>
+                            </cell>
+                        </table>
+                    </cell>
+
+
+
+
+                    <cell colspan="2" vtextalign="bottom" htextalign="center">
+                        <paragraph  spacingafter="0" spacingbefore="0">
+                            <chunk>Наименование документа,</chunk>
+                        </paragraph>
+                        <paragraph leading="8" spacingafter="0" spacingbefore="0">
+                            <chunk>подтверждающего полномочия представителя</chunk>
+                        </paragraph>
+                    </cell>
+                    <cell colspan="2" borderwidthleft="1"/>
+
+                    <cell colspan="2" borderwidthbottom="1" fixedheight="13f"/>
+                    <cell colspan="2" valign="bottom" vtextalign="bottom" borderwidthleft="1">
+                        <table paddings="10,0,0,0" mode="text" font="times" fontweight="8" columns="3" widthpercentage="100" widthcellspercentage="1,0.05,1" borderwidth="0" spacingafter="0" spacingbefore="0">
+                            <cell borderwidthbottom="1"/>
+                            <cell/>
+                            <cell borderwidthbottom="1"/>
+                        </table>
+                    </cell>
+
+                    <cell colspan="2" borderwidthbottom="1" fixedheight="20f"/>
+                    <cell colspan="2" valign="bottom" vtextalign="top" borderwidthleft="1">
+                        <table paddings="10,0,2,0" mode="text" font="times" fontweight="8" columns="3" widthpercentage="100" widthcellspercentage="1,0.05,1" borderwidth="0" spacingafter="0" spacingbefore="0">
+                            <cell vtextalign="top" htextalign="center">Фамилия, И.О.*</cell>
+                            <cell/>
+                            <cell vtextalign="top" htextalign="center">Подпись</cell>
+                        </table>
+                    </cell>
+
+                    <cell colspan="2" fixedheight="20f" htextalign="left">* Отчество при наличии </cell>
+                    <cell colspan="2" borderwidthleft="1"/>
+
+                </table>
+                <newpage/>
+
+
+            <!-- _____________________________________________________________PAGE2______________________________________________________________________________ -->
+
+            <table paddings="1,1,1,1" mode="text" font="times" fontweight="8" columns="5" widthcellspercentage="0.7,0.15,0.75,0.35,1" halign="center" borderstyle="regular" widthpercentage="100"
+                   borderwidth="0" spacingafter="27" spacingbefore="0">
+                <cell/>
+                <cell htextalign="center" vtextalign="bottom" fixedheight="20f">ИНН</cell>
+                <cell paddings="3,1,1,1" fixedheight="22f" vtextalign="bottom" htextalign="left" fontweight="14"><paragraph spacingafter="0" spacingbefore="0"><chunk  property="$Файл.Документ.СвНП.НПЮЛ.ИННЮЛ" charspacing="5"></chunk></paragraph></cell>
+                <cell/>
+                <cell/>
+
+                <cell/>
+                <cell htextalign="center" vtextalign="bottom" fixedheight="20f">КПП </cell>
+                <cell paddings="3,1,1,1" fixedheight="22f" vtextalign="bottom" htextalign="left" fontweight="14"><paragraph spacingafter="0" spacingbefore="0"><chunk  property="$Файл.Документ.СвНП.НПЮЛ.КПП" charspacing="5"></chunk></paragraph></cell>
+                <cell htextalign="left" >
+                    <paragraph spacingafter="0" spacingbefore="0" vtextalign="bottom" leading="19">
+                        <chunk>Стр. </chunk><chunk fontweight="16" charspacing="5" htextalign="left">002</chunk>
+                    </paragraph>
+                </cell>
+                <cell/>
+            </table>
+
+
+            <paragraph leading="10" spacingafter="4" htextalign="center" font="times" fontweight="10" fontstyle="bold">
+                <chunk> Местонахождение (адрес) </chunk>
+            </paragraph>
+
+            <table paddings="1,1,1,1" mode="text" font="times" fontweight="10" columns="2" widthcellspercentage="0.2,1" halign="center" borderstyle="regular" widthpercentage="100"
+                   borderwidth="0" spacingafter="10" spacingbefore="0">
+                <cell vtextalign="bottom" htextalign="left">Почтовый индекс</cell>
+                <cell htextalign="left" vtextalign="bottom" fixedheight="20f" fontweight="14" ><paragraph spacingafter="0" spacingbefore="0"><chunk nullfontstyle="striked" defaultnullvalue="                          ⁶" charspacing="5" property="$Файл.Документ.СвНП.НПЮЛ.АдрРФ.Индекс"></chunk></paragraph></cell>
+            </table>
+
+            <table paddings="1,1,1,1" mode="text" font="times" fontweight="10" columns="2" widthcellspercentage="0.4,1" halign="center" borderstyle="regular" widthpercentage="100"
+                   borderwidth="0" spacingafter="0" spacingbefore="0">
+                <cell vtextalign="bottom">
+                    <paragraph spacingbefore="0" spacingafter="0" htextalign="left">
+                        <chunk>Субъект Российской Федерации</chunk>
+                    </paragraph>
+                    <paragraph leading="10" spacingbefore="0" spacingafter="0" htextalign="left">
+                        <chunk>(код)</chunk>
+                    </paragraph>
+                </cell>
+                <cell htextalign="left" vtextalign="top" fixedheight="20f" fontweight="14" >
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.СвНП.НПЮЛ.АдрРФ.КодРегион" nullfontstyle="striked" defaultnullvalue="                                        ⁶" charspacing="5"></chunk></paragraph>
+                </cell>
+            </table>
+
+            <table paddings="1,1,4,5" mode="text" font="times" fontweight="10" columns="2" widthcellspercentage="0.25,1" halign="center" borderstyle="regular" widthpercentage="100"
+                   borderwidth="0" spacingafter="10" spacingbefore="0">
+                <cell htextalign="left">Район</cell>
+                <cell htextalign="left" fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.СвНП.НПЮЛ.АдрРФ.Район" nullfontstyle="striked" textcase="upper" defaultnullvalue="                                        ⁶" charspacing="5"></chunk></paragraph>
+                </cell>
+
+                <cell htextalign="left">Город</cell>
+                <cell htextalign="left" fontweight="14" >
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.СвНП.НПЮЛ.АдрРФ.Город" nullfontstyle="striked" textcase="upper" defaultnullvalue="                                        ⁶" charspacing="5"></chunk></paragraph>
+                </cell>
+
+                <cell htextalign="left">Населенный пункт (село, поселок и т.п.)</cell>
+                <cell vtextalign="middle" htextalign="left" fontweight="14" >
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.СвНП.НПЮЛ.АдрРФ.НаселПункт" nullfontstyle="striked" textcase="upper" defaultnullvalue="                                        ⁶" charspacing="5"></chunk></paragraph>
+                </cell>
+
+                <cell htextalign="left">Улица (проспект, переулок и т.д.)</cell>
+                <cell vtextalign="middle" htextalign="left" fontweight="14" >
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.СвНП.НПЮЛ.АдрРФ.Улица" nullfontstyle="striked" textcase="upper" defaultnullvalue="                                        ⁶" charspacing="5"></chunk></paragraph>
+                </cell>
+
+                <cell htextalign="left">Номер дома (владения)</cell>
+                <cell paddings="0,0,1,1" vtextalign="middle" htextalign="left" fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.СвНП.НПЮЛ.АдрРФ.Дом" nullfontstyle="striked" textcase="upper" defaultnullvalue="                                        ⁶" charspacing="5"></chunk></paragraph>
+                </cell>
+
+                <cell htextalign="left">Номер корпуса (строения)</cell>
+                <cell paddings="0,0,1,1" vtextalign="middle" htextalign="left" fontweight="14" >
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.СвНП.НПЮЛ.АдрРФ.Корпус" nullfontstyle="striked" textcase="upper" defaultnullvalue="                                        ⁶" charspacing="5"></chunk></paragraph>
+                </cell>
+
+                <cell htextalign="left">Номер офиса</cell>
+                <cell paddings="0,0,1,1" vtextalign="middle" htextalign="left" fontweight="14" >
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.СвНП.НПЮЛ.АдрРФ.Кварт" nullfontstyle="striked" textcase="upper" defaultnullvalue="                                        ⁶" charspacing="5"></chunk></paragraph>
+                </cell>
+
+            </table>
+
+            <newpage/>
+
+
+            <!-- _____________________________________________________________PAGE3______________________________________________________________________________ -->
+
+
+            <table paddings="1,1,1,1" mode="text" font="times" fontweight="8" columns="5" widthcellspercentage="0.7,0.15,0.75,0.35,1" halign="center" borderstyle="regular" widthpercentage="100"
+                   borderwidth="0" spacingafter="8" spacingbefore="0">
+                <cell/>
+                <cell htextalign="center" vtextalign="bottom" fixedheight="20f">ИНН</cell>
+                <cell paddings="3,1,1,1" fixedheight="22f" vtextalign="bottom" htextalign="left" fontweight="14"><paragraph spacingafter="0" spacingbefore="0"><chunk  property="$Файл.Документ.СвНП.НПЮЛ.ИННЮЛ" charspacing="5"></chunk></paragraph></cell>
+                <cell/>
+                <cell/>
+
+                <cell/>
+                <cell htextalign="center" vtextalign="bottom" fixedheight="20f">КПП </cell>
+                <cell paddings="3,1,1,1" fixedheight="22f" vtextalign="bottom" htextalign="left" fontweight="14"><paragraph spacingafter="0" spacingbefore="0"><chunk  property="$Файл.Документ.СвНП.НПЮЛ.КПП" charspacing="5"></chunk></paragraph></cell>
+                <cell htextalign="left" >
+                    <paragraph spacingafter="0" spacingbefore="0" vtextalign="bottom" leading="19">
+                        <chunk>Стр. </chunk><chunk fontweight="16" charspacing="5" htextalign="left">003</chunk>
+                    </paragraph>
+                </cell>
+                <cell/>
+            </table>
+
+
+            <table paddings="1,1,1,1" mode="text" font="times" fontweight="8" columns="4" halign="center" borderstyle="regular" widthpercentage="100" borderwidth="0" spacingafter="0" spacingbefore="8">
+                <cell/>
+                <cell fixedheight="20f"/>
+                <cell/>
+                <cell paddings="1,15,1,1" htextalign="right" fontstyle="bold">Форма по ОКУД 0710001</cell>
+            </table>
+            <paragraph leading="4" spacingbefore="0" spacingafter="22" htextalign="center" font="times" fontweight="10" fontstyle="bold">
+                <chunk charspacing="1">Бухгалтерский баланс</chunk>
+            </paragraph>
+
+
+            <table paddings="1,1,8,7" mode="text" font="times" fontweight="7" columns="6" halign="center" borderstyle="regular" widthpercentage="100" borderwidth="0" spacingafter="10"
+                   spacingbefore="0" htextalign="center" vtextalign="middle" widthcellspercentage="0.6,1.2,0.8,1,1.3,1.3">
+                <cell fontstyle="italic" fontweight="8">Пояснения¹</cell>
+                <cell fontstyle="italic" fontweight="8">Наименование показателя</cell>
+                <cell fontstyle="italic" fontweight="8">Код строки</cell>
+                <cell fontstyle="italic" fontweight="8">На 31 декабря отчетного года</cell>
+                <cell fontstyle="italic" fontweight="8">На 31 декабря предыдущего года</cell>
+                <cell fontstyle="italic" fontweight="8">На 31 декабря года, предшествующего предыдущему</cell>
+
+                <cell>1</cell>
+                <cell>2</cell>
+                <cell>3</cell>
+                <cell>4</cell>
+                <cell>5</cell>
+                <cell>6</cell>
+
+                <cell/>
+                <cell fontstyle="bold" htextalign="right" fontweight="9">АКТИВ</cell>
+                <cell/>
+                <cell/>
+                <cell/>
+                <cell/>
+
+
+                <cell>_________</cell>
+                <cell htextalign="left" fontweight="9">Материальные внеоборотные активы²</cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.МатВОбАкт.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14" >
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.МатВОбАкт.Сум31_12Отч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.МатВОбАкт.Сум31_12Прдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14"  defaultnullvalue="________" negativeembrace="true">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.МатВОбАкт.Сум31_12Прдшв" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+                <cell>_________</cell>
+                <cell htextalign="left" fontweight="9">Нематериальные, финансовые и другие внеоборотные активы³</cell>
+                <cell fontweight="14" >
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.НеМатВОбАкт.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.НеМатВОбАкт.Сум31_12Отч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.НеМатВОбАкт.Сум31_12Прдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.НеМатВОбАкт.Сум31_12Прдшв" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+                <cell>_________</cell>
+                <cell htextalign="left" fontweight="9" vtextalign="bottom">Запасы</cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.Запасы.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.Запасы.Сум31_12Отч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.Запасы.Сум31_12Прдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.Запасы.Сум31_12Прдшв" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+                <cell>_________</cell>
+                <cell htextalign="left" fontweight="9">Денежные средства и денежные эквиваленты</cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.ДенежнСр.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.ДенежнСр.Сум31_12Отч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.ДенежнСр.Сум31_12Прдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.ДенежнСр.Сум31_12Прдшв" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+                <cell>_________</cell>
+                <cell htextalign="left">
+                    <paragraph htextalign="left" font="times" fontweight="9" leading="7">
+                        <chunk>Финансовые и другие оборотные активы</chunk><chunk index="upper" fontweight="6">4</chunk>
+                    </paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.ФинОбАкт.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.ФинОбАкт.Сум31_12Отч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.ФинОбАкт.Сум31_12Прдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.ФинОбАкт.Сум31_12Прдшв" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+                <cell>_________</cell>
+                <cell htextalign="left" fontweight="9" vtextalign="bottom">БАЛАНС</cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.СумОтч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.СумПрдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Актив.СумПрдшв" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+            </table>
+
+
+            <table paddings="1,1,8,7" mode="text" font="times" fontweight="7" columns="6" halign="center" borderstyle="regular" widthpercentage="100" borderwidth="0" spacingafter="0"
+                   spacingbefore="0" htextalign="center" vtextalign="middle" widthcellspercentage="0.6,1.2,0.8,1,1.3,1.3">
+
+                <cell/>
+                <cell fontstyle="bold" htextalign="right" fontweight="9">ПАССИВ</cell>
+                <cell/>
+                <cell/>
+                <cell/>
+                <cell/>
+
+
+                <cell>_________</cell>
+                <cell htextalign="left" fontweight="9">Капитал и резервы</cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КапРез.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КапРез.Сум31_12Отч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КапРез.Сум31_12Прдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КапРез.Сум31_12Прдшв" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+                <cell>_________</cell>
+                <cell htextalign="left" fontweight="9">Долгосрочные заемные средства</cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.ДолгосрЗаемСр.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.ДолгосрЗаемСр.Сум31_12Отч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.ДолгосрЗаемСр.Сум31_12Прдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.ДолгосрЗаемСр.Сум31_12Прдшв" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+                <cell>_________</cell>
+                <cell htextalign="left" fontweight="9" vtextalign="bottom">Другие долгосрочные обязательства</cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.ДолгосрОбязДр.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.ДолгосрОбязДр.Сум31_12Отч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.ДолгосрОбязДр.Сум31_12Прдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.ДолгосрОбязДр.Сум31_12Прдшв" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+                <cell>_________</cell>
+                <cell htextalign="left" fontweight="9">Краткосрочные заемные средства</cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КраткосрОбяз.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КраткосрОбяз.Сум31_12Отч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КраткосрОбяз.Сум31_12Прдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КраткосрОбяз.Сум31_12Прдшв" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+                <cell>_________</cell>
+                <cell htextalign="left" fontweight="9">Кредиторская задолженность</cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КредитЗадолж.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КредитЗадолж.Сум31_12Отч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КредитЗадолж.Сум31_12Прдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КредитЗадолж.Сум31_12Прдшв" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+                <cell>_________</cell>
+                <cell htextalign="left" fontweight="9">Другие красткосрочные обязательства</cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КраткосрОбязДр.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КраткосрОбязДр.Сум31_12Отч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КраткосрОбязДр.Сум31_12Прдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КраткосрОбязДр.Сум31_12Прдшв" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+                <cell>_________</cell>
+                <cell htextalign="left" fontweight="9" vtextalign="bottom">БАЛАНС</cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.СумОтч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.СумПрдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.Баланс.Пассив.СумПрдшв" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+            </table>
+            <newpage/>
+
+
+            <!-- _____________________________________________________________PAGE4______________________________________________________________________________ -->
+
+
+            <table paddings="1,1,1,1" mode="text" font="times" fontweight="8" columns="5" widthcellspercentage="0.7,0.15,0.75,0.35,1" halign="center" borderstyle="regular" widthpercentage="100"
+                   borderwidth="0" spacingafter="8" spacingbefore="0">
+                <cell/>
+                <cell htextalign="center" vtextalign="bottom" fixedheight="20f">ИНН</cell>
+                <cell paddings="3,1,1,1" fixedheight="22f" vtextalign="bottom" htextalign="left" fontweight="14"><paragraph spacingafter="0" spacingbefore="0"><chunk  property="$Файл.Документ.СвНП.НПЮЛ.ИННЮЛ" charspacing="5"></chunk></paragraph></cell>
+                <cell/>
+                <cell/>
+
+                <cell/>
+                <cell htextalign="center" vtextalign="bottom" fixedheight="20f">КПП </cell>
+                <cell paddings="3,1,1,1" fixedheight="22f" vtextalign="bottom" htextalign="left" fontweight="14"><paragraph spacingafter="0" spacingbefore="0"><chunk  property="$Файл.Документ.СвНП.НПЮЛ.КПП" charspacing="5"></chunk></paragraph></cell>
+                <cell htextalign="left" >
+                    <paragraph spacingafter="0" spacingbefore="0" vtextalign="bottom" leading="19">
+                        <chunk>Стр. </chunk><chunk fontweight="16" charspacing="5" htextalign="left">004</chunk>
+                    </paragraph>
+                </cell>
+                <cell/>
+            </table>
+
+
+            <table paddings="1,1,1,1" mode="text" font="times" fontweight="8" columns="4" halign="center" borderstyle="regular" widthpercentage="100" borderwidth="0" spacingafter="0" spacingbefore="8">
+                <cell/>
+                <cell fixedheight="20f"/>
+                <cell/>
+                <cell paddings="1,15,1,1" htextalign="right" fontstyle="bold">Форма по ОКУД 0710002</cell>
+            </table>
+            <paragraph leading="4" spacingbefore="0" spacingafter="22" htextalign="center" font="times" fontweight="10" fontstyle="bold">
+                <chunk charspacing="1">Отчет о финансовых результатах</chunk>
+            </paragraph>
+
+            <table paddings="1,1,8,7" mode="text" font="times" fontweight="7" columns="5" halign="center" borderstyle="regular" widthpercentage="100" borderwidth="0" spacingafter="240"
+                   spacingbefore="0" htextalign="center" vtextalign="middle" widthcellspercentage="0.6,1.2,0.8,1,1.3">
+                <cell fontstyle="italic" fontweight="8">Пояснения¹</cell>
+                <cell fontstyle="italic" fontweight="8">Наименование показателя</cell>
+                <cell fontstyle="italic" fontweight="8">Код строки</cell>
+                <cell fontstyle="italic" fontweight="8">За отчетный год</cell>
+                <cell fontstyle="italic" fontweight="8">За предыдущий год</cell>
+
+                <cell>1</cell>
+                <cell>2</cell>
+                <cell>3</cell>
+                <cell>4</cell>
+                <cell>5</cell>
+
+                <cell>_________</cell>
+                <cell htextalign="left">
+                    <paragraph htextalign="left" font="times" fontweight="9" leading="7">
+                        <chunk>Выручка</chunk><chunk index="upper" fontweight="6">5</chunk>
+                    </paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.Выруч.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.Выруч.СумОтч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.Выруч.СумПрдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+
+                <cell>_________</cell>
+                <cell htextalign="left">
+                    <paragraph htextalign="left" font="times" fontweight="9" leading="7">
+                        <chunk>Расходы по обычной деятельности</chunk><chunk index="upper" fontweight="6">6</chunk>
+                    </paragraph>
+                </cell>
+                <cell fontweight="14" property="$Файл.Документ.ПрибУб.РасхОбычДеят.КодСтрок" defaultnullvalue="________" negativeembrace="true">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk  charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14" property="$Файл.Документ.ПрибУб.РасхОбычДеят.СумОтч" defaultnullvalue="________" negativeembrace="true">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk  charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14" property="$Файл.Документ.ПрибУб.РасхОбычДеят.СумПрдщ" defaultnullvalue="________" negativeembrace="true">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk  charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+
+                <cell>_________</cell>
+                <cell htextalign="left" fontweight="9" vtextalign="bottom" negativeembrace="true">Проценты к уплате</cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.ПроцУпл.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.ПроцУпл.СумОтч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.ПроцУпл.СумПрдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+
+                <cell>_________</cell>
+                <cell htextalign="left" fontweight="9">Прочие доходы</cell>
+                <cell fontweight="14"  defaultnullvalue="________"  negativeembrace="true">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.ПрочДоход.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14"  defaultnullvalue="________"  negativeembrace="true">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.ПрочДоход.СумОтч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14"  defaultnullvalue="________"  negativeembrace="true">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.ПрочДоход.СумПрдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+
+                <cell>_________</cell>
+                <cell htextalign="left" fontweight="9">Прочие расходы</cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.ПрочРасход.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.ПрочРасход.СумОтч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.ПрочРасход.СумПрдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+
+                <cell>_________</cell>
+                <cell htextalign="left">
+                    <paragraph htextalign="left" font="times" fontweight="9" leading="7">
+                        <chunk>Налоги на прибыль (доходы)</chunk><chunk index="upper" fontweight="6">7</chunk>
+                    </paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.НалогПрибУб.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.НалогПрибУб.СумОтч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.НалогПрибУб.СумПрдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+
+
+                <cell>_________</cell>
+                <cell htextalign="left" fontweight="9" vtextalign="bottom" fontstyle="bold">Чистая прибыль (убыток)</cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.ЧистПрибУб.КодСтрок" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.ЧистПрибУб.СумОтч" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+                <cell fontweight="14">
+                    <paragraph spacingafter="0" spacingbefore="0"><chunk property="$Файл.Документ.ПрибУб.ЧистПрибУб.СумПрдщ" charspacing="5" negativeembrace="true" nullfontstyle="striked" defaultnullvalue="         ⁶"></chunk></paragraph>
+                </cell>
+            </table>
+
+
+            <paragraph htextalign="left" font="times" fontweight="7" leading="6">
+                <chunk>Примечания </chunk>
+            </paragraph>
+            <paragraph htextalign="left" font="times" fontweight="7" leading="6">
+                <chunk>1 Указывается номер соответствующего пояснения к бухгалтерскому балансу и отчету о прибылях и убытках. </chunk>
+            </paragraph>
+            <paragraph htextalign="left" font="times" fontweight="7" leading="6">
+                <chunk>2 Включая основные средства, незавершенные капитальные вложения в основные средства. </chunk>
+            </paragraph>
+            <paragraph htextalign="left" font="times" fontweight="7" leading="6">
+                <chunk>3 Включая результаты исследований и разработок, незавершенные капитальные вложения в нематериальные активы, исследования и разработки, отложенные налоговые активы </chunk>
+            </paragraph>
+            <paragraph htextalign="left" font="times" fontweight="7" leading="6">
+                <chunk>4 Включая дебиторскую задолженность</chunk>
+            </paragraph>
+            <paragraph htextalign="left" font="times" fontweight="7" leading="6">
+                <chunk>5 За минусом налога на добавленную стоимость, акцизов и аналогичных обязательных платежей. </chunk>
+            </paragraph>
+            <paragraph htextalign="left" font="times" fontweight="7" leading="6">
+                <chunk>6 Включая себестоимость продаж, коммерческие и управленческие расходы. </chunk>
+            </paragraph>
+            <paragraph htextalign="left" font="times" fontweight="7" leading="6">
+                <chunk>7 Включая текущий налог на прибыль, изменение отложенных налоговых обязательств и активов </chunk>
+            </paragraph>
+
+        </items>
+    </report>
+</reportDefinition>
+

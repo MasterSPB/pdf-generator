@@ -28,8 +28,9 @@
     	<attribute name="margintop" type="float" use="required"></attribute>
     	<attribute name="marginbottom" type="float" use="required"></attribute>
         <attribute name="pagenumvpos" type="tns:pageNumberVPos"></attribute>
-        <attribute name="pageFont" type="string"></attribute>
+        <attribute name="pagefont" type="string"></attribute>
         <attribute name="pagenumhpos" type="tns:pageNumberHPos"></attribute>
+        <attribute name="pagefontweight" type="int"></attribute>
     </complexType>
 
     <complexType name="table">
@@ -48,6 +49,7 @@
     	<attribute name="spacingafter" type="float"></attribute>
     	<attribute name="mode" type="tns:cellModeType"></attribute>
         <attribute name="verticalalignment" type="string"></attribute>
+        <attribute name="decseparator" type="string"></attribute>
     </complexType>
 
     <complexType name="paragraph">
@@ -142,24 +144,25 @@
 
     <simpleType name="paragraphAlignType">
     	<restriction base="string">
-    		<enumeration value="left"></enumeration>
-    		<enumeration value="right"></enumeration>
-    		<enumeration value="center"></enumeration>
-    		<enumeration value="justify"></enumeration>
-    		<enumeration value="justifyall"></enumeration>
+    		<enumeration value="left"/>
+    		<enumeration value="right"/>
+    		<enumeration value="center"/>
+    		<enumeration value="justify"/>
+    		<enumeration value="justifyall"/>
     	</restriction>
     </simpleType>
 
-    <element name="reportDefinition" type="tns:reportDefinition"></element>
+
+    <element name="reportDefinition" type="tns:reportDefinition"/>
 
     <complexType name="chunk">
     	<simpleContent>
     		<extension base="string">
-    			<attribute name="leading" type="float"></attribute>
-    			<attribute name="font" type="string"></attribute>
-    			<attribute name="fontweight" type="float"></attribute>
-    			<attribute name="property" type="string"></attribute>
-    			<attribute name="fontstyle" type="tns:fontStyles"></attribute>
+    			<attribute name="leading" type="float"/>
+    			<attribute name="font" type="string"/>
+    			<attribute name="fontweight" type="float"/>
+    			<attribute name="property" type="string"/>
+    			<attribute name="fontstyle" type="tns:fontStyles"/>
     			<attribute name="dateformat" type="string">
     				<annotation>
     					<documentation>Используется вместе с заданным значением property. Задаёт формат даты значения property</documentation>
@@ -171,6 +174,17 @@
     		</extension>
     	</simpleContent>
     </complexType>
+
+    <simpleType name="charspacing">
+        <restriction base="int"/>
+    </simpleType>
+
+    <simpleType name="textcase">
+        <restriction base="string">
+            <enumeration value="lower"/>
+            <enumeration value="upper"/>
+        </restriction>
+    </simpleType>
 
     <complexType name="phrase">
     	<sequence>
@@ -389,7 +403,7 @@
     </simpleType>
 
 
-    <simpleType name="fontStyles">
+    <simpleType name="fontStyle">
     	<restriction base="string">
     		<enumeration value="underline"></enumeration>
     		<enumeration value="italic"></enumeration>
@@ -402,21 +416,45 @@
     	</restriction>
     </simpleType>
 
+    <simpleType name="nullFontStyle">
+        <restriction base="string">
+            <enumeration value="underline"></enumeration>
+            <enumeration value="italic"></enumeration>
+            <enumeration value="bold"></enumeration>
+            <enumeration value="bolditalic"></enumeration>
+            <enumeration value="striked"></enumeration>
+            <enumeration value="normal"></enumeration>
+            <enumeration value="default"></enumeration>
+            <enumeration value="undefined"></enumeration>
+        </restriction>
+    </simpleType>
+
     <simpleType name="htextalign">
     	<restriction base="string">
-    		<enumeration value="left"></enumeration>
-    		<enumeration value="center"></enumeration>
-    		<enumeration value="right"></enumeration>
-    		<enumeration value="justify"></enumeration>
-    		<enumeration value="justifyall"></enumeration>
+    		<enumeration value="left"/>
+    		<enumeration value="center"/>
+    		<enumeration value="right"/>
+    		<enumeration value="justify"/>
+    		<enumeration value="justifyall"/>
     	</restriction>
     </simpleType>
 
     <simpleType name="vtextalign">
     	<restriction base="string">
-    		<enumeration value="top"></enumeration>
-    		<enumeration value="middle"></enumeration>
-    		<enumeration value="bottom"></enumeration>
+    		<enumeration value="top"/>
+    		<enumeration value="middle"/>
+    		<enumeration value="bottom"/>
     	</restriction>
+    </simpleType>
+
+    <simpleType name="negativeembrace">
+        <restriction base="boolean"/>
+    </simpleType>
+
+    <simpleType name="index">
+        <restriction base="string">
+            <enumeration value="upper"/>
+            <enumeration value="lower"/>
+        </restriction>
     </simpleType>
 </schema>

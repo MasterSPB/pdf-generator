@@ -1,0 +1,1205 @@
+<?xml version="1.0"?>
+       <clipboard>
+<pagedata>
+<CodeOfRateLIBOR>23</CodeOfRateLIBOR>
+<ResidentINN>344444444443</ResidentINN>
+<pySLAAction>20120405T084753.821 GMT</pySLAAction>
+<PDNumberInAnotherBank5>8</PDNumberInAnotherBank5>
+<pxLockHandle>SBERBANK-FW-FXCTRL-WORK F-10883</pxLockHandle>
+<pyOrigOrgUnit>IT</pyOrigOrgUnit>
+<pzStatus>valid</pzStatus>
+<PDNumberInAnotherBank2>6666</PDNumberInAnotherBank2>
+<PDNumberInAnotherBank1>55555555</PDNumberInAnotherBank1>
+<PDAmount>34534534</PDAmount>
+<AuthorizedBankName>Bank of america</AuthorizedBankName>
+<Sys_ClassGroup>SBERBANK-FW-FXCTRL-WORK</Sys_ClassGroup>
+<PDNumberInAnotherBank3>6666</PDNumberInAnotherBank3>
+<PassportDealDay>11</PassportDealDay>
+<CurrencyCode>345234523</CurrencyCode>
+<pyOrigOrg>sberbank.ru</pyOrigOrg>
+<SLA1Deadline>20120406T195900.000 GMT</SLA1Deadline>
+<pxUrgencyWorkSLA>0</pxUrgencyWorkSLA>
+<pxUpdateOrgUnit>IT</pxUpdateOrgUnit>
+<MarkIFC>true</MarkIFC>
+<pySatisfactionChangeTimestamp>20120405T084753.832 GMT</pySatisfactionChangeTimestamp>
+<pyOrigUserDivision>Legal</pyOrigUserDivision>
+<FXCheckIsDBO>false</FXCheckIsDBO>
+<pyLabelOld>Заявление на оказание услуг</pyLabelOld>
+<ResidentStreet>ленина</ResidentStreet>
+<SLA2Deadline>20120406T195900.000 GMT</SLA2Deadline>
+<PrepareDecisionComment>прап</PrepareDecisionComment>
+<ResidentTown>Зажопинск</ResidentTown>
+<CloseTask>false</CloseTask>
+<ContractorCountryName>ывамывам</ContractorCountryName>
+<pyNotifyQuickStream>QuestionAboutItem</pyNotifyQuickStream>
+<PassportDealNumber1>12222221</PassportDealNumber1>
+<Rate>5.1</Rate>
+<PassportDealNumber2>3443</PassportDealNumber2>
+<RescanRequested>false</RescanRequested>
+<pyHasAttachments>true</pyHasAttachments>
+<PDRestructuringNumber>11</PDRestructuringNumber>
+<ResidentBuilding>23</ResidentBuilding>
+<PassportDealNumber5>7</PassportDealNumber5>
+<PassportDealNumber3>5555</PassportDealNumber3>
+<PDEndingDate>20120427</PDEndingDate>
+<PassportDealNumber4>6</PassportDealNumber4>
+<PDRestructuringYear>2011</PDRestructuringYear>
+<ResidentOGRN>566666666666665</ResidentOGRN>
+<pyOwnerOrgUnit>IT</pyOwnerOrgUnit>
+<pyLabel>Заявление на оказание услуг</pyLabel>
+<pxUrgencyWorkClass>10</pxUrgencyWorkClass>
+<PDDate>20120428</PDDate>
+<ClosingInformationDate>20120428</ClosingInformationDate>
+<pyElapsedCustomerUnsatisfied>0.0</pyElapsedCustomerUnsatisfied>
+<ResidentPlace>деревня</ResidentPlace>
+<pyFlowKey>RULE-OBJ-FLOW SBERBANK-FW-FXCTRL-WORK-CORP PROCESSCORP #20120403T060651.601 GMT</pyFlowKey>
+<PDCodeAgreement>456456</PDCodeAgreement>
+<ProcessType>по кредитному договору</ProcessType>
+<pxInsName>F-10883</pxInsName>
+<pyStatusWorkTimestamp>20120405T085429.902 GMT</pyStatusWorkTimestamp>
+<pyFlowName>ProcessCorp</pyFlowName>
+<StatementInitDateDisplay>01.10.2011</StatementInitDateDisplay>
+<pyFolderType>pyDefault</pyFolderType>
+<ResidentSubjectRF>Россия</ResidentSubjectRF>
+<pxUrgencyPartyTotal>0.0</pxUrgencyPartyTotal>
+<PDRepayment>true</PDRepayment>
+<PercentSurcharge>6767676</PercentSurcharge>
+<OGRNDay>3</OGRNDay>
+<OGRNMonth>4</OGRNMonth>
+<pxUrgencyWork>10.0</pxUrgencyWork>
+<pyElapsedStatusNew>0.0</pyElapsedStatusNew>
+<pyWorkPartiesRule>Default</pyWorkPartiesRule>
+<TaskUrgency>Нет</TaskUrgency>
+<pySLAName>SLAPhase1</pySLAName>
+<Amount>23452345</Amount>
+<PassportDealYear>12</PassportDealYear>
+<pyOrigUserWorkgroup>Default</pyOrigUserWorkgroup>
+<pyNextEmailThreadID>1</pyNextEmailThreadID>
+<pyStatusCustomerSat>New</pyStatusCustomerSat>
+<ContractorName>цукейцукейцук</ContractorName>
+<pyCalendar>MskCSKO</pyCalendar>
+<MarkWB>true</MarkWB>
+<pySLADeadline>20120406T084753.821 GMT</pySLADeadline>
+<PaymentScheduleConditionsReceiv>вкпвыаава</PaymentScheduleConditionsReceiv>
+<Checkbox1>true</Checkbox1>
+<pxCoveredCountUnsatisfied>0</pxCoveredCountUnsatisfied>
+<ResidentName>Наименование</ResidentName>
+<DataAnalysis_ResidentInfo_Name>Ромашка</DataAnalysis_ResidentInfo_Name>
+<ScanLineType>CurrentOperator</ScanLineType>
+<PDNumber>34</PDNumber>
+<ServiceReqFinPackNodeName>Паспорта сделок</ServiceReqFinPackNodeName>
+<IsVIPClient>true</IsVIPClient>
+<pyOrigUserID>eshestukhin</pyOrigUserID>
+<ProcessList>Валютный контроль юридических лиц</ProcessList>
+<pxCreateOperator>eshestukhin</pxCreateOperator>
+<pxCreateSystemID>pega</pxCreateSystemID>
+<pxObjClass>Sberbank-FW-FXCtrl-Work-Corp-ServReq-PSDoByContract</pxObjClass>
+<FXCtrlWB>FXCtrlPS</FXCtrlWB>
+<PDRestructuringMonth>11</PDRestructuringMonth>
+<pxUpdateDateTime>20120405T085429.900 GMT</pxUpdateDateTime>
+<pyElapsedStatusPending>395.0</pyElapsedStatusPending>
+<ContractorCountryCode>45645645</ContractorCountryCode>
+<PSNumber>12222221/3443/5555/6/7</PSNumber>
+<PassportDealMonth>ноября</PassportDealMonth>
+<pxUpdateSystemID>pega</pxUpdateSystemID>
+<PDCurrencyCode>34534534</PDCurrencyCode>
+<pxUpdateOpName>Egor Shestukhin</pxUpdateOpName>
+<pyID>F-10883</pyID>
+<WorkId>CC19S0-0504201210883</WorkId>
+<MarkNotIFO>true</MarkNotIFO>
+<pyWorkIDPrefix>F-</pyWorkIDPrefix>
+<ResidentDistrict>Лугово</ResidentDistrict>
+<ResidentHouseNumber>12</ResidentHouseNumber>
+<MarkDirectInvest>true</MarkDirectInvest>
+<ResidentInfoHouseCheck>true</ResidentInfoHouseCheck>
+<pxCreateDateTime>20120405T084753.668 GMT</pxCreateDateTime>
+<PDEnrollment>true</PDEnrollment>
+<PDClause>true</PDClause>
+<SLA2Goal>20120406T190000.000 GMT</SLA2Goal>
+<MarkOther>true</MarkOther>
+<OGRNYear>2012</OGRNYear>
+<PaymentScheduleConditionsReturn>прарвапрвап</PaymentScheduleConditionsReturn>
+<PDCurrencyName>укпвуапвыа</PDCurrencyName>
+<PDRestructuringDay>12</PDRestructuringDay>
+<pyAgeFromDate>20120405T084753.670 GMT</pyAgeFromDate>
+<pxUpdateOperator>eshestukhin</pxUpdateOperator>
+<ResidentInfoStreetCheck>true</ResidentInfoStreetCheck>
+<pyOwnerOrg>sberbank.ru</pyOwnerOrg>
+<ResidentInfoBuildingCheck>true</ResidentInfoBuildingCheck>
+<CurrentDateString>05.04.2012</CurrentDateString>
+<pySLAGoal>20120409T064753.000 GMT</pySLAGoal>
+<pxCoveredCount>0</pxCoveredCount>
+<pzInsKey>SBERBANK-FW-FXCTRL-WORK F-10883</pzInsKey>
+<pzIndexCount>2</pzIndexCount>
+<IsApproved>true</IsApproved>
+<pyStatusWorkOld>Pending-DocumentsPrintAndScan</pyStatusWorkOld>
+<ResidentKPP>766666667</ResidentKPP>
+<pyConfirmationNote>Thank you for your input</pyConfirmationNote>
+<pyOrigDivision>Legal</pyOrigDivision>
+<BizDayStart>20120405</BizDayStart>
+<pyElapsedStatusOpen>0</pyElapsedStatusOpen>
+<pxApplication>FXCtrlFW</pxApplication>
+<SLA1Goal>20120406T190000.000 GMT</SLA1Goal>
+<ResidentInfoINNCheck>true</ResidentInfoINNCheck>
+<MarkEBRR>true</MarkEBRR>
+<ResidentApartmentNumber>18</ResidentApartmentNumber>
+<ResidentInfoNameCheck>true</ResidentInfoNameCheck>
+<PassportDealNumberBefore>ыфвапфывфыв</PassportDealNumberBefore>
+<pxCreateOpName>Egor Shestukhin</pxCreateOpName>
+<EnsuringAmount>32562345</EnsuringAmount>
+<OtherRateMethods>234</OtherRateMethods>
+<pyOwnerDivision>Legal</pyOwnerDivision>
+<pyStatusWork>Pending-DocumentsPrintAndScan</pyStatusWork>
+<pxCoveredCountOpen>0</pxCoveredCountOpen>
+<pyTemporaryObject>false</pyTemporaryObject>
+<DocumentPackage>
+<OperationCode>CC19FS</OperationCode>
+<WebScanLaunched>false</WebScanLaunched>
+<pxObjClass>Sberbank-Data-DocumentPackage</pxObjClass>
+<UserRole>Editor</UserRole>
+<OperationCodeDict>00000</OperationCodeDict>
+<SubDomain>test.tb38</SubDomain>
+<SkeletonTemplate>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;SkeletonTemplate&gt;
+	&lt;skeleton&gt;
+		&lt;version&gt;02.01&lt;/version&gt;
+		&lt;attrs_definition&gt;&lt;/attrs_definition&gt;
+		&lt;attrSets_definition&gt;&lt;/attrSets_definition&gt;
+		&lt;package_info&gt;
+			&lt;package_attrSet&gt;pkgAttrSet&lt;/package_attrSet&gt;
+			&lt;package_attrValues&gt;&lt;/package_attrValues&gt;
+			&lt;package_winTitle position="replace"&gt;Заявление на оказание услуг&lt;/package_winTitle&gt;
+			&lt;package_rootTitle position="replace"&gt;Заявление на оказание услуг&lt;/package_rootTitle&gt;
+		&lt;/package_info&gt;
+		&lt;package_data&gt;
+			&lt;document optional="false"&gt;
+				&lt;document_uid&gt;1&lt;/document_uid&gt;
+				&lt;document_name&gt;Документы, представленные клиентом&lt;/document_name&gt;
+				&lt;document_external_uid&gt;10059&lt;/document_external_uid&gt;
+				&lt;focus&gt;&lt;/focus&gt;
+			&lt;/document&gt;
+			&lt;document optional="true"&gt;
+				&lt;document_uid&gt;9999&lt;/document_uid&gt;
+				&lt;document_name&gt;ABBYY&lt;/document_name&gt;
+				&lt;freeze permanent="true" hidden="true"&gt;true&lt;/freeze&gt;
+			&lt;/document&gt;
+			&lt;page&gt;
+				&lt;page_uid&gt;10000&lt;/page_uid&gt;
+				&lt;page_doc_uid&gt;9999&lt;/page_doc_uid&gt;
+				&lt;page_number&gt;Служебная информация, стр. 1&lt;/page_number&gt;
+				&lt;page_external_uid&gt;11184810&lt;/page_external_uid&gt;
+				&lt;page_external_content_id ext="xml" coding="utf8"&gt;ABBYY&lt;/page_external_content_id&gt;
+				&lt;freeze permanent="false"&gt;true&lt;/freeze&gt;
+				&lt;replace/&gt;
+			&lt;/page&gt;
+		&lt;/package_data&gt;
+	&lt;/skeleton&gt;
+	&lt;AttributesDefinition&gt;
+		&lt;Attribute type="1" flags="VS" id="wf_0018"&gt;
+			&lt;title&gt;ИНН&lt;/title&gt;
+		&lt;/Attribute&gt;
+		&lt;Attribute type="1" flags="VS" id="wf_0021"&gt;
+			&lt;title&gt;КПП&lt;/title&gt;
+		&lt;/Attribute&gt;
+		&lt;Attribute type="1" flags="VS" id="wf_0001"&gt;
+			&lt;title&gt;Вид банковского процесса&lt;/title&gt;
+		&lt;/Attribute&gt;
+		&lt;Attribute type="1" flags="VS" id="wf_0248"&gt;
+			&lt;title&gt;Тип документа&lt;/title&gt;
+		&lt;/Attribute&gt;
+		&lt;Attribute type="1" flags="VS" id="wf_0019"&gt;
+			&lt;title&gt;Наименование клиента&lt;/title&gt;
+		&lt;/Attribute&gt;
+		&lt;Attribute type="1" flags="VS" id="wf_0127"&gt;
+			&lt;title&gt;Номер ТБ&lt;/title&gt;
+		&lt;/Attribute&gt;
+		&lt;Attribute type="1" flags="VS" id="wf_0004"&gt;
+			&lt;title&gt;Номер ОСБ&lt;/title&gt;
+		&lt;/Attribute&gt;
+		&lt;Attribute type="1" flags="VS" id="wf_0003"&gt;
+			&lt;title&gt;Номер ВСП&lt;/title&gt;
+		&lt;/Attribute&gt;
+		&lt;Attribute type="1" flags="VS" id="wf_0014"&gt;
+			&lt;title&gt;Дата заявления&lt;/title&gt;
+		&lt;/Attribute&gt;
+		&lt;Attribute type="1" flags="" id="wf_0128"&gt;
+			&lt;title&gt;ID пакета&lt;/title&gt;
+		&lt;/Attribute&gt;
+		&lt;Attribute type="1" flags="VS" id="wf_0129"&gt;
+			&lt;title&gt;Штрих-код&lt;/title&gt;
+		&lt;/Attribute&gt;
+		&lt;Attribute type="1" flags="VS" id="wf_0046"&gt;
+			&lt;title&gt;Паспорт сделки&lt;/title&gt;
+		&lt;/Attribute&gt;
+		&lt;Attribute type="1" flags="VS" id="wf_0253"&gt;
+			&lt;title&gt;ID Объекта в BPM&lt;/title&gt;
+		&lt;/Attribute&gt;
+
+
+		&lt;Attribute type="1" flags="S" id="sc_0001"&gt;
+			&lt;title&gt;Тип клиента:&lt;/title&gt;
+		&lt;/Attribute&gt;
+		&lt;Attribute type="1" flags="" id="package_type"&gt;
+			&lt;title&gt;Название пакета:&lt;/title&gt;
+		&lt;/Attribute&gt;
+		&lt;Attribute type="1" flags="VS" id="wf_0002"&gt;
+			&lt;title&gt;Название пакета&lt;/title&gt;
+		&lt;/Attribute&gt;
+	&lt;/AttributesDefinition&gt;
+	&lt;AttributeSetsDefinition&gt;
+		&lt;AttributeSet id="pkgAttrSet"&gt;
+			&lt;attr_id&gt;wf_0018&lt;/attr_id&gt;
+			&lt;attr_id&gt;wf_0021&lt;/attr_id&gt;
+			&lt;attr_id&gt;wf_0001&lt;/attr_id&gt;
+			&lt;attr_id&gt;wf_0248&lt;/attr_id&gt;
+			&lt;attr_id&gt;wf_0019&lt;/attr_id&gt;
+			&lt;attr_id&gt;wf_0127&lt;/attr_id&gt;
+			&lt;attr_id&gt;wf_0004&lt;/attr_id&gt;
+			&lt;attr_id&gt;wf_0003&lt;/attr_id&gt;
+			&lt;attr_id&gt;wf_0014&lt;/attr_id&gt;
+			&lt;attr_id&gt;wf_0128&lt;/attr_id&gt;
+			&lt;attr_id&gt;wf_0129&lt;/attr_id&gt;
+			&lt;attr_id&gt;wf_0046&lt;/attr_id&gt;
+			&lt;attr_id&gt;wf_0253&lt;/attr_id&gt;
+
+			&lt;attr_id&gt;sc_0001&lt;/attr_id&gt;
+			&lt;attr_id&gt;wf_0002&lt;/attr_id&gt;
+			&lt;attr_id&gt;package_type&lt;/attr_id&gt;
+		&lt;/AttributeSet&gt;
+	&lt;/AttributeSetsDefinition&gt;
+&lt;/SkeletonTemplate&gt;</SkeletonTemplate>
+<PackageModified>true</PackageModified>
+<FullnessCheck REPEATINGTYPE="PropertyList"/>
+<DocumentAttributeValues REPEATINGTYPE="PageGroup"
+/>
+<OperatingMode REPEATINGTYPE="PropertyList">
+<rowdata REPEATINGINDEX="1">ReadyToFinalize</rowdata>
+<rowdata REPEATINGINDEX="2">EditFinalized</rowdata>
+<rowdata REPEATINGINDEX="3">AddOnly</rowdata>
+</OperatingMode>
+<PackageAttributeValues REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<Id>sc_0001</Id>
+<pxObjClass>Sberbank-Data-AttributeValue</pxObjClass>
+<Value>1</Value>
+</rowdata>
+<rowdata REPEATINGINDEX="2">
+<Id>package_type</Id>
+<pxObjClass>Sberbank-Data-AttributeValue</pxObjClass>
+<Value>Оформление/переоформление ПС</Value>
+</rowdata>
+<rowdata REPEATINGINDEX="3">
+<Id>wf_0018</Id>
+<pxObjClass>Sberbank-Data-AttributeValue</pxObjClass>
+<Value>7723563470</Value>
+</rowdata>
+<rowdata REPEATINGINDEX="4">
+<Id>wf_0021</Id>
+<pxObjClass>Sberbank-Data-AttributeValue</pxObjClass>
+<Value>123456789</Value>
+</rowdata>
+<rowdata REPEATINGINDEX="5">
+<Id>wf_0001</Id>
+<pxObjClass>Sberbank-Data-AttributeValue</pxObjClass>
+<Value>UL19-FXControl</Value>
+</rowdata>
+<rowdata REPEATINGINDEX="6">
+<Id>wf_0248</Id>
+<pxObjClass>Sberbank-Data-AttributeValue</pxObjClass>
+<Value>UL19-ServReq</Value>
+</rowdata>
+<rowdata REPEATINGINDEX="7">
+<Id>wf_0019</Id>
+<pxObjClass>Sberbank-Data-AttributeValue</pxObjClass>
+<Value>ООО Оманид</Value>
+</rowdata>
+<rowdata REPEATINGINDEX="8">
+<Id>wf_0127</Id>
+<pxObjClass>Sberbank-Data-AttributeValue</pxObjClass>
+<Value>038</Value>
+</rowdata>
+<rowdata REPEATINGINDEX="9">
+<Id>wf_0004</Id>
+<pxObjClass>Sberbank-Data-AttributeValue</pxObjClass>
+<Value>2557</Value>
+</rowdata>
+<rowdata REPEATINGINDEX="10">
+<Id>wf_0003</Id>
+<pxObjClass>Sberbank-Data-AttributeValue</pxObjClass>
+<Value>055</Value>
+</rowdata>
+<rowdata REPEATINGINDEX="11">
+<Id>wf_0014</Id>
+<pxObjClass>Sberbank-Data-AttributeValue</pxObjClass>
+<Value>20111001</Value>
+</rowdata>
+<rowdata REPEATINGINDEX="12">
+<Id>wf_0128</Id>
+<pxObjClass>Sberbank-Data-AttributeValue</pxObjClass>
+</rowdata>
+<rowdata REPEATINGINDEX="13">
+<Id>wf_0129</Id>
+<pxObjClass>Sberbank-Data-AttributeValue</pxObjClass>
+</rowdata>
+<rowdata REPEATINGINDEX="14">
+<Id>wf_0046</Id>
+<pxObjClass>Sberbank-Data-AttributeValue</pxObjClass>
+</rowdata>
+<rowdata REPEATINGINDEX="15">
+<Id>wf_0253</Id>
+<pxObjClass>Sberbank-Data-AttributeValue</pxObjClass>
+<Value>F-10883</Value>
+</rowdata>
+<rowdata REPEATINGINDEX="16">
+<Id>wf_0002</Id>
+<pxObjClass>Sberbank-Data-AttributeValue</pxObjClass>
+<Value>UL19-ServReq</Value>
+</rowdata>
+</PackageAttributeValues>
+</DocumentPackage>
+<pyAttachmentCategories REPEATINGTYPE="PropertyList"/>
+<CommonDataCreditArg REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<pxCreateOperator>eshestukhin</pxCreateOperator>
+<pxCreateSystemID>pega</pxCreateSystemID>
+<pxObjClass>Sberbank-FW-FXCtrl-Data-CommonDataCreditAgr</pxObjClass>
+<pxCreateOpName>Egor Shestukhin</pxCreateOpName>
+<pxCreateDateTime>20120405T085202.052 GMT</pxCreateDateTime>
+<Time>2</Time>
+<Amount>1</Amount>
+</rowdata>
+<rowdata REPEATINGINDEX="2">
+<pxCreateOperator>eshestukhin</pxCreateOperator>
+<pxCreateSystemID>pega</pxCreateSystemID>
+<pxObjClass>Sberbank-FW-FXCtrl-Data-CommonDataCreditAgr</pxObjClass>
+<pxCreateOpName>Egor Shestukhin</pxCreateOpName>
+<pxCreateDateTime>20120405T085203.165 GMT</pxCreateDateTime>
+<Time>1</Time>
+<Amount>12</Amount>
+</rowdata>
+<rowdata REPEATINGINDEX="3">
+<pxCreateOperator>eshestukhin</pxCreateOperator>
+<pxCreateSystemID>pega</pxCreateSystemID>
+<pxObjClass>Sberbank-FW-FXCtrl-Data-CommonDataCreditAgr</pxObjClass>
+<pxCreateOpName>Egor Shestukhin</pxCreateOpName>
+<pxCreateDateTime>20120405T085203.925 GMT</pxCreateDateTime>
+<Time>7</Time>
+<Amount>14</Amount>
+</rowdata>
+</CommonDataCreditArg>
+<ExposedData>
+<Proc_DocPackageTitle>Заявление на оказание услуги</Proc_DocPackageTitle>
+<pxObjClass>Sberbank-FW-BBMO-Data-WorkObjectExposedData</pxObjClass>
+<Proc_ProcessDef>UL19-FXControl</Proc_ProcessDef>
+<App_OriginBranchFullCode>2557/055</App_OriginBranchFullCode>
+<Client_FullName>ООО Оманид</Client_FullName>
+<Proc_ProcessDefTitle>Валютный контроль юридических лиц</Proc_ProcessDefTitle>
+<App_OriginBranchTB>038</App_OriginBranchTB>
+<App_OriginBranchOSB>2557</App_OriginBranchOSB>
+<App_IssueDate>20111001</App_IssueDate>
+<Proc_DocPackage>UL19-ServReq</Proc_DocPackage>
+<App_IssueDateTime>20120405T084753.668 GMT</App_IssueDateTime>
+<Work_StatusTitle>Обработка заключения валютного контролера</Work_StatusTitle>
+<Client_INN>7723563470</Client_INN>
+<App_OriginBranchVSP>055</App_OriginBranchVSP>
+</ExposedData>
+<DocumentPackageSettings>
+<Skeleton>&lt;skeleton&gt; &lt;version&gt;02.01&lt;/version&gt; &lt;attrs_definition&gt;001F010777665F303031380201010304000001010408FEFF0418041D041D060000001F010777665F303032310201010304000001010408FEFF041A041F041F0600000049010777665F303030310201010304000001010432FEFF041204380434002004310430043D043A043E04320441043A043E0433043E0020043F0440043E044604350441044104300600000033010777665F30323438020101030400000101041CFEFF04220438043F00200434043E043A0443043C0435043D044204300600000041010777665F30303139020101030400000101042AFEFF041D04300438043C0435043D043E04320430043D043804350020043A043B04380435043D044204300600000029010777665F303132370201010304000001010412FEFF041D043E043C04350440002004220411060000002B010777665F303030340201010304000001010414FEFF041D043E043C043504400020041E04210411060000002B010777665F303030330201010304000001010414FEFF041D043E043C04350440002004120421041F0600000035010777665F30303134020101030400000101041EFEFF0414043004420430002004370430044F0432043B0435043D0438044F060000002B010777665F303132380201010304000000000414FEFF004900440020043F0430043A043504420430060000002B010777665F303132390201010304000001010414FEFF04280442044004380445002D043A043E04340600000035010777665F30303436020101030400000101041EFEFF041F04300441043F043E044004420020044104340435043B043A04380600000039010777665F303235330201010304000001010422FEFF004900440020041E0431044A0435043A0442043000200432002000420050004D0600000031010773635F30303031020101030400000100041AFEFF04220438043F0020043A043B04380435043D04420430003A060000003E010C7061636B6167655F747970650201010304000000000422FEFF041D0430043704320430043D043804350020043F0430043A043504420430003A0600000037010777665F303030320201010304000001010420FEFF041D0430043704320430043D043804350020043F0430043A0435044204300600000053010773635F30303130020101030400000101043CFEFF041A043E0434002004420438043F0430002004310430043D043A043E04320441043A043E0433043E0020043F0440043E04460435044104410430060000006B010773635F303031310201010304000001010454FEFF041A043E0434002004420438043F04300020043F043E0434043F0440043E04460435044104410430002004310430043D043A043E04320441043A043E0433043E0020043F0440043E04460435044104410430060000&lt;/attrs_definition&gt; &lt;attrSets_definition&gt;00A4010A706B67417474725365740200950777665F303031380777665F303032310777665F303030310777665F303234380777665F303031390777665F303132370777665F303030340777665F303030330777665F303031340777665F303132380777665F303132390777665F303034360777665F303235330773635F303030310777665F303030320C7061636B6167655F747970650773635F303031300773635F30303131&lt;/attrSets_definition&gt; &lt;package_info&gt; &lt;package_attrSet&gt;pkgAttrSet&lt;/package_attrSet&gt; &lt;package_attrValues&gt;0010010773635F30303031050004FEFF0031004B010C7061636B6167655F7479706505003AFEFF041E0444043E0440043C043B0435043D04380435002F043F043504400435043E0444043E0440043C043B0435043D043804350020041F04210022010777665F30303138050016FEFF00370037003200330035003600330034003700300020010777665F30303231050014FEFF003100320033003400350036003700380039002A010777665F3030303105001EFEFF0055004C00310039002D004600580043006F006E00740072006F006C0026010777665F3032343805001AFEFF0055004C00310039002D00530065007200760052006500710022010777665F30303139050016FEFF041E041E041E0020041E043C0430043D043804340014010777665F30313237050008FEFF0030003300380016010777665F3030303405000AFEFF00320035003500370014010777665F30303033050008FEFF003000350035001E010777665F30303134050012FEFF00320030003100310031003000300031000C010777665F30313238050000000C010777665F30313239050000000C010777665F30303436050000001C010777665F30323533050010FEFF0046002D003100300038003800330026010777665F3030303205001AFEFF0055004C00310039002D00530065007200760052006500710016010773635F3030313005000AFEFF00430043003100390012010773635F30303131050006FEFF00460053&lt;/package_attrValues&gt; &lt;package_winTitle position="replace"&gt;FEFF04170430044F0432043B0435043D043804350020043D04300020043E043A043004370430043D04380435002004430441043B04430433&lt;/package_winTitle&gt; &lt;package_rootTitle position="replace"&gt;FEFF04170430044F0432043B0435043D043804350020043D04300020043E043A043004370430043D04380435002004430441043B04430433&lt;/package_rootTitle&gt; &lt;/package_info&gt; &lt;package_data&gt; &lt;document optional="false"&gt; &lt;document_uid&gt;000001&lt;/document_uid&gt; &lt;document_name&gt;FEFF0414043E043A0443043C0435043D0442044B002C0020043F0440043504340441044204300432043B0435043D043D044B04350020043A043B04380435043D0442043E043C&lt;/document_name&gt; &lt;document_external_uid&gt;0000274B&lt;/document_external_uid&gt;      &lt;focus/&gt; &lt;/document&gt;&lt;document optional="true"&gt; &lt;document_uid&gt;00270F&lt;/document_uid&gt; &lt;document_name&gt;FEFF00410042004200590059&lt;/document_name&gt; &lt;document_external_uid&gt;00000000&lt;/document_external_uid&gt;     &lt;freeze permanent="true" hidden="true"/&gt;  &lt;/document&gt; &lt;page&gt; &lt;page_uid&gt;002710&lt;/page_uid&gt; &lt;page_doc_uid&gt;00270F&lt;/page_doc_uid&gt; &lt;page_number&gt;FEFF0421043B0443043604350431043D0430044F00200438043D0444043E0440043C043004460438044F002C0020044104420440002E00200031&lt;/page_number&gt; &lt;page_external_uid&gt;00AAAAAA&lt;/page_external_uid&gt;    &lt;page_external_content_id ext="xml" coding="utf8"&gt;ABBYY&lt;/page_external_content_id&gt;  &lt;freeze permanent="false"/&gt;  &lt;replace/&gt; &lt;/page&gt; &lt;/package_data&gt;     &lt;/skeleton&gt; </Skeleton>
+<pxCreateOperator>eshestukhin</pxCreateOperator>
+<HasChanged>false</HasChanged>
+<pxCreateSystemID>pega</pxCreateSystemID>
+<pxObjClass>Sberbank-Int-ECM-TSOA-PackageSettings</pxObjClass>
+<PackageName>_DIC5_00000_06_CC19FS_05042012_124756_03_000_F-10883</PackageName>
+<HardIfDssCtx>01DECEF1CA0000000D2F62626D6F2F30302D6465762F0000001D2F666366735F6D657461646174612F66612F62626D6F2F30302D646576000000192F666366735F646174612F66612F62626D6F2F30302D646576000000172F4444425F62626D6F2E746573742E746233385F4444450000000C323031312F303833312F3131FE30C46B33</HardIfDssCtx>
+<HardEFN>fa0185350___DIC5_00000_08_CC21R1M1_31082011_111101_3_000__HC0D59012680EBE84F0DF968DA1847AC9__0000_l00004F58h69790435rE57An0002.zip.disa</HardEFN>
+<BatchCreationCompleted>false</BatchCreationCompleted>
+<PackageStructureXML>&lt;pkg&gt;&lt;pkg_name&gt;_DIC5_00000_06_CC19P1_17022012_174342_A000_228_0032003000310032002D00300032002D00310037_005_C-954&lt;/pkg_name&gt;&lt;pkg_tot_docs&gt;13&lt;/pkg_tot_docs&gt;&lt;pkg_tot_pages&gt;12&lt;/pkg_tot_pages&gt;&lt;doc&gt;&lt;doc_name&gt;FEFF04170430044F0432043B0435043D043804350020043D043000200432044B043F043B0430044204430020043A043E043C043F0435043D0441043004460438043800200432043A043B0430043404470438043A0443&lt;/doc_name&gt;&lt;doc_tot_pages&gt;0&lt;/doc_tot_pages&gt;&lt;doc_ext_uid&gt;00002727&lt;/doc_ext_uid&gt;&lt;/doc&gt;&lt;doc&gt;&lt;doc_name&gt;FEFF041A043E043F0438044F0020003100200441044204400430043D04380446044B0020043F04300441043F043E044004420430&lt;/doc_name&gt;&lt;doc_tot_pages&gt;0&lt;/doc_tot_pages&gt;&lt;doc_ext_uid&gt;00002728&lt;/doc_ext_uid&gt;&lt;/doc&gt;&lt;doc&gt;&lt;doc_name&gt;FEFF041A043E043F0438044F0020043B0438044604350432043E0433043E002004410447043504420430&lt;/doc_name&gt;&lt;doc_tot_pages&gt;0&lt;/doc_tot_pages&gt;&lt;doc_ext_uid&gt;00002729&lt;/doc_ext_uid&gt;&lt;/doc&gt;&lt;doc&gt;&lt;doc_name&gt;FEFF041704300432043504490430043D04380435&lt;/doc_name&gt;&lt;doc_tot_pages&gt;10&lt;/doc_tot_pages&gt;&lt;doc_ext_uid&gt;0000272A&lt;/doc_ext_uid&gt;&lt;page&gt;&lt;page_num&gt;FEFF042804420443043A0430044204430440043A0430002E0062006D0070&lt;/page_num&gt;&lt;page_ext_uid&gt;01000001&lt;/page_ext_uid&gt;&lt;/page&gt;&lt;page&gt;&lt;page_num&gt;FEFF041A043E044404350439043D044F002E0062006D0070&lt;/page_num&gt;&lt;page_ext_uid&gt;01000002&lt;/page_ext_uid&gt;&lt;/page&gt;&lt;page&gt;&lt;page_num&gt;FEFF042804420443043A0430044204430440043A0430002E0062006D00700020002800310029&lt;/page_num&gt;&lt;page_ext_uid&gt;01000003&lt;/page_ext_uid&gt;&lt;/page&gt;&lt;page&gt;&lt;page_num&gt;FEFF041F04430437044B04400438002E0062006D0070&lt;/page_num&gt;&lt;page_ext_uid&gt;01000004&lt;/page_ext_uid&gt;&lt;/page&gt;&lt;page&gt;&lt;page_num&gt;FEFF0413043E043B04430431044B04350020043A044004430436043504320430002000310036002E0062006D0070&lt;/page_num&gt;&lt;page_ext_uid&gt;01000005&lt;/page_ext_uid&gt;&lt;/page&gt;&lt;page&gt;&lt;page_num&gt;FEFF041D043000200440044B04310430043B043A0443002E0062006D0070&lt;/page_num&gt;&lt;page_ext_uid&gt;01000006&lt;/page_ext_uid&gt;&lt;/page&gt;&lt;page&gt;&lt;page_num&gt;FEFF042804420443043A0430044204430440043A0430002E0062006D00700020002800320029&lt;/page_num&gt;&lt;page_ext_uid&gt;01000007&lt;/page_ext_uid&gt;&lt;/page&gt;&lt;page&gt;&lt;page_num&gt;FEFF0031&lt;/page_num&gt;&lt;page_ext_uid&gt;01000008&lt;/page_ext_uid&gt;&lt;/page&gt;&lt;page&gt;&lt;page_num&gt;FEFF041D043E0447043D043E04390020043A043E0432044B043B044C002E0062006D0070&lt;/page_num&gt;&lt;page_ext_uid&gt;01000009&lt;/page_ext_uid&gt;&lt;/page&gt;&lt;page&gt;&lt;page_num&gt;FEFF0421043804400435043D04350432044B04390020043F04430445002E0062006D0070&lt;/page_num&gt;&lt;page_ext_uid&gt;0100000A&lt;/page_ext_uid&gt;&lt;/page&gt;&lt;/doc&gt;&lt;doc&gt;&lt;doc_name&gt;FEFF041E04400434043504400430002000350031002F00330036&lt;/doc_name&gt;&lt;doc_tot_pages&gt;0&lt;/doc_tot_pages&gt;&lt;doc_ext_uid&gt;0000272B&lt;/doc_ext_uid&gt;&lt;/doc&gt;&lt;doc&gt;&lt;doc_name&gt;FEFF0420043004410445043E0434043D044B04350020043E04400434043504400430&lt;/doc_name&gt;&lt;doc_tot_pages&gt;0&lt;/doc_tot_pages&gt;&lt;doc_ext_uid&gt;0000272C&lt;/doc_ext_uid&gt;&lt;/doc&gt;&lt;doc&gt;&lt;doc_name&gt;FEFF041A043E043F0438044F0020003100200441044204400430043D04380446044B00200441002F043A043D04380436043A04380020043F043E00200434043504390441044204320443044E04490438043C002004410447043504420430043C&lt;/doc_name&gt;&lt;doc_tot_pages&gt;0&lt;/doc_tot_pages&gt;&lt;doc_ext_uid&gt;0000272D&lt;/doc_ext_uid&gt;&lt;/doc&gt;&lt;doc&gt;&lt;doc_name&gt;FEFF041F043E044104420430043D043E0432043B0435043D043804350020043D043E0442043004400438044304410430002000280432043E0437043C043E0436043D043E0020043F044004380020043A043E043C043F0435043D044104300446043804380020043D04300020044004380442002E04430441043B0443043304380029&lt;/doc_name&gt;&lt;doc_tot_pages&gt;0&lt;/doc_tot_pages&gt;&lt;doc_ext_uid&gt;00002731&lt;/doc_ext_uid&gt;&lt;/doc&gt;&lt;doc&gt;&lt;doc_name&gt;FEFF0421043204380434043504420435043B044C044104420432043E0020043E00200441043C0435044004420438002000200028043E0431044F0437043004420435043B044C043D043E0020043F044004380020043A043E043C043F0435043D044104300446043804380020043D04300020044004380442002E04430441043B0443043304380029&lt;/doc_name&gt;&lt;doc_tot_pages&gt;0&lt;/doc_tot_pages&gt;&lt;doc_ext_uid&gt;00002732&lt;/doc_ext_uid&gt;&lt;/doc&gt;&lt;doc&gt;&lt;doc_name&gt;FEFF0421043204380434043504420435043B044C044104420432043E0020043E0020043F044004300432043500200441043E04310441044204320435043D043D043E044104420438&lt;/doc_name&gt;&lt;doc_tot_pages&gt;1&lt;/doc_tot_pages&gt;&lt;doc_ext_uid&gt;00002733&lt;/doc_ext_uid&gt;&lt;page&gt;&lt;page_num&gt;FEFF0421043B0443043604350431043D0430044F00200438043D0444043E0440043C043004460438044F002C0020044104420440002E0032&lt;/page_num&gt;&lt;page_ext_uid&gt;00024FDB&lt;/page_ext_uid&gt;&lt;/page&gt;&lt;/doc&gt;&lt;doc&gt;&lt;doc_name&gt;FEFF0421043204380434043504420435043B044C044104420432043E0020043E0020043F04400430043204350020043D04300020043D04300441043B04350434044104420432043E&lt;/doc_name&gt;&lt;doc_tot_pages&gt;0&lt;/doc_tot_pages&gt;&lt;doc_ext_uid&gt;00002734&lt;/doc_ext_uid&gt;&lt;/doc&gt;&lt;doc&gt;&lt;doc_name&gt;FEFF041F04210020043F043E0434043F043804410430043D043D044B0439002004110430043D043A043E043C&lt;/doc_name&gt;&lt;doc_tot_pages&gt;0&lt;/doc_tot_pages&gt;&lt;doc_ext_uid&gt;00002735&lt;/doc_ext_uid&gt;&lt;/doc&gt;&lt;doc&gt;&lt;doc_name&gt;FEFF00410042004200590059&lt;/doc_name&gt;&lt;doc_tot_pages&gt;1&lt;/doc_tot_pages&gt;&lt;doc_ext_uid&gt;00000000&lt;/doc_ext_uid&gt;&lt;page&gt;&lt;page_num&gt;FEFF0421043B0443043604350431043D0430044F00200438043D0444043E0440043C043004460438044F002C0020044104420440002E0031&lt;/page_num&gt;&lt;page_ext_uid&gt;00AAAAAA&lt;/page_ext_uid&gt;&lt;/page&gt;&lt;/doc&gt;&lt;/pkg&gt;</PackageStructureXML>
+<pxCreateOpName>Egor Shestukhin</pxCreateOpName>
+<pxCreateDateTime>20120405T084756.276 GMT</pxCreateDateTime>
+<IsSkeletonModified>false</IsSkeletonModified>
+<PackageState>Saved</PackageState>
+<IsFullPackage>true</IsFullPackage>
+<AlowUnstructuredWarnings>false</AlowUnstructuredWarnings>
+<SubDomain>test.tb38</SubDomain>
+<PackageStructure>
+<PagesTotal>12</PagesTotal>
+<pxObjClass>Sberbank-Data-ECM-Package</pxObjClass>
+<Documents REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<DocumentType>10023</DocumentType>
+<pxObjClass>Sberbank-Data-ECM-Document</pxObjClass>
+<DocumentName>Заявление на выплату компенсации вкладчику</DocumentName>
+</rowdata>
+<rowdata REPEATINGINDEX="2">
+<DocumentType>10024</DocumentType>
+<pxObjClass>Sberbank-Data-ECM-Document</pxObjClass>
+<DocumentName>Копия 1 страницы паспорта</DocumentName>
+</rowdata>
+<rowdata REPEATINGINDEX="3">
+<DocumentType>10025</DocumentType>
+<pxObjClass>Sberbank-Data-ECM-Document</pxObjClass>
+<DocumentName>Копия лицевого счета</DocumentName>
+</rowdata>
+<rowdata REPEATINGINDEX="4">
+<DocumentType>10026</DocumentType>
+<pxObjClass>Sberbank-Data-ECM-Document</pxObjClass>
+<DocumentName>Завещание</DocumentName>
+<Pages REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<pxObjClass>Sberbank-Data-ECM-Page</pxObjClass>
+<UID>16777217</UID>
+<PageName>Штукатурка.bmp</PageName>
+</rowdata>
+<rowdata REPEATINGINDEX="2">
+<pxObjClass>Sberbank-Data-ECM-Page</pxObjClass>
+<UID>16777218</UID>
+<PageName>Кофейня.bmp</PageName>
+</rowdata>
+<rowdata REPEATINGINDEX="3">
+<pxObjClass>Sberbank-Data-ECM-Page</pxObjClass>
+<UID>16777219</UID>
+<PageName>Штукатурка.bmp (1)</PageName>
+</rowdata>
+<rowdata REPEATINGINDEX="4">
+<pxObjClass>Sberbank-Data-ECM-Page</pxObjClass>
+<UID>16777220</UID>
+<PageName>Пузыри.bmp</PageName>
+</rowdata>
+<rowdata REPEATINGINDEX="5">
+<pxObjClass>Sberbank-Data-ECM-Page</pxObjClass>
+<UID>16777221</UID>
+<PageName>Голубые кружева 16.bmp</PageName>
+</rowdata>
+<rowdata REPEATINGINDEX="6">
+<pxObjClass>Sberbank-Data-ECM-Page</pxObjClass>
+<UID>16777222</UID>
+<PageName>На рыбалку.bmp</PageName>
+</rowdata>
+<rowdata REPEATINGINDEX="7">
+<pxObjClass>Sberbank-Data-ECM-Page</pxObjClass>
+<UID>16777223</UID>
+<PageName>Штукатурка.bmp (2)</PageName>
+</rowdata>
+<rowdata REPEATINGINDEX="8">
+<pxObjClass>Sberbank-Data-ECM-Page</pxObjClass>
+<UID>16777224</UID>
+<PageName>1</PageName>
+</rowdata>
+<rowdata REPEATINGINDEX="9">
+<pxObjClass>Sberbank-Data-ECM-Page</pxObjClass>
+<UID>16777225</UID>
+<PageName>Ночной ковыль.bmp</PageName>
+</rowdata>
+<rowdata REPEATINGINDEX="10">
+<pxObjClass>Sberbank-Data-ECM-Page</pxObjClass>
+<UID>16777226</UID>
+<PageName>Сиреневый пух.bmp</PageName>
+</rowdata>
+</Pages>
+</rowdata>
+<rowdata REPEATINGINDEX="5">
+<DocumentType>10027</DocumentType>
+<pxObjClass>Sberbank-Data-ECM-Document</pxObjClass>
+<DocumentName>Ордера 51/36</DocumentName>
+</rowdata>
+<rowdata REPEATINGINDEX="6">
+<DocumentType>10028</DocumentType>
+<pxObjClass>Sberbank-Data-ECM-Document</pxObjClass>
+<DocumentName>Расходные ордера</DocumentName>
+</rowdata>
+<rowdata REPEATINGINDEX="7">
+<DocumentType>10029</DocumentType>
+<pxObjClass>Sberbank-Data-ECM-Document</pxObjClass>
+<DocumentName>Копия 1 страницы с/книжки по действующим счетам</DocumentName>
+</rowdata>
+<rowdata REPEATINGINDEX="8">
+<DocumentType>10033</DocumentType>
+<pxObjClass>Sberbank-Data-ECM-Document</pxObjClass>
+<DocumentName>Постановление нотариуса (возможно при компенсации на рит.услуги)</DocumentName>
+</rowdata>
+<rowdata REPEATINGINDEX="9">
+<DocumentType>10034</DocumentType>
+<pxObjClass>Sberbank-Data-ECM-Document</pxObjClass>
+<DocumentName>Свидетельство о смерти  (обязательно при компенсации на рит.услуги)</DocumentName>
+</rowdata>
+<rowdata REPEATINGINDEX="10">
+<DocumentType>10035</DocumentType>
+<pxObjClass>Sberbank-Data-ECM-Document</pxObjClass>
+<DocumentName>Свидетельство о праве собственности</DocumentName>
+<Pages REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<pxObjClass>Sberbank-Data-ECM-Page</pxObjClass>
+<UID>151515</UID>
+<PageName>Служебная информация, стр.2</PageName>
+</rowdata>
+</Pages>
+</rowdata>
+<rowdata REPEATINGINDEX="11">
+<DocumentType>10036</DocumentType>
+<pxObjClass>Sberbank-Data-ECM-Document</pxObjClass>
+<DocumentName>Свидетельство о праве на наследство</DocumentName>
+</rowdata>
+<rowdata REPEATINGINDEX="12">
+<DocumentType>10037</DocumentType>
+<pxObjClass>Sberbank-Data-ECM-Document</pxObjClass>
+<DocumentName>ПС подписанный Банком</DocumentName>
+</rowdata>
+<rowdata REPEATINGINDEX="13">
+<DocumentType>0</DocumentType>
+<pxObjClass>Sberbank-Data-ECM-Document</pxObjClass>
+<DocumentName>ABBYY</DocumentName>
+<Pages REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<pxObjClass>Sberbank-Data-ECM-Page</pxObjClass>
+<UID>11184810</UID>
+<PageName>Служебная информация, стр.1</PageName>
+</rowdata>
+</Pages>
+</rowdata>
+</Documents>
+</PackageStructure>
+<InBatchmodeCreated REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<pxObjClass>Sberbank-Int-ECM-TSOA-PackageSettings</pxObjClass>
+</rowdata>
+</InBatchmodeCreated>
+<ExternalContent REPEATINGTYPE="PropertyGroup">
+<rowdata REPEATINGINDEX="ABBYY">&lt;ns1:AbbyyData xmlns:ns1="http://sbrf.ru/prpc/ocr/abbyy/10"&gt; &lt;ns1:BpmProcessID&gt;SBERBANK-FW-FXCTRL-WORK F-10883&lt;/ns1:BpmProcessID&gt; &lt;ns1:BpmProcessType&gt;CC19&lt;/ns1:BpmProcessType&gt; &lt;ns1:BpmSubProcessType&gt;FS&lt;/ns1:BpmSubProcessType&gt; &lt;ns1:Package&gt; &lt;ns1:ID&gt;_DIC5_00000_06_CC19FS_05042012_124756_03_000_F-10883&lt;/ns1:ID&gt; &lt;ns1:Status&gt;Ok&lt;/ns1:Status&gt;  &lt;ns1:Attribute Id="sc_0001"&gt;  &lt;ns1:Value&gt;1&lt;/ns1:Value&gt;  &lt;/ns1:Attribute&gt;&lt;ns1:Attribute Id="package_type"&gt;  &lt;ns1:Value&gt;Оформление/переоформление ПС&lt;/ns1:Value&gt;  &lt;/ns1:Attribute&gt;&lt;ns1:Attribute Id="wf_0018"&gt;  &lt;ns1:Value&gt;7723563470&lt;/ns1:Value&gt;  &lt;/ns1:Attribute&gt;&lt;ns1:Attribute Id="wf_0021"&gt;  &lt;ns1:Value&gt;123456789&lt;/ns1:Value&gt;  &lt;/ns1:Attribute&gt;&lt;ns1:Attribute Id="wf_0001"&gt;  &lt;ns1:Value&gt;UL19-FXControl&lt;/ns1:Value&gt;  &lt;/ns1:Attribute&gt;&lt;ns1:Attribute Id="wf_0248"&gt;  &lt;ns1:Value&gt;UL19-ServReq&lt;/ns1:Value&gt;  &lt;/ns1:Attribute&gt;&lt;ns1:Attribute Id="wf_0019"&gt;  &lt;ns1:Value&gt;ООО Оманид&lt;/ns1:Value&gt;  &lt;/ns1:Attribute&gt;&lt;ns1:Attribute Id="wf_0127"&gt;  &lt;ns1:Value&gt;038&lt;/ns1:Value&gt;  &lt;/ns1:Attribute&gt;&lt;ns1:Attribute Id="wf_0004"&gt;  &lt;ns1:Value&gt;2557&lt;/ns1:Value&gt;  &lt;/ns1:Attribute&gt;&lt;ns1:Attribute Id="wf_0003"&gt;  &lt;ns1:Value&gt;055&lt;/ns1:Value&gt;  &lt;/ns1:Attribute&gt;&lt;ns1:Attribute Id="wf_0014"&gt;  &lt;ns1:Value&gt;20111001&lt;/ns1:Value&gt;  &lt;/ns1:Attribute&gt;&lt;ns1:Attribute Id="wf_0128"&gt;  &lt;ns1:Value&gt;&lt;/ns1:Value&gt;  &lt;/ns1:Attribute&gt;&lt;ns1:Attribute Id="wf_0129"&gt;  &lt;ns1:Value&gt;&lt;/ns1:Value&gt;  &lt;/ns1:Attribute&gt;&lt;ns1:Attribute Id="wf_0046"&gt;  &lt;ns1:Value&gt;&lt;/ns1:Value&gt;  &lt;/ns1:Attribute&gt;&lt;ns1:Attribute Id="wf_0253"&gt;  &lt;ns1:Value&gt;F-10883&lt;/ns1:Value&gt;  &lt;/ns1:Attribute&gt;&lt;ns1:Attribute Id="wf_0002"&gt;  &lt;ns1:Value&gt;UL19-ServReq&lt;/ns1:Value&gt;  &lt;/ns1:Attribute&gt;  &lt;/ns1:Package&gt; &lt;/ns1:AbbyyData&gt; </rowdata>
+</ExternalContent>
+</DocumentPackageSettings>
+<TaskInfo>
+<pxObjClass>Sberbank-FW-BBMO-Data-TaskInfo</pxObjClass>
+<clientInn>7723563470</clientInn>
+<clientName>ООО Оманид</clientName>
+<clientKpp>123456789</clientKpp>
+<statementInitDate>20111001</statementInitDate>
+<mainAccountNumber>12345678901234567890</mainAccountNumber>
+<Branch>
+<vspNumber>055</vspNumber>
+<osbNumber>2557</osbNumber>
+<pxObjClass>Sberbank-FW-BBMO-Data-Branch</pxObjClass>
+<tbNumber>038</tbNumber>
+</Branch>
+</TaskInfo>
+<ReceivingByResident REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<pxCreateOperator>eshestukhin</pxCreateOperator>
+<CurrencyCode>343</CurrencyCode>
+<CountryCode>45</CountryCode>
+<pxCreateSystemID>pega</pxCreateSystemID>
+<pxObjClass>Sberbank-FW-FXCtrl-Data-ReceivingByResident</pxObjClass>
+<pxCreateOpName>Egor Shestukhin</pxCreateOpName>
+<Number>345</Number>
+<Proportion>34</Proportion>
+<pxCreateDateTime>20120405T085409.609 GMT</pxCreateDateTime>
+<Amount>23234</Amount>
+<Name>выап</Name>
+</rowdata>
+<rowdata REPEATINGINDEX="2">
+<pxCreateOperator>eshestukhin</pxCreateOperator>
+<CurrencyCode>755</CurrencyCode>
+<CountryCode>78</CountryCode>
+<pxCreateSystemID>pega</pxCreateSystemID>
+<pxObjClass>Sberbank-FW-FXCtrl-Data-ReceivingByResident</pxObjClass>
+<pxCreateOpName>Egor Shestukhin</pxCreateOpName>
+<Number>345</Number>
+<Proportion>37</Proportion>
+<pxCreateDateTime>20120405T085410.301 GMT</pxCreateDateTime>
+<Amount>464</Amount>
+<Name>вап</Name>
+</rowdata>
+</ReceivingByResident>
+<ScheduleReceiving REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<pxCreateOperator>eshestukhin</pxCreateOperator>
+<CurrencyCode>23</CurrencyCode>
+<pxCreateSystemID>pega</pxCreateSystemID>
+<pxObjClass>Sberbank-FW-FXCtrl-Data-ScheduleReceiving</pxObjClass>
+<pxCreateOpName>Egor Shestukhin</pxCreateOpName>
+<Number>1</Number>
+<Date>20120426</Date>
+<pxCreateDateTime>20120405T085320.869 GMT</pxCreateDateTime>
+<Amount>4555</Amount>
+</rowdata>
+<rowdata REPEATINGINDEX="2">
+<pxCreateOperator>eshestukhin</pxCreateOperator>
+<CurrencyCode>23</CurrencyCode>
+<pxCreateSystemID>pega</pxCreateSystemID>
+<pxObjClass>Sberbank-FW-FXCtrl-Data-ScheduleReceiving</pxObjClass>
+<pxCreateOpName>Egor Shestukhin</pxCreateOpName>
+<Number>2</Number>
+<Date>20120414</Date>
+<pxCreateDateTime>20120405T085322.435 GMT</pxCreateDateTime>
+<Amount>467777</Amount>
+</rowdata>
+</ScheduleReceiving>
+<ResolutionsInformation REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<pxCreateOperator>eshestukhin</pxCreateOperator>
+<CountryCode>45645</CountryCode>
+<pxCreateSystemID>pega</pxCreateSystemID>
+<pxObjClass>Sberbank-FW-FXCtrl-Data-ResolutionsInformation</pxObjClass>
+<pxCreateOpName>Egor Shestukhin</pxCreateOpName>
+<Number>35234</Number>
+<Date>20120426</Date>
+<ResolutionEndDate>20120428</ResolutionEndDate>
+<pxCreateDateTime>20120405T085219.769 GMT</pxCreateDateTime>
+<Amount>456</Amount>
+</rowdata>
+<rowdata REPEATINGINDEX="2">
+<pxCreateOperator>eshestukhin</pxCreateOperator>
+<CountryCode>645645</CountryCode>
+<pxCreateSystemID>pega</pxCreateSystemID>
+<pxObjClass>Sberbank-FW-FXCtrl-Data-ResolutionsInformation</pxObjClass>
+<pxCreateOpName>Egor Shestukhin</pxCreateOpName>
+<Number>53245234</Number>
+<Date>20120429</Date>
+<ResolutionEndDate>20120421</ResolutionEndDate>
+<pxCreateDateTime>20120405T085220.511 GMT</pxCreateDateTime>
+<Amount>4564356</Amount>
+</rowdata>
+</ResolutionsInformation>
+<CurrentState>
+<StatusTitle>Обработка заключения валютного контролера</StatusTitle>
+<UserName>Egor Shestukhin</UserName>
+<UserIdentifier>eshestukhin</UserIdentifier>
+<pxObjClass>Sberbank-FW-BBMO-Data-ApplicationState</pxObjClass>
+<DateChanged>20120405T085429.740 GMT</DateChanged>
+<Status>Pending-DocumentsPrintAndScan</Status>
+</CurrentState>
+<Subprocesses REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<pyLabel>UL19-ServReq</pyLabel>
+<code>FS</code>
+<pxObjClass>Sberbank-FW-BBMO-Data-DocumentPackage</pxObjClass>
+<title>Заявление на оказание услуги</title>
+<ProcessInfo>
+<pxObjClass>Sberbank-Data-ProcessInfo</pxObjClass>
+</ProcessInfo>
+</rowdata>
+</Subprocesses>
+<ProcessInfo>
+<ProcessTitle>Валютный контроль юридических лиц</ProcessTitle>
+<pxObjClass>Sberbank-Data-ProcessInfo</pxObjClass>
+<DocumentPackageType>UL19-ServReq</DocumentPackageType>
+<DocumentSubPackageType>UL19-ServReq-PSDoByCredAgr</DocumentSubPackageType>
+<ProcessType>UL19-FXControl</ProcessType>
+</ProcessInfo>
+<pxFlow REPEATINGTYPE="PageGroup">
+<rowdata REPEATINGINDEX="OverallSLAExternalVSP">
+<pxLastActivityStatus>1</pxLastActivityStatus>
+<pyFlowInterestPageClass>Sberbank-FW-FXCtrl-Work-Corp-ServReq-PSDoByContract</pyFlowInterestPageClass>
+<pxObjClass>Embed-PegaEPRO-FlowPage</pxObjClass>
+<pyFlowType>OverallSLAExternalVSP</pyFlowType>
+<pyInstructions>Record overall service level for work object</pyInstructions>
+<pyCategory>ProcessFlow</pyCategory>
+<pxSystemFlow>true</pxSystemFlow>
+<pxAssignGoalTime>20120406T190000.000 GMT</pxAssignGoalTime>
+<pxAssignmentKey>ASSIGN-WORKBASKET SBERBANK-FW-FXCTRL-WORK F-10883!OVERALLSLAEXTERNALVSP</pxAssignmentKey>
+<pxLastUpdateBy>eshestukhin</pxLastUpdateBy>
+<pyDeferErrors>false</pyDeferErrors>
+<pxAssignClass>Assign-WorkBasket</pxAssignClass>
+<pxAssignSvcLevel>SLAExternalVSP</pxAssignSvcLevel>
+<pxAssignActivity>WorkBasket</pxAssignActivity>
+<pxSubscript>OverallSLAExternalVSP</pxSubscript>
+<pxRouteTo>default@sberbank.ru</pxRouteTo>
+<pyDeferCommit>false</pyDeferCommit>
+<pyDraftMode>false</pyDraftMode>
+<pxFlowInsKey>RULE-OBJ-FLOW SBERBANK-FW-FXCTRL-WORK-CORP OVERALLSLAEXTERNALVSP #20120330T102141.871 GMT</pxFlowInsKey>
+<pxTimeFlowStarted>20120405T085429.441 GMT</pxTimeFlowStarted>
+<pyLastFlowStep>SLAProcessing</pyLastFlowStep>
+<pyLastFlowStepLabel>SLAProcessing</pyLastFlowStepLabel>
+<pyFlowCalledCount>1</pyFlowCalledCount>
+<pyFirstRun>false</pyFirstRun>
+<pxIsInvestigative>false</pxIsInvestigative>
+<pxAssignDeadTime>20120406T195900.000 GMT</pxAssignDeadTime>
+<pyContexts REPEATINGTYPE="PageGroup"
+/>
+<pyFlowPath REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<pyFlowStep>SLAProcessing</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>SLAProcessing</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>ASSIGNMENT</pyStepType>
+<pyDisplay>true</pyDisplay>
+</rowdata>
+</pyFlowPath>
+<pyFlowParameters>
+<flowName>OverallSLAExternalVSP</flowName>
+<AssignTo>default@sberbank.ru</AssignTo>
+<OutputPageName>pyOutput</OutputPageName>
+<pyStatus>success</pyStatus>
+<flowType>OverallSLAExternalVSP</flowType>
+<ReferencePageName>pyWorkPage</ReferencePageName>
+</pyFlowParameters>
+</rowdata>
+<rowdata REPEATINGINDEX="OverallSLA">
+<pxLastActivityStatus>SelectProcessAndSubprocess</pxLastActivityStatus>
+<pyFlowInterestPageClass>Sberbank-FW-FXCtrl-Work-Corp-ServReq</pyFlowInterestPageClass>
+<pxObjClass>Embed-PegaEPRO-FlowPage</pxObjClass>
+<pyFlowType>OverallSLA</pyFlowType>
+<pyInstructions>Record overall service level for work object</pyInstructions>
+<pyCategory>ProcessFlow</pyCategory>
+<pxSystemFlow>true</pxSystemFlow>
+<pxAssignmentKey>ASSIGN-WORKBASKET SBERBANK-FW-FXCTRL-WORK F-10883!OVERALLSLA</pxAssignmentKey>
+<pxLastUpdateBy>eshestukhin</pxLastUpdateBy>
+<pxAssignGoalTime>20120409T064753.000 GMT</pxAssignGoalTime>
+<pyDeferErrors>false</pyDeferErrors>
+<pxAssignClass>Assign-WorkBasket</pxAssignClass>
+<pxAssignSvcLevel>SLAPhase1</pxAssignSvcLevel>
+<pxAssignActivity>WorkBasket</pxAssignActivity>
+<pxSubscript>OverallSLA</pxSubscript>
+<pxRouteTo>default@sberbank.ru</pxRouteTo>
+<pyDeferCommit>false</pyDeferCommit>
+<pyDraftMode>false</pyDraftMode>
+<pxFlowInsKey>RULE-OBJ-FLOW WORK- OVERALLSLA #20100430T165526.040 GMT</pxFlowInsKey>
+<pxTimeFlowStarted>20120405T084753.822 GMT</pxTimeFlowStarted>
+<pyLastFlowStep>SLAProcessing</pyLastFlowStep>
+<pyLastFlowStepLabel>SLAProcessing</pyLastFlowStepLabel>
+<pyFlowCalledCount>1</pyFlowCalledCount>
+<pyFirstRun>false</pyFirstRun>
+<pxIsInvestigative>false</pxIsInvestigative>
+<pxAssignDeadTime>20120406T084753.823 GMT</pxAssignDeadTime>
+<pyContexts REPEATINGTYPE="PageGroup"
+/>
+<pyFlowPath REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<pyFlowStep>SLAProcessing</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>SLAProcessing</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>ASSIGNMENT</pyStepType>
+<pyDisplay>true</pyDisplay>
+</rowdata>
+</pyFlowPath>
+<pyFlowParameters>
+<flowName>OverallSLA</flowName>
+<AssignTo>default@sberbank.ru</AssignTo>
+<pyTempPlaceHolder>TempPlaceHolder</pyTempPlaceHolder>
+<ReferencePageName>SpunoffWork</ReferencePageName>
+</pyFlowParameters>
+</rowdata>
+<rowdata REPEATINGINDEX="PrintAndScanDocuments">
+<pxLastActivityStatus>1</pxLastActivityStatus>
+<pyActiveFlowAtStart>ProcessCorp</pyActiveFlowAtStart>
+<pyIssuedFromTask>SUBPROCESS74</pyIssuedFromTask>
+<pyFlowInterestPageClass>Sberbank-FW-FXCtrl-Work-Corp-ServReq-PSDoByContract</pyFlowInterestPageClass>
+<pxObjClass>Embed-PegaEPRO-FlowPage</pxObjClass>
+<pyFlowType>PrintAndScanDocuments</pyFlowType>
+<pyIssuedFromPage>pyWorkPage</pyIssuedFromPage>
+<pyInstructions>Печать и сканирование документов в ВСП</pyInstructions>
+<pySaveCompletedFlowPath>false</pySaveCompletedFlowPath>
+<pyCategory>FlowStandard</pyCategory>
+<pxSystemFlow>false</pxSystemFlow>
+<pxAssignGoalTime>20120409T085429.820 GMT</pxAssignGoalTime>
+<pxAssignmentKey>ASSIGN-WORKLIST SBERBANK-FW-FXCTRL-WORK F-10883!PRINTANDSCANDOCUMENTS</pxAssignmentKey>
+<pxLastUpdateBy>eshestukhin</pxLastUpdateBy>
+<pyDeferErrors>false</pyDeferErrors>
+<pyIssuedFromObject>SBERBANK-FW-FXCTRL-WORK F-10883</pyIssuedFromObject>
+<pxAssignClass>Assign-Worklist</pxAssignClass>
+<pxAssignSvcLevel>Default</pxAssignSvcLevel>
+<pxAssignActivity>WorkList</pxAssignActivity>
+<pxSubscript>PrintAndScanDocuments</pxSubscript>
+<pxRouteTo>eshestukhin</pxRouteTo>
+<pyDeferCommit>false</pyDeferCommit>
+<pyDraftMode>true</pyDraftMode>
+<pxFlowInsKey>RULE-OBJ-FLOW SBERBANK-FW-FXCTRL-WORK-CORP-SERVREQ-PSDOBYCONTRACT PRINTANDSCANDOCUMENTS #20120220T123006.256 GMT</pxFlowInsKey>
+<pxRouteToUserName>Egor Shestukhin</pxRouteToUserName>
+<pyTopLevelFlow>ProcessCorp</pyTopLevelFlow>
+<pyParentFlowPath>SUBPROCESS74</pyParentFlowPath>
+<pxTimeFlowStarted>20120405T085429.740 GMT</pxTimeFlowStarted>
+<pyLastFlowStep>ASSIGNMENT59</pyLastFlowStep>
+<pyLastFlowStepLabel>Print Approved Documents</pyLastFlowStepLabel>
+<pyFlowCalledCount>1</pyFlowCalledCount>
+<pyFirstRun>false</pyFirstRun>
+<pyIssuedFromFlow>ProcessCorp</pyIssuedFromFlow>
+<pyIssuedFromClass>Sberbank-FW-FXCtrl-Work-Corp-ServReq-PSDoByContract</pyIssuedFromClass>
+<pxIsInvestigative>false</pxIsInvestigative>
+<pxAssignDeadTime>20120412T085429.820 GMT</pxAssignDeadTime>
+<pyContexts REPEATINGTYPE="PageGroup"
+/>
+<pyFlowPath REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<pyFlowStep>UTILITY52</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>Application State = Pending-DocumentsPrintAndScan</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>TASK</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="2">
+<pyFlowStep>FORK52</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>FORK52</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>FORK</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="3">
+<pyFlowStep>FORK53</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>FORK53</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>FORK</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="4">
+<pyFlowStep>ASSIGNMENT59</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>Print Approved Documents</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>ASSIGNMENT</pyStepType>
+<pyDisplay>true</pyDisplay>
+</rowdata>
+</pyFlowPath>
+<pyFlowParameters>
+<OnlyCreateOutputPageIfError>-1</OnlyCreateOutputPageIfError>
+<pyDeferCommit>false</pyDeferCommit>
+<flowName>PrintAndScanDocuments</flowName>
+<pyDraftMode>false</pyDraftMode>
+<AssignTo>eshestukhin</AssignTo>
+<IsInvestigative>false</IsInvestigative>
+<pyStatus>success</pyStatus>
+<pyDeferErrors>false</pyDeferErrors>
+<ReferenceInsName>F-10883</ReferenceInsName>
+<TaskName>SUBPROCESS74</TaskName>
+<ReferenceClass>Sberbank-FW-FXCtrl-Work-Corp-ServReq-PSDoByContract</ReferenceClass>
+<TimeFlowStarted>20120405T084753.834 GMT</TimeFlowStarted>
+<OutputPageName>pyOutput</OutputPageName>
+<FlowHasEnded>N</FlowHasEnded>
+<InterestPageClass>Sberbank-FW-FXCtrl-Work-Corp-ServReq-PSDoByContract</InterestPageClass>
+<ReferenceInsKey>SBERBANK-FW-FXCTRL-WORK F-10883</ReferenceInsKey>
+<pyTempPlaceHolder>TempPlaceHolder</pyTempPlaceHolder>
+<flowType>ProcessCorp</flowType>
+<ReferencePageName>pyWorkPage</ReferencePageName>
+</pyFlowParameters>
+</rowdata>
+<rowdata REPEATINGINDEX="ProcessCorp">
+<pxLastActivityStatus>1</pxLastActivityStatus>
+<pyFlowInterestPageClass>Sberbank-FW-FXCtrl-Work-Corp-ServReq</pyFlowInterestPageClass>
+<pxObjClass>Embed-PegaEPRO-FlowPage</pxObjClass>
+<pyFlowType>ProcessCorp</pyFlowType>
+<pyCategory>FlowStandard</pyCategory>
+<pxSystemFlow>false</pxSystemFlow>
+<pxLastUpdateBy>eshestukhin</pxLastUpdateBy>
+<pyDeferErrors>false</pyDeferErrors>
+<pxSubscript>ProcessCorp</pxSubscript>
+<pyDeferCommit>false</pyDeferCommit>
+<pyDraftMode>false</pyDraftMode>
+<pxFlowInsKey>RULE-OBJ-FLOW SBERBANK-FW-FXCTRL-WORK-CORP PROCESSCORP #20120403T060651.601 GMT</pxFlowInsKey>
+<pxTimeFlowStarted>20120405T084753.834 GMT</pxTimeFlowStarted>
+<pyLastFlowStep>SUBPROCESS74</pyLastFlowStep>
+<pyLastFlowStepLabel>PrintAndScanDocuments</pyLastFlowStepLabel>
+<pyFlowCalledCount>1</pyFlowCalledCount>
+<pyFirstRun>false</pyFirstRun>
+<pxIsInvestigative>false</pxIsInvestigative>
+<pyContexts REPEATINGTYPE="PageGroup"
+/>
+<pyFlowPath REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<pyFlowStep>UTILITY110</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>Start SLA for Phase 1</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>TASK</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="2">
+<pyFlowStep>UTILITY55</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>Show WebScan button to create package</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>TASK</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="3">
+<pyFlowStep>SUBPROCESS52</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>ScanDocuments</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>FLOW</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="4">
+<pyFlowStep>UTILITY65</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>Show WebScan button to view package</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>TASK</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="5">
+<pyFlowStep>SUBPROCESS56</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>CheckApplication</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>FLOW</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="6">
+<pyFlowStep>FORK67</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>FORK67</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>FORK</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="7">
+<pyFlowStep>FORK105</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>FORK105</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>FORK</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="8">
+<pyFlowStep>DECISION56</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>DataAnalysisNecessity</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>DECISION</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="9">
+<pyFlowStep>SUBPROCESS57</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>PrepareDecision</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>FLOW</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="10">
+<pyFlowStep>UTILITY85</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>Transfer Comment To History</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>TASK</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="11">
+<pyFlowStep>UTILITY104</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>Start All Correlations</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>TASK</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="12">
+<pyFlowStep>FORK56</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>FORK56</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>FORK</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="13">
+<pyFlowStep>DECISION57</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>ReturnToPOSNecessity</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>DECISION</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="14">
+<pyFlowStep>UTILITY78</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>Show WebScan button to add docs</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>TASK</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="15">
+<pyFlowStep>UTILITY57</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>Mark doc package as incomplete</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>TASK</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="16">
+<pyFlowStep>UTILITY86</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>SLA: process Phase #1 finished</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>TASK</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="17">
+<pyFlowStep>UTILITY108</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>Change status to WaitForPrintAndScanDocuments</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>TASK</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="18">
+<pyFlowStep>UTILITY109</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>Reset Skeleton</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>TASK</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+<rowdata REPEATINGINDEX="19">
+<pyFlowStep>SUBPROCESS74</pyFlowStep>
+<pxObjClass>Embed-PegaEPRO-FlowPath</pxObjClass>
+<pyStepLabel>PrintAndScanDocuments</pyStepLabel>
+<pyFAProcessOnJump>false</pyFAProcessOnJump>
+<pyStepType>FLOW</pyStepType>
+<pyDisplay>false</pyDisplay>
+</rowdata>
+</pyFlowPath>
+<pyFlowParameters>
+<OnlyCreateOutputPageIfError>-1</OnlyCreateOutputPageIfError>
+<flowName>ProcessCorp</flowName>
+<OutputPageName>pyOutput</OutputPageName>
+<pyStatus>success</pyStatus>
+<pyTempPlaceHolder>TempPlaceHolder</pyTempPlaceHolder>
+<ReferencePageName>SpunoffWork</ReferencePageName>
+</pyFlowParameters>
+</rowdata>
+</pxFlow>
+<ScheduleReturning REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<PaymentCurrencyCode>556</PaymentCurrencyCode>
+<pxCreateOperator>eshestukhin</pxCreateOperator>
+<PaymentDate>20120427</PaymentDate>
+<RepaymentCurrencyCode>234</RepaymentCurrencyCode>
+<pxCreateSystemID>pega</pxCreateSystemID>
+<pxObjClass>Sberbank-FW-FXCtrl-Data-ScheduleReturning</pxObjClass>
+<pxCreateOpName>Egor Shestukhin</pxCreateOpName>
+<Number>1</Number>
+<PaymentAmount>45645</PaymentAmount>
+<pxCreateDateTime>20120405T085337.084 GMT</pxCreateDateTime>
+<RepaymentDate>20120420</RepaymentDate>
+<RepaymentAmount>345</RepaymentAmount>
+</rowdata>
+<rowdata REPEATINGINDEX="2">
+<PaymentCurrencyCode>565</PaymentCurrencyCode>
+<pxCreateOperator>eshestukhin</pxCreateOperator>
+<PaymentDate>20120408</PaymentDate>
+<RepaymentCurrencyCode>423</RepaymentCurrencyCode>
+<pxCreateSystemID>pega</pxCreateSystemID>
+<pxObjClass>Sberbank-FW-FXCtrl-Data-ScheduleReturning</pxObjClass>
+<pxCreateOpName>Egor Shestukhin</pxCreateOpName>
+<Number>2</Number>
+<PaymentAmount>456456</PaymentAmount>
+<pxCreateDateTime>20120405T085337.921 GMT</pxCreateDateTime>
+<RepaymentDate>20120415</RepaymentDate>
+<RepaymentAmount>3453453</RepaymentAmount>
+</rowdata>
+</ScheduleReturning>
+<DataAnalysisPool>
+<pxObjClass>Sberbank-FW-FXCtrl-Data-DataAnalysisRow</pxObjClass>
+<fields REPEATINGTYPE="PageGroup">
+<rowdata REPEATINGINDEX="PS_Number">
+<pxObjClass>Sberbank-FW-FXCtrl-Data-DataAnalysisField</pxObjClass>
+<pxSubscript>PS_Number</pxSubscript>
+</rowdata>
+</fields>
+</DataAnalysisPool>
+<pyWorkParty REPEATINGTYPE="PageGroup">
+<rowdata REPEATINGINDEX="ScanOperator">
+<pxObjClass>Data-Party-Operator</pxObjClass>
+<pyUserName>Egor Shestukhin</pyUserName>
+<pyEmail1>info9216@gmail.com</pyEmail1>
+<pyWorkPartyUri>eshestukhin</pyWorkPartyUri>
+<pyPartyNotified>false</pyPartyNotified>
+<pyLabel> Egor Shestukhin</pyLabel>
+<pyPartyLabel>ScanOperator</pyPartyLabel>
+<pyUserIdentifier>eshestukhin</pyUserIdentifier>
+<pyFullName>Egor Shestukhin</pyFullName>
+<pxPartyRole>ScanOperator</pxPartyRole>
+<pxSubscript>ScanOperator</pxSubscript>
+<pzIndexes REPEATINGTYPE="PropertyGroup">
+<rowdata REPEATINGINDEX="PartyURI">1</rowdata>
+</pzIndexes>
+<pyAddresses REPEATINGTYPE="PageGroup">
+<rowdata REPEATINGINDEX="Email">
+<pyEmailAddress>info9216@gmail.com</pyEmailAddress>
+<pxObjClass>Data-Address-Email</pxObjClass>
+<pxSubscript>Email</pxSubscript>
+</rowdata>
+</pyAddresses>
+<pyCorrPreferences REPEATINGTYPE="PropertyList">
+<rowdata REPEATINGINDEX="1">Email</rowdata>
+</pyCorrPreferences>
+</rowdata>
+</pyWorkParty>
+<StateHistory REPEATINGTYPE="PageList">
+<rowdata REPEATINGINDEX="1">
+<pxObjClass>Sberbank-FW-BBMO-Data-ApplicationState</pxObjClass>
+</rowdata>
+<rowdata REPEATINGINDEX="2">
+<StatusTitle>Новая</StatusTitle>
+<UserIdentifier>eshestukhin</UserIdentifier>
+<UserName>Egor Shestukhin</UserName>
+<pxObjClass>Sberbank-FW-BBMO-Data-ApplicationState</pxObjClass>
+<DateChanged>20120405T084748.197 GMT</DateChanged>
+<Status>New</Status>
+</rowdata>
+<rowdata REPEATINGINDEX="3">
+<StatusTitle>Добавление документов</StatusTitle>
+<UserIdentifier>eshestukhin</UserIdentifier>
+<UserName>Egor Shestukhin</UserName>
+<pxObjClass>Sberbank-FW-BBMO-Data-ApplicationState</pxObjClass>
+<DateChanged>20120405T084753.859 GMT</DateChanged>
+<Status>Pending-AddingDocuments</Status>
+</rowdata>
+<rowdata REPEATINGINDEX="4">
+<StatusTitle>Ожидает проверки комплектности, качества и верификации документов</StatusTitle>
+<UserIdentifier>eshestukhin</UserIdentifier>
+<UserName>Egor Shestukhin</UserName>
+<pxObjClass>Sberbank-FW-BBMO-Data-ApplicationState</pxObjClass>
+<DateChanged>20120405T084826.096 GMT</DateChanged>
+<Status>Pending-AbbyyVerification</Status>
+</rowdata>
+<rowdata REPEATINGINDEX="5">
+<StatusTitle>Проверка комплектности, качества и верификация документов (структурировано)</StatusTitle>
+<UserIdentifier>eshestukhin</UserIdentifier>
+<UserName>Egor Shestukhin</UserName>
+<pxObjClass>Sberbank-FW-BBMO-Data-ApplicationState</pxObjClass>
+<DateChanged>20120405T084826.102 GMT</DateChanged>
+<Status>Pending-AbbyyStructured</Status>
+</rowdata>
+<rowdata REPEATINGINDEX="6">
+<StatusTitle>Ожидает проверки валютным контролером</StatusTitle>
+<UserIdentifier>eshestukhin</UserIdentifier>
+<UserName>Egor Shestukhin</UserName>
+<pxObjClass>Sberbank-FW-BBMO-Data-ApplicationState</pxObjClass>
+<DateChanged>20120405T084904.150 GMT</DateChanged>
+<Status>Pending-WaitForOVK</Status>
+</rowdata>
+<rowdata REPEATINGINDEX="7">
+<StatusTitle>Ожидает обработки заключения валютного контролера</StatusTitle>
+<UserIdentifier>eshestukhin</UserIdentifier>
+<UserName>Egor Shestukhin</UserName>
+<pxObjClass>Sberbank-FW-BBMO-Data-ApplicationState</pxObjClass>
+<DateChanged>20120405T085429.485 GMT</DateChanged>
+<Comments>прап</Comments>
+<Status>Pending-WaitForPrintAndScanInVSP</Status>
+</rowdata>
+<rowdata REPEATINGINDEX="8">
+<StatusTitle>Обработка заключения валютного контролера</StatusTitle>
+<UserIdentifier>eshestukhin</UserIdentifier>
+<UserName>Egor Shestukhin</UserName>
+<pxObjClass>Sberbank-FW-BBMO-Data-ApplicationState</pxObjClass>
+<DateChanged>20120405T085429.740 GMT</DateChanged>
+<Status>Pending-DocumentsPrintAndScan</Status>
+</rowdata>
+</StateHistory>
+<ResolutionsInfo REPEATINGTYPE="PageList"/>
+<WebScanMode>
+<ButtonCaption>Добавить документы в пакет</ButtonCaption>
+<ButtonVisibility>true</ButtonVisibility>
+<pxObjClass>Sberbank-Data-WebScanMode</pxObjClass>
+<AddOnly>true</AddOnly>
+</WebScanMode>
+<pzIndexes REPEATINGTYPE="PropertyGroup">
+<rowdata REPEATINGINDEX="ExposeReportData">0</rowdata>
+</pzIndexes>
+<pxTickets REPEATINGTYPE="PropertyList"/>
+<pxCoveredInsKeys REPEATINGTYPE="PropertyList"/>
+</pagedata>
+</clipboard>
