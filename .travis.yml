@@ -2,3 +2,9 @@ language: java
 script: mvn package
 jdk:
 - openjdk6
+after_success:
+
+
+after_success:
+  - '[[ $TRAVIS_BRANCH == "master" ]] && [[ $TRAVIS_PULL_REQUEST == "false" ]] && mvn deploy --settings travisDeploySettings.xml -Dmaven.test.skip=true'
+  
