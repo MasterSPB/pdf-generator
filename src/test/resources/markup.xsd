@@ -326,12 +326,25 @@
     	</restriction>
     </simpleType>
 
+    <simpleType name="pageText">
+        <restriction base="string"/>
+    </simpleType>
+
+    <simpleType name="pageNumType">
+        <restriction base="string">
+            <enumeration value="simple"/>
+            <enumeration value="simplenofirst"
+            <enumeration value="complex"/>
+            <enumeration value="complexnofirst"
+            <enumeration value="blank"/>
+        </restriction>
+    </simpleType>
+
     <simpleType name="pageNumberHPos">
         <restriction base="string">
             <enumeration value="left"></enumeration>
             <enumeration value="center"></enumeration>
             <enumeration value="right"></enumeration>
-            <enumeration value="blank"></enumeration>
         </restriction>
     </simpleType>
 

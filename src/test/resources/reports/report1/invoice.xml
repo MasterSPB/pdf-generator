@@ -7,7 +7,7 @@
         <baseFont name="arialbd" path="arialbd.ttf"/>
         <baseFont name="wingding" path="wingding.ttf"/>
     </fonts>
-    <report marginleft="10" marginright="20" margintop="35" marginbottom="20" orientation="landscape" pagenumhpos="right" pagenumvpos="top" pagefont="arial" pagefontweight="10" pagenumtype="simple" pagetext="Лист">
+    <report marginleft="10" marginright="20" margintop="35" marginbottom="20" orientation="landscape" pagenumhpos="right" pagenumvpos="top" pagefont="arial" pagefontweight="10" pagenumtype="simple"  pagetext="Лист">
         <items>
             <header>
                 <paragraph leading="10" spacingafter="4" htextalign="left" font="arial" fontweight="14" fontstyle="bold">

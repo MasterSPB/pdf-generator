@@ -58,8 +58,6 @@ public class TestReport {
 
         PropertyGetter getterTest = new PropertyGetterTest2(new ClassPathResource("reports/report1/financialstatementdata.json").getFile().getPath());
         Object rep = Reporting.CreateDocumentEx(markup, fontBodies, getterTest);
-        File f = new File("test_fin_statement.pdf");
-        FileOutputStream file = new FileOutputStream(f);
-        file.write((byte[]) rep);
+        Reporting.writeDocument("/home/anton/test_fin_statement.pdf", rep);
     }
 }
