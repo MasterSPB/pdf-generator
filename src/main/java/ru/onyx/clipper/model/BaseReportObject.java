@@ -50,6 +50,9 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+            pageNumType = parseAttribute(attrObj, PAGE_NUM_TYPE, "simple");
+            pageHeader = parseAttribute(attrObj, PAGE_HEADER, "disabled");
+            pageText = parseAttribute(attrObj, PAGE_TEXT, "null");
             textcase = parseAttribute(attrObj, TEXT_CASE, "null");
             charspacing = Integer.parseInt(parseAttribute(attrObj, CHARACTER_SPACING, "-1"));
             index = parseAttribute(attrObj, CHUNK_INDEX, null);
@@ -375,6 +378,9 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String PAGE_NUM_TYPE="pagenumtype";
+    protected static final String PAGE_HEADER="pageHeader";
+    protected static final String PAGE_TEXT="pageText";
     protected static final String TEXT_CASE="textcase";
     protected static final String CHARACTER_SPACING="charspacing";
     protected static final String CHUNK_INDEX="index";
@@ -491,7 +497,9 @@ public abstract class BaseReportObject {
     protected Integer lastSymbols;
     protected Integer charspacing;
 
-
+    protected String pageNumType;
+    protected String pageHeader;
+    protected String pageText;
     protected String textcase;
     protected String index;
     protected String borderstyle;
@@ -701,6 +709,19 @@ public abstract class BaseReportObject {
         return -1f;
     }
 
+    protected String getPageNumType() {
+        if (pagenumtype != null)
+            return pageNumType;
+        return null;
+    }
+
+    protected String getPageText() {
+        if (pageText != null) {
+            return pageText;
+        }
+        return null;
+    }
+
     protected String getFontName() {
         if (fontName != null) {
             return fontName;
@@ -742,6 +763,11 @@ public abstract class BaseReportObject {
     protected Float getRepRowOtherPageHeight(){
         if(reprowotherpageheight!=null) return reprowotherpageheight;
         return 0f;
+    }
+
+    protected String getPageHeader () {
+        if(pageHeader != null) return pageHeader;
+        return null;
     }
 
     protected String getDefaultNullValue(){
