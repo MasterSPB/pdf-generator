@@ -10,8 +10,7 @@ import ru.onyx.clipper.model.Report;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.util.HashMap;
 
@@ -32,6 +31,23 @@ public class Reporting {
 
         rep.LoadMarkup(markup, fonts, dataSource);
         return rep.GetDocument();
+    }
+
+    public static void writeDocument(String pdfPath, Object rep) {
+        File f = new File(pdfPath);
+        FileOutputStream file = null;
+
+        try {
+            file = new FileOutputStream(f);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            file.write((byte[]) rep);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static byte[] CreateDocument(String markup, String fontNames, PropertyGetter dataSource) {
