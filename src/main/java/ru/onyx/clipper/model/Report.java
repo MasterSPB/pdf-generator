@@ -1,8 +1,6 @@
 package ru.onyx.clipper.model;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.PageSize;
+import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -10,6 +8,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import ru.onyx.clipper.data.PropertyGetter;
+import ru.onyx.clipper.events.HeaderEvent;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -28,6 +27,7 @@ import java.util.HashMap;
  * Time: 18:24
  */
 public class Report {
+    public static final String pagenumtype = "pagenumtype";
     public static final String pagenumvpos = "pagenumvpos";
     public static final String pagenumhpos = "pagenumhpos";
     public static final String A4 = "a4";
@@ -72,6 +72,12 @@ public class Report {
     public static final String elsecondition = "else";
     public static final String logicalcondition = "condition";
     public static final String pagefontweight = "pagefontweight";
+    public static final String pageheader = "pageheader";
+    public static final String pagetext = "pagetext";
+
+    public int getCurPage() {
+        return curPage;
+    }
 
     private static int curPage=1;
     private static int pageFontWeight;
@@ -85,11 +91,36 @@ public class Report {
     private HashMap<String, ReportBaseFont> fonts = new HashMap<String, ReportBaseFont>();
     private ArrayList<BaseReportObject> items = new ArrayList<BaseReportObject>();
     private ArrayList<BaseReportObject> headerItems = new ArrayList<BaseReportObject>();
+
+    public String getRepPageNumHPos() {
+        return repPageNumHPos;
+    }
+
+    public String getPageFontName() {
+        return pageFontName;
+    }
+
+    public String getRepPageNumVPos() {
+        return repPageNumVPos;
+    }
+
+    public String getPageNumType() {
+        return pageNumType;
+    }
+
     private String repPageNumHPos;
-    private String pageFont;
+    private String pageFontName;
     private String repPageNumVPos;
+    private String pageNumType;
+    private String pageHeader;
     private String pageSize;
     private String pageOrientation;
+
+    public String getPageText() {
+        return pageText;
+    }
+
+    private String pageText="";
 
 
     Document _doc = new Document();
@@ -139,16 +170,19 @@ public class Report {
         parseDocument(repChilds, pGetter);
     }
 
-    private void initAttrs(NamedNodeMap attrs) {
+    public void initAttrs(NamedNodeMap attrs) {
         marginLeft = Float.parseFloat(parseAttribute(attrs, marginleft, margin_value));
         marginTop = Float.parseFloat(parseAttribute(attrs, margintop, margin_value));
         marginRight = Float.parseFloat(parseAttribute(attrs, marginright, margin_value));
         marginBottom = Float.parseFloat(parseAttribute(attrs, marginbottom, margin_value));
 
-        pageFont = parseAttribute(attrs,Report.pagefont, "arial");
-        repPageNumHPos = parseAttribute(attrs, Report.pagenumhpos, "blank");
+        pageFontName = parseAttribute(attrs,Report.pagefont, "arial");
+        repPageNumHPos = parseAttribute(attrs, Report.pagenumhpos, "center");
         repPageNumVPos = parseAttribute(attrs, Report.pagenumvpos, "bottom");
         pageFontWeight = Integer.parseInt(parseAttribute(attrs, pagefontweight, "10"));
+        pageNumType = parseAttribute(attrs, Report.pagenumtype, "blank");
+        pageHeader = parseAttribute(attrs, Report.pageheader, "disabled");
+        pageText = parseAttribute(attrs, Report.pagetext, "");
 
         pageSize = parseAttribute(attrs, pagesize, A4);
         pageOrientation = parseAttribute(attrs, orientation, portrait);
@@ -254,12 +288,17 @@ public class Report {
         }
     }
 
-    //TODO нумерацию старниц выделить в отдельный метод см тодо ниже  (причем один метод есть... как то логика нумерирования оказалось разбитой по методам...)
     public byte[] GetDocument() throws DocumentException, ParseException, IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PdfWriter wr = PdfWriter.getInstance(_doc, byteArrayOutputStream);
         wr.setRgbTransparencyBlending(true);
-        //BaseFont pageBF = BaseFont.createFont("/fonts/"+pageFont+".ttf", BaseFont.IDENTITY_H, true); //font for page numbers
+
+        if(pageHeader.equalsIgnoreCase("enabled")){
+            Font pageFont = new Font(fonts.get(pageFontName).getCustomFont(pageFontWeight));
+            HeaderEvent event = new HeaderEvent(this, _doc, pageFont);
+            wr.setPageEvent(event);
+        }
+        //BaseFont pageBF = BaseFont.createFont("/fonts/"+pageFontName+".ttf", BaseFont.IDENTITY_H, true); //font for page numbers
 
         _doc.open();
         int size = items.size(); // size element to set a last page
@@ -267,9 +306,6 @@ public class Report {
         for (BaseReportObject item : items) {
 
             if (item instanceof ReportNewPage) {
-
-                 setPageNumber(wr);
-
                 _doc.newPage();
             }
             else if (item instanceof ReportRepeatingRow) {
@@ -277,10 +313,7 @@ public class Report {
                 for(Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable())
                 {
                     if(reportRepeatingRowItem==null){
-
                         if(curPage>1) drawHeader(wr,headerItems); // Draws header on all pages but first and last
-                        setPageNumber(wr); // Sets the page number
-
                         _doc.newPage();
                     }
                     else _doc.add((com.itextpdf.text.Element) reportRepeatingRowItem);
@@ -289,7 +322,6 @@ public class Report {
             } else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
 
             if (--size==0){
-                setPageNumber(wr); // Sets the last page number
                 drawHeader(wr,headerItems); // Draws header on the last page
             }
         }
@@ -344,9 +376,10 @@ public class Report {
         }
     }
 
-    protected void setPageNumber(PdfWriter writer){
+ /*   protected void setPageNumber(PdfWriter writer){
+        //this method is obsolete, but still can be useful
         float verticalPosition;
-        BaseFont pageBF = fonts.get(pageFont).getBaseFont();
+        BaseFont pageBF = fonts.get(pageFontName).getBaseFont();
 
         if(repPageNumVPos.equalsIgnoreCase("top")){
             verticalPosition=0.96f;
@@ -365,5 +398,5 @@ public class Report {
             cb.endText();
             cb.restoreState();
         } else if (curPage==1) curPage++;
-    }
+    }*/
 }
