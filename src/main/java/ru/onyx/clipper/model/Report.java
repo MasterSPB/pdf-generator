@@ -75,6 +75,10 @@ public class Report {
     public static final String pageheader = "pageheader";
     public static final String pagetext = "pagetext";
 
+    public int getCurPage() {
+        return curPage;
+    }
+
     private static int curPage=1;
     private static int pageFontWeight;
 
@@ -87,6 +91,23 @@ public class Report {
     private HashMap<String, ReportBaseFont> fonts = new HashMap<String, ReportBaseFont>();
     private ArrayList<BaseReportObject> items = new ArrayList<BaseReportObject>();
     private ArrayList<BaseReportObject> headerItems = new ArrayList<BaseReportObject>();
+
+    public String getRepPageNumHPos() {
+        return repPageNumHPos;
+    }
+
+    public String getPageFontName() {
+        return pageFontName;
+    }
+
+    public String getRepPageNumVPos() {
+        return repPageNumVPos;
+    }
+
+    public String getPageNumType() {
+        return pageNumType;
+    }
+
     private String repPageNumHPos;
     private String pageFontName;
     private String repPageNumVPos;
@@ -95,8 +116,8 @@ public class Report {
     private String pageSize;
     private String pageOrientation;
 
-    public static String getPagetext() {
-        return pagetext;
+    public String getPageText() {
+        return pageText;
     }
 
     private String pageText="";
@@ -149,7 +170,7 @@ public class Report {
         parseDocument(repChilds, pGetter);
     }
 
-    private void initAttrs(NamedNodeMap attrs) {
+    public void initAttrs(NamedNodeMap attrs) {
         marginLeft = Float.parseFloat(parseAttribute(attrs, marginleft, margin_value));
         marginTop = Float.parseFloat(parseAttribute(attrs, margintop, margin_value));
         marginRight = Float.parseFloat(parseAttribute(attrs, marginright, margin_value));
@@ -274,7 +295,7 @@ public class Report {
 
         if(pageHeader.equalsIgnoreCase("enabled")){
             Font pageFont = new Font(fonts.get(pageFontName).getCustomFont(pageFontWeight));
-            HeaderEvent event = new HeaderEvent(_doc, curPage, pageNumType, pageText, repPageNumHPos, repPageNumVPos, pageFont);
+            HeaderEvent event = new HeaderEvent(this, _doc, pageFont);
             wr.setPageEvent(event);
         }
         //BaseFont pageBF = BaseFont.createFont("/fonts/"+pageFontName+".ttf", BaseFont.IDENTITY_H, true); //font for page numbers
