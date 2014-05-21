@@ -18,42 +18,28 @@ import java.util.Date;
 /**
  * Created by anton on 03.04.14.
  */
-public class PropertyGetterTest2 implements PropertyGetter{
-    private File jsonFile;
+public class PropertyGetterTestPlainString implements PropertyGetter{
+    private String jsonPlainString;
 
-    public PropertyGetterTest2(String path) {
-        jsonFile = new File(path);
-       // System.out.println(GetPageCount("$.test2.p1"));
-    }
-
-    public PropertyGetterTest2(File jsonFile1) {
-        this.jsonFile = jsonFile1;
+    public PropertyGetterTestPlainString(String jsonPlainString) {
+        this.jsonPlainString = jsonPlainString;
     }
 
     @Override
     public String GetProperty(String pName) {
         String jsonPath = pName;
-        try{
-            Object value = JsonPath.read(jsonFile, jsonPath);
+            Object value = JsonPath.read(jsonPlainString, jsonPath);
             if (value != null){
                 return value.toString();
             }
             return null;
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        return null;
     }
 
     @Override
     public int GetPageCount(String pName) {
         int i = 0;
-        try{
-             JSONArray ja =  JsonPath.read(jsonFile, pName);
-            i = ja.size();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+        JSONArray ja =  JsonPath.read(jsonPlainString, pName);
+        i = ja.size();
         return i;
     }
 
