@@ -1,4 +1,4 @@
-package ru.onyx.clipper;
+package ru.onyx.clipper.data;
 
 import com.itextpdf.text.Image;
 import com.jayway.jsonpath.JsonPath;
@@ -18,11 +18,16 @@ import java.util.Date;
 /**
  * Created by anton on 03.04.14.
  */
-public class PropertyGetterTest2 implements PropertyGetter{
+public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
     private File jsonFile;
-    public PropertyGetterTest2(String path) {
+
+    public PropertyGetterFromJSONFileImpl(String path) {
         jsonFile = new File(path);
        // System.out.println(GetPageCount("$.test2.p1"));
+    }
+
+    public PropertyGetterFromJSONFileImpl(File jsonFile1) {
+        this.jsonFile = jsonFile1;
     }
 
     @Override

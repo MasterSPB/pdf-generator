@@ -191,10 +191,10 @@ public class HeaderEvent extends PdfPageEventHelper {
             }
         }
 
-        if(pageNumVPos.equalsIgnoreCase("top") && curPage>startPage)
+        if(pageNumVPos.equalsIgnoreCase("top") && curPage>startPage && !pageNumType.equalsIgnoreCase("blank"))
             table.writeSelectedRows(0, -1,(float) (_doc.leftMargin()), _doc.getPageSize().getHeight() - _doc.topMargin(), writer.getDirectContent());
 
-        if(pageNumVPos.equalsIgnoreCase("bottom") && curPage>startPage)
+        if(pageNumVPos.equalsIgnoreCase("bottom") && curPage>startPage && !pageNumType.equalsIgnoreCase("blank"))
             table.writeSelectedRows(0, -1,(float) (_doc.leftMargin()), _doc.bottomMargin(), writer.getDirectContent());
         curPage++;
     }
