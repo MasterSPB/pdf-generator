@@ -41,7 +41,6 @@ public class TestReport {
         return fileContent;
     }
 
-    @Test
     public void test1() throws IOException, SAXException, ParserConfigurationException, XPathExpressionException, ParseException, DocumentException {
         String markup = getFileContent(new ClassPathResource("reports/report1/financial statement.xml").getFile().getAbsolutePath());
 
