@@ -75,9 +75,8 @@
             <url>https://oss.sonatype.org/</url>
         </repository>
     </repositories>
-             
-    <plugins>
-         <build>
+   <build>          
+         <plugins>
             <plugin>
                   <groupId>org.apache.maven.plugins</groupId>
                   <artifactId>maven-compiler-plugin</artifactId>
@@ -87,7 +86,6 @@
                     <target>1.7</target>
                   </configuration>
             </plugin>
-                  
          </plugins>
     </build>
     <distributionManagement>
