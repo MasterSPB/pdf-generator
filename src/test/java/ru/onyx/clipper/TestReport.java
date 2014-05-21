@@ -5,13 +5,12 @@ import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.xml.sax.SAXException;
 import ru.onyx.clipper.data.PropertyGetter;
-import ru.onyx.clipper.utils.ConversionUtils;
+import ru.onyx.clipper.data.PropertyGetterFromJSONFileImpl;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashMap;
@@ -56,7 +55,7 @@ public class TestReport {
 
         //ConversionUtils.XMLtoJSON(new ClassPathResource("reports/report1/financialstatementdata.xml").getFile().getAbsolutePath(),new ClassPathResource("reports/report1/financialstatementdata.json").getFile().getAbsolutePath());
 
-        PropertyGetter getterTest = new PropertyGetterTest2(new ClassPathResource("reports/report1/invoice.json").getFile().getPath());
+        PropertyGetter getterTest = new PropertyGetterFromJSONFileImpl(new ClassPathResource("reports/report1/invoice.json").getFile().getPath());
         Object rep = Reporting.CreateDocumentEx(markup, fontBodies, getterTest);
         Reporting.writeDocument("/home/anton/invoice.pdf", rep);
     }

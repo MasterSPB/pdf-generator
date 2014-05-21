@@ -1,4 +1,4 @@
-package ru.onyx.clipper;
+package ru.onyx.clipper.data;
 
 import com.itextpdf.text.Image;
 import org.w3c.dom.Document;
@@ -22,7 +22,7 @@ import java.util.Date;
  * Date: 15.03.12
  * Time: 23:40
  */
-public class PropertyGetterTest implements PropertyGetter {
+public class PropertyGetterFromXMLFileImpl implements PropertyGetter {
     private Document doc;
 
     public int GetPageCount(String pName) {
@@ -39,7 +39,7 @@ public class PropertyGetterTest implements PropertyGetter {
         }
     }
 
-    public PropertyGetterTest(String reportDataXmlPath) throws IOException, SAXException, ParserConfigurationException {
+    public PropertyGetterFromXMLFileImpl(String reportDataXmlPath) throws IOException, SAXException, ParserConfigurationException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
 

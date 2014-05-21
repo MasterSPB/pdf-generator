@@ -1,4 +1,4 @@
-package ru.onyx.clipper;
+package ru.onyx.clipper.data;
 
 import com.itextpdf.text.Image;
 import com.jayway.jsonpath.JsonPath;
@@ -18,28 +18,42 @@ import java.util.Date;
 /**
  * Created by anton on 03.04.14.
  */
-public class PropertyGetterTestPlainString implements PropertyGetter{
-    private String jsonPlainString;
+public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
+    private File jsonFile;
 
-    public PropertyGetterTestPlainString(String jsonPlainString) {
-        this.jsonPlainString = jsonPlainString;
+    public PropertyGetterFromJSONFileImpl(String path) {
+        jsonFile = new File(path);
+       // System.out.println(GetPageCount("$.test2.p1"));
+    }
+
+    public PropertyGetterFromJSONFileImpl(File jsonFile1) {
+        this.jsonFile = jsonFile1;
     }
 
     @Override
     public String GetProperty(String pName) {
         String jsonPath = pName;
-            Object value = JsonPath.read(jsonPlainString, jsonPath);
+        try{
+            Object value = JsonPath.read(jsonFile, jsonPath);
             if (value != null){
                 return value.toString();
             }
             return null;
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
     public int GetPageCount(String pName) {
         int i = 0;
-        JSONArray ja =  JsonPath.read(jsonPlainString, pName);
-        i = ja.size();
+        try{
+             JSONArray ja =  JsonPath.read(jsonFile, pName);
+            i = ja.size();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
         return i;
     }
 
