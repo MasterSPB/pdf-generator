@@ -2,7 +2,7 @@ This generator is aimed to make pdf documents using an XML-markup and JSON or XM
 This thing is still under development.
 
 Simple example of usage:
-
+```java 
 @Test
     public void test1() throws IOException, SAXException, ParserConfigurationException, XPathExpressionException, ParseException, DocumentException {
         String markup = getFileContent(new ClassPathResource("test/testmarkup.xml").getFile().getAbsolutePath());
@@ -16,3 +16,4 @@ Simple example of usage:
         FileOutputStream file = new FileOutputStream(f);
         file.write((byte[]) rep);
     }
+```

@@ -1,4 +1,11 @@
 language: java
 script: mvn package
 jdk:
-- openjdk6
+- openjdk7
+after_success:
+- '[[ $TRAVIS_BRANCH == "master" ]] && [[ $TRAVIS_PULL_REQUEST == "false" ]] && mvn
+  deploy --settings travisDeploySettings.xml -Dmaven.test.skip=true'
+env:
+  global:
+  - secure: XtFnjLqYwyoWN541b+ganbbYOUNYfigt59Z1ko+JJcSnNkBOdy03S+lu7CrFELNth0KHJJZgxFxKLiz3j2u/cK3wl2hB7MnKhsRBd8XriaYVkqrcAFINTZpP1/F9NrikdoGuHGz+2ai466JSBGt9gPz2TvVjz/0PhErXY7BpdYA=
+  - secure: BX3Z3YHLmtBv5m6mM8QI8s2ZFq2+rf+8jbIbhLLVNMMxuxzM3C+bWVBkUJKltpsjr5kGkugc3yJ1wmJaQUsbGYLa5AxxPn3dR/dx0VZH2pbuR8MAETR/FZ2sk7g0s6fTwbDUao6xSoRb7WS+ig+Zf1+xrvsbRW/mLDSrnlLeUIA=
