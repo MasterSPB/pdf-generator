@@ -80,6 +80,7 @@ public class Report {
     }
 
     private static int curPage=1;
+    private static int curHeaderPage=1; //TODO: replace with HeaderEvent
     private static int pageFontWeight;
 
     private float marginLeft;
@@ -90,6 +91,11 @@ public class Report {
     private HashMap<String, byte[]> fontBodies;
     private HashMap<String, ReportBaseFont> fonts = new HashMap<String, ReportBaseFont>();
     private ArrayList<BaseReportObject> items = new ArrayList<BaseReportObject>();
+
+    public ArrayList<BaseReportObject> getHeaderItems() {
+        return headerItems;
+    }
+
     private ArrayList<BaseReportObject> headerItems = new ArrayList<BaseReportObject>();
 
     public String getRepPageNumHPos() {
@@ -313,7 +319,8 @@ public class Report {
                 for(Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable())
                 {
                     if(reportRepeatingRowItem==null){
-                        if(curPage>1) drawHeader(wr,headerItems); // Draws header on all pages but first and last
+                        if(curHeaderPage>1) drawHeader(wr,headerItems); // Draws header on all pages but first and last
+                        curHeaderPage++;
                         _doc.newPage();
                     }
                     else _doc.add((com.itextpdf.text.Element) reportRepeatingRowItem);
