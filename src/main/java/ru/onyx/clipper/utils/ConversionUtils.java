@@ -13,6 +13,20 @@ import java.io.*;
 public class ConversionUtils {
     public static int PRETTY_PRINT_INDENT_FACTOR = 4;
 
+    public static String ByteXMLtoJSON(byte[] XMLContent) throws UnsupportedEncodingException {
+        String XMLString = new String(XMLContent, "UTF-8");
+
+        try {
+            JSONObject xmlJSONObj = XML.toJSONObject(XMLString);
+            String jsonPrettyPrintString = xmlJSONObj.toString(PRETTY_PRINT_INDENT_FACTOR);
+            return jsonPrettyPrintString;
+        } catch (JSONException je) {
+            System.out.println(je.toString());
+
+            return null;
+        }
+    }
+
     public static void XMLtoJSON(String pathToXML, String pathToJSON){
 
         try {
