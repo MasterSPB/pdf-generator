@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.northyard</groupId>
     <artifactId>pdf-generator</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>pdf-generator</name>
 
@@ -75,6 +75,19 @@
             <url>https://oss.sonatype.org/</url>
         </repository>
     </repositories>
+   <build>          
+         <plugins>
+            <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-compiler-plugin</artifactId>
+                  <version>3.0</version>
+                  <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                  </configuration>
+            </plugin>
+         </plugins>
+    </build>
     <distributionManagement>
         <snapshotRepository>
             <id>sonatype-snapshot</id>
