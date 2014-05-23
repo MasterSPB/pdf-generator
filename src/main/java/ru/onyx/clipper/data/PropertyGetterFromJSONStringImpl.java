@@ -18,10 +18,10 @@ import java.util.Date;
 /**
  * Created by anton on 03.04.14.
  */
-public class PropertyGetterFromFromJSONStringImpl implements PropertyGetter{
+public class PropertyGetterFromJSONStringImpl implements PropertyGetter{
     private String jsonPlainString;
 
-    public PropertyGetterFromFromJSONStringImpl(String jsonPlainString) {
+    public PropertyGetterFromJSONStringImpl(String jsonPlainString) {
         this.jsonPlainString = jsonPlainString;
     }
 

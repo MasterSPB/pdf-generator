@@ -42,6 +42,7 @@ public class TestReport {
 
     @Test
     public void test1() throws IOException, SAXException, ParserConfigurationException, XPathExpressionException, ParseException, DocumentException {
+        //String markup = getFileContent(new ClassPathResource("reports/report1/payment order.xml").getFile().getAbsolutePath());
         String markup = getFileContent(new ClassPathResource("reports/report1/invoice.xml").getFile().getAbsolutePath());
 
         HashMap<String, byte[]> fontBodies = new HashMap<String, byte[]>();
@@ -55,8 +56,10 @@ public class TestReport {
 
         //ConversionUtils.XMLtoJSON(new ClassPathResource("reports/report1/financialstatementdata.xml").getFile().getAbsolutePath(),new ClassPathResource("reports/report1/financialstatementdata.json").getFile().getAbsolutePath());
 
+        //PropertyGetter getterTest = new PropertyGetterFromJSONFileImpl(new ClassPathResource("reports/report1/payment order.json").getFile().getPath());
         PropertyGetter getterTest = new PropertyGetterFromJSONFileImpl(new ClassPathResource("reports/report1/invoice.json").getFile().getPath());
         Object rep = Reporting.CreateDocumentEx(markup, fontBodies, getterTest);
-        Reporting.writeDocument("/home/anton/invoice.pdf", rep);
+        //Reporting.writeDocument("/home/anton/docs/payment order.pdf", rep);
+        Reporting.writeDocument("/home/anton/docs/invoice.pdf", rep);
     }
 }

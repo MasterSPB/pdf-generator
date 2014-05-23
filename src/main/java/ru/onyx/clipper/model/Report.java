@@ -319,8 +319,11 @@ public class Report {
                 for(Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable())
                 {
                     if(reportRepeatingRowItem==null){
-                        if(curHeaderPage>1) drawHeader(wr,headerItems); // Draws header on all pages but first and last
+                        if(curHeaderPage>1) {
+                            drawHeader(wr, headerItems); // Draws header on all pages but first and last
+                        }
                         curHeaderPage++;
+
                         _doc.newPage();
                     }
                     else _doc.add((com.itextpdf.text.Element) reportRepeatingRowItem);
@@ -328,7 +331,7 @@ public class Report {
 
             } else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
 
-            if (--size==0){
+            if (--size==0 && curHeaderPage>1){
                 drawHeader(wr,headerItems); // Draws header on the last page
             }
         }
