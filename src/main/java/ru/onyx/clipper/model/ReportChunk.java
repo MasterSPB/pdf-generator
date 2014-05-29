@@ -60,10 +60,15 @@ public class ReportChunk extends BaseReportObject {
             content = StrUtils.embraceNegativeValue(content);
         }
 
+        if (getDecimalSeparator() != null) {
+            content = StrUtils.replaceDecSeparator(content, getDecimalSeparator());
+        }
+
         Chunk ch = new Chunk(content);
 
         if(getChunkIndex().equals("upper")){
             ch.setTextRise(ch.getFont().getCalculatedSize()/5);
+
         } else if(getChunkIndex().equals("lower")){
             ch.setTextRise(-ch.getFont().getCalculatedSize()/5);
         }
