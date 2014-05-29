@@ -68,6 +68,7 @@ public class ReportChunk extends BaseReportObject {
 
         if(getChunkIndex().equals("upper")){
             ch.setTextRise(ch.getFont().getCalculatedSize()/5);
+
         } else if(getChunkIndex().equals("lower")){
             ch.setTextRise(-ch.getFont().getCalculatedSize()/5);
         }

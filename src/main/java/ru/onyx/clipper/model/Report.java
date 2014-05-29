@@ -322,7 +322,6 @@ public class Report {
                     else _doc.add((com.itextpdf.text.Element) reportRepeatingRowItem);
                 }
             } else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
-
         }
 
 

@@ -228,6 +228,7 @@ public class HeaderEvent extends PdfPageEventHelper {
             } catch (DocumentException de) {
                 throw new ExceptionConverter(de);
             }
+
         }
 
         if(pageNumVPos.equalsIgnoreCase("top") && curPage>startPage && !pageNumType.equalsIgnoreCase("blank"))
