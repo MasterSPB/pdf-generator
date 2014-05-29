@@ -80,7 +80,6 @@ public class Report {
     }
 
     private static int curPage=1;
-    private static int curHeaderPage=1; //TODO: replace with HeaderEvent
     private static int pageFontWeight;
 
     private float marginLeft;
@@ -307,7 +306,6 @@ public class Report {
         //BaseFont pageBF = BaseFont.createFont("/fonts/"+pageFontName+".ttf", BaseFont.IDENTITY_H, true); //font for page numbers
 
         _doc.open();
-        int size = items.size(); // size element to set a last page
 
         for (BaseReportObject item : items) {
 
@@ -319,21 +317,11 @@ public class Report {
                 for(Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable())
                 {
                     if(reportRepeatingRowItem==null){
-                        if(curHeaderPage>1) {
-                            drawHeader(wr, headerItems); // Draws header on all pages but first and last
-                        }
-                        curHeaderPage++;
-
                         _doc.newPage();
                     }
                     else _doc.add((com.itextpdf.text.Element) reportRepeatingRowItem);
                 }
-
             } else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
-
-            if (--size==0 && curHeaderPage>1){
-                drawHeader(wr,headerItems); // Draws header on the last page
-            }
         }
 
 
@@ -372,7 +360,7 @@ public class Report {
     }
 
     protected void parseHeader(NodeList headerChildList, PropertyGetter pGetter) {
-    // this function parses header tag
+        // this function parses header tag
         String nodeName;
         for (int j = 0; j < headerChildList.getLength(); j++) {
             nodeName = headerChildList.item(j).getNodeName();

@@ -2,7 +2,15 @@ package ru.onyx.clipper.events;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
+import org.w3c.dom.NodeList;
+import ru.onyx.clipper.data.PropertyGetter;
+import ru.onyx.clipper.model.BaseReportObject;
 import ru.onyx.clipper.model.Report;
+import ru.onyx.clipper.model.ReportParagraph;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
 
 /**
  * Created by Anton on 19.05.2014.
@@ -20,6 +28,8 @@ public class HeaderEvent extends PdfPageEventHelper {
 
     Font headerFont;
 
+    private ArrayList<BaseReportObject> headerItems = new ArrayList<BaseReportObject>();
+
     public HeaderEvent(Report rep, Document _document, Font headerFont) {
         _doc = _document;
         curPage = rep.getCurPage();
@@ -28,6 +38,7 @@ public class HeaderEvent extends PdfPageEventHelper {
         this.headerFont = headerFont;
         pageNumType = rep.getPageNumType();
         pageText = rep.getPageText();
+        headerItems = rep.getHeaderItems();
     }
 
     /** The template with the total number of pages. */
@@ -51,14 +62,41 @@ public class HeaderEvent extends PdfPageEventHelper {
         total = writer.getDirectContent().createTemplate(30, 16);
     }
 
+
+
+    protected void drawHeader(PdfWriter writer, ArrayList<BaseReportObject> headerItems){
+        // draws header inside margins
+        ColumnText ct = new ColumnText(writer.getDirectContent());
+        ct.setSimpleColumn(_doc.leftMargin(),_doc.topMargin(), _doc.getPageSize().getWidth() - _doc.rightMargin(),_doc.getPageSize().getHeight() * 0.99f);
+
+        for (BaseReportObject headerItem : headerItems){
+            try {
+                ct.addElement(headerItem.getPdfObject());
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            ct.go();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     /**
-     * Adds a header to every page
+     * Adds a page header to every page
      * @see com.itextpdf.text.pdf.PdfPageEventHelper#onEndPage(
      *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
      */
     public void onEndPage(PdfWriter writer, Document document) {
         int startPage=0;
-        PdfPTable table = new PdfPTable(8); // a table for header
+        PdfPTable table = new PdfPTable(8); // a table for page part of the header
 
         if(pageNumType.equalsIgnoreCase("simplenofirst") || pageNumType.equalsIgnoreCase("complexnofirst")) startPage++;
 
@@ -192,11 +230,15 @@ public class HeaderEvent extends PdfPageEventHelper {
         }
 
         if(pageNumVPos.equalsIgnoreCase("top") && curPage>startPage && !pageNumType.equalsIgnoreCase("blank"))
-            table.writeSelectedRows(0, -1,(float) (_doc.leftMargin()), _doc.getPageSize().getHeight() - _doc.topMargin(), writer.getDirectContent());
+            table.writeSelectedRows(0, -1,(float) (_doc.leftMargin()), _doc.getPageSize().getHeight() - (float) (_doc.topMargin()*0.5), writer.getDirectContent());
 
         if(pageNumVPos.equalsIgnoreCase("bottom") && curPage>startPage && !pageNumType.equalsIgnoreCase("blank"))
             table.writeSelectedRows(0, -1,(float) (_doc.leftMargin()), _doc.bottomMargin(), writer.getDirectContent());
+
+        if (headerItems.size()>0 && curPage>1) drawHeader(writer,headerItems);
+
         curPage++;
+
     }
 
     /**
