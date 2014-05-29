@@ -22,7 +22,6 @@ public class ReportDate extends BaseReportObject {
       propertyGetter = pGetter;
       Load(node);
       LoadItems(node, fonts, this, pGetter);
-
     }
 
     @Override

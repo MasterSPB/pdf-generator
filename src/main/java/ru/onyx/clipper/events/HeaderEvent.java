@@ -212,6 +212,7 @@ public class HeaderEvent extends PdfPageEventHelper {
                 table.addCell(header);
 
                 if (pageNumHPos.equalsIgnoreCase("right")) {
+
                     table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
                     table.getDefaultCell().setVerticalAlignment(Element.ALIGN_BOTTOM);
                     table.addCell(new Phrase(pageText + " " + writer.getPageNumber() + " из ", headerFont));
