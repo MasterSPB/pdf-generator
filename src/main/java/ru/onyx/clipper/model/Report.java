@@ -145,6 +145,7 @@ public class Report {
      * @throws XPathExpressionException
      * @throws DocumentException
      */
+
     public void LoadMarkup(String xmlMarkup, HashMap<String, byte[]> pFontBodies, PropertyGetter pGetter) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, DocumentException, ParseException {
         fontBodies = pFontBodies;
 

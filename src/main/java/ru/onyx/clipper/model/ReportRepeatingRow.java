@@ -151,6 +151,7 @@ public class ReportRepeatingRow extends BaseReportObject {
             }
         }
         if(!toBeSeparated){
+            repeatingRowObjects.add(header); //add header before table
             table.setHeaderRows(0);
             table.setComplete(true);
             repeatingRowObjects.add(table);
