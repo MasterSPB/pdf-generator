@@ -118,7 +118,7 @@ public class ReportRepeatingRow extends BaseReportObject {
             if ( ( ( ((( i+1==firstPageRows) || ( i+1==totalRows) )) && (firstPageRows > 0 && otherPageRows > 0) ) ||
                    (curTableHeight+headerHeight+cellHeight > firstPageTblHeight && firstPageTblHeight > 0 && otherPageTblHeight > 0) ) && !firstTblAdded ) {
             //if current rownum is equal to number of rows of first page (in XML) or iteration has reached the end and it is a first page, than
-                table.setHeaderRows(1);
+                table.setHeaderRows(0);
                 table.setComplete(true);
                 lastUsedRow=i; //remember that row
                 repeatingRowObjects.add(header); //add header before table
