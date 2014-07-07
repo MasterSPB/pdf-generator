@@ -7,6 +7,7 @@ import org.w3c.dom.Node;
 import ru.onyx.clipper.data.PropertyGetter;
 import ru.onyx.clipper.utils.StrUtils;
 
+import java.text.ParseException;
 import java.util.HashMap;
 
 /**
@@ -16,7 +17,7 @@ import java.util.HashMap;
  */
 public class ReportChunk extends BaseReportObject {
 
-    public ReportChunk(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) {
+    public ReportChunk(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException{
         _fonts = fonts;
         parent = pParent;
         propertyGetter = pGetter;

@@ -269,6 +269,8 @@ public class Report {
             }
 
             if (nodeName.equals(ifcondition)) {
+                /*items.add(new ReportIfCondition(repChilds.item(t),fonts, pGetter));*/
+
                 NodeList ifStatementChildren = repChilds.item(t).getChildNodes();
                 ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, logicalcondition, elsecondition, paragraph, items, fonts);
             }

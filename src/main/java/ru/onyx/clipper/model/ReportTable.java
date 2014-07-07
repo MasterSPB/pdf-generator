@@ -83,9 +83,18 @@ public class ReportTable extends BaseReportObject {
         }
         }
 
+
         for (BaseReportObject item : items) {
-            PdfPCell obj = ((ReportCell) item).getPdfObject();
-            table.addCell(obj);
+            /*if(item instanceof ReportIfCondition){
+
+                for(BaseReportObject ifCondItems : item){
+
+                }
+            }*/
+
+                PdfPCell obj = ((ReportCell) item).getPdfObject();
+                table.addCell(obj);
+
         }
         table.setComplete(true);
 

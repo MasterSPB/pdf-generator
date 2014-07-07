@@ -2,6 +2,7 @@ package ru.onyx.clipper.data;
 
 import com.itextpdf.text.Image;
 import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.PathNotFoundException;
 import net.minidev.json.JSONArray;
 
 import ru.onyx.clipper.data.PropertyGetter;
@@ -28,11 +29,16 @@ public class PropertyGetterFromJSONStringImpl implements PropertyGetter{
     @Override
     public String GetProperty(String pName) {
         String jsonPath = pName;
+            try{
             Object value = JsonPath.read(jsonPlainString, jsonPath);
-            if (value != null){
+            if (value != null) {
                 return value.toString();
             }
             return null;
+
+            } catch (PathNotFoundException e) {
+                return null;
+            }
     }
 
     @Override

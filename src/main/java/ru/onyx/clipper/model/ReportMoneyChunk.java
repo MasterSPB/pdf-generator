@@ -8,11 +8,12 @@ import org.w3c.dom.Node;
 import ru.onyx.clipper.data.PropertyGetter;
 import ru.onyx.clipper.utils.CurrencyUtils;
 
+import java.text.ParseException;
 import java.util.HashMap;
 
 public class ReportMoneyChunk extends BaseReportObject {
 
-    public ReportMoneyChunk(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) {
+    public ReportMoneyChunk(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException{
         _fonts = fonts;
         parent = pParent;
         propertyGetter = pGetter;
