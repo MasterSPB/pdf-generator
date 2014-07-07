@@ -50,6 +50,9 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+            minFreeSpaceAfter = Integer.parseInt(parseAttribute(attrObj, MIN_FREE_SPACE_AFTER, "0"));
+            aggrCol = Integer.parseInt(parseAttribute(attrObj, AGGR_COL, "0"));
+            aggrFunc = parseAttribute(attrObj, AGGR_FUNC, "sum");
             pageNumType = parseAttribute(attrObj, PAGE_NUM_TYPE, "simple");
             pageHeader = parseAttribute(attrObj, PAGE_HEADER, "disabled");
             pageText = parseAttribute(attrObj, PAGE_TEXT, "null");
@@ -58,7 +61,6 @@ public abstract class BaseReportObject {
             index = parseAttribute(attrObj, CHUNK_INDEX, null);
             negativeEmbrace = Boolean.parseBoolean(parseAttribute(attrObj, NEGATIVE_EMBRACE, null));
             borderstyle = parseAttribute(attrObj, BORDER_STYLE_ATT, null);
-            reprowfpageheight = Float.parseFloat(parseAttribute(attrObj, REPROW_FPAGE_HEIGHT, "-1f"));
             reprowotherpageheight = Float.parseFloat(parseAttribute(attrObj, REPROW_OTHER_PAGE_HEIGHT, "-1f"));
             defaultnullvalue = parseAttribute(attrObj, DEFAULT_NULL_VALUE, "");
             reprowfpagerows = Integer.parseInt(parseAttribute(attrObj, REPROW_FPAGE_ROWS, "-1"));
@@ -107,6 +109,7 @@ public abstract class BaseReportObject {
             bgimage = parseAttribute(attrObj, BGIMAGE, null);
             keepTogether = Boolean.parseBoolean(parseAttribute(attrObj, KEEPTOGETHER, "false"));
             replicateHeader = Boolean.parseBoolean(parseAttribute(attrObj, REPLICATE_HEADER, "false"));
+            replicateFooter = Boolean.parseBoolean(parseAttribute(attrObj, REPLICATE_FOOTER, "false"));
             decseparator = parseAttribute(attrObj, DECIMAL_SEPARATOR, null);
 
             paddingLeft = -1f;
@@ -337,9 +340,9 @@ public abstract class BaseReportObject {
                     case cell:
                         items.add(new ReportCell(item, fonts, pParent, pGetter));
                         break;
-                    case repeatingrow:
-                        items.add(new ReportRepeatingRow(item, fonts, pParent, pGetter));
-                        break;
+                    /*case repeatingrow:
+                        items.add(new ReportRepeatingRow(item, fonts, pParent, pGetter, _doc));
+                        break;*/
                     case wordsplitter:
                         items.add(new ReportWordSplitter(item, fonts, pParent, pGetter));
                         break;
@@ -378,6 +381,9 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String MIN_FREE_SPACE_AFTER="minfreespaceafter";
+    protected static final String AGGR_COL="aggrcol";
+    protected static final String AGGR_FUNC="aggrfunc";
     protected static final String PAGE_NUM_TYPE="pagenumtype";
     protected static final String PAGE_HEADER="pageHeader";
     protected static final String PAGE_TEXT="pageText";
@@ -388,7 +394,7 @@ public abstract class BaseReportObject {
     protected static final String BORDER_STYLE_ATT="borderstyle";
     protected static final String DECIMAL_SEPARATOR="decseparator";
     protected static final String REPLICATE_HEADER="replicateheader";
-    protected static final String REPROW_FPAGE_HEIGHT = "reprowfpageheight";
+    protected static final String REPLICATE_FOOTER="replicatefooter";
     protected static final String REPROW_OTHER_PAGE_HEIGHT = "reprowotherpageheight";
     protected static final String DEFAULT_NULL_VALUE = "defaultnullvalue";
     protected static final String REPROW_FPAGE_ROWS = "reprowfpagerows";
@@ -453,7 +459,6 @@ public abstract class BaseReportObject {
     protected static final String BGIMAGE = "bgimage";
     protected static final String KEEPTOGETHER = "keeptogether";
 
-    protected Float reprowfpageheight;
     protected Float reprowotherpageheight;
     protected Float spacingAfter;
     protected Float spacingBefore;
@@ -481,6 +486,7 @@ public abstract class BaseReportObject {
     protected float[] scalepercent;
     protected float[] scaleabsolute;
 
+    protected Integer aggrCol;
     protected Integer reprowfpagerows;
     protected Integer reprowotherpagerows;
     protected Integer fontStyle;
@@ -496,7 +502,9 @@ public abstract class BaseReportObject {
     protected Integer firstSymbols;
     protected Integer lastSymbols;
     protected Integer charspacing;
+    protected Integer minFreeSpaceAfter;
 
+    protected String aggrFunc;
     protected String pageNumType;
     protected String pageHeader;
     protected String pageText;
@@ -528,12 +536,14 @@ public abstract class BaseReportObject {
     protected String propertyName;
     protected String cellMode;
     protected String pageName;
+
     protected ArrayList<BaseReportObject> items = new ArrayList<BaseReportObject>();
 
     protected Boolean useBorderPadding;
     protected Boolean stopInherit;
     protected Boolean keepTogether;
     protected Boolean replicateHeader;
+    protected Boolean replicateFooter;
     protected Boolean negativeEmbrace;
 
     protected float[] getScalePercent() {
@@ -709,8 +719,14 @@ public abstract class BaseReportObject {
         return -1f;
     }
 
+    protected String getAggrFunc() {
+        if (aggrFunc != null)
+            return aggrFunc;
+        return null;
+    }
+
     protected String getPageNumType() {
-        if (pagenumtype != null)
+        if (pageNumType != null)
             return pageNumType;
         return null;
     }
@@ -755,14 +771,13 @@ public abstract class BaseReportObject {
     Integer attributes
      */
 
-    protected Float getRepRowFPageHeight(){
-        if(reprowfpageheight!=null) return reprowfpageheight;
-        return 0f;
-    }
-
     protected Float getRepRowOtherPageHeight(){
         if(reprowotherpageheight!=null) return reprowotherpageheight;
         return 0f;
+    }
+
+    protected Float getVerticalSize() throws DocumentException, ParseException, IOException {
+        return null;
     }
 
     protected String getPageHeader () {
@@ -798,6 +813,11 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected Integer getMinFreeSpaceAfter() {
+        if(minFreeSpaceAfter!=null) return  minFreeSpaceAfter;
+        return 0;
+    }
+
     protected int getRepRowFPageRows(){
         if(reprowfpagerows!=null) return reprowfpagerows;
         return 0;
@@ -811,6 +831,11 @@ public abstract class BaseReportObject {
     protected Integer getColumns() {
         if (columns > 0) return columns;
         return -1;
+    }
+
+    protected Integer getAggrCol() {
+        if (aggrCol != null && aggrCol > 0) return aggrCol;
+        return null;
     }
 
     protected Integer getCharspacing() {
@@ -952,6 +977,11 @@ public abstract class BaseReportObject {
 
     protected Boolean getReplicateHeader() {
         if(replicateHeader != null) return replicateHeader;
+        return false;
+    }
+
+    protected Boolean getReplicateFooter() {
+        if(replicateFooter != null) return replicateFooter;
         return false;
     }
 

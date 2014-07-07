@@ -1,17 +1,16 @@
 package ru.onyx.clipper.model;
 
+import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfPTableEvent;
+import com.itextpdf.text.pdf.*;
 import org.w3c.dom.Node;
 import ru.onyx.clipper.data.PropertyGetter;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.util.LinkedHashMap;
 
 /**
  * User: Alex
@@ -84,11 +83,22 @@ public class ReportTable extends BaseReportObject {
         }
 
         for (BaseReportObject item : items) {
+
             PdfPCell obj = ((ReportCell) item).getPdfObject();
             table.addCell(obj);
         }
         table.setComplete(true);
 
         return table;
+    }
+
+    public LinkedHashMap<Integer, String> getTableAggrProps() {
+        LinkedHashMap<Integer, String> aggrMap = new LinkedHashMap<>();
+        for (BaseReportObject item : items) {
+            if ( item.getAggrFunc() !=null && item.getAggrCol() != null){
+                aggrMap.put(item.getAggrCol(), item.getAggrFunc());
+            }
+        }
+        return aggrMap;
     }
 }

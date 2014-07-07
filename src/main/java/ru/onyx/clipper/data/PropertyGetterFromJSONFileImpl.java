@@ -2,6 +2,7 @@ package ru.onyx.clipper.data;
 
 import com.itextpdf.text.Image;
 import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.PathNotFoundException;
 import net.minidev.json.JSONArray;
 
 import ru.onyx.clipper.data.PropertyGetter;
@@ -41,6 +42,8 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
             return null;
         } catch (IOException e){
             e.printStackTrace();
+        } catch (PathNotFoundException e2) {
+            return null;
         }
         return null;
     }
