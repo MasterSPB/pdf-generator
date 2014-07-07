@@ -325,7 +325,7 @@ public class Report {
                 {
                     if(reportRepeatingRowItem==null){
                         _doc.newPage();
-                        spaceLeft  = _doc.getPageSize().getHeight() - _doc.getPageSize().getBorderWidthTop() - _doc.getPageSize().getBorderWidthBottom();
+                        spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
                     }
                     else if (reportRepeatingRowItem instanceof PdfPTable){
                         TableUtils.setExactWidthFromPercentage((PdfPTable) reportRepeatingRowItem, _doc);

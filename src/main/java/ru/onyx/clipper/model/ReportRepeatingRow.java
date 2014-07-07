@@ -128,7 +128,10 @@ public class ReportRepeatingRow extends BaseReportObject {
         int minFreeSpaceAfter = getMinFreeSpaceAfter();
         float curTableHeight = 0f;
         float cellHeight=0f;
-        float headerHeight = header.calculateHeights();
+        float headerHeight;
+        if( header!=null) {
+            headerHeight = header.calculateHeights();
+        } else headerHeight = 0.0f;
         float footerHeight;
         if(footer!=null) {
             footerHeight = footer.calculateHeights();
@@ -149,7 +152,8 @@ public class ReportRepeatingRow extends BaseReportObject {
                 PdfPCell obj = ((ReportCell) items.get(i*totalCols+j)).getPdfObject();
                 table.addCell(obj);
             }
-            curTableHeight=table.calculateHeights();
+            TableUtils.setExactWidthFromPercentage(table, _doc);
+            curTableHeight=table.getTotalHeight();
 
             cellHeight=table.getRow(table.getRows().size()-1).getMaxRowHeightsWithoutCalculating();
 
@@ -217,8 +221,22 @@ public class ReportRepeatingRow extends BaseReportObject {
                 if(finalLine!=null) repeatingRowObjects.add(finalLine);
             }
 
-            if(i+1==totalRows && (_doc.getPageSize().getHeight() -_doc.bottomMargin() - _doc.topMargin() - curTableHeight - headerHeight - footerHeight) < minFreeSpaceAfter) {
+            if(i+2==totalRows && (_doc.getPageSize().getHeight() -_doc.bottomMargin() - _doc.topMargin() - curTableHeight - table.getRows().size()*getBorderWidth() - headerHeight - footerHeight < minFreeSpaceAfter)) {
+                table.setHeaderRows(0);
+                table.setComplete(true);
+                if(header!=null && getReplicateHeader().equals(Boolean.TRUE)) {
+                    repeatingRowObjects.add(header); //add header before table on the other pages if flag is done
+                }
+                repeatingRowObjects.add(table); //add the table to the list
+                if(footer!=null) {
+                    PdfPTable tempFooter = makeAggrRow(table);
+                    if (getReplicateFooter().equals(Boolean.TRUE)) {
+                        repeatingRowObjects.add(tempFooter);
+                    }
+                }
                 repeatingRowObjects.add(null);
+                table = new PdfPTable(getColumns()); //create new table
+                setTableParams(table, _doc);
             }
         }
         return repeatingRowObjects;
