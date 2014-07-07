@@ -47,4 +47,9 @@ public class ReportParagraph extends BaseReportObject {
 
         return par;
     }
+
+    protected Float getVerticalSize() throws DocumentException, ParseException, IOException {
+        Paragraph par = (Paragraph) this.getPdfObject();
+        return par.getLeading();
+    }
 }
