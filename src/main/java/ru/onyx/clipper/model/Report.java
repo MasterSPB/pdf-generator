@@ -9,6 +9,8 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import ru.onyx.clipper.data.PropertyGetter;
 import ru.onyx.clipper.events.HeaderEvent;
+import ru.onyx.clipper.utils.DocumentUtils;
+import ru.onyx.clipper.utils.TableUtils;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -120,6 +122,7 @@ public class Report {
     private String pageHeader;
     private String pageSize;
     private String pageOrientation;
+    private float spaceLeft;
 
     public String getPageText() {
         return pageText;
@@ -169,6 +172,7 @@ public class Report {
 
         setPageSize(pageSize, pageOrientation);
         _doc.setMargins(marginLeft, marginRight, marginTop, marginBottom);
+        spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
 
         XPathExpression exprRepParagraph = xpath.compile("reportDefinition/report/items/*");
         NodeList repChilds = (NodeList) exprRepParagraph.evaluate(xmlDoc, XPathConstants.NODESET);
@@ -241,7 +245,7 @@ public class Report {
         }
     }
 
-    private void parseDocument(NodeList repChilds, PropertyGetter pGetter) throws ParseException {
+    private void parseDocument(NodeList repChilds, PropertyGetter pGetter) throws ParseException, IOException, DocumentException {
         for (int t = 0; t < repChilds.getLength(); t++) {
             String nodeName = repChilds.item(t).getNodeName();
 
@@ -256,7 +260,7 @@ public class Report {
                 items.add(new ReportTable(repChilds.item(t), fonts, null, pGetter));
             }
             if (nodeName.equals(repeatingrow)) {
-                items.add(new ReportRepeatingRow(repChilds.item(t), fonts, null, pGetter));
+                items.add(new ReportRepeatingRow(repChilds.item(t), fonts, null, pGetter, _doc));
             }
             if (nodeName.equals(dateparagraph)) {
                 items.add(new ReportDate(repChilds.item(t), fonts, null, pGetter));
@@ -310,21 +314,42 @@ public class Report {
 
         _doc.open();
 
+
         for (BaseReportObject item : items) {
 
             if (item instanceof ReportNewPage) {
                 _doc.newPage();
+                spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
             }
-            else if (item instanceof ReportRepeatingRow) {
 
-                for(Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable())
+            else if (item instanceof ReportRepeatingRow) {
+                for(Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable(spaceLeft, _doc))
                 {
                     if(reportRepeatingRowItem==null){
                         _doc.newPage();
+                        spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
                     }
-                    else _doc.add((com.itextpdf.text.Element) reportRepeatingRowItem);
+                    else if (reportRepeatingRowItem instanceof PdfPTable){
+                        TableUtils.setExactWidthFromPercentage((PdfPTable) reportRepeatingRowItem, _doc);
+                        spaceLeft=DocumentUtils.calcFreeSpace(TableUtils.getTableVerticalSize((PdfPTable) reportRepeatingRowItem), spaceLeft, _doc);
+                        _doc.add((Element) reportRepeatingRowItem);
+                    }
                 }
-            } else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
+            }
+            else if (item instanceof ReportTable) {
+                PdfPTable table = (PdfPTable) item.getPdfObject();
+                TableUtils.setExactWidthFromPercentage(table, _doc);
+                spaceLeft= DocumentUtils.calcFreeSpace(TableUtils.getTableVerticalSize(table), spaceLeft, _doc);
+                _doc.add(table);
+            }
+            else if (item instanceof ReportParagraph) {
+                spaceLeft= DocumentUtils.calcFreeSpace(item.getVerticalSize(), spaceLeft, _doc);
+                _doc.add(item.getPdfObject());
+            }
+
+
+
+            else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
         }
 
 
