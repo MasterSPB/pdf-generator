@@ -24,6 +24,7 @@ import java.util.List;
 public class ReportRepeatingRow extends BaseReportObject {
     PdfPTable header;
     PdfPTable footer;
+    PdfPTable finalLine;
 
     Map aggrMap;
     public ReportRepeatingRow(Node tableNode,HashMap<String ,ReportBaseFont> fonts,BaseReportObject pParent,PropertyGetter pGetter, Document _doc) throws ParseException, DocumentException, IOException {
@@ -72,6 +73,23 @@ public class ReportRepeatingRow extends BaseReportObject {
                         }
                 }
             }
+
+            if(nodeName.equalsIgnoreCase("final")) {
+                NodeList finalChildList = node.getChildNodes();
+                for(int j=0;j<finalChildList.getLength();j++) {
+                    nodeName = finalChildList.item(j).getNodeName();
+                    if(nodeName.equalsIgnoreCase("table"))
+                        try {
+                            ReportTable finalTable = new ReportTable(finalChildList.item(j), _fonts, this, propertyGetter);
+                            finalLine = finalTable.getPdfObject();
+                            TableUtils.setExactWidthFromPercentage(finalLine, _doc);
+                        } catch (DocumentException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                }
+            }
         }
 
          if(getPageName().length() > 0) {
@@ -107,6 +125,7 @@ public class ReportRepeatingRow extends BaseReportObject {
         int totalCols = getColumns();
         int totalCells = items.size();
         int totalRows = totalCells/totalCols;
+        int minFreeSpaceAfter = getMinFreeSpaceAfter();
         float curTableHeight = 0f;
         float cellHeight=0f;
         float headerHeight = header.calculateHeights();
@@ -153,7 +172,8 @@ public class ReportRepeatingRow extends BaseReportObject {
 
                 if(i+1==totalRows) {
                     docComplete=true; // This means that document fits on one page and there is no need to do any more actions
-                    if(spaceLeft - curTableHeight - headerHeight < getMinFreeSpaceAfter()){
+                    if(finalLine!=null) repeatingRowObjects.add(finalLine);
+                    if(spaceLeft - curTableHeight - headerHeight < minFreeSpaceAfter){
                         repeatingRowObjects.add(null);
                     }
                 } else {
@@ -194,9 +214,10 @@ public class ReportRepeatingRow extends BaseReportObject {
 
             if(i+1==totalRows) {
                 docComplete = true;
+                if(finalLine!=null) repeatingRowObjects.add(finalLine);
             }
 
-            if(i+1==totalRows && (_doc.getPageSize().getHeight() -_doc.bottomMargin() - _doc.topMargin() - curTableHeight - headerHeight - footerHeight) < getMinFreeSpaceAfter()) {
+            if(i+1==totalRows && (_doc.getPageSize().getHeight() -_doc.bottomMargin() - _doc.topMargin() - curTableHeight - headerHeight - footerHeight) < minFreeSpaceAfter) {
                 repeatingRowObjects.add(null);
             }
         }
