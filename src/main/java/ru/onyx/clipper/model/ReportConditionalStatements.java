@@ -1,8 +1,10 @@
 package ru.onyx.clipper.model;
 
+import com.itextpdf.text.DocumentException;
 import org.w3c.dom.NodeList;
 import ru.onyx.clipper.data.PropertyGetter;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
@@ -37,10 +39,10 @@ public class ReportConditionalStatements {
                 if(operands[1].equals("eq") && operands[0].equals(operands[2])) conditionResult=true; //if we are checking tokens to be equal
                 if(operands[1].equals("neq") && (operands[0]!=null && operands[2]!=null))
                     if(!operands[0].equals(operands[2])) conditionResult=true; //if we are checking tokens to be not equal
-                if(operands[1].equalsIgnoreCase("moreEq")&&((Double.parseDouble(operands[0])>=Double.parseDouble(operands[2])))) conditionResult=true; //if we are checking tokens to be more or equals
-                if(operands[1].equalsIgnoreCase("lessEq")&&((Double.parseDouble(operands[0])<=Double.parseDouble(operands[2])))) conditionResult=true; //if we are checking tokens to be less or equals
-                if(operands[1].equals("more")&&((Double.parseDouble(operands[0])>Double.parseDouble(operands[2])))) conditionResult=true; //if we are checking tokens to be more
-                if(operands[1].equals("less")&&((Double.parseDouble(operands[0])<Double.parseDouble(operands[2])))) conditionResult=true; //if we are checking tokens to be less
+                if(operands[1].equals("ge")&&((Double.parseDouble(operands[0])>=Double.parseDouble(operands[2])))) conditionResult=true; //if we are checking tokens to be more or equals
+                if(operands[1].equals("le")&&((Double.parseDouble(operands[0])<=Double.parseDouble(operands[2])))) conditionResult=true; //if we are checking tokens to be less or equals
+                if(operands[1].equals("gt")&&((Double.parseDouble(operands[0])>Double.parseDouble(operands[2])))) conditionResult=true; //if we are checking tokens to be more
+                if(operands[1].equals("lt")&&((Double.parseDouble(operands[0])<Double.parseDouble(operands[2])))) conditionResult=true; //if we are checking tokens to be less
             }
 
             if(conditionResult){
@@ -55,6 +57,7 @@ public class ReportConditionalStatements {
                 }
             }
         }
+
     }
 
     private static void switchNodeName(String nodeName, NodeList ifStatementItems, PropertyGetter pGetter, List<BaseReportObject> items, HashMap<String, ReportBaseFont> fonts, int t){
@@ -133,9 +136,13 @@ public class ReportConditionalStatements {
             }
             case "repeatingrow": {
                 try{
-                    items.add(new ReportRepeatingRow(ifStatementItems.item(t),fonts,null,pGetter));
+                    items.add(new ReportRepeatingRow(ifStatementItems.item(t),fonts,null,pGetter,null));
                 }catch (ParseException e){
                     e.printStackTrace();
+                }catch (DocumentException de){
+                    de.printStackTrace();
+                }catch (IOException ioe){
+                    ioe.printStackTrace();
                 }
                 break;
             }
