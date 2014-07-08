@@ -50,6 +50,7 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+            numerator = Boolean.parseBoolean(parseAttribute(attrObj, LINE_NUMERATOR, "false"));
             minFreeSpaceAfter = Integer.parseInt(parseAttribute(attrObj, MIN_FREE_SPACE_AFTER, "0"));
             aggrCol = Integer.parseInt(parseAttribute(attrObj, AGGR_COL, "0"));
             aggrFunc = parseAttribute(attrObj, AGGR_FUNC, "sum");
@@ -381,6 +382,7 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String LINE_NUMERATOR="numerator";
     protected static final String MIN_FREE_SPACE_AFTER="minfreespaceafter";
     protected static final String AGGR_COL="aggrcol";
     protected static final String AGGR_FUNC="aggrfunc";
@@ -545,6 +547,7 @@ public abstract class BaseReportObject {
     protected Boolean replicateHeader;
     protected Boolean replicateFooter;
     protected Boolean negativeEmbrace;
+    protected Boolean numerator;
 
     protected float[] getScalePercent() {
         if (scalepercent == null) return null;
@@ -947,6 +950,13 @@ public abstract class BaseReportObject {
             return index;
 
         return "normal";
+    }
+
+    protected Boolean getNumerator() {
+        if(numerator != null) {
+            return numerator;
+        }
+        return false;
     }
 
     protected Boolean getNegativeEmbrace() {

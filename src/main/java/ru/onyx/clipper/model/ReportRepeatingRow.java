@@ -144,11 +144,19 @@ public class ReportRepeatingRow extends BaseReportObject {
         PdfPTable table = new PdfPTable(getColumns());
         setTableParams(table, _doc);
         TableUtils.setExactWidthFromPercentage(table, _doc);
+        String[] cellsFormat = new String[totalCols];
+
+        for(int colNum=0; colNum<totalCols; colNum++){
+            if(items.get(colNum).getStringformat() == null){
+                cellsFormat[colNum] = "";
+            } else cellsFormat[colNum] = items.get(colNum).getStringformat();
+        }
 
         for (int i=0; i<totalRows; i++){
             //row iteration
             cellHeight=0;
             for(int j=0; j<totalCols; j++){               //column iteration
+                if(j==0 && items.get(i*totalCols+j).getNumerator()) ((ReportCell) items.get(i*totalCols+j)).setText(String.valueOf(i+1));
                 PdfPCell obj = ((ReportCell) items.get(i*totalCols+j)).getPdfObject();
                 table.addCell(obj);
             }
@@ -166,7 +174,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                 repeatingRowObjects.add(table); //add the table to the list
 
                 if(footer!=null) {
-                    PdfPTable tempFooter = makeAggrRow(table);
+                    PdfPTable tempFooter = makeAggrRow(table,cellsFormat);
                         if(getReplicateFooter().equals(Boolean.TRUE)) {
                         repeatingRowObjects.add(tempFooter);
                     }
@@ -206,7 +214,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                 }
                 repeatingRowObjects.add(table); //add the table to the list
                 if(footer!=null) {
-                    PdfPTable tempFooter = makeAggrRow(table);
+                    PdfPTable tempFooter = makeAggrRow(table,cellsFormat);
                     if (getReplicateFooter().equals(Boolean.TRUE)) {
                         repeatingRowObjects.add(tempFooter);
                     }
@@ -229,7 +237,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                 }
                 repeatingRowObjects.add(table); //add the table to the list
                 if(footer!=null) {
-                    PdfPTable tempFooter = makeAggrRow(table);
+                    PdfPTable tempFooter = makeAggrRow(table, cellsFormat);
                     if (getReplicateFooter().equals(Boolean.TRUE)) {
                         repeatingRowObjects.add(tempFooter);
                     }
@@ -261,7 +269,7 @@ public class ReportRepeatingRow extends BaseReportObject {
     }
 
 
-    private PdfPTable makeAggrRow(PdfPTable table) {
+    private PdfPTable makeAggrRow(PdfPTable table, String[] cellsFormat) {
 
         PdfPTable tempFooter = new PdfPTable(footer);
         PdfPCell[] tempCells = tempFooter.getRow(0).getCells(); //save footer cells to get access later
@@ -301,7 +309,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                 if (tempCells[k] != null) { //if columns are not blank (colspan is not used)
                     if (k == key - 1) { //if current column is aggr column
                         if(aggrType[aggrResIndex].equals("float")) {
-                            tempCells[k].setPhrase(new Phrase(String.valueOf(aggrRes[aggrResIndex]), new Font(tempTableCells[k].getPhrase().getFont()))); //write aggr value with table's font
+                            tempCells[k].setPhrase(new Phrase(String.valueOf(String.format(cellsFormat[k],aggrRes[aggrResIndex])), new Font(tempTableCells[k].getPhrase().getFont()))); //write aggr value with table's font
                         }
                         if(aggrType[aggrResIndex].equals("int")) {
                             tempCells[k].setPhrase(new Phrase(String.valueOf((int) aggrRes[aggrResIndex]), new Font(tempTableCells[k].getPhrase().getFont()))); //write aggr value with table's font

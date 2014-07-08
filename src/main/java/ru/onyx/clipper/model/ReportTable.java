@@ -83,7 +83,6 @@ public class ReportTable extends BaseReportObject {
         }
 
         for (BaseReportObject item : items) {
-
             PdfPCell obj = ((ReportCell) item).getPdfObject();
             table.addCell(obj);
         }
