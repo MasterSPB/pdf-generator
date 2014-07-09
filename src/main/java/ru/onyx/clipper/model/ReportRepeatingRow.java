@@ -129,6 +129,7 @@ public class ReportRepeatingRow extends BaseReportObject {
         float curTableHeight = 0f;
         float cellHeight=0f;
         float headerHeight;
+        float heightLeft;
         if( header!=null) {
             headerHeight = header.calculateHeights();
         } else headerHeight = 0.0f;
@@ -136,9 +137,9 @@ public class ReportRepeatingRow extends BaseReportObject {
         if(footer!=null) {
             footerHeight = footer.calculateHeights();
         } else footerHeight = 0.0f;
-        float firstPageTblHeight = spaceLeft;
         float otherPageTblHeight = getRepRowOtherPageHeight();
         boolean firstTblAdded=false; // flag to determine that first page is done
+        boolean onePaged=false;
         boolean docComplete=false;
 
         PdfPTable table = new PdfPTable(getColumns());
@@ -152,20 +153,100 @@ public class ReportRepeatingRow extends BaseReportObject {
             } else cellsFormat[colNum] = items.get(colNum).getStringformat();
         }
 
-        for (int i=0; i<totalRows; i++){
+        for (int i=0; i<totalRows; i++) {
             //row iteration
-            cellHeight=0;
-            for(int j=0; j<totalCols; j++){               //column iteration
-                if(j==0 && items.get(i*totalCols+j).getNumerator()) ((ReportCell) items.get(i*totalCols+j)).setText(String.valueOf(i+1));
-                PdfPCell obj = ((ReportCell) items.get(i*totalCols+j)).getPdfObject();
+            cellHeight = 0;
+            for (int j = 0; j < totalCols; j++) {               //column iteration
+                if (items.get(i * totalCols + j).getNumerator())
+                    ((ReportCell) items.get(i * totalCols + j)).setText(String.valueOf(i + 1));
+                PdfPCell obj = ((ReportCell) items.get(i * totalCols + j)).getPdfObject();
                 table.addCell(obj);
             }
+
+
             TableUtils.setExactWidthFromPercentage(table, _doc);
-            curTableHeight=table.getTotalHeight();
+            curTableHeight = table.getTotalHeight();
 
-            cellHeight=table.getRow(table.getRows().size()-1).getMaxRowHeightsWithoutCalculating();
+            cellHeight = table.getRow(table.getRows().size() - 1).getMaxRowHeightsWithoutCalculating();
+            heightLeft = (totalRows-i)*cellHeight;
+            if(getReplicateHeader().equals(Boolean.FALSE)) {
+                headerHeight=0f;
+            }
+            if(getReplicateFooter().equals(Boolean.FALSE)) {
+                footerHeight=0f;
+            }
 
-                if((curTableHeight+headerHeight+footerHeight+cellHeight+table.getRows().size()*getBorderWidth() > firstPageTblHeight && firstPageTblHeight > 0 && otherPageTblHeight > 0 || i+1==totalRows) && !firstTblAdded) {
+            if ((curTableHeight + headerHeight + footerHeight + cellHeight + table.getRows().size() * getBorderWidth() > spaceLeft
+                    || spaceLeft - curTableHeight - headerHeight - footerHeight - cellHeight - table.getRows().size() * getBorderWidth() < minFreeSpaceAfter) && !firstTblAdded ) {
+                // if one of the limits has been found while trying to add a first page
+                firstTblAdded = true;
+                if(i + 2 == totalRows) { //this means that cur. row is penultimate and the next one needs to be moved to a next page. The document is one-paged and is larger than limits.
+
+                    drawTable(table, repeatingRowObjects, cellsFormat);
+
+                    repeatingRowObjects.add(null);
+                    table = new PdfPTable(getColumns()); //create new table
+                    setTableParams(table, _doc);
+                    curTableHeight=0;
+
+                } else if (i + 1 == totalRows) { // else it fits exactly on one page
+                    onePaged=true;
+                    drawTable(table, repeatingRowObjects, cellsFormat);
+
+                } else { //else it needs to be continued on a next page
+                    if((totalRows-i)*cellHeight<minFreeSpaceAfter) {
+                        drawTable(table, repeatingRowObjects, cellsFormat);
+                        repeatingRowObjects.add(null);
+                        table = new PdfPTable(getColumns()); //create new table
+                        setTableParams(table, _doc);
+                        curTableHeight = 0;
+                    }
+                }
+            } else if (i + 1 == totalRows && !firstTblAdded) { //this means that cur. row is penultimate and the next one needs to be moved to a next page. The document is one-paged and is smaller than limits
+                firstTblAdded = true;
+                onePaged = true;
+                drawTable(table, repeatingRowObjects, cellsFormat);
+
+            } else if (curTableHeight + headerHeight + footerHeight + cellHeight + table.getRows().size() * getBorderWidth() > spaceLeft && firstTblAdded) {
+                // if one of the limits has been found while trying to add NOT a first page
+                if(i + 2 == totalRows) { //this means that cur. row is penultimate and the next one needs to be moved to a next page.
+                    drawTable(table, repeatingRowObjects, cellsFormat);
+
+                    repeatingRowObjects.add(null);
+
+                    table = new PdfPTable(getColumns()); //create new table
+                    setTableParams(table, _doc);
+                    curTableHeight = 0;
+                } else { //else it needs to be continued on a next page
+                    drawTable(table, repeatingRowObjects, cellsFormat);
+                    repeatingRowObjects.add(null);
+                    table = new PdfPTable(getColumns()); //create new table
+                    setTableParams(table, _doc);
+                    curTableHeight = 0;
+                    spaceLeft=otherPageTblHeight;
+                }
+            } else if(firstTblAdded && heightLeft>_doc.getPageSize().getHeight() -_doc.bottomMargin() - _doc.topMargin() - curTableHeight - table.getRows().size()*getBorderWidth() - headerHeight - footerHeight - minFreeSpaceAfter) {
+
+                if(i+2 == totalRows &&
+                        _doc.getPageSize().getHeight() -_doc.bottomMargin() - _doc.topMargin() - curTableHeight - table.getRows().size()*getBorderWidth() - headerHeight - footerHeight < minFreeSpaceAfter) {
+                    drawTable(table, repeatingRowObjects, cellsFormat);
+                    repeatingRowObjects.add(null);
+                    table = new PdfPTable(getColumns()); //create new table
+                    setTableParams(table, _doc);
+
+                    curTableHeight = 0;
+                }else if(i + 1 == totalRows) { //this means the time to add finalizer
+                    drawTable(table, repeatingRowObjects, cellsFormat);
+                    if(finalLine!=null) repeatingRowObjects.add(finalLine);
+                }
+            } else if(i + 1 == totalRows) { //this means the time to add finalizer
+                drawTable(table, repeatingRowObjects, cellsFormat);
+                if(finalLine!=null) repeatingRowObjects.add(finalLine);
+            }
+
+
+
+            /*if((curTableHeight+headerHeight+footerHeight+cellHeight+table.getRows().size()*getBorderWidth() > firstPageTblHeight && firstPageTblHeight > 0 && otherPageTblHeight > 0 || i+1==totalRows) && !firstTblAdded) {
                 //if current table fits to a first page, then
                 table.setHeaderRows(0);
                 table.setComplete(true);
@@ -246,8 +327,22 @@ public class ReportRepeatingRow extends BaseReportObject {
                 table = new PdfPTable(getColumns()); //create new table
                 setTableParams(table, _doc);
             }
+        }*/
         }
         return repeatingRowObjects;
+    }
+
+    private void drawTable(PdfPTable table, List<Object> repeatingRowObjects, String[] cellsFormat) {
+        table.setHeaderRows(0);
+        table.setComplete(true);
+        if(header!=null) repeatingRowObjects.add(header); //add header before table if there is one
+        repeatingRowObjects.add(table); //add the table to the list
+        if(footer!=null) {
+            PdfPTable tempFooter = makeAggrRow(table,cellsFormat);
+            if(getReplicateFooter().equals(Boolean.TRUE)) {
+                repeatingRowObjects.add(tempFooter);
+            }
+        }
     }
 
     protected void setTableParams(PdfPTable table, Document _doc){
