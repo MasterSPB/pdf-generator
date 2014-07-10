@@ -1,11 +1,14 @@
 package ru.onyx.clipper.model;
 
+import com.itextpdf.text.DocumentException;
 import org.w3c.dom.NodeList;
 import ru.onyx.clipper.data.PropertyGetter;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
+import java.lang.String;
 
 /**
  * Created by anton on 14.05.14.
@@ -36,27 +39,144 @@ public class ReportConditionalStatements {
                 if(operands[1].equals("eq") && operands[0].equals(operands[2])) conditionResult=true; //if we are checking tokens to be equal
                 if(operands[1].equals("neq") && (operands[0]!=null && operands[2]!=null))
                     if(!operands[0].equals(operands[2])) conditionResult=true; //if we are checking tokens to be not equal
+                if(operands[1].equals("ge")&&((Double.parseDouble(operands[0])>=Double.parseDouble(operands[2])))) conditionResult=true; //if we are checking tokens to be more or equals
+                if(operands[1].equals("le")&&((Double.parseDouble(operands[0])<=Double.parseDouble(operands[2])))) conditionResult=true; //if we are checking tokens to be less or equals
+                if(operands[1].equals("gt")&&((Double.parseDouble(operands[0])>Double.parseDouble(operands[2])))) conditionResult=true; //if we are checking tokens to be more
+                if(operands[1].equals("lt")&&((Double.parseDouble(operands[0])<Double.parseDouble(operands[2])))) conditionResult=true; //if we are checking tokens to be less
             }
 
-            if (conditionResult && nodeName.equals(paragraph)) //now, if condition is TRUE, add all paragraphs to markup
-                try {
-                    items.add(new ReportParagraph(ifStatementItems.item(t), fonts, null, pGetter));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+            if(conditionResult){
+                switchNodeName(nodeName,ifStatementItems,pGetter, items,fonts,t);
+            }
 
             if (!conditionResult && nodeName.equals(elsecondition)){ //if condition is false, find else statement...
                 NodeList elseStatementItems = ifStatementItems.item(t).getChildNodes(); //...get its child nodes
                 for (int i=0; i < elseStatementItems.getLength(); i++){
                     nodeName = elseStatementItems.item(i).getNodeName();
-                    if(nodeName.equals(paragraph)){
-                        try {
-                            items.add(new ReportParagraph(ifStatementItems.item(t), fonts, null, pGetter)); //...and add paragraphs to markup from there
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    switchNodeName(nodeName,ifStatementItems,pGetter, items,fonts, t);
                 }
+            }
+        }
+
+    }
+
+    private static void switchNodeName(String nodeName, NodeList ifStatementItems, PropertyGetter pGetter, List<BaseReportObject> items, HashMap<String, ReportBaseFont> fonts, int t){
+        switch (nodeName){
+            case "date": {
+                try{
+                    items.add(new ReportDate(ifStatementItems.item(t),fonts,null,pGetter));
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case "dateday": {
+                try{
+                    items.add(new ReportDateDay(ifStatementItems.item(t),fonts,null,pGetter));
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case "datemonth": {
+                try{
+                    items.add(new ReportDateMonth(ifStatementItems.item(t),fonts,null,pGetter));
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case "dateyear": {
+                try{
+                    items.add(new ReportDateYear(ifStatementItems.item(t),fonts,null,pGetter));
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case "image":{
+                try{
+                    items.add(new ReportImage(ifStatementItems.item(t),fonts,null,pGetter));
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case "moneychunk": {
+                try{
+                    items.add(new ReportMoneyChunk(ifStatementItems.item(t),fonts,null,pGetter));
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case "newpage": {
+                try{
+                    items.add(new ReportNewPage());
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case "paragraph": {
+                try{
+                    items.add(new ReportParagraph(ifStatementItems.item(t),fonts,null,pGetter));
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case "phrase": {
+                try{
+                    items.add(new ReportPhrase(ifStatementItems.item(t),fonts,null,pGetter));
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case "repeatingrow": {
+                try{
+                    items.add(new ReportRepeatingRow(ifStatementItems.item(t),fonts,null,pGetter,null));
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }catch (DocumentException de){
+                    de.printStackTrace();
+                }catch (IOException ioe){
+                    ioe.printStackTrace();
+                }
+                break;
+            }
+            case "table": {
+                try{
+                    items.add(new ReportTable(ifStatementItems.item(t),fonts,null,pGetter));
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case "wordsplitter": {
+                try{
+                    items.add(new ReportWordSplitter(ifStatementItems.item(t),fonts,null,pGetter));
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case "chunk": {
+                try{
+                    items.add(new ReportChunk(ifStatementItems.item(t),fonts,null,pGetter));
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case "cell": {
+                try{
+                    items.add(new ReportCell(ifStatementItems.item(t),fonts,null,pGetter));
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+                break;
             }
         }
     }

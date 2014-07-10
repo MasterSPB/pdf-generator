@@ -22,7 +22,7 @@ public class ReportDateMonth extends BaseReportObject {
 
     ArrayList<String> _montsRu = new ArrayList<String>();
 
-    public ReportDateMonth(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) {
+    public ReportDateMonth(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException{
         _fonts = fonts;
         parent = pParent;
         propertyGetter = pGetter;

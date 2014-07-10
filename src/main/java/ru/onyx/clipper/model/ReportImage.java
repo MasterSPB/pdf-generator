@@ -16,7 +16,7 @@ import java.util.HashMap;
  */
 public class ReportImage extends BaseReportObject {
 
-    public ReportImage(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) {
+    public ReportImage(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException{
         _fonts = fonts;
         parent = pParent;
         propertyGetter = pGetter;

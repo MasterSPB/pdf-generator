@@ -18,7 +18,7 @@ import java.util.HashMap;
  */
 public class ReportDateYear extends BaseReportObject {
 
-    public ReportDateYear(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) {
+    public ReportDateYear(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException{
         _fonts = fonts;
         parent = pParent;
         propertyGetter = pGetter;

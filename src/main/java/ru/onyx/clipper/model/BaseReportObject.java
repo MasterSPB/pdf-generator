@@ -365,6 +365,9 @@ public abstract class BaseReportObject {
                     case newpage:
                         items.add(new ReportNewPage());
                         break;
+                    case ifcondition:
+                        NodeList ifStatementChildren = nodes.item(i).getChildNodes();
+                        ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, logicalcondition, elsecondition, paragraph, items, fonts);
                 }
             }
         }
