@@ -346,8 +346,6 @@ public class Report {
                 _doc.add(item.getPdfObject());
             }
 
-
-
             else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
         }
 

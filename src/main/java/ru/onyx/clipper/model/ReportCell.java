@@ -31,6 +31,10 @@ public class ReportCell extends BaseReportObject {
         }
     }
 
+    public void setText(String text){
+        this.text=text;
+    }
+
     //---------------------------------------------------
 
     public ReportCell(float pfixedHeight, String text, int vtextalign, int htextalign, String pFontName, Float fontW, float borderwidth, float pleading, float[] paddings, Boolean usebPaddings, int[] bgColorp, int[] borderColorp, PropertyGetter pGetter, HashMap<String, ReportBaseFont> pFonts) {
