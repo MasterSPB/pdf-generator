@@ -6,7 +6,7 @@ import com.itextpdf.text.Document;
  * Created by anton on 27.06.14.
  */
 public class DocumentUtils {
-    public static float calcFreeSpace(float elementSize, float freeSpaceBefore, Document _doc) {
+    public static float calcFreeSpace(Float elementSize, Float freeSpaceBefore, Document _doc) {
         final float pageSize = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
         if(elementSize<=freeSpaceBefore) return freeSpaceBefore - elementSize; //free space left
         else {
