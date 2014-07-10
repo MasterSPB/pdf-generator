@@ -56,6 +56,9 @@ public class ReportTable extends BaseReportObject {
     }
 
     public PdfPTable getPdfObject() throws DocumentException, ParseException, IOException {
+        int totalCols = getColumns();
+        int totalCells = items.size();
+        int totalRows = totalCells/totalCols;
 
         PdfPTable table = new PdfPTable(this.columns);
         if(getTotalWidth() >0) table.setTotalWidth(getTotalWidth());
@@ -83,10 +86,13 @@ public class ReportTable extends BaseReportObject {
         }
 
         for (BaseReportObject item : items) {
-
+            if(item.getNumerator()) {
+                ((ReportCell) item).setText(String.valueOf(table.getRows().size()+1));
+            }
             PdfPCell obj = ((ReportCell) item).getPdfObject();
             table.addCell(obj);
         }
+
         table.setComplete(true);
 
         return table;
