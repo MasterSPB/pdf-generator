@@ -129,7 +129,7 @@ public class ReportCell extends BaseReportObject {
                 celltext = ConvertPropertyToSpecificDateFormat(customtext);
             }
 
-            if (getStringformat() != null) {
+            if (getStringformat() != null && !celltext.equals("")) {
                     celltext = String.format(getStringformat(), Float.parseFloat(celltext));
             }
 

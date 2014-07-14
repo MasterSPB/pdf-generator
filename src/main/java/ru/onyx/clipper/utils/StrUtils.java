@@ -18,6 +18,9 @@ public class StrUtils {
             DecimalFormat df = new DecimalFormat("#.00", otherSymbols);
             return df.format(Float.parseFloat(inputString));
         }
+
+        if(inputString.equals("")) return inputString;
+
         return null;
     }
 
