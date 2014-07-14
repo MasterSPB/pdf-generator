@@ -330,7 +330,7 @@ public class Report {
                     }
                     else if (reportRepeatingRowItem instanceof PdfPTable){
                         TableUtils.setExactWidthFromPercentage((PdfPTable) reportRepeatingRowItem, _doc);
-                        spaceLeft=DocumentUtils.calcFreeSpace(TableUtils.getTableVerticalSize((PdfPTable) reportRepeatingRowItem), spaceLeft, _doc);
+                        spaceLeft=DocumentUtils.calcFreeSpace(TableUtils.getTableVerticalSize((PdfPTable) reportRepeatingRowItem), (Float) spaceLeft, _doc);
                         _doc.add((Element) reportRepeatingRowItem);
                     }
                 }
@@ -338,11 +338,11 @@ public class Report {
             else if (item instanceof ReportTable) {
                 PdfPTable table = (PdfPTable) item.getPdfObject();
                 TableUtils.setExactWidthFromPercentage(table, _doc);
-                spaceLeft= DocumentUtils.calcFreeSpace(TableUtils.getTableVerticalSize(table), spaceLeft, _doc);
+                spaceLeft= DocumentUtils.calcFreeSpace(TableUtils.getTableVerticalSize(table), (Float) spaceLeft, _doc);
                 _doc.add(table);
             }
             else if (item instanceof ReportParagraph) {
-                spaceLeft= DocumentUtils.calcFreeSpace(item.getVerticalSize(), spaceLeft, _doc);
+                spaceLeft= DocumentUtils.calcFreeSpace(item.getVerticalSize(), (Float) spaceLeft, _doc);
                 _doc.add(item.getPdfObject());
             }
 
