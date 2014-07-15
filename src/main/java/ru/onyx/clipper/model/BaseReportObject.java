@@ -50,6 +50,9 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+            operandType = parseAttribute(attrObj,OPERAND_TYPE,"null");
+            expressionOp = parseAttribute(attrObj,EXPRESSION_OPERAND,"null");
+            cellExpression=parseAttribute(attrObj,CELL_EXPRESSION,"null");
             numerator = Boolean.parseBoolean(parseAttribute(attrObj, LINE_NUMERATOR, "false"));
             minFreeSpaceAfter = Integer.parseInt(parseAttribute(attrObj, MIN_FREE_SPACE_AFTER, "0"));
             aggrCol = Integer.parseInt(parseAttribute(attrObj, AGGR_COL, "0"));
@@ -385,6 +388,9 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String OPERAND_TYPE="optype";
+    protected static final String EXPRESSION_OPERAND="expoperand";
+    protected static final String CELL_EXPRESSION="expression";
     protected static final String LINE_NUMERATOR="numerator";
     protected static final String MIN_FREE_SPACE_AFTER="minfreespaceafter";
     protected static final String AGGR_COL="aggrcol";
@@ -509,6 +515,9 @@ public abstract class BaseReportObject {
     protected Integer charspacing;
     protected Integer minFreeSpaceAfter;
 
+    protected String operandType;
+    protected String expressionOp;
+    protected String cellExpression;
     protected String aggrFunc;
     protected String pageNumType;
     protected String pageHeader;
@@ -723,6 +732,24 @@ public abstract class BaseReportObject {
         else if (parent != null) return parent.getLeading();
 
         return -1f;
+    }
+
+    protected String getOperandType(){
+        if(operandType!=null)
+            return operandType;
+        return null;
+    }
+
+    protected String getExpressionOperand(){
+        if(expressionOp != null)
+            return expressionOp;
+        return null;
+    }
+
+    protected String getCellExpression(){
+        if(cellExpression != null)
+            return cellExpression;
+        return null;
     }
 
     protected String getAggrFunc() {
