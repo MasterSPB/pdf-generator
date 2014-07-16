@@ -47,7 +47,7 @@ public class ReportTable extends BaseReportObject {
         }
     }
 
-    public ReportTable(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException {
+    public ReportTable(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException, IOException, DocumentException {
         _fonts = fonts;
         parent = pParent;
         propertyGetter = pGetter;

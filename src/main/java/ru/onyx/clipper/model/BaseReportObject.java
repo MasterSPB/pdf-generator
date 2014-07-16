@@ -317,7 +317,7 @@ public abstract class BaseReportObject {
         }
     }
 
-    protected void LoadItems(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException {
+    protected void LoadItems(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException, IOException, DocumentException {
         NodeList nodes = node.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node item = nodes.item(i);
@@ -344,9 +344,9 @@ public abstract class BaseReportObject {
                     case cell:
                         items.add(new ReportCell(item, fonts, pParent, pGetter));
                         break;
-                    /*case repeatingrow:
-                        items.add(new ReportRepeatingRow(item, fonts, pParent, pGetter, _doc));
-                        break;*/
+                    case repeatingrow:
+                        items.add(new ReportRepeatingRowSimple(item, fonts, pParent, pGetter));
+                        break;
                     case wordsplitter:
                         items.add(new ReportWordSplitter(item, fonts, pParent, pGetter));
                         break;

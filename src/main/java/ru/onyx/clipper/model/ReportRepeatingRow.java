@@ -160,6 +160,75 @@ public class ReportRepeatingRow extends BaseReportObject {
          }
      }
 
+    public ReportRepeatingRow(Node tableNode,HashMap<String ,ReportBaseFont> fonts,BaseReportObject pParent,PropertyGetter pGetter) throws ParseException, DocumentException, IOException {
+        _fonts = fonts;
+        parent = pParent;
+        propertyGetter = pGetter;
+        String nodeName;
+        Load(tableNode);
+
+        NodeList childsList = tableNode.getChildNodes();
+
+        for(int h=0;h<childsList.getLength();h++) {
+            nodeName = childsList.item(h).getNodeName();
+            Node node = childsList.item(h);
+        }
+
+        if(getPageName().length() > 0) {
+            int n = pGetter.GetPageCount(getPageName());
+            for(int y=0;y<n;y++) {
+                for(int h=0;h<childsList.getLength();h++) {
+                    nodeName = childsList.item(h).getNodeName();
+                    Node node = childsList.item(h);
+
+                    if(nodeName.equalsIgnoreCase("items")) {
+                        NodeList cells = node.getChildNodes();
+                        ArrayList<BaseReportObject> itemsTemp = new ArrayList<BaseReportObject>();
+                        int cellCounter=0;
+                        for (int i = 0; i < cells.getLength(); i++) {
+                            nodeName = cells.item(i).getNodeName();
+                            if (nodeName.equalsIgnoreCase("cell")) {
+                                NamedNodeMap attrObj = cells.item(i).getAttributes();
+                                String expression = parseAttribute(attrObj,"expression",null);
+                                if(expression!=null && !expression.equals("")){
+                                    String propName = parseAttribute(attrObj, "property", "");
+                                    String textCell = pGetter.GetProperty(String.format("%s[%s].%s", getPageName(), y, propName));
+                                    SetAttribute(attrObj, "customtext", textCell);
+                                    if(expression.equalsIgnoreCase("eq")) {
+                                        String ot = parseAttribute(attrObj,"optype","");
+                                        String eo = parseAttribute(attrObj,"expoperand","");
+                                        Pattern pat = RegexUtils.getRegex(ot, eo);
+                                        Matcher mat = pat.matcher(textCell);
+                                        if (mat.matches()) {
+                                            itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
+                                            cellCounter++;
+                                        }else{
+                                            break;
+                                        }
+                                    }
+                                }else {
+                                    String propName = parseAttribute(attrObj, "property", "");
+                                    String textCell = pGetter.GetProperty(String.format("%s[%s].%s", getPageName(), y, propName));
+                                    SetAttribute(attrObj, "customtext", textCell);
+                                    itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
+                                    cellCounter++;
+                                }
+                            }
+                            if(cellCounter==getColumns()){
+                                for(int k=0;k<itemsTemp.size();k++){
+                                    items.add(itemsTemp.get(k));
+                                }
+                                break;
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
+    }
+
     public List<Object> getPdfTable(float spaceLeft, Document _doc) throws DocumentException, ParseException, IOException {
         List<Object> repeatingRowObjects = new ArrayList<>();
 
