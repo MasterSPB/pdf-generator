@@ -116,7 +116,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                                  String textCell = pGetter.GetProperty(String.format("%s[%s].%s", getPageName(), y, propName));
                                  SetAttribute(attrObj, "customtext", textCell);
                                  if(expression.equalsIgnoreCase("eq")) {
-                                     Pattern pat = RegexUtils.getRegex(getOperandType(), getExpressionOperand());
+                                     Pattern pat = RegexUtils.getRegex(getOperandType(), getExpressionOperand(), getQuartIndex());
                                      Matcher mat = pat.matcher(textCell);
                                      if (mat.matches()) {
                                          itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
@@ -195,9 +195,11 @@ public class ReportRepeatingRow extends BaseReportObject {
                                     String textCell = pGetter.GetProperty(String.format("%s[%s].%s", getPageName(), y, propName));
                                     SetAttribute(attrObj, "customtext", textCell);
                                     if(expression.equalsIgnoreCase("eq")) {
+                                        String qi = parseAttribute(attrObj, "quartindex","");
+                                        qi = pGetter.GetProperty(qi);
                                         String ot = parseAttribute(attrObj,"optype","");
                                         String eo = parseAttribute(attrObj,"expoperand","");
-                                        Pattern pat = RegexUtils.getRegex(ot, eo);
+                                        Pattern pat = RegexUtils.getRegex(ot, eo,qi);
                                         Matcher mat = pat.matcher(textCell);
                                         if (mat.matches()) {
                                             itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));

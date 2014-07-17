@@ -54,7 +54,9 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
         try{
              JSONArray ja =  JsonPath.read(jsonFile, pName);
             i = ja.size();
-        } catch (IOException e){
+        }catch (NullPointerException n){
+            return 0;
+        }catch (IOException e){
             e.printStackTrace();
         }
         return i;

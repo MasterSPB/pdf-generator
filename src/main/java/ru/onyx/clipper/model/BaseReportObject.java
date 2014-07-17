@@ -50,6 +50,7 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+            quartIndex = parseAttribute(attrObj,QUART_INDEX,"null");
             operandType = parseAttribute(attrObj,OPERAND_TYPE,"null");
             expressionOp = parseAttribute(attrObj,EXPRESSION_OPERAND,"null");
             cellExpression=parseAttribute(attrObj,CELL_EXPRESSION,"null");
@@ -388,6 +389,7 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String QUART_INDEX="quartindex";
     protected static final String OPERAND_TYPE="optype";
     protected static final String EXPRESSION_OPERAND="expoperand";
     protected static final String CELL_EXPRESSION="expression";
@@ -515,6 +517,7 @@ public abstract class BaseReportObject {
     protected Integer charspacing;
     protected Integer minFreeSpaceAfter;
 
+    protected String quartIndex;
     protected String operandType;
     protected String expressionOp;
     protected String cellExpression;
@@ -732,6 +735,12 @@ public abstract class BaseReportObject {
         else if (parent != null) return parent.getLeading();
 
         return -1f;
+    }
+
+    protected String getQuartIndex(){
+        if(quartIndex!=null)
+            return quartIndex;
+        return null;
     }
 
     protected String getOperandType(){
