@@ -34,6 +34,9 @@ public class ReportCell extends BaseReportObject {
     public void setText(String text){
         this.text=text;
     }
+    public void setCustomText(String text){
+        this.customtext=text;
+    }
 
     //---------------------------------------------------
 
