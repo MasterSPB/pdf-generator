@@ -246,21 +246,7 @@ public class ReportCell extends BaseReportObject {
         cell.setVerticalAlignment(getVerticalTextAlignment());
 
         for (int y = 0; y < items.size(); y++) {
-            /*if(items.get(y) instanceof ReportRepeatingRow){
-
-                Document _doc = new Document();
-                Rectangle r = new Rectangle(150,150,177,155);
-                _doc.setPageSize(r);
-                ReportRepeatingRow object = (ReportRepeatingRow) items.get(y);
-                java.util.List<Object> elementList = object.getPdfTable(10.0f, _doc);
-                for(Object obj : elementList) {
-                    if(obj instanceof PdfPTable) {
-                        cell.addElement((PdfPTable) obj);
-                    }
-                }
-            }else {*/
-                cell.addElement(items.get(y).getPdfObject());
-            //}
+            cell.addElement(items.get(y).getPdfObject());
         }
 
         if(getBorderStyle() != null && getBorderStyle().equals("dotted")) {

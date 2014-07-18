@@ -9,6 +9,8 @@ import ru.onyx.clipper.utils.StrUtils;
 
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.Stack;
+import java.util.StringTokenizer;
 
 /**
  * User: Alex
@@ -28,6 +30,9 @@ public class ReportChunk extends BaseReportObject {
     @Override
     public Element getPdfObject() {
         String content = "";
+        String key,keyT,strEl;
+        double res = 0.0f;
+        String result="";
 
         if (this.text != null) content = this.text;
 
@@ -36,6 +41,66 @@ public class ReportChunk extends BaseReportObject {
 
             if (getDateFormat() != null && getToDateFormat() != null) {
                 content = ConvertPropertyToSpecificDateFormat(propertyGetter.GetProperty(getPropertyName()));
+            }
+        }
+
+        if(getPropertyCalc()!=null && getPropertyCalc().length()>0){
+            String calcExpression = propertyGetter.GetProperty(getPropertyCalc());
+            Stack<Double> exprEl = new Stack<>();
+            StringTokenizer st = new StringTokenizer(calcExpression, "+-*/", true);
+            while (st.hasMoreElements()){
+                key= st.nextToken();
+                if(key.equals("+")){
+
+                }else if(key.equals("-")){
+                    keyT = st.nextToken();
+                    strEl=propertyGetter.GetProperty(keyT);
+                    try {
+                        double element1 = Double.parseDouble(strEl);
+                        exprEl.push(-element1);
+                    }catch (NullPointerException ne){
+                        continue;
+                    }
+                }else if(key.equals("*")){
+                    double element1 = exprEl.pop();
+                    keyT = st.nextToken();
+                    strEl=propertyGetter.GetProperty(keyT);
+                    try {
+                        double element2 = Double.parseDouble(strEl);
+                        exprEl.push(element1 * element2);
+                    }catch (NullPointerException ne){
+                        continue;
+                    }
+                }else if(key.equals("/")){
+                    double element1 = exprEl.pop();
+                    keyT = st.nextToken();
+                    strEl=propertyGetter.GetProperty(keyT);
+                    try {
+                        double element2 = Double.parseDouble(strEl);
+                        exprEl.push(element1 / element2);
+                    }catch (NullPointerException ne){
+                        continue;
+                    }
+                }else{
+                    strEl=propertyGetter.GetProperty(key);
+                    try {
+                        double element1 = Double.parseDouble(strEl);
+                        exprEl.push(element1);
+                    }catch (NullPointerException ne){
+                        continue;
+                    }
+                }
+            }
+        if(!exprEl.empty()) {
+            do {
+                res += exprEl.pop();
+            } while (!exprEl.empty());
+
+            content += res;
+
+        }
+            if (content.length() == 0) {
+                content = "-";
             }
         }
 
