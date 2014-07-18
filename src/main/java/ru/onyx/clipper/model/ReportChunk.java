@@ -5,6 +5,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import org.w3c.dom.Node;
 import ru.onyx.clipper.data.PropertyGetter;
+import ru.onyx.clipper.utils.CalcUtils;
 import ru.onyx.clipper.utils.StrUtils;
 
 import java.text.ParseException;
@@ -44,10 +45,43 @@ public class ReportChunk extends BaseReportObject {
             }
         }
 
+
         if(getPropertyCalc()!=null && getPropertyCalc().length()>0){
             String calcExpression = propertyGetter.GetProperty(getPropertyCalc());
+            String calcProp="";
+            StringTokenizer st = new StringTokenizer(calcExpression, "()+-*/", true);
+            while (st.hasMoreElements()){
+                key= st.nextToken();
+                if(key.equals("+")){
+                    calcProp += key;
+                }else if(key.equals("-")){
+                    calcProp += key;
+                }else if(key.equals("*")){
+                    calcProp += key;
+                }else if(key.equals("/")){
+                    calcProp += key;
+                }else if(key.equals("(")){
+                    calcProp += key;
+                }else if(key.equals(")")){
+                    calcProp += key;
+                }else if(key.contains("$")){
+                    strEl=propertyGetter.GetProperty(key);
+                    if(strEl!=null) {
+                        calcProp += strEl;
+                    }else{
+                        calcProp += 0;
+                    }
+                }else{
+                    calcProp += key;
+                }
+            }
+
+
+            /*
+            * if(getPropertyCalc()!=null && getPropertyCalc().length()>0){
+            String calcExpression = propertyGetter.GetProperty(getPropertyCalc());
             Stack<Double> exprEl = new Stack<>();
-            StringTokenizer st = new StringTokenizer(calcExpression, "+-*/", true);
+            StringTokenizer st = new StringTokenizer(calcExpression, "+-*//*", true);
             while (st.hasMoreElements()){
                 key= st.nextToken();
                 if(key.equals("+")){
@@ -90,15 +124,13 @@ public class ReportChunk extends BaseReportObject {
                         continue;
                     }
                 }
-            }
-        if(!exprEl.empty()) {
-            do {
-                res += exprEl.pop();
-            } while (!exprEl.empty());
+            }*/
 
-            content += res;
+            CalcUtils cu = new CalcUtils();
 
-        }
+
+            content += cu.calculate(calcProp);
+
             if (content.length() == 0) {
                 content = "-";
             }
