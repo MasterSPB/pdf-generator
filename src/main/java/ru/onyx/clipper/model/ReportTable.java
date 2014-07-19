@@ -1,7 +1,9 @@
 package ru.onyx.clipper.model;
 
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.*;
 import org.w3c.dom.Node;
 import ru.onyx.clipper.data.PropertyGetter;

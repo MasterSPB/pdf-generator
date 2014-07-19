@@ -12,7 +12,7 @@ import java.text.ParseException;
 /**
  * Created by anton on 27.06.14.
  */
-public class TableUtils {
+public class ReportTableUtils {
     public static void setExactWidthFromPercentage(PdfPTable table, Document _doc) {
         table.setTotalWidth((_doc.getPageSize().getWidth() - _doc.leftMargin() - _doc.rightMargin()) * table.getWidthPercentage()/100);
         table.setLockedWidth(true);

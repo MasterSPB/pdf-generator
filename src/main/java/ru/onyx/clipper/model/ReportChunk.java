@@ -5,12 +5,11 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import org.w3c.dom.Node;
 import ru.onyx.clipper.data.PropertyGetter;
-import ru.onyx.clipper.utils.CalcUtils;
-import ru.onyx.clipper.utils.StrUtils;
+import ru.onyx.clipper.utils.ReportCalcUtils;
+import ru.onyx.clipper.utils.ReportStrUtils;
 
 import java.text.ParseException;
 import java.util.HashMap;
-import java.util.Stack;
 import java.util.StringTokenizer;
 
 /**
@@ -75,7 +74,7 @@ public class ReportChunk extends BaseReportObject {
                 }
             }
 
-            CalcUtils cu = new CalcUtils();
+            ReportCalcUtils cu = new ReportCalcUtils();
 
             res = cu.calculate(calcProp);
             content = String.format("%,6.2f",res);
@@ -118,11 +117,11 @@ public class ReportChunk extends BaseReportObject {
         }
 
         if (getNegativeEmbrace()){
-            content = StrUtils.embraceNegativeValue(content);
+            content = ReportStrUtils.embraceNegativeValue(content);
         }
 
         if (getDecimalSeparator() != null) {
-            content = StrUtils.replaceDecSeparator(content, getDecimalSeparator());
+            content = ReportStrUtils.replaceDecSeparator(content, getDecimalSeparator());
         }
 
         Chunk ch = new Chunk(content);

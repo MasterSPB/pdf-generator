@@ -9,11 +9,11 @@ import java.util.Collections;
  * Util file for currency operations
  */
 
-    public class CurrencyUtils {
+    public class ReportCurrencyUtils {
 
         private BigDecimal amount;
 
-        public CurrencyUtils(long l) {
+        public ReportCurrencyUtils(long l) {
             String strValue = String.valueOf(l);
             if (!strValue.contains(".") )
                 strValue += ".0";
@@ -21,7 +21,7 @@ import java.util.Collections;
         }
 
 
-        public CurrencyUtils(double l) {
+        public ReportCurrencyUtils(double l) {
             String strValue = String.valueOf(l);
             if (!strValue.contains(".") )
                 strValue += ".0";
@@ -29,7 +29,7 @@ import java.util.Collections;
         }
 
 
-        public CurrencyUtils(String strValue) {
+        public ReportCurrencyUtils(String strValue) {
             if (!strValue.contains(".") )
                 strValue += ".0";
             this.amount = new BigDecimal( strValue );
