@@ -9,9 +9,7 @@ import ru.onyx.clipper.utils.CalcUtils;
 import ru.onyx.clipper.utils.StrUtils;
 
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Stack;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
  * User: Alex
@@ -31,7 +29,7 @@ public class ReportChunk extends BaseReportObject {
     @Override
     public Element getPdfObject() {
         String content = "";
-        String key,keyT,strEl;
+        String key,strEl;
         double res;
 
         if (this.text != null) content = this.text;
@@ -91,6 +89,7 @@ public class ReportChunk extends BaseReportObject {
 
         }
 
+
         if(getDelimiterAdd()!=null&&getPropertyName()!=null){
             content+=getDelimiterAdd();
         }
@@ -114,7 +113,11 @@ public class ReportChunk extends BaseReportObject {
         }
 
         if (getStringformat() != null && !content.equals("") && !content.equals("-")) {
-            content = String.format(getStringformat(), Double.parseDouble(content));
+            if(getLocaleDel()!=null&&getLocaleDel().equals(".")) {
+                content = String.format(Locale.ENGLISH, getStringformat(), Double.parseDouble(content));
+            }else{
+                content = String.format(getStringformat(), Double.parseDouble(content));
+            }
         }
 
         if (getNegativeEmbrace()){
