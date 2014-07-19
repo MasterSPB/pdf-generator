@@ -496,7 +496,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                         aggrType[aggrResIndex] = "int";
                         continue;
                     }
-                    else if(cells[key-1].getPhrase().getContent().toString().contains("."))
+                    else if(cells[key-1].getPhrase().getContent().toString().contains(".") || cells[key-1].getPhrase().getContent().toString().contains(","))
                         aggrType[aggrResIndex]="float";
                     else {
                         aggrType[aggrResIndex] = "int";
