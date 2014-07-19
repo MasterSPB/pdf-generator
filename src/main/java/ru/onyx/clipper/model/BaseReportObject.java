@@ -7,7 +7,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import ru.onyx.clipper.data.PropertyGetter;
-import ru.onyx.clipper.utils.DateUtils;
+import ru.onyx.clipper.utils.ReportDateUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -1234,6 +1234,6 @@ public abstract class BaseReportObject {
         String defaultNullValue = getDefaultNullValue();
         String format = getToDateFormat();
 
-        return DateUtils.getFormattedDate(defaultNullValue, s, format);
+        return ReportDateUtils.getFormattedDate(defaultNullValue, s, format);
     }
 }

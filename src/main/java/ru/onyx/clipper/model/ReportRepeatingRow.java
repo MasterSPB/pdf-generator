@@ -2,14 +2,13 @@ package ru.onyx.clipper.model;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPRow;
 import com.itextpdf.text.pdf.PdfPTable;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import ru.onyx.clipper.data.PropertyGetter;
-import ru.onyx.clipper.utils.RegexUtils;
-import ru.onyx.clipper.utils.TableUtils;
+import ru.onyx.clipper.utils.ReportRegexUtils;
+import ru.onyx.clipper.utils.ReportTableUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.IOException;
@@ -50,7 +49,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                     if(nodeName.equalsIgnoreCase("table"))
                         try {
                             header = (new ReportTable(headerChildList.item(j), _fonts, this, propertyGetter)).getPdfObject();
-                            TableUtils.setExactWidthFromPercentage(header, _doc);
+                            ReportTableUtils.setExactWidthFromPercentage(header, _doc);
                         } catch (DocumentException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -67,7 +66,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                         try {
                             ReportTable footerTable = new ReportTable(footerChildList.item(j), _fonts, this, propertyGetter);
                             footer = footerTable.getPdfObject();
-                            TableUtils.setExactWidthFromPercentage(footer, _doc);
+                            ReportTableUtils.setExactWidthFromPercentage(footer, _doc);
                             aggrMap = footerTable.getTableAggrProps();
                         } catch (DocumentException e) {
                             e.printStackTrace();
@@ -85,7 +84,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                         try {
                             ReportTable finalTable = new ReportTable(finalChildList.item(j), _fonts, this, propertyGetter);
                             finalLine = finalTable.getPdfObject();
-                            TableUtils.setExactWidthFromPercentage(finalLine, _doc);
+                            ReportTableUtils.setExactWidthFromPercentage(finalLine, _doc);
                         } catch (DocumentException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -116,7 +115,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                                  String textCell = pGetter.GetProperty(String.format("%s[%s].%s", getPageName(), y, propName));
                                  SetAttribute(attrObj, "customtext", textCell);
                                  if(expression.equalsIgnoreCase("eq")) {
-                                     Pattern pat = RegexUtils.getRegex(getOperandType(), getExpressionOperand(), getQuartIndex());
+                                     Pattern pat = ReportRegexUtils.getRegex(getOperandType(), getExpressionOperand(), getQuartIndex());
                                      Matcher mat = pat.matcher(textCell);
                                      if (mat.matches()) {
                                          itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
@@ -199,7 +198,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                                         qi = pGetter.GetProperty(qi);
                                         String ot = parseAttribute(attrObj,"optype","");
                                         String eo = parseAttribute(attrObj,"expoperand","");
-                                        Pattern pat = RegexUtils.getRegex(ot, eo,qi);
+                                        Pattern pat = ReportRegexUtils.getRegex(ot, eo, qi);
                                         Matcher mat = pat.matcher(textCell);
                                         if (mat.matches()) {
                                             itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
@@ -257,7 +256,7 @@ public class ReportRepeatingRow extends BaseReportObject {
 
         PdfPTable table = new PdfPTable(getColumns());
         setTableParams(table, _doc);
-        TableUtils.setExactWidthFromPercentage(table, _doc);
+        ReportTableUtils.setExactWidthFromPercentage(table, _doc);
         String[] cellsFormat = new String[totalCols];
 
         for(int colNum=0; colNum<totalCols; colNum++){
@@ -277,7 +276,7 @@ public class ReportRepeatingRow extends BaseReportObject {
             }
 
 
-            TableUtils.setExactWidthFromPercentage(table, _doc);
+            ReportTableUtils.setExactWidthFromPercentage(table, _doc);
             curTableHeight = table.getTotalHeight();
 
             cellHeight = table.getRow(table.getRows().size() - 1).getMaxRowHeightsWithoutCalculating();
@@ -462,7 +461,7 @@ public class ReportRepeatingRow extends BaseReportObject {
         if(getTotalWidth() >0) table.setTotalWidth(getTotalWidth());
         if(getWidthPercentage() >0) {
             table.setWidthPercentage(getWidthPercentage());
-            TableUtils.setExactWidthFromPercentage(table, _doc);
+            ReportTableUtils.setExactWidthFromPercentage(table, _doc);
         }
         if(getWidthCellsPercentage() != null) try {
             table.setWidths(getWidthCellsPercentage());

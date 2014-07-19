@@ -1,15 +1,13 @@
 package ru.onyx.clipper.model;
 
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import ru.onyx.clipper.data.PropertyGetter;
-import ru.onyx.clipper.data.PropertyGetterFromXMLFileImpl;
-import ru.onyx.clipper.utils.RegexUtils;
+import ru.onyx.clipper.utils.ReportRegexUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -66,7 +64,7 @@ public class ReportRepeatingRowSimple extends BaseReportObject{
                                             qi = pGetter.GetProperty(qi);
                                             String ot = parseAttribute(attrObj, "optype", "");
                                             String eo = parseAttribute(attrObj, "expoperand", "");
-                                            Pattern pat = RegexUtils.getRegex(ot, eo, qi);
+                                            Pattern pat = ReportRegexUtils.getRegex(ot, eo, qi);
                                             Matcher mat = pat.matcher(textCell);
                                             if (mat.matches()) {
                                                 itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));

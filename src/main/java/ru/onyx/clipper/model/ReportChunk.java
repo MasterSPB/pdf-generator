@@ -5,11 +5,12 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import org.w3c.dom.Node;
 import ru.onyx.clipper.data.PropertyGetter;
-import ru.onyx.clipper.utils.CalcUtils;
-import ru.onyx.clipper.utils.StrUtils;
+import ru.onyx.clipper.utils.ReportCalcUtils;
+import ru.onyx.clipper.utils.ReportStrUtils;
 
 import java.text.ParseException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.StringTokenizer;
 
 /**
  * User: Alex
@@ -29,7 +30,7 @@ public class ReportChunk extends BaseReportObject {
     @Override
     public Element getPdfObject() {
         String content = "";
-        String key,strEl;
+        String key,keyT,strEl;
         double res;
 
         if (this.text != null) content = this.text;
@@ -73,7 +74,7 @@ public class ReportChunk extends BaseReportObject {
                 }
             }
 
-            CalcUtils cu = new CalcUtils();
+            ReportCalcUtils cu = new ReportCalcUtils();
 
             res = cu.calculate(calcProp);
             content = String.format("%,6.2f",res);
@@ -88,7 +89,6 @@ public class ReportChunk extends BaseReportObject {
 
 
         }
-
 
         if(getDelimiterAdd()!=null&&getPropertyName()!=null){
             content+=getDelimiterAdd();
@@ -113,19 +113,15 @@ public class ReportChunk extends BaseReportObject {
         }
 
         if (getStringformat() != null && !content.equals("") && !content.equals("-")) {
-            if(getLocaleDel()!=null&&getLocaleDel().equals(".")) {
-                content = String.format(Locale.ENGLISH, getStringformat(), Double.parseDouble(content));
-            }else{
-                content = String.format(getStringformat(), Double.parseDouble(content));
-            }
+            content = String.format(getStringformat(), Double.parseDouble(content));
         }
 
         if (getNegativeEmbrace()){
-            content = StrUtils.embraceNegativeValue(content);
+            content = ReportStrUtils.embraceNegativeValue(content);
         }
 
         if (getDecimalSeparator() != null) {
-            content = StrUtils.replaceDecSeparator(content, getDecimalSeparator());
+            content = ReportStrUtils.replaceDecSeparator(content, getDecimalSeparator());
         }
 
         Chunk ch = new Chunk(content);

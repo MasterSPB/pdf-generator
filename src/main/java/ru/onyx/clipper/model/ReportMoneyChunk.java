@@ -6,7 +6,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import org.w3c.dom.Node;
 import ru.onyx.clipper.data.PropertyGetter;
-import ru.onyx.clipper.utils.CurrencyUtils;
+import ru.onyx.clipper.utils.ReportCurrencyUtils;
 
 import java.text.ParseException;
 import java.util.HashMap;
@@ -41,9 +41,9 @@ public class ReportMoneyChunk extends BaseReportObject {
             content = "\uf0A8";
         }
 
-        CurrencyUtils currencyUtils = new CurrencyUtils(content);
-        content = currencyUtils.num2str();
-        content = currencyUtils.beginFromUpper(content);
+        ReportCurrencyUtils reportCurrencyUtils = new ReportCurrencyUtils(content);
+        content = reportCurrencyUtils.num2str();
+        content = reportCurrencyUtils.beginFromUpper(content);
 
         Chunk ch = new Chunk(content);
 
