@@ -10,6 +10,7 @@ import ru.onyx.clipper.utils.ReportStrUtils;
 
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.StringTokenizer;
 
 /**
@@ -113,7 +114,11 @@ public class ReportChunk extends BaseReportObject {
         }
 
         if (getStringformat() != null && !content.equals("") && !content.equals("-")) {
-            content = String.format(getStringformat(), Double.parseDouble(content));
+            if(getLocaleDel()!=null&&getLocaleDel().equals(".")){
+                content = String.format(Locale.ENGLISH,getStringformat(), Double.parseDouble(content));
+            }else {
+                content = String.format(getStringformat(), Double.parseDouble(content));
+            }
         }
 
         if (getNegativeEmbrace()){
