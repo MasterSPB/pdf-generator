@@ -5,7 +5,7 @@ import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateUtils {
+public class ReportDateUtils {
 
     public static String getFormattedDate(String defaultNullValue, Date s, String format){
    // returns formatted date or default value if null is passed instead of date

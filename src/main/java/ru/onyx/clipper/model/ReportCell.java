@@ -7,7 +7,7 @@ import com.itextpdf.text.pdf.PdfPCellEvent;
 import com.itextpdf.text.pdf.PdfPTable;
 import org.w3c.dom.Node;
 import ru.onyx.clipper.data.PropertyGetter;
-import ru.onyx.clipper.utils.StrUtils;
+import ru.onyx.clipper.utils.ReportStrUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -150,7 +150,7 @@ public class ReportCell extends BaseReportObject {
         }
 
         if (getDecimalSeparator() != null) {
-            celltext = StrUtils.replaceDecSeparator(celltext, getDecimalSeparator());
+            celltext = ReportStrUtils.replaceDecSeparator(celltext, getDecimalSeparator());
         }
 
         if (customtext != null) {
@@ -168,12 +168,12 @@ public class ReportCell extends BaseReportObject {
             }
 
             if (getDecimalSeparator() != null) {
-                celltext = StrUtils.replaceDecSeparator(celltext, getDecimalSeparator());
+                celltext = ReportStrUtils.replaceDecSeparator(celltext, getDecimalSeparator());
             }
         }
 
         if (getNegativeEmbrace()){
-            celltext = StrUtils.embraceNegativeValue(celltext);
+            celltext = ReportStrUtils.embraceNegativeValue(celltext);
         }
 
         if(getTextCase() != null) {

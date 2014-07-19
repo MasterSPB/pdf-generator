@@ -8,7 +8,7 @@ import java.util.Locale;
  * Created by anton on 29.04.14.
  * The input number decimal separator should be a dot
  */
-public class StrUtils {
+public class ReportStrUtils {
 
     public static String replaceDecSeparator(String inputString, String separator){
 

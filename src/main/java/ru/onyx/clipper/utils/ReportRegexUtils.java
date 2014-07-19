@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 /**
  * Created by anovik on 15.07.14.
  */
-public class RegexUtils {
+public class ReportRegexUtils {
 
     public static Pattern getRegex(String regexp, String operand, String quartindex){
         Pattern p;

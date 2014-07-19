@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 /**
  * Created by novikam on 18.07.14.
  */
-public class CalcUtils {
+public class ReportCalcUtils {
 
     Stack<Double> vals = new Stack<Double>();
     Stack<Double> br = new Stack<Double>();

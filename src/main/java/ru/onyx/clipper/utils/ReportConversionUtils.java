@@ -10,7 +10,7 @@ import java.io.*;
  * Created by anton on 30.04.14.
  * Utils to convert files between formats
  */
-public class ConversionUtils {
+public class ReportConversionUtils {
     public static int PRETTY_PRINT_INDENT_FACTOR = 4;
 
     public static String ByteXMLtoJSON(byte[] XMLContent) throws UnsupportedEncodingException {

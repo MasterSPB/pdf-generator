@@ -9,8 +9,8 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import ru.onyx.clipper.data.PropertyGetter;
 import ru.onyx.clipper.events.HeaderEvent;
-import ru.onyx.clipper.utils.DocumentUtils;
-import ru.onyx.clipper.utils.TableUtils;
+import ru.onyx.clipper.utils.ReportDocumentUtils;
+import ru.onyx.clipper.utils.ReportTableUtils;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -70,6 +70,7 @@ public class Report {
     public static final String image = "image";
     public static final String pagefont = "pagefont";
     public static final String header = "header";
+    public static final String lowerrunningtitle="lowerrunningtitle";
     public static final String ifcondition = "if";
     public static final String elsecondition = "else";
     public static final String logicalcondition = "condition";
@@ -122,6 +123,8 @@ public class Report {
     private String pageHeader;
     private String pageSize;
     private String pageOrientation;
+    private String lowerRunningTitle;
+
     private float spaceLeft;
 
     public String getPageText() {
@@ -193,6 +196,7 @@ public class Report {
         pageNumType = parseAttribute(attrs, Report.pagenumtype, "blank");
         pageHeader = parseAttribute(attrs, Report.pageheader, "disabled");
         pageText = parseAttribute(attrs, Report.pagetext, "");
+        lowerRunningTitle = parseAttribute(attrs,Report.lowerrunningtitle, "disabled");
 
         pageSize = parseAttribute(attrs, pagesize, A4);
         pageOrientation = parseAttribute(attrs, orientation, portrait);
@@ -248,11 +252,15 @@ public class Report {
     private void parseDocument(NodeList repChilds, PropertyGetter pGetter) throws ParseException, IOException, DocumentException {
         for (int t = 0; t < repChilds.getLength(); t++) {
             String nodeName = repChilds.item(t).getNodeName();
+            if (nodeName.equals(lowerrunningtitle)) {
+                NodeList lowerRunningTitleChildList = repChilds.item(t).getChildNodes();
+            }
 
             if (nodeName.equals(header)){
                 NodeList headerChildList = repChilds.item(t).getChildNodes();
                 parseHeader(headerChildList, pGetter);
             }
+
             if (nodeName.equals(paragraph)) {
                 items.add(new ReportParagraph(repChilds.item(t), fonts, null, pGetter));
             }
@@ -313,7 +321,6 @@ public class Report {
 
         _doc.open();
 
-
         for (BaseReportObject item : items) {
 
             if (item instanceof ReportNewPage) {
@@ -329,30 +336,32 @@ public class Report {
                         spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
                     }
                     else if (reportRepeatingRowItem instanceof PdfPTable){
-                        TableUtils.setExactWidthFromPercentage((PdfPTable) reportRepeatingRowItem, _doc);
-                        spaceLeft=DocumentUtils.calcFreeSpace(TableUtils.getTableVerticalSize((PdfPTable) reportRepeatingRowItem), (Float) spaceLeft, _doc);
+                        ReportTableUtils.setExactWidthFromPercentage((PdfPTable) reportRepeatingRowItem, _doc);
+                        spaceLeft= ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize((PdfPTable) reportRepeatingRowItem), (Float) spaceLeft, _doc);
                         _doc.add((Element) reportRepeatingRowItem);
                     }
                 }
             }
+
             else if (item instanceof ReportTable) {
                 PdfPTable table = (PdfPTable) item.getPdfObject();
-                TableUtils.setExactWidthFromPercentage(table, _doc);
-                spaceLeft= DocumentUtils.calcFreeSpace(TableUtils.getTableVerticalSize(table), (Float) spaceLeft, _doc);
+                ReportTableUtils.setExactWidthFromPercentage(table, _doc);
+                spaceLeft= ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize(table), (Float) spaceLeft, _doc);
                 _doc.add(table);
             }
             else if (item instanceof ReportParagraph) {
-                spaceLeft= DocumentUtils.calcFreeSpace(item.getVerticalSize(), (Float) spaceLeft, _doc);
+                spaceLeft= ReportDocumentUtils.calcFreeSpace(item.getVerticalSize(), (Float) spaceLeft, _doc);
                 _doc.add(item.getPdfObject());
             }
 
             else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
         }
 
-
         PdfAction ac = PdfAction.gotoLocalPage(1, new
                 PdfDestination(PdfDestination.XYZ, 0, _doc.getPageSize().getHeight(), 1f), wr);
+
         wr.setOpenAction(ac);
+
         _doc.close();
         wr.close();
         byteArrayOutputStream.close();
@@ -398,6 +407,8 @@ public class Report {
             }
         }
     }
+
+
 
  /*   protected void setPageNumber(PdfWriter writer){
         //this method is obsolete, but still can be useful
