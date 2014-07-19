@@ -50,6 +50,12 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+            propertyExtract = parseAttribute(attrObj, PROPERTY_EXTRACT, null);
+            propertyCalc = parseAttribute(attrObj,PROPERTY_CALC,"");
+            quartIndex = parseAttribute(attrObj,QUART_INDEX,"null");
+            operandType = parseAttribute(attrObj,OPERAND_TYPE,"null");
+            expressionOp = parseAttribute(attrObj,EXPRESSION_OPERAND,"null");
+            cellExpression=parseAttribute(attrObj,CELL_EXPRESSION,"null");
             numerator = Boolean.parseBoolean(parseAttribute(attrObj, LINE_NUMERATOR, "false"));
             minFreeSpaceAfter = Integer.parseInt(parseAttribute(attrObj, MIN_FREE_SPACE_AFTER, "0"));
             aggrCol = Integer.parseInt(parseAttribute(attrObj, AGGR_COL, "0"));
@@ -314,7 +320,7 @@ public abstract class BaseReportObject {
         }
     }
 
-    protected void LoadItems(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException {
+    protected void LoadItems(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException, IOException, DocumentException {
         NodeList nodes = node.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node item = nodes.item(i);
@@ -341,9 +347,9 @@ public abstract class BaseReportObject {
                     case cell:
                         items.add(new ReportCell(item, fonts, pParent, pGetter));
                         break;
-                    /*case repeatingrow:
-                        items.add(new ReportRepeatingRow(item, fonts, pParent, pGetter, _doc));
-                        break;*/
+                    case repeatingrow:
+                        items.add(new ReportRepeatingRowSimple(item, fonts, pParent, pGetter));
+                        break;
                     case wordsplitter:
                         items.add(new ReportWordSplitter(item, fonts, pParent, pGetter));
                         break;
@@ -385,6 +391,12 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String PROPERTY_EXTRACT="propertyextract";
+    protected static final String PROPERTY_CALC="propertycalc";
+    protected static final String QUART_INDEX="quartindex";
+    protected static final String OPERAND_TYPE="optype";
+    protected static final String EXPRESSION_OPERAND="expoperand";
+    protected static final String CELL_EXPRESSION="expression";
     protected static final String LINE_NUMERATOR="numerator";
     protected static final String MIN_FREE_SPACE_AFTER="minfreespaceafter";
     protected static final String AGGR_COL="aggrcol";
@@ -509,6 +521,12 @@ public abstract class BaseReportObject {
     protected Integer charspacing;
     protected Integer minFreeSpaceAfter;
 
+    protected String propertyExtract;
+    protected String propertyCalc;
+    protected String quartIndex;
+    protected String operandType;
+    protected String expressionOp;
+    protected String cellExpression;
     protected String aggrFunc;
     protected String pageNumType;
     protected String pageHeader;
@@ -723,6 +741,47 @@ public abstract class BaseReportObject {
         else if (parent != null) return parent.getLeading();
 
         return -1f;
+    }
+
+    protected String getPropertyExtract(){
+        if(propertyExtract!=null){
+            return propertyExtract;
+        }
+        return null;
+    }
+
+    protected String getPropertyCalc(){
+        if(propertyCalc!=null){
+            return propertyCalc;
+        }
+        return null;
+    }
+
+    protected String getQuartIndex(){
+        if(quartIndex!=null){
+            return quartIndex;
+        }
+        return null;
+    }
+
+    protected String getOperandType(){
+        if(operandType!=null){
+            return operandType;
+        }
+        return null;
+    }
+
+    protected String getExpressionOperand(){
+        if(expressionOp != null){
+            return expressionOp;
+        }
+        return null;
+    }
+
+    protected String getCellExpression(){
+        if(cellExpression != null)
+            return cellExpression;
+        return null;
     }
 
     protected String getAggrFunc() {

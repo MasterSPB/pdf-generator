@@ -34,6 +34,9 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
     @Override
     public String GetProperty(String pName) {
         String jsonPath = pName;
+        if(pName.contains("+")||(pName.contains("-"))||(pName.contains("*"))||(pName.contains("/"))){
+            return pName;
+        }
         try{
             Object value = JsonPath.read(jsonFile, jsonPath);
             if (value != null){
@@ -48,13 +51,17 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
         return null;
     }
 
+
+
     @Override
     public int GetPageCount(String pName) {
         int i = 0;
         try{
              JSONArray ja =  JsonPath.read(jsonFile, pName);
             i = ja.size();
-        } catch (IOException e){
+        }catch (NullPointerException n){
+            return 0;
+        }catch (IOException e){
             e.printStackTrace();
         }
         return i;
@@ -80,6 +87,7 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
         if (propvalue == null) return null;
         if (propvalue.length() == 0) return null;
         if (propvalue == "null") return null;
+        if (propvalue.equals(" ")) return null;
         try {
             return df.parse(propvalue);
         } catch (ParseException e) {

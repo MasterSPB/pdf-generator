@@ -17,7 +17,7 @@ import java.util.HashMap;
  */
 public class ReportParagraph extends BaseReportObject {
 
-    public ReportParagraph(Node node,HashMap<String ,ReportBaseFont> fonts,BaseReportObject pParent,PropertyGetter pGetter) throws ParseException {
+    public ReportParagraph(Node node,HashMap<String ,ReportBaseFont> fonts,BaseReportObject pParent,PropertyGetter pGetter) throws ParseException, IOException, DocumentException {
      _fonts = fonts;
       parent = pParent;
       propertyGetter = pGetter;

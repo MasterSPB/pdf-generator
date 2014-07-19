@@ -15,7 +15,7 @@ import java.lang.String;
  */
 
 public class ReportConditionalStatements {
-    protected static void parseIfStatement(NodeList ifStatementItems, PropertyGetter pGetter, String logicalcondition, String elsecondition, String paragraph, List<BaseReportObject> items, HashMap<String, ReportBaseFont> fonts) {
+    protected static void parseIfStatement(NodeList ifStatementItems, PropertyGetter pGetter, String logicalcondition, String elsecondition, String paragraph, List<BaseReportObject> items, HashMap<String, ReportBaseFont> fonts) throws IOException, DocumentException {
         String[] operands;
         boolean conditionResult=false;
 
@@ -35,14 +35,21 @@ public class ReportConditionalStatements {
                         operands[i] = pGetter.GetProperty(operands[i]);
                     }
                 }
-
-                if(operands[1].equals("eq") && operands[0].equals(operands[2])) conditionResult=true; //if we are checking tokens to be equal
-                if(operands[1].equals("neq") && (operands[0]!=null && operands[2]!=null))
-                    if(!operands[0].equals(operands[2])) conditionResult=true; //if we are checking tokens to be not equal
-                if(operands[1].equals("ge")&&((Double.parseDouble(operands[0])>=Double.parseDouble(operands[2])))) conditionResult=true; //if we are checking tokens to be more or equals
-                if(operands[1].equals("le")&&((Double.parseDouble(operands[0])<=Double.parseDouble(operands[2])))) conditionResult=true; //if we are checking tokens to be less or equals
-                if(operands[1].equals("gt")&&((Double.parseDouble(operands[0])>Double.parseDouble(operands[2])))) conditionResult=true; //if we are checking tokens to be more
-                if(operands[1].equals("lt")&&((Double.parseDouble(operands[0])<Double.parseDouble(operands[2])))) conditionResult=true; //if we are checking tokens to be less
+                if(operands[0]!=null&&operands[2]!=null) {
+                    if (operands[1].equals("eq") && operands[0].equals(operands[2]))
+                        conditionResult = true; //if we are checking tokens to be equal
+                    if (operands[1].equals("neq") && (operands[0] != null && operands[2] != null))
+                        if (!operands[0].equals(operands[2]))
+                            conditionResult = true; //if we are checking tokens to be not equal
+                    if (operands[1].equals("ge") && ((Double.parseDouble(operands[0]) >= Double.parseDouble(operands[2]))))
+                        conditionResult = true; //if we are checking tokens to be more or equals
+                    if (operands[1].equals("le") && ((Double.parseDouble(operands[0]) <= Double.parseDouble(operands[2]))))
+                        conditionResult = true; //if we are checking tokens to be less or equals
+                    if (operands[1].equals("gt") && ((Double.parseDouble(operands[0]) > Double.parseDouble(operands[2]))))
+                        conditionResult = true; //if we are checking tokens to be more
+                    if (operands[1].equals("lt") && ((Double.parseDouble(operands[0]) < Double.parseDouble(operands[2]))))
+                        conditionResult = true; //if we are checking tokens to be less
+                }
             }
 
             if(conditionResult){
@@ -60,7 +67,7 @@ public class ReportConditionalStatements {
 
     }
 
-    private static void switchNodeName(String nodeName, NodeList ifStatementItems, PropertyGetter pGetter, List<BaseReportObject> items, HashMap<String, ReportBaseFont> fonts, int t){
+    private static void switchNodeName(String nodeName, NodeList ifStatementItems, PropertyGetter pGetter, List<BaseReportObject> items, HashMap<String, ReportBaseFont> fonts, int t) throws IOException, DocumentException {
         switch (nodeName){
             case "date": {
                 try{
@@ -136,7 +143,7 @@ public class ReportConditionalStatements {
             }
             case "repeatingrow": {
                 try{
-                    items.add(new ReportRepeatingRow(ifStatementItems.item(t),fonts,null,pGetter,null));
+                    items.add(new ReportRepeatingRowSimple(ifStatementItems.item(t),fonts,null,pGetter));
                 }catch (ParseException e){
                     e.printStackTrace();
                 }catch (DocumentException de){

@@ -8,6 +8,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import ru.onyx.clipper.data.PropertyGetter;
+import ru.onyx.clipper.utils.RegexUtils;
 import ru.onyx.clipper.utils.TableUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -15,6 +16,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * User: Alex
@@ -101,6 +104,46 @@ public class ReportRepeatingRow extends BaseReportObject {
 
                  if(nodeName.equalsIgnoreCase("items")) {
                      NodeList cells = node.getChildNodes();
+                     ArrayList<BaseReportObject> itemsTemp = new ArrayList<BaseReportObject>();
+                     int cellCounter=0;
+                     for (int i = 0; i < cells.getLength(); i++) {
+                         nodeName = cells.item(i).getNodeName();
+                         if (nodeName.equalsIgnoreCase("cell")) {
+                             NamedNodeMap attrObj = cells.item(i).getAttributes();
+                             String expression = parseAttribute(attrObj,"expression",null);
+                             if(expression!=null && !expression.equals("")){
+                                 String propName = parseAttribute(attrObj, "property", "");
+                                 String textCell = pGetter.GetProperty(String.format("%s[%s].%s", getPageName(), y, propName));
+                                 SetAttribute(attrObj, "customtext", textCell);
+                                 if(expression.equalsIgnoreCase("eq")) {
+                                     Pattern pat = RegexUtils.getRegex(getOperandType(), getExpressionOperand(), getQuartIndex());
+                                     Matcher mat = pat.matcher(textCell);
+                                     if (mat.matches()) {
+                                         itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
+                                        cellCounter++;
+                                     }else{
+                                         break;
+                                     }
+                                 }
+                             }else {
+                                 String propName = parseAttribute(attrObj, "property", "");
+                                 String textCell = pGetter.GetProperty(String.format("%s[%s].%s", getPageName(), y, propName));
+                                 SetAttribute(attrObj, "customtext", textCell);
+                                 itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
+                                 cellCounter++;
+                             }
+                         }
+                         if(cellCounter==getColumns()){
+                             for(int k=0;k<itemsTemp.size();k++){
+                                 items.add(itemsTemp.get(k));
+                             }
+                         break;
+                         }
+                     }
+                 }
+
+                 /*if(nodeName.equalsIgnoreCase("items")) {
+                     NodeList cells = node.getChildNodes();
                      for(int i=0;i<cells.getLength();i++) {
                          nodeName=cells.item(i).getNodeName();
                          if (nodeName.equalsIgnoreCase("cell")) {
@@ -108,15 +151,85 @@ public class ReportRepeatingRow extends BaseReportObject {
                              String propName = parseAttribute(attrObj, "property", "");
                              String textCell = pGetter.GetProperty(String.format("%s[%s].%s", getPageName(), y, propName));
                              SetAttribute(attrObj, "customtext", textCell);
-
                              items.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
                          }
                      }
-                 }
+                 }*/
              }
            }
          }
      }
+
+    public ReportRepeatingRow(Node tableNode,HashMap<String ,ReportBaseFont> fonts,BaseReportObject pParent,PropertyGetter pGetter) throws ParseException, DocumentException, IOException {
+        _fonts = fonts;
+        parent = pParent;
+        propertyGetter = pGetter;
+        String nodeName;
+        Load(tableNode);
+
+        NodeList childsList = tableNode.getChildNodes();
+
+        for(int h=0;h<childsList.getLength();h++) {
+            nodeName = childsList.item(h).getNodeName();
+            Node node = childsList.item(h);
+        }
+
+        if(getPageName().length() > 0) {
+            int n = pGetter.GetPageCount(getPageName());
+            for(int y=0;y<n;y++) {
+                for(int h=0;h<childsList.getLength();h++) {
+                    nodeName = childsList.item(h).getNodeName();
+                    Node node = childsList.item(h);
+
+                    if(nodeName.equalsIgnoreCase("items")) {
+                        NodeList cells = node.getChildNodes();
+                        ArrayList<BaseReportObject> itemsTemp = new ArrayList<BaseReportObject>();
+                        int cellCounter=0;
+                        for (int i = 0; i < cells.getLength(); i++) {
+                            nodeName = cells.item(i).getNodeName();
+                            if (nodeName.equalsIgnoreCase("cell")) {
+                                NamedNodeMap attrObj = cells.item(i).getAttributes();
+                                String expression = parseAttribute(attrObj,"expression",null);
+                                if(expression!=null && !expression.equals("")){
+                                    String propName = parseAttribute(attrObj, "property", "");
+                                    String textCell = pGetter.GetProperty(String.format("%s[%s].%s", getPageName(), y, propName));
+                                    SetAttribute(attrObj, "customtext", textCell);
+                                    if(expression.equalsIgnoreCase("eq")) {
+                                        String qi = parseAttribute(attrObj, "quartindex","");
+                                        qi = pGetter.GetProperty(qi);
+                                        String ot = parseAttribute(attrObj,"optype","");
+                                        String eo = parseAttribute(attrObj,"expoperand","");
+                                        Pattern pat = RegexUtils.getRegex(ot, eo,qi);
+                                        Matcher mat = pat.matcher(textCell);
+                                        if (mat.matches()) {
+                                            itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
+                                            cellCounter++;
+                                        }else{
+                                            break;
+                                        }
+                                    }
+                                }else {
+                                    String propName = parseAttribute(attrObj, "property", "");
+                                    String textCell = pGetter.GetProperty(String.format("%s[%s].%s", getPageName(), y, propName));
+                                    SetAttribute(attrObj, "customtext", textCell);
+                                    itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
+                                    cellCounter++;
+                                }
+                            }
+                            if(cellCounter==getColumns()){
+                                for(int k=0;k<itemsTemp.size();k++){
+                                    items.add(itemsTemp.get(k));
+                                }
+                                break;
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
+    }
 
     public List<Object> getPdfTable(float spaceLeft, Document _doc) throws DocumentException, ParseException, IOException {
         List<Object> repeatingRowObjects = new ArrayList<>();

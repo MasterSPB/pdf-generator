@@ -384,7 +384,7 @@ public class Report {
 
     }
 
-    protected void parseHeader(NodeList headerChildList, PropertyGetter pGetter) {
+    protected void parseHeader(NodeList headerChildList, PropertyGetter pGetter) throws IOException, DocumentException {
         // this function parses header tag
         String nodeName;
         for (int j = 0; j < headerChildList.getLength(); j++) {

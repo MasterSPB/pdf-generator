@@ -16,7 +16,7 @@ import java.util.HashMap;
  * Time: 12:17
  */
 public class ReportDate extends BaseReportObject {
-    public ReportDate(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException {
+    public ReportDate(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException, IOException, DocumentException {
          _fonts = fonts;
       parent = pParent;
       propertyGetter = pGetter;

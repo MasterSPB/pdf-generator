@@ -5,10 +5,13 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import org.w3c.dom.Node;
 import ru.onyx.clipper.data.PropertyGetter;
+import ru.onyx.clipper.utils.CalcUtils;
 import ru.onyx.clipper.utils.StrUtils;
 
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.Stack;
+import java.util.StringTokenizer;
 
 /**
  * User: Alex
@@ -28,6 +31,8 @@ public class ReportChunk extends BaseReportObject {
     @Override
     public Element getPdfObject() {
         String content = "";
+        String key,keyT,strEl;
+        double res;
 
         if (this.text != null) content = this.text;
 
@@ -37,6 +42,53 @@ public class ReportChunk extends BaseReportObject {
             if (getDateFormat() != null && getToDateFormat() != null) {
                 content = ConvertPropertyToSpecificDateFormat(propertyGetter.GetProperty(getPropertyName()));
             }
+        }
+
+
+        if(getPropertyCalc()!=null && getPropertyCalc().length()>0){
+            String calcExpression = propertyGetter.GetProperty(getPropertyCalc());
+            String calcProp="";
+            StringTokenizer st = new StringTokenizer(calcExpression, "()+-*/", true);
+            while (st.hasMoreElements()){
+                key= st.nextToken();
+                if(key.equals("+")){
+                    calcProp += key;
+                }else if(key.equals("-")){
+                    calcProp += key;
+                }else if(key.equals("*")){
+                    calcProp += key;
+                }else if(key.equals("/")){
+                    calcProp += key;
+                }else if(key.equals("(")){
+                    calcProp += key;
+                }else if(key.equals(")")){
+                    calcProp += key;
+                }else if(key.contains("$")){
+                    strEl=propertyGetter.GetProperty(key);
+                    if(strEl!=null) {
+                        calcProp += strEl;
+                    }else{
+                        calcProp += 0;
+                    }
+                }else{
+                    calcProp += key;
+                }
+            }
+
+            CalcUtils cu = new CalcUtils();
+
+            res = cu.calculate(calcProp);
+            content = String.format("%,6.2f",res);
+
+            if(res==0){
+                content = "-";
+            }
+
+            if (content.length() == 0) {
+                content = "-";
+            }
+
+
         }
 
         Font NullF = null;
@@ -55,6 +107,10 @@ public class ReportChunk extends BaseReportObject {
         if(getTextCase() != null) {
             if (getTextCase().equals("upper")) content=content.toUpperCase();
             if (getTextCase().equals("lower")) content=content.toLowerCase();
+        }
+
+        if (getStringformat() != null && !content.equals("") && !content.equals("-")) {
+            content = String.format(getStringformat(), Double.parseDouble(content));
         }
 
         if (getNegativeEmbrace()){
