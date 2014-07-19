@@ -50,6 +50,7 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+            delimiterAdd = parseAttribute(attrObj, DELIMITER_ADD, null);
             propertyExtract = parseAttribute(attrObj, PROPERTY_EXTRACT, null);
             propertyCalc = parseAttribute(attrObj,PROPERTY_CALC,"");
             quartIndex = parseAttribute(attrObj,QUART_INDEX,"null");
@@ -391,6 +392,7 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String DELIMITER_ADD="delimiter";
     protected static final String PROPERTY_EXTRACT="propertyextract";
     protected static final String PROPERTY_CALC="propertycalc";
     protected static final String QUART_INDEX="quartindex";
@@ -521,6 +523,7 @@ public abstract class BaseReportObject {
     protected Integer charspacing;
     protected Integer minFreeSpaceAfter;
 
+    protected String delimiterAdd;
     protected String propertyExtract;
     protected String propertyCalc;
     protected String quartIndex;
@@ -741,6 +744,13 @@ public abstract class BaseReportObject {
         else if (parent != null) return parent.getLeading();
 
         return -1f;
+    }
+
+    protected String getDelimiterAdd(){
+        if(delimiterAdd!=null){
+            return delimiterAdd;
+        }
+        return null;
     }
 
     protected String getPropertyExtract(){
