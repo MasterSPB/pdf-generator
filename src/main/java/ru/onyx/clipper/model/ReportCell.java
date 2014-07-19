@@ -11,8 +11,10 @@ import ru.onyx.clipper.utils.StrUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 /**
  * User: Alex
@@ -111,6 +113,31 @@ public class ReportCell extends BaseReportObject {
                 NullF = getNullFont();
                 celltext = getDefaultNullValue();
             }
+            if(getPropertyExtract()!=null && (celltext!=null)){
+                StringTokenizer st = new StringTokenizer(celltext,",.",true);
+                int extIndex = Integer.parseInt(getPropertyExtract());
+                ArrayList<String> extData= new ArrayList<>();
+                boolean dataFlag = false;
+                while(st.hasMoreTokens()){
+                    String key = st.nextToken();
+                    if(key.equals(",")&&!dataFlag){
+                        extData.add("");
+                    }else if(key.equals(",")||key.equals(".")&&dataFlag){
+                        dataFlag=false;
+                        continue;
+                    }else if(key.equals(".")&&!dataFlag){
+                        extData.add("");
+                    }else if(key.equals(".")&&dataFlag){
+                        dataFlag=false;
+                        continue;
+                    }else{
+                        extData.add(key);
+                        dataFlag=true;
+                    }
+                }
+
+                celltext=extData.get(extIndex);
+            }
             if (getDateFormat() != null && getToDateFormat() != null) {
                 celltext = ConvertPropertyToSpecificDateFormat(celltext);
             }
@@ -133,7 +160,11 @@ public class ReportCell extends BaseReportObject {
             }
 
             if (getStringformat() != null && !celltext.equals("")) {
+                try {
                     celltext = String.format(getStringformat(), Float.parseFloat(celltext));
+                }catch (NumberFormatException ne){
+                    celltext = celltext;
+                }
             }
 
             if (getDecimalSeparator() != null) {

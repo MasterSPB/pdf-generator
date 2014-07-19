@@ -32,8 +32,7 @@ public class ReportChunk extends BaseReportObject {
     public Element getPdfObject() {
         String content = "";
         String key,keyT,strEl;
-        double res = 0.0f;
-        String result="";
+        double res;
 
         if (this.text != null) content = this.text;
 
@@ -76,64 +75,20 @@ public class ReportChunk extends BaseReportObject {
                 }
             }
 
-
-            /*
-            * if(getPropertyCalc()!=null && getPropertyCalc().length()>0){
-            String calcExpression = propertyGetter.GetProperty(getPropertyCalc());
-            Stack<Double> exprEl = new Stack<>();
-            StringTokenizer st = new StringTokenizer(calcExpression, "+-*//*", true);
-            while (st.hasMoreElements()){
-                key= st.nextToken();
-                if(key.equals("+")){
-
-                }else if(key.equals("-")){
-                    keyT = st.nextToken();
-                    strEl=propertyGetter.GetProperty(keyT);
-                    try {
-                        double element1 = Double.parseDouble(strEl);
-                        exprEl.push(-element1);
-                    }catch (NullPointerException ne){
-                        continue;
-                    }
-                }else if(key.equals("*")){
-                    double element1 = exprEl.pop();
-                    keyT = st.nextToken();
-                    strEl=propertyGetter.GetProperty(keyT);
-                    try {
-                        double element2 = Double.parseDouble(strEl);
-                        exprEl.push(element1 * element2);
-                    }catch (NullPointerException ne){
-                        continue;
-                    }
-                }else if(key.equals("/")){
-                    double element1 = exprEl.pop();
-                    keyT = st.nextToken();
-                    strEl=propertyGetter.GetProperty(keyT);
-                    try {
-                        double element2 = Double.parseDouble(strEl);
-                        exprEl.push(element1 / element2);
-                    }catch (NullPointerException ne){
-                        continue;
-                    }
-                }else{
-                    strEl=propertyGetter.GetProperty(key);
-                    try {
-                        double element1 = Double.parseDouble(strEl);
-                        exprEl.push(element1);
-                    }catch (NullPointerException ne){
-                        continue;
-                    }
-                }
-            }*/
-
             CalcUtils cu = new CalcUtils();
 
+            res = cu.calculate(calcProp);
+            content = String.format("%,6.2f",res);
 
-            content += cu.calculate(calcProp);
+            if(res==0){
+                content = "-";
+            }
 
             if (content.length() == 0) {
                 content = "-";
             }
+
+
         }
 
         Font NullF = null;
@@ -152,6 +107,10 @@ public class ReportChunk extends BaseReportObject {
         if(getTextCase() != null) {
             if (getTextCase().equals("upper")) content=content.toUpperCase();
             if (getTextCase().equals("lower")) content=content.toLowerCase();
+        }
+
+        if (getStringformat() != null && !content.equals("") && !content.equals("-")) {
+            content = String.format(getStringformat(), Double.parseDouble(content));
         }
 
         if (getNegativeEmbrace()){

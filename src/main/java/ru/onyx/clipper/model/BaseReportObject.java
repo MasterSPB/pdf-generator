@@ -50,6 +50,7 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+            propertyExtract = parseAttribute(attrObj, PROPERTY_EXTRACT, null);
             propertyCalc = parseAttribute(attrObj,PROPERTY_CALC,"");
             quartIndex = parseAttribute(attrObj,QUART_INDEX,"null");
             operandType = parseAttribute(attrObj,OPERAND_TYPE,"null");
@@ -390,6 +391,7 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String PROPERTY_EXTRACT="propertyextract";
     protected static final String PROPERTY_CALC="propertycalc";
     protected static final String QUART_INDEX="quartindex";
     protected static final String OPERAND_TYPE="optype";
@@ -519,6 +521,7 @@ public abstract class BaseReportObject {
     protected Integer charspacing;
     protected Integer minFreeSpaceAfter;
 
+    protected String propertyExtract;
     protected String propertyCalc;
     protected String quartIndex;
     protected String operandType;
@@ -740,27 +743,38 @@ public abstract class BaseReportObject {
         return -1f;
     }
 
+    protected String getPropertyExtract(){
+        if(propertyExtract!=null){
+            return propertyExtract;
+        }
+        return null;
+    }
+
     protected String getPropertyCalc(){
-        if(propertyCalc!=null)
+        if(propertyCalc!=null){
             return propertyCalc;
+        }
         return null;
     }
 
     protected String getQuartIndex(){
-        if(quartIndex!=null)
+        if(quartIndex!=null){
             return quartIndex;
+        }
         return null;
     }
 
     protected String getOperandType(){
-        if(operandType!=null)
+        if(operandType!=null){
             return operandType;
+        }
         return null;
     }
 
     protected String getExpressionOperand(){
-        if(expressionOp != null)
+        if(expressionOp != null){
             return expressionOp;
+        }
         return null;
     }
 

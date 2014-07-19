@@ -7,10 +7,7 @@ import ru.onyx.clipper.data.PropertyGetter;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * User: Alex
@@ -56,6 +53,46 @@ public class ReportWordSplitter extends BaseReportObject {
 
         int paramMargin = 0;
         String param = propertyGetter.GetProperty(getPropertyName());
+
+        if (getDateFormat() != null && getToDateFormat() != null) {
+            param = ConvertPropertyToSpecificDateFormat(param);
+        }
+
+        if (param==null && getDefaultNullValue()!=null){
+            param=getDefaultNullValue();
+        }
+
+        if(getPropertyExtract()!=null&&param!=null){
+            StringTokenizer st = new StringTokenizer(param,",.",true);
+            String gpe = getPropertyExtract();
+            if(param.contains(".")||param.contains(",")) {
+                int extIndex = Integer.parseInt(gpe);
+                ArrayList<String> extData = new ArrayList<>();
+                boolean dataFlag = false;
+                while (st.hasMoreTokens()) {
+                    String key = st.nextToken();
+                    if(key.equals(",")&&!dataFlag){
+                        extData.add("");
+                    }else if(key.equals(",")||key.equals(".")&&dataFlag){
+                        dataFlag=false;
+                        continue;
+                    }else if(key.equals(".")&&!dataFlag){
+                        extData.add("");
+                    }else if(key.equals(".")&&dataFlag){
+                        dataFlag=false;
+                        continue;
+                    }else{
+                        extData.add(key);
+                        dataFlag=true;
+                    }
+                }
+                if(extIndex>extData.size()-1){
+                    param = getDefaultNullValue();
+                }else{
+                    param = extData.get(extIndex);
+                }
+            }
+        }
 
         String mode = getPropertyMode();
         if(mode != null) {      //Then we assume the property is date
@@ -125,6 +162,7 @@ public class ReportWordSplitter extends BaseReportObject {
         }
 
         for (ReportCell item : items) {
+
 
             table.addCell(item.getPdfObject());
         }
