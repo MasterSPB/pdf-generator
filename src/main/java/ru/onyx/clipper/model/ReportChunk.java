@@ -91,8 +91,8 @@ public class ReportChunk extends BaseReportObject {
 
         }
 
-        if(getDelimiterAdd()!=null&&getPropertyName()!=null){
-            content+=getDelimiterAdd();
+        if(getDelimiterAdd()!=null&&content!=null){
+            content=getDelimiterAdd()+content;
         }
 
         Font NullF = null;
