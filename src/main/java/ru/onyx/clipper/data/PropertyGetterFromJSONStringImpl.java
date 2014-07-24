@@ -29,16 +29,18 @@ public class PropertyGetterFromJSONStringImpl implements PropertyGetter{
     @Override
     public String GetProperty(String pName) {
         String jsonPath = pName;
-            try{
+        if(pName.contains("+")||(pName.contains("-"))||(pName.contains("*"))||(pName.contains("/"))){
+            return pName;
+        }
+        try{
             Object value = JsonPath.read(jsonPlainString, jsonPath);
             if (value != null) {
                 return value.toString();
             }
             return null;
-
-            } catch (PathNotFoundException e) {
-                return null;
-            }
+        } catch (PathNotFoundException e) {
+            return null;
+        }
     }
 
     @Override
