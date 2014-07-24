@@ -8,16 +8,12 @@ import java.util.StringTokenizer;
  */
 public class ReportCalcUtils {
 
-    Stack<Double> vals = new Stack<Double>();
-    Stack<Double> br = new Stack<Double>();
-    private double result;
-    private double resultBr;
-    private String key;
-    private String keyT;
-    private String brStr = "";
-    private String keyBr;
 
-    private double brCalculate(String str) {
+
+    public static double brCalculate(String str) {
+        String keyBr;
+        Stack<Double> br = new Stack<Double>();
+        double resultBr=0;
         StringTokenizer stBr = new StringTokenizer(str, " +-*/", true);
         while (stBr.hasMoreElements()) {
             keyBr = stBr.nextToken();
@@ -44,8 +40,12 @@ public class ReportCalcUtils {
         return resultBr;
     }
 
-    public double calculate(String equation) {
-
+    public static double calculate(String equation) {
+        Stack<Double> vals = new Stack<Double>();
+        double result=0;
+        String key;
+        String keyT;
+        String brStr = "";
         StringTokenizer st = new StringTokenizer(equation, "() +-/*", true);
         while (st.hasMoreElements()) {
             key = st.nextToken();
