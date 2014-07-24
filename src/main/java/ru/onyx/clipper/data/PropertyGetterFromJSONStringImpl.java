@@ -45,7 +45,8 @@ public class PropertyGetterFromJSONStringImpl implements PropertyGetter{
     public int GetPageCount(String pName) {
         int i = 0;
         JSONArray ja =  JsonPath.read(jsonPlainString, pName);
-        i = ja.size();
+        if(ja!=null)
+            i = ja.size();
         return i;
     }
 
