@@ -128,6 +128,7 @@ public class ReportCalcUtils {
                     tempVal = Double.parseDouble(key);
                     vals.push(tempVal);
                 } catch (NumberFormatException e) {
+                    
                     tempVal=0.0d;
                 }
             }
