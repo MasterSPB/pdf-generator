@@ -41,6 +41,7 @@ public class ReportCalcUtils {
     }
 
     public static double calculate(String equation) {
+        Double tempVal = 0.0d;
         Stack<Double> vals = new Stack<Double>();
         double result=0;
         String key;
@@ -124,8 +125,10 @@ public class ReportCalcUtils {
                 brStr = "";
             } else {
                 try {
-                    vals.push(Double.parseDouble(key));
+                    tempVal = Double.parseDouble(key);
+                    vals.push(tempVal);
                 } catch (NumberFormatException e) {
+                    tempVal=0.0d;
                 }
             }
         }
