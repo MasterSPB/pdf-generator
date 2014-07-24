@@ -75,15 +75,17 @@ public class Reporting {
         int pageSize =  propGetter.GetPageCount(pageName);
 
         // loop over the documents you want to concatenate
-        for (int i = 0; i < pageSize; i++) {
-            byte[] doc =   propGetter.GetProperty(propGetter.GetProperty(String.format("%s(%s).%s", pageName, i + 1, propertyName))).getBytes();
-            reader = new PdfReader(doc);
-            // loop over the pages in that document
-            n = reader.getNumberOfPages();
-            for (int page = 0; page < n; ) {
-                copy.addPage(copy.getImportedPage(reader, ++page));
+        if(pageSize>0) {
+            for (int i = 0; i < pageSize; i++) {
+                byte[] doc = propGetter.GetProperty(propGetter.GetProperty(String.format("%s(%s).%s", pageName, i + 1, propertyName))).getBytes();
+                reader = new PdfReader(doc);
+                // loop over the pages in that document
+                n = reader.getNumberOfPages();
+                for (int page = 0; page < n; ) {
+                    copy.addPage(copy.getImportedPage(reader, ++page));
+                }
+                copy.freeReader(reader);
             }
-            copy.freeReader(reader);
         }
 
         return out.toByteArray();
