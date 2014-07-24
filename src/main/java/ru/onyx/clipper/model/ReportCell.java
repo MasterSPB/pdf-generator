@@ -124,12 +124,10 @@ public class ReportCell extends BaseReportObject {
                         extData.add("");
                     }else if(key.equals(",")||key.equals(".")&&dataFlag){
                         dataFlag=false;
-                        continue;
                     }else if(key.equals(".")&&!dataFlag){
                         extData.add("");
                     }else if(key.equals(".")&&dataFlag){
                         dataFlag=false;
-                        continue;
                     }else{
                         extData.add(key);
                         dataFlag=true;
