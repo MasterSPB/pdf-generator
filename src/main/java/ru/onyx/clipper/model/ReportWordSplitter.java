@@ -62,7 +62,7 @@ public class ReportWordSplitter extends BaseReportObject {
             param=getDefaultNullValue();
         }
 
-        if(getPropertyExtract()!=null&&param!=null){
+        if(getPropertyExtract()!=null && param!=null && !param.isEmpty()){
             StringTokenizer st = new StringTokenizer(param,",.",true);
             String gpe = getPropertyExtract();
             if(param.contains(".")||param.contains(",")) {
@@ -75,12 +75,10 @@ public class ReportWordSplitter extends BaseReportObject {
                         extData.add("");
                     }else if(key.equals(",")||key.equals(".")&&dataFlag){
                         dataFlag=false;
-                        continue;
                     }else if(key.equals(".")&&!dataFlag){
                         extData.add("");
                     }else if(key.equals(".")&&dataFlag){
                         dataFlag=false;
-                        continue;
                     }else{
                         extData.add(key);
                         dataFlag=true;

@@ -45,8 +45,8 @@ public class ReportChunk extends BaseReportObject {
         }
 
 
-        if(getPropertyCalc()!=null && getPropertyCalc().length()>0){
-            String calcExpression = propertyGetter.GetProperty(getPropertyCalc());
+        if(getPropertyCalc()!=null && !getPropertyCalc().isEmpty()){
+            String calcExpression = getPropertyCalc();
             String calcProp="";
             StringTokenizer st = new StringTokenizer(calcExpression, "()+-*/", true);
             while (st.hasMoreElements()){
@@ -76,8 +76,9 @@ public class ReportChunk extends BaseReportObject {
             }
 
             ReportCalcUtils cu = new ReportCalcUtils();
-
             res = cu.calculate(calcProp);
+            cu = null;
+
             content = String.format("%,6.2f",res);
 
             if(res==0){
@@ -113,11 +114,15 @@ public class ReportChunk extends BaseReportObject {
             if (getTextCase().equals("lower")) content=content.toLowerCase();
         }
 
-        if (getStringformat() != null && !content.equals("") && !content.equals("-")) {
-            if(getLocaleDel()!=null&&getLocaleDel().equals(".")){
-                content = String.format(Locale.ENGLISH,getStringformat(), Double.parseDouble(content));
-            }else {
-                content = String.format(getStringformat(), Double.parseDouble(content));
+        if (getStringformat() != null && !content.isEmpty() && !content.equals("-")) {
+            try {
+                if (getLocaleDel() != null && getLocaleDel().equals(".")) {
+                    content = String.format(Locale.ENGLISH, getStringformat(), Double.parseDouble(content));
+                } else {
+                    content = String.format(getStringformat(), Double.parseDouble(content));
+                }
+            } catch (NumberFormatException e) {
+                content = "";
             }
         }
 
