@@ -123,7 +123,10 @@ public class ReportCalcUtils {
                 vals.push(brCalculate(brStr));
                 brStr = "";
             } else {
-                vals.push(Double.parseDouble(key));
+                try {
+                    vals.push(Double.parseDouble(key));
+                } catch (NumberFormatException e) {
+                }
             }
         }
 
