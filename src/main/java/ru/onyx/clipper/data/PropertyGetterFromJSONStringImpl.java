@@ -47,6 +47,7 @@ public class PropertyGetterFromJSONStringImpl implements PropertyGetter{
         JSONArray ja =  JsonPath.read(jsonPlainString, pName);
         if(ja!=null)
             i = ja.size();
+        else i=0;
         return i;
     }
 
