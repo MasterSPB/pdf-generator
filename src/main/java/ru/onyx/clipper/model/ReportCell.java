@@ -106,14 +106,14 @@ public class ReportCell extends BaseReportObject {
         Font NullF = null;
         if (getText() != null) celltext = getText();
 
-        if (getPropertyName() != null && customtext == null) {
+        if (getPropertyName() != null && customtext == null&& !celltext.isEmpty()) {
             celltext = propertyGetter.GetProperty(getPropertyName());
             if (celltext == null)
             {
                 NullF = getNullFont();
                 celltext = getDefaultNullValue();
             }
-            if(getPropertyExtract()!=null && (celltext!=null)){
+            if(getPropertyExtract()!=null && (celltext!=null) ){
                 StringTokenizer st = new StringTokenizer(celltext,",.",true);
                 int extIndex = Integer.parseInt(getPropertyExtract());
                 ArrayList<String> extData= new ArrayList<>();
@@ -138,6 +138,8 @@ public class ReportCell extends BaseReportObject {
 
                 celltext=extData.get(extIndex);
             }
+            else celltext="";
+
             if (getDateFormat() != null && getToDateFormat() != null) {
                 celltext = ConvertPropertyToSpecificDateFormat(celltext);
             }
