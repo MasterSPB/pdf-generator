@@ -34,9 +34,6 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
     @Override
     public String GetProperty(String pName) {
         String jsonPath = pName;
-        if(pName.contains("+")||(pName.contains("-"))||(pName.contains("*"))||(pName.contains("/"))){
-            return pName;
-        }
         try{
             Object value = JsonPath.read(jsonFile, jsonPath);
             if (value != null){
