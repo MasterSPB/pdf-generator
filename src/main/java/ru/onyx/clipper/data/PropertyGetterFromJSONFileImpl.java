@@ -37,6 +37,9 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
         try{
             Object value = JsonPath.read(jsonFile, jsonPath);
             if (value != null){
+                if(value.equals("undefined")){
+                    return "";
+                }
                 return value.toString();
             }
             return null;
