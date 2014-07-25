@@ -44,52 +44,53 @@ public class ReportChunk extends BaseReportObject {
             }
         }
 
-
-        if(getPropertyCalc()!=null && !getPropertyCalc().isEmpty()){
-            String calcExpression = getPropertyCalc();
-            String calcProp="";
-            StringTokenizer st = new StringTokenizer(calcExpression, "()+-*/", true);
-            while (st.hasMoreElements()){
-                key= st.nextToken();
-                if(key.equals("+")){
-                    calcProp += key;
-                }else if(key.equals("-")){
-                    calcProp += key;
-                }else if(key.equals("*")){
-                    calcProp += key;
-                }else if(key.equals("/")){
-                    calcProp += key;
-                }else if(key.equals("(")){
-                    calcProp += key;
-                }else if(key.equals(")")){
-                    calcProp += key;
-                }else if(key.contains("$")){
-                    strEl=propertyGetter.GetProperty(key);
-                    if(strEl!=null) {
-                        calcProp += strEl;
-                    }else{
-                        calcProp += 0;
+        try {
+            if (getPropertyCalc() != null && !getPropertyCalc().isEmpty()) {
+                String calcExpression = getPropertyCalc();
+                String calcProp = "";
+                StringTokenizer st = new StringTokenizer(calcExpression, "()+-*/", true);
+                while (st.hasMoreElements()) {
+                    key = st.nextToken();
+                    if (key.equals("+")) {
+                        calcProp += key;
+                    } else if (key.equals("-")) {
+                        calcProp += key;
+                    } else if (key.equals("*")) {
+                        calcProp += key;
+                    } else if (key.equals("/")) {
+                        calcProp += key;
+                    } else if (key.equals("(")) {
+                        calcProp += key;
+                    } else if (key.equals(")")) {
+                        calcProp += key;
+                    } else if (key.contains("$")) {
+                        strEl = propertyGetter.GetProperty(key);
+                        if (strEl != null) {
+                            calcProp += strEl;
+                        } else {
+                            calcProp += 0;
+                        }
+                    } else {
+                        calcProp += key;
                     }
-                }else{
-                    calcProp += key;
                 }
+
+                res = ReportCalcUtils.calculate(calcProp);
+
+                content = String.format("%,6.2f", res);
+
+                if (res == 0) {
+                    content = "-";
+                }
+
+                if (content.length() == 0) {
+                    content = "-";
+                }
+
+
             }
-
-            ReportCalcUtils cu = new ReportCalcUtils();
-            res = cu.calculate(calcProp);
-            cu = null;
-
-            content = String.format("%,6.2f",res);
-
-            if(res==0){
-                content = "-";
-            }
-
-            if (content.length() == 0) {
-                content = "-";
-            }
-
-
+        }catch (Throwable throwable){
+            content="Ошибка вычисления";
         }
 
         if(getDelimiterAdd()!=null&&content!=null){
