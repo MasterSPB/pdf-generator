@@ -32,6 +32,9 @@ public class PropertyGetterFromJSONStringImpl implements PropertyGetter{
         try{
             Object value = JsonPath.read(jsonPlainString, jsonPath);
             if (value != null) {
+                if(value.equals("undefined")){
+                    return "";
+                }
                 return value.toString();
             }
             return null;
