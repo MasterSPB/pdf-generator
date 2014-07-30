@@ -27,6 +27,10 @@ public class ReportConversionUtils {
         }
     }
 
+    public static String convert(String s, String encoding) throws UnsupportedEncodingException {
+        return new String(s.getBytes(encoding));
+    }
+
     public static void XMLtoJSON(String pathToXML, String pathToJSON){
 
         try {
