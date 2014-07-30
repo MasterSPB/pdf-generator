@@ -50,6 +50,7 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+            symbolAdd = parseAttribute(attrObj, SYMBOL_ADD, null);
             localeDel = parseAttribute(attrObj,LOCALE_DEL, null);
             delimiterAdd = parseAttribute(attrObj, DELIMITER_ADD, null);
             propertyExtract = parseAttribute(attrObj, PROPERTY_EXTRACT, null);
@@ -393,6 +394,7 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String SYMBOL_ADD="symboladd";
     protected static final String LOCALE_DEL="localedel";
     protected static final String DELIMITER_ADD="delimiter";
     protected static final String PROPERTY_EXTRACT="propertyextract";
@@ -525,6 +527,7 @@ public abstract class BaseReportObject {
     protected Integer charspacing;
     protected Integer minFreeSpaceAfter;
 
+    protected String symbolAdd;
     protected String localeDel;
     protected String delimiterAdd;
     protected String propertyExtract;
@@ -747,6 +750,15 @@ public abstract class BaseReportObject {
         else if (parent != null) return parent.getLeading();
 
         return -1f;
+    }
+
+
+
+    protected String getSymbolAdd(){
+        if(symbolAdd!=null){
+            return symbolAdd;
+        }
+        return null;
     }
 
     protected String getLocaleDel(){

@@ -63,9 +63,9 @@ public class ReportWordSplitter extends BaseReportObject {
         }
 
         if(getPropertyExtract()!=null && param!=null && !param.isEmpty()){
-            StringTokenizer st = new StringTokenizer(param,",.",true);
+            StringTokenizer st = new StringTokenizer(param,",.-",true);
             String gpe = getPropertyExtract();
-            if(param.contains(".")||param.contains(",")) {
+            if(param.contains(".")||param.contains(",")||param.contains("-")) {
                 int extIndex = Integer.parseInt(gpe);
                 ArrayList<String> extData = new ArrayList<>();
                 boolean dataFlag = false;
@@ -79,6 +79,10 @@ public class ReportWordSplitter extends BaseReportObject {
                         extData.add("");
                     }else if(key.equals(".")&&dataFlag){
                         dataFlag=false;
+                    }else if(key.equals("-")&&!dataFlag){
+                        extData.add("");
+                    }else if(key.equals("-")&&dataFlag){
+                        dataFlag=false;
                     }else{
                         extData.add(key);
                         dataFlag=true;
@@ -89,6 +93,13 @@ public class ReportWordSplitter extends BaseReportObject {
                 }else{
                     param = extData.get(extIndex);
                 }
+            }
+        }
+
+        if(getSymbolAdd()!=null && param!=null && !param.isEmpty()){
+            int symbolCount = getColumns()-param.length();
+            for(int i=0;i<symbolCount;i++){
+                param += getSymbolAdd();
             }
         }
 
