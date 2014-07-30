@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
  */
 public class ReportChunk extends BaseReportObject {
 
-    public ReportChunk(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException{
+    public ReportChunk(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException {
         _fonts = fonts;
         parent = pParent;
         propertyGetter = pGetter;
@@ -31,7 +31,7 @@ public class ReportChunk extends BaseReportObject {
     @Override
     public Element getPdfObject() {
         String content = "";
-        String key,keyT,strEl;
+        String key,strEl;
         double res;
 
         if (this.text != null) content = this.text;
@@ -89,16 +89,16 @@ public class ReportChunk extends BaseReportObject {
 
 
             }
-        }catch (Throwable throwable){
-            content="Ошибка вычисления";
+        } catch (Throwable throwable) {
+            content = "Ошибка вычисления";
         }
 
-        if(getDelimiterAdd()!=null&&content!=null){
-            content=getDelimiterAdd()+content;
+        if (getDelimiterAdd() != null && content != null) {
+            content = getDelimiterAdd() + content;
         }
 
         Font NullF = null;
-        if(content == null){
+        if (content == null) {
             content = getDefaultNullValue();
             NullF = getNullFont();
         }
@@ -110,9 +110,9 @@ public class ReportChunk extends BaseReportObject {
             content = "\uf0A8";
         }
 
-        if(getTextCase() != null) {
-            if (getTextCase().equals("upper")) content=content.toUpperCase();
-            if (getTextCase().equals("lower")) content=content.toLowerCase();
+        if (getTextCase() != null) {
+            if (getTextCase().equals("upper")) content = content.toUpperCase();
+            if (getTextCase().equals("lower")) content = content.toLowerCase();
         }
 
         if (getStringformat() != null && !content.isEmpty() && !content.equals("-")) {
@@ -127,7 +127,7 @@ public class ReportChunk extends BaseReportObject {
             }
         }
 
-        if (getNegativeEmbrace()){
+        if (getNegativeEmbrace()) {
             content = ReportStrUtils.embraceNegativeValue(content);
         }
 
@@ -137,20 +137,20 @@ public class ReportChunk extends BaseReportObject {
 
         Chunk ch = new Chunk(content);
 
-        if(getChunkIndex().equals("upper")){
-            ch.setTextRise(ch.getFont().getCalculatedSize()/5);
+        if (getChunkIndex().equals("upper")) {
+            ch.setTextRise(ch.getFont().getCalculatedSize() / 5);
 
-        } else if(getChunkIndex().equals("lower")){
-            ch.setTextRise(-ch.getFont().getCalculatedSize()/5);
+        } else if (getChunkIndex().equals("lower")) {
+            ch.setTextRise(-ch.getFont().getCalculatedSize() / 5);
         }
 
         Font f = getFont();
 
 
         int[] color = getTextColor();
-        if(color != null) f.setColor(color[0],color[1],color[2]);
+        if (color != null) f.setColor(color[0], color[1], color[2]);
 
-        if (f != null && getNullFontStyle()==null && NullF==null) ch.setFont(f);
+        if (f != null && getNullFontStyle() == null && NullF == null) ch.setFont(f);
         else ch.setFont(NullF);
 
         if (getCharspacing() > 0) {
@@ -159,7 +159,6 @@ public class ReportChunk extends BaseReportObject {
 
         return ch;
     }
-
 
 
 }
