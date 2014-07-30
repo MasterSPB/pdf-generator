@@ -13,8 +13,8 @@ import java.io.*;
 public class ReportConversionUtils {
     public static int PRETTY_PRINT_INDENT_FACTOR = 4;
 
-    public static String ByteXMLtoJSON(byte[] XMLContent) throws UnsupportedEncodingException {
-        String XMLString = new String(XMLContent, "UTF-8");
+    public static String ByteXMLtoJSON(byte[] XMLContent, String encoding) throws UnsupportedEncodingException {
+        String XMLString = new String(XMLContent, encoding);
 
         try {
             JSONObject xmlJSONObj = XML.toJSONObject(XMLString);
