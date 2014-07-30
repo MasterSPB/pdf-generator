@@ -59,8 +59,10 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
         try{
              JSONArray ja =  JsonPath.read(jsonFile, pName);
             i = ja.size();
-        }catch (NullPointerException n){
+        }catch (NullPointerException n) {
             return 0;
+        }catch (ClassCastException cce){
+            return -1;
         }catch (IOException e){
             e.printStackTrace();
         }

@@ -127,6 +127,15 @@ public class ReportChunk extends BaseReportObject {
             }
         }
 
+        if(getIfZero()!=null){
+            try{
+                if(content.trim().equals("0,00")){
+                    content = getIfZero();
+                }
+            }catch (Exception ne){
+            }
+        }
+
         if (getNegativeEmbrace()) {
             content = ReportStrUtils.embraceNegativeValue(content);
         }
