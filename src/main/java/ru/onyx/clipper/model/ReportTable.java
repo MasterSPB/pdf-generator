@@ -55,6 +55,10 @@ public class ReportTable extends BaseReportObject {
         propertyGetter = pGetter;
         Load(node);
         LoadItems(node, fonts, this, pGetter);
+        if(pParent.getPageNameRT() != null){
+            setPageNameRT(pParent.getPageNameRT());
+        }
+
     }
 
     public PdfPTable getPdfObject() throws DocumentException, ParseException, IOException {

@@ -77,6 +77,7 @@ public class Report {
     public static final String pagefontweight = "pagefontweight";
     public static final String pageheader = "pageheader";
     public static final String pagetext = "pagetext";
+    public static final String repeatingtemplate = "repeatingtemplate";
 
     public int getCurPage() {
         return curPage;
@@ -261,6 +262,10 @@ public class Report {
                 parseHeader(headerChildList, pGetter);
             }
 
+            if (nodeName.equals(repeatingtemplate)){
+                items.add(new ReportRepeatingTemplate(repChilds.item(t), fonts, null, pGetter));
+            }
+
             if (nodeName.equals(paragraph)) {
                 items.add(new ReportParagraph(repChilds.item(t), fonts, null, pGetter));
             }
@@ -348,8 +353,18 @@ public class Report {
                 _doc.add(table);
             }
             else if (item instanceof ReportParagraph) {
-                spaceLeft= ReportDocumentUtils.calcFreeSpace(item.getVerticalSize(), (Float) spaceLeft, _doc);
+                spaceLeft = ReportDocumentUtils.calcFreeSpace(item.getVerticalSize(), (Float) spaceLeft, _doc);
                 _doc.add(item.getPdfObject());
+            }
+//            }else if(item instanceof ReportRepeatingTemplate){
+//                for(BaseReportObject reportRepeatingTemplateItem : item.items){
+//                    _doc.add(reportRepeatingTemplateItem.getPdfObject());
+//                }
+//            }
+            else if(item instanceof ReportRepeatingTemplate){
+                for(Element reportRepeatingTemplateItem : item.itemsGPO){
+                    _doc.add(reportRepeatingTemplateItem);
+                }
             }
 
             else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());

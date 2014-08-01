@@ -50,6 +50,8 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+            numeratorRT = parseAttribute(attrObj, NUMERATOR_RT, null);
+            pageNameRT = parseAttribute(attrObj, PAGE_NAME_RT, null);
             ifZero = parseAttribute(attrObj, IF_ZERO,null);
             symbolAdd = parseAttribute(attrObj, SYMBOL_ADD, null);
             localeDel = parseAttribute(attrObj,LOCALE_DEL, null);
@@ -395,6 +397,8 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String NUMERATOR_RT = "numeratorrt";
+    protected static final String PAGE_NAME_RT = "pagenamert";
     protected static final String IF_ZERO="ifzero";
     protected static final String SYMBOL_ADD="symboladd";
     protected static final String LOCALE_DEL="localedel";
@@ -529,6 +533,8 @@ public abstract class BaseReportObject {
     protected Integer charspacing;
     protected Integer minFreeSpaceAfter;
 
+    protected String numeratorRT;
+    protected String pageNameRT;
     protected String ifZero;
     protected String symbolAdd;
     protected String localeDel;
@@ -573,6 +579,7 @@ public abstract class BaseReportObject {
     protected String pageName;
 
     protected ArrayList<BaseReportObject> items = new ArrayList<BaseReportObject>();
+    protected ArrayList<Element> itemsGPO = new ArrayList<>();
 
     protected Boolean useBorderPadding;
     protected Boolean stopInherit;
@@ -753,6 +760,28 @@ public abstract class BaseReportObject {
         else if (parent != null) return parent.getLeading();
 
         return -1f;
+    }
+
+    protected String getNumeratorRt(){
+        if(numeratorRT != null){
+            return numeratorRT;
+        }
+        return null;
+    }
+
+    protected void setNumeratorRt(String numeratorRT){
+        this.numeratorRT = numeratorRT;
+    }
+
+    protected String getPageNameRT(){
+        if(pageNameRT != null){
+            return pageNameRT;
+        }
+        return null;
+    }
+
+    protected void setPageNameRT(String pageNameRT){
+        this.pageNameRT = pageNameRT;
     }
 
     protected String getIfZero(){
@@ -1025,6 +1054,12 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected void setPageName(String pageName){
+        if(pageName!=null){
+            this.pageName = pageName;
+        }
+    }
+
     protected String getPropertyName() {
         if (propertyName != null) {
             return propertyName;
@@ -1035,6 +1070,10 @@ public abstract class BaseReportObject {
         }
 
         return null;
+    }
+
+    protected void setPropertyName(String propertyName){
+        this.propertyName = propertyName;
     }
 
     protected String getText() {

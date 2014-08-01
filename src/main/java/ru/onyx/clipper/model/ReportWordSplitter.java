@@ -51,8 +51,16 @@ public class ReportWordSplitter extends BaseReportObject {
       propertyGetter = pGetter;
       Load(node);
 
+
+
         int paramMargin = 0;
+
+        String test = getPropertyName();
         String param = propertyGetter.GetProperty(getPropertyName());
+
+        if(getPropertyName()!=null &&!getPropertyName().contains("$") && parent.parent.parent.getPageNameRT() != null){
+            param = propertyGetter.GetProperty(parent.parent.parent.getPageNameRT()+getPropertyName());
+        }
 
         if (getDateFormat() != null && getToDateFormat() != null) {
             param = ConvertPropertyToSpecificDateFormat(param);

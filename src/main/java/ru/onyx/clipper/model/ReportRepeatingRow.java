@@ -37,6 +37,10 @@ public class ReportRepeatingRow extends BaseReportObject {
         String nodeName;
         Load(tableNode);
 
+        if(!getPageName().contains("$") && getPageNameRT() != null){
+            setPageName(getPageNameRT()+getPageName());
+        }
+
         NodeList childsList = tableNode.getChildNodes();
 
         for(int h=0;h<childsList.getLength();h++) {

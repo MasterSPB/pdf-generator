@@ -62,6 +62,7 @@ public class ReportCell extends BaseReportObject {
         this._fonts = pFonts;
         this.bgColor = Arrays.toString(bgColorp).replace("[","").replace("]","").replace(", ",",");
         this.borderColor = Arrays.toString(borderColorp).replace("[","").replace("]","").replace(", ",",");
+
     }
 
     /**
@@ -73,6 +74,9 @@ public class ReportCell extends BaseReportObject {
         propertyGetter = pGetter;
         Load(node);
         LoadItems(node, fonts, this, pGetter);
+        if(pParent.getPageNameRT() != null){
+            setPageNameRT(pParent.getPageNameRT());
+        }
     }
 
     public void SetParameters() {
@@ -98,6 +102,7 @@ public class ReportCell extends BaseReportObject {
         this.spacingBefore = -1f;
         this.bgColor = null;
         this.borderColor = null;
+
     }
 
 
@@ -105,6 +110,7 @@ public class ReportCell extends BaseReportObject {
         String celltext = "";
         Font NullF = null;
         if (getText() != null) celltext = getText();
+
 
         if (getPropertyName() != null && customtext == null&& !celltext.isEmpty()) {
             celltext = propertyGetter.GetProperty(getPropertyName());
@@ -141,6 +147,10 @@ public class ReportCell extends BaseReportObject {
             if (getDateFormat() != null && getToDateFormat() != null) {
                 celltext = ConvertPropertyToSpecificDateFormat(celltext);
             }
+        }
+
+        if(getPropertyName()!=null &&!getPropertyName().contains("$") && parent.getPageNameRT() != null){
+            celltext = propertyGetter.GetProperty(parent.getPageNameRT()+getPropertyName());
         }
 
         if (getStringformat() != null) {

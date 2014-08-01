@@ -47,6 +47,8 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
             e.printStackTrace();
         } catch (PathNotFoundException e2) {
             return null;
+        }catch (IllegalArgumentException iae){
+            return null;
         }
         return null;
     }
