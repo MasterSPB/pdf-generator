@@ -1,6 +1,7 @@
 package ru.onyx.clipper.model;
 
 import com.itextpdf.text.Chunk;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import org.w3c.dom.Node;
@@ -8,6 +9,7 @@ import ru.onyx.clipper.data.PropertyGetter;
 import ru.onyx.clipper.utils.ReportCalcUtils;
 import ru.onyx.clipper.utils.ReportStrUtils;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Locale;
@@ -20,11 +22,13 @@ import java.util.StringTokenizer;
  */
 public class ReportChunk extends BaseReportObject {
 
-    public ReportChunk(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException {
+    public ReportChunk(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException, IOException, DocumentException {
         _fonts = fonts;
         parent = pParent;
         propertyGetter = pGetter;
         Load(node);
+
+
     }
 
 
@@ -34,6 +38,7 @@ public class ReportChunk extends BaseReportObject {
         String key,strEl;
         double res;
 
+
         if (this.text != null) content = this.text;
 
         if (getPropertyName() != null && getPropertyName().length() > 0) {
@@ -42,6 +47,11 @@ public class ReportChunk extends BaseReportObject {
             if (getDateFormat() != null && getToDateFormat() != null) {
                 content = ConvertPropertyToSpecificDateFormat(propertyGetter.GetProperty(getPropertyName()));
             }
+        }
+
+
+        if(content==null && getPropertyName()!=null && !getPropertyName().contains("$") && parent.parent.parent.getPageNameRT()!=null){
+            content = propertyGetter.GetProperty(parent.parent.parent.getPageNameRT()+getPropertyName());
         }
 
         try {
@@ -120,7 +130,11 @@ public class ReportChunk extends BaseReportObject {
                 if (getLocaleDel() != null && getLocaleDel().equals(".")) {
                     content = String.format(Locale.ENGLISH, getStringformat(), Double.parseDouble(content));
                 } else {
-                    content = String.format(getStringformat(), Double.parseDouble(content));
+                    if (getStringformat().equals("tenth")) {
+                        content = content.substring(content.indexOf(".") + 1);
+                    } else {
+                        content = String.format(getStringformat(), Double.parseDouble(content));
+                    }
                 }
             } catch (NumberFormatException e) {
                 content = "";
@@ -129,7 +143,7 @@ public class ReportChunk extends BaseReportObject {
 
         if(getIfZero()!=null){
             try{
-                if(content.trim().equals("0,00")){
+                if(content.trim().equals("0,00") || content.trim().equals("0.00")){
                     content = getIfZero();
                 }
             }catch (Exception ne){

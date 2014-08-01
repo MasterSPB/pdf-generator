@@ -32,10 +32,10 @@ public class ReportRepeatingRowSimple extends BaseReportObject{
 
         NodeList childsList = tableNode.getChildNodes();
 
-        for(int h=0;h<childsList.getLength();h++) {
-            nodeName = childsList.item(h).getNodeName();
-            Node node = childsList.item(h);
-        }
+//        for(int h=0;h<childsList.getLength();h++) {
+//            nodeName = childsList.item(h).getNodeName();
+//            Node node = childsList.item(h);
+//        }
 
         if(getPageName().length() > 0) {
             if(pGetter.GetPageCount(getPageName())!=0){
