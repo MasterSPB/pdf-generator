@@ -51,11 +51,8 @@ public class ReportWordSplitter extends BaseReportObject {
       propertyGetter = pGetter;
       Load(node);
 
-
-
         int paramMargin = 0;
 
-        String test = getPropertyName();
         String param = propertyGetter.GetProperty(getPropertyName());
 
         if(getPropertyName()!=null &&!getPropertyName().contains("$") && parent.parent.parent.getPageNameRT() != null){
@@ -69,6 +66,8 @@ public class ReportWordSplitter extends BaseReportObject {
         if (param==null && getDefaultNullValue()!=null){
             param=getDefaultNullValue();
         }
+
+
 
         if(getPropertyExtract()!=null && param!=null && !param.isEmpty()){
             StringTokenizer st = new StringTokenizer(param,",.-",true);
@@ -104,6 +103,8 @@ public class ReportWordSplitter extends BaseReportObject {
             }
         }
 
+
+
         if(getSymbolAdd()!=null && param!=null && !param.isEmpty()){
             int symbolCount = getColumns()-param.length();
             for(int i=0;i<symbolCount;i++){
@@ -114,6 +115,15 @@ public class ReportWordSplitter extends BaseReportObject {
         String mode = getPropertyMode();
         if(mode != null) {      //Then we assume the property is date
            param = getDateProperty(mode,getPropertyName(),getDateFormat());
+        }
+
+        if(getNumeratorRt()!=null && getNumeratorRt().equals("true") && parent.parent.parent.getPageNumber()!=0){
+
+            if(parent.parent.parent.getPageNumber()<10) {
+                param = "00000" + parent.parent.parent.getPageNumber();
+            }else{
+                param = "0000" + parent.parent.parent.getPageNumber();
+            }
         }
 
         if(param == null) param = "";

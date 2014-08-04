@@ -31,6 +31,11 @@ public abstract class BaseReportObject {
     protected HashMap<String, ReportBaseFont> _fonts;
     protected PropertyGetter propertyGetter;
     protected BaseReportObject parent;
+    protected Report rep;
+
+    public void setRep(int n){
+        rep.setCurPage(n);
+    }
 
     protected void Load(Node node) {
         NamedNodeMap attrObj = node.getAttributes();
@@ -50,6 +55,7 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+            pageNumber = Integer.parseInt(parseAttribute(attrObj, PAGE_NUMBER, "0"));
             numeratorRT = parseAttribute(attrObj, NUMERATOR_RT, null);
             pageNameRT = parseAttribute(attrObj, PAGE_NAME_RT, null);
             ifZero = parseAttribute(attrObj, IF_ZERO,null);
@@ -397,6 +403,7 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String PAGE_NUMBER = "pagenumber";
     protected static final String NUMERATOR_RT = "numeratorrt";
     protected static final String PAGE_NAME_RT = "pagenamert";
     protected static final String IF_ZERO="ifzero";
@@ -515,6 +522,7 @@ public abstract class BaseReportObject {
     protected float[] scalepercent;
     protected float[] scaleabsolute;
 
+    protected Integer pageNumber;
     protected Integer aggrCol;
     protected Integer reprowfpagerows;
     protected Integer reprowotherpagerows;
@@ -945,6 +953,14 @@ public abstract class BaseReportObject {
         else if (parent != null) return parent.getTextCase();
 
         return null;
+    }
+
+    protected Integer getPageNumber(){
+        return pageNumber;
+    }
+
+    protected void setPageNumber(int _pageNumber){
+        pageNumber = _pageNumber;
     }
 
     protected Integer getMinFreeSpaceAfter() {
