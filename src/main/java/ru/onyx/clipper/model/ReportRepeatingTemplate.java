@@ -21,12 +21,15 @@ import java.util.regex.Pattern;
  */
 public class ReportRepeatingTemplate extends BaseReportObject{
 
-    public ReportRepeatingTemplate(Node tableNode,HashMap<String ,ReportBaseFont> fonts,BaseReportObject pParent,PropertyGetter pGetter) throws ParseException, DocumentException, IOException{
+
+    public ReportRepeatingTemplate(Node tableNode,HashMap<String ,ReportBaseFont> fonts,BaseReportObject pParent,PropertyGetter pGetter, Report rep) throws ParseException, DocumentException, IOException{
         _fonts = fonts;
         propertyGetter = pGetter;
         String nodeName;
         Load(tableNode);
         NodeList childsList = tableNode.getChildNodes();
+        int x = rep.getCurPage();
+        setPageNumber(x);
         String originalPageNameRT = getPageNameRT();
 
         if(getPageNameRT().length()>0){
@@ -38,16 +41,17 @@ public class ReportRepeatingTemplate extends BaseReportObject{
                         nodeName = childsList.item(h).getNodeName();
                         Node node = childsList.item(h);
                         if(nodeName.equalsIgnoreCase("table")){
-                            items.add(new ReportTable(node,_fonts,this,pGetter));
+//                            items.add(new ReportTable(node,_fonts,this,pGetter));
                             itemsGPO.add(new ReportTable(node,_fonts,this,pGetter).getPdfObject());
                         }else if(nodeName.equalsIgnoreCase("paragraph")){
-                            items.add(new ReportParagraph(node,_fonts,this,pGetter));
+//                            items.add(new ReportParagraph(node,_fonts,this,pGetter));
                             itemsGPO.add(new ReportParagraph(node,_fonts,this,pGetter).getPdfObject());
                         }else if(nodeName.equalsIgnoreCase("repeatingrow")){
-                            items.add(new ReportRepeatingRow(node,_fonts,this,pGetter));
+//                            items.add(new ReportRepeatingRow(node,_fonts,this,pGetter));
                             itemsGPO.add(new ReportRepeatingRow(node,_fonts,this,pGetter).getPdfObject());
                         }else if(nodeName.equalsIgnoreCase("newpage")){
-                            items.add(new ReportNewPage());
+                            x++;
+                            setPageNumber(x);
                         }else if(nodeName.equalsIgnoreCase("ifcondition")){
                             NodeList ifStatementChildren = node.getChildNodes();
                             ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, "condition", "else", "paragraph", items, _fonts);

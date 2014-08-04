@@ -9,6 +9,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import ru.onyx.clipper.data.PropertyGetter;
 import ru.onyx.clipper.events.HeaderEvent;
+import ru.onyx.clipper.events.PageIncrementEvent;
 import ru.onyx.clipper.utils.ReportDocumentUtils;
 import ru.onyx.clipper.utils.ReportTableUtils;
 
@@ -79,8 +80,13 @@ public class Report {
     public static final String pagetext = "pagetext";
     public static final String repeatingtemplate = "repeatingtemplate";
 
+
     public int getCurPage() {
         return curPage;
+    }
+
+    public void setCurPage(int _curPage){
+        curPage = _curPage;
     }
 
     private static int curPage=1;
@@ -134,7 +140,6 @@ public class Report {
 
     private String pageText="";
 
-
     Document _doc = new Document();
 
     public ArrayList<BaseReportObject> getItems() {
@@ -154,6 +159,37 @@ public class Report {
      */
 
     public void LoadMarkup(String xmlMarkup, HashMap<String, byte[]> pFontBodies, PropertyGetter pGetter) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, DocumentException, ParseException {
+        fontBodies = pFontBodies;
+
+        DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        InputSource is = new InputSource();
+        is.setCharacterStream(new StringReader(xmlMarkup));
+        org.w3c.dom.Document xmlDoc = db.parse(is);
+
+        XPathFactory factory = XPathFactory.newInstance();
+        XPath xpath = factory.newXPath();
+        xpath.setNamespaceContext(new SkeletonNameSpaceContext());
+
+        LoadFonts(xpath, xmlDoc);
+
+        XPathExpression expr = xpath.compile("reportDefinition/report");
+        org.w3c.dom.Node reportNode = (org.w3c.dom.Node) expr.evaluate(xmlDoc, XPathConstants.NODE);
+
+        NamedNodeMap attrs = reportNode.getAttributes();
+
+        initAttrs(attrs);
+
+        setPageSize(pageSize, pageOrientation);
+        _doc.setMargins(marginLeft, marginRight, marginTop, marginBottom);
+        spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+
+        XPathExpression exprRepParagraph = xpath.compile("reportDefinition/report/items/*");
+        NodeList repChilds = (NodeList) exprRepParagraph.evaluate(xmlDoc, XPathConstants.NODESET);
+
+        parseDocument(repChilds, pGetter);
+    }
+
+    public void LoadMarkup(String xmlMarkup, HashMap<String, byte[]> pFontBodies, PropertyGetter pGetter, Document _doc) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, DocumentException, ParseException {
         fontBodies = pFontBodies;
 
         DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -263,7 +299,7 @@ public class Report {
             }
 
             if (nodeName.equals(repeatingtemplate)){
-                items.add(new ReportRepeatingTemplate(repChilds.item(t), fonts, null, pGetter));
+                items.add(new ReportRepeatingTemplate(repChilds.item(t), fonts, null, pGetter, this));
             }
 
             if (nodeName.equals(paragraph)) {
@@ -283,6 +319,7 @@ public class Report {
             }
             if (nodeName.equals(newpage)) {
                 items.add(new ReportNewPage());
+                curPage++;
             }
             if (nodeName.equals(ifcondition)) {
                 NodeList ifStatementChildren = repChilds.item(t).getChildNodes();
@@ -313,6 +350,7 @@ public class Report {
     public byte[] GetDocument() throws DocumentException, ParseException, IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PdfWriter wr = PdfWriter.getInstance(_doc, byteArrayOutputStream);
+        wr.setPageEvent(new PageIncrementEvent(this));
         wr.setRgbTransparencyBlending(true);
 
         if(pageHeader.equalsIgnoreCase("enabled")){
@@ -374,12 +412,146 @@ public class Report {
                 PdfDestination(PdfDestination.XYZ, 0, _doc.getPageSize().getHeight(), 1f), wr);
 
         wr.setOpenAction(ac);
-
         _doc.close();
         wr.close();
         byteArrayOutputStream.close();
         return byteArrayOutputStream.toByteArray();
     }
+
+
+    public ArrayList GetDocument(String s) throws DocumentException, ParseException, IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        PdfWriter wr = PdfWriter.getInstance(_doc, byteArrayOutputStream);
+        wr.setPageEvent(new PageIncrementEvent(this));
+        wr.setRgbTransparencyBlending(true);
+
+        if(pageHeader.equalsIgnoreCase("enabled")){
+            Font pageFont = new Font(fonts.get(pageFontName).getCustomFont(pageFontWeight));
+            HeaderEvent event = new HeaderEvent(this, _doc, pageFont);
+            wr.setPageEvent(event);
+        }
+        //BaseFont pageBF = BaseFont.createFont("/fonts/"+pageFontName+".ttf", BaseFont.IDENTITY_H, true); //font for page numbers
+
+        _doc.open();
+
+        for (BaseReportObject item : items) {
+
+            if (item instanceof ReportNewPage) {
+                _doc.newPage();
+                spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+            }
+
+            else if (item instanceof ReportRepeatingRow) {
+                for(Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable(spaceLeft, _doc))
+                {
+                    if(reportRepeatingRowItem==null){
+                        _doc.newPage();
+                        spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+                    }
+                    else if (reportRepeatingRowItem instanceof PdfPTable){
+                        ReportTableUtils.setExactWidthFromPercentage((PdfPTable) reportRepeatingRowItem, _doc);
+                        spaceLeft= ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize((PdfPTable) reportRepeatingRowItem), (Float) spaceLeft, _doc);
+                        _doc.add((Element) reportRepeatingRowItem);
+                    }
+                }
+            }
+
+            else if (item instanceof ReportTable) {
+                PdfPTable table = (PdfPTable) item.getPdfObject();
+                ReportTableUtils.setExactWidthFromPercentage(table, _doc);
+                spaceLeft= ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize(table), (Float) spaceLeft, _doc);
+                _doc.add(table);
+            }
+            else if (item instanceof ReportParagraph) {
+                spaceLeft = ReportDocumentUtils.calcFreeSpace(item.getVerticalSize(), (Float) spaceLeft, _doc);
+                _doc.add(item.getPdfObject());
+            }
+            else if(item instanceof ReportRepeatingTemplate){
+                for(Element reportRepeatingTemplateItem : item.itemsGPO){
+                    _doc.add(reportRepeatingTemplateItem);
+                }
+            }
+
+            else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
+        }
+
+        PdfAction ac = PdfAction.gotoLocalPage(1, new
+                PdfDestination(PdfDestination.XYZ, 0, _doc.getPageSize().getHeight(), 1f), wr);
+
+        wr.setOpenAction(ac);
+
+        ArrayList<Object> list = new ArrayList<>();
+        list.add(byteArrayOutputStream);
+        list.add(_doc);
+        list.add(wr);
+
+        return list;
+    }
+
+    public byte[] GetDocument(Document _doc, ByteArrayOutputStream byteArrayOutputStream, PdfWriter wr) throws DocumentException, ParseException, IOException {
+        wr.setPageEvent(new PageIncrementEvent(this));
+        wr.setRgbTransparencyBlending(true);
+
+//        if(pageHeader.equalsIgnoreCase("enabled")){
+//            Font pageFont = new Font(fonts.get(pageFontName).getCustomFont(pageFontWeight));
+//            HeaderEvent event = new HeaderEvent(this, _doc, pageFont);
+//            wr.setPageEvent(event);
+//        }
+        //BaseFont pageBF = BaseFont.createFont("/fonts/"+pageFontName+".ttf", BaseFont.IDENTITY_H, true); //font for page numbers
+
+
+        for (BaseReportObject item : items) {
+
+            if (item instanceof ReportNewPage) {
+                _doc.newPage();
+                spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+            }
+
+            else if (item instanceof ReportRepeatingRow) {
+                for(Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable(spaceLeft, _doc))
+                {
+                    if(reportRepeatingRowItem==null){
+                        _doc.newPage();
+                        spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+                    }
+                    else if (reportRepeatingRowItem instanceof PdfPTable){
+                        ReportTableUtils.setExactWidthFromPercentage((PdfPTable) reportRepeatingRowItem, _doc);
+                        spaceLeft= ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize((PdfPTable) reportRepeatingRowItem), (Float) spaceLeft, _doc);
+                        _doc.add((Element) reportRepeatingRowItem);
+                    }
+                }
+            }
+
+            else if (item instanceof ReportTable) {
+                PdfPTable table = (PdfPTable) item.getPdfObject();
+                ReportTableUtils.setExactWidthFromPercentage(table, _doc);
+                spaceLeft= ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize(table), (Float) spaceLeft, _doc);
+                _doc.add(table);
+            }
+            else if (item instanceof ReportParagraph) {
+                spaceLeft = ReportDocumentUtils.calcFreeSpace(item.getVerticalSize(), (Float) spaceLeft, _doc);
+                _doc.add(item.getPdfObject());
+            }
+
+            else if(item instanceof ReportRepeatingTemplate){
+                for(Element reportRepeatingTemplateItem : item.itemsGPO){
+                    _doc.add(reportRepeatingTemplateItem);
+                }
+            }
+
+            else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
+        }
+
+        PdfAction ac = PdfAction.gotoLocalPage(1, new
+                PdfDestination(PdfDestination.XYZ, 0, _doc.getPageSize().getHeight(), 1f), wr);
+
+        wr.setOpenAction(ac);
+        _doc.close();
+        wr.close();
+        byteArrayOutputStream.close();
+        return byteArrayOutputStream.toByteArray();
+    }
+
 
     protected void drawHeader(PdfWriter writer, ArrayList<BaseReportObject> headerItems){
     // draws header inside margins

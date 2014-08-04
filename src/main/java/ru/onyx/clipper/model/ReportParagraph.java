@@ -23,7 +23,7 @@ public class ReportParagraph extends BaseReportObject {
       propertyGetter = pGetter;
       Load(node);
       LoadItems(node,fonts,this,pGetter);
-        if(pParent.getPageNameRT() != null){
+        if(pParent != null && pParent.getPageNameRT() != null){
             setPageNameRT(pParent.getPageNameRT());
         }
     }

@@ -4,6 +4,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfCopy;
 import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfWriter;
 import org.xml.sax.SAXException;
 import ru.onyx.clipper.data.PropertyGetter;
 import ru.onyx.clipper.model.Report;
@@ -12,6 +13,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.*;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -31,6 +33,18 @@ public class Reporting {
 
         rep.LoadMarkup(markup, fonts, dataSource);
         return rep.GetDocument();
+    }
+
+    public static byte[] CreateDocumentEx(String markups[], HashMap<String, byte[]> fonts, PropertyGetter dataSource[]) throws IOException, DocumentException, SAXException, XPathExpressionException, ParserConfigurationException, ParseException {
+
+        Report rep1 = new Report();
+
+        rep1.LoadMarkup(markups[0], fonts, dataSource[0]);
+        ArrayList docTemp = rep1.GetDocument("");
+
+        rep1.LoadMarkup(markups[1],fonts, dataSource[1],(Document)docTemp.get(1));
+
+        return rep1.GetDocument((Document)docTemp.get(1),(ByteArrayOutputStream)docTemp.get(0),(PdfWriter)docTemp.get(2));
     }
 
     public static void writeDocument(String pdfPath, Object rep) {
