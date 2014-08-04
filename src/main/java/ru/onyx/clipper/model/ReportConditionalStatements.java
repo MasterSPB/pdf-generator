@@ -15,7 +15,7 @@ import java.lang.String;
  */
 
 public class ReportConditionalStatements {
-    protected static void parseIfStatement(NodeList ifStatementItems, PropertyGetter pGetter, String logicalcondition, String elsecondition, String paragraph, List<BaseReportObject> items, HashMap<String, ReportBaseFont> fonts) throws IOException, DocumentException {
+    protected static void parseIfStatement(NodeList ifStatementItems, PropertyGetter pGetter, String logicalcondition, String elsecondition, String paragraph, List<BaseReportObject> items, HashMap<String, ReportBaseFont> fonts, Report rep) throws IOException, DocumentException {
         String[] operands;
         boolean conditionResult=false;
 
@@ -53,21 +53,21 @@ public class ReportConditionalStatements {
             }
 
             if(conditionResult){
-                switchNodeName(nodeName,ifStatementItems,pGetter, items,fonts,t);
+                switchNodeName(nodeName,ifStatementItems,pGetter, items,fonts,t, rep);
             }
 
             if (!conditionResult && nodeName.equals(elsecondition)){ //if condition is false, find else statement...
                 NodeList elseStatementItems = ifStatementItems.item(t).getChildNodes(); //...get its child nodes
                 for (int i=0; i < elseStatementItems.getLength(); i++){
                     nodeName = elseStatementItems.item(i).getNodeName();
-                    switchNodeName(nodeName,ifStatementItems,pGetter, items,fonts, t);
+                    switchNodeName(nodeName,ifStatementItems,pGetter, items,fonts, t, rep);
                 }
             }
         }
 
     }
 
-    private static void switchNodeName(String nodeName, NodeList ifStatementItems, PropertyGetter pGetter, List<BaseReportObject> items, HashMap<String, ReportBaseFont> fonts, int t) throws IOException, DocumentException {
+    private static void switchNodeName(String nodeName, NodeList ifStatementItems, PropertyGetter pGetter, List<BaseReportObject> items, HashMap<String, ReportBaseFont> fonts, int t, Report rep) throws IOException, DocumentException {
         switch (nodeName){
             case "date": {
                 try{
