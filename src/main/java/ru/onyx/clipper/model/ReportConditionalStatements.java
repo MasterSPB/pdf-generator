@@ -153,9 +153,10 @@ public class ReportConditionalStatements {
                 }
                 break;
             }
+
             case "table": {
                 try{
-                    items.add(new ReportTable(ifStatementItems.item(t),fonts,null,pGetter));
+                    items.add(new ReportTable(ifStatementItems.item(t),fonts,null,pGetter,null));
                 }catch (ParseException e){
                     e.printStackTrace();
                 }

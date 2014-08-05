@@ -32,6 +32,7 @@ public class ReportRepeatingTemplate extends BaseReportObject{
         setPageNumber(x);
         String originalPageNameRT = getPageNameRT();
 
+
         if(getPageNameRT().length()>0){
             if(pGetter.GetPageCount(getPageNameRT())!=0) {
                 int n = pGetter.GetPageCount(getPageNameRT());
@@ -42,7 +43,7 @@ public class ReportRepeatingTemplate extends BaseReportObject{
                         Node node = childsList.item(h);
                         if(nodeName.equalsIgnoreCase("table")){
 //                            items.add(new ReportTable(node,_fonts,this,pGetter));
-                            itemsGPO.add(new ReportTable(node,_fonts,this,pGetter).getPdfObject());
+                            itemsGPO.add(new ReportTable(node,_fonts,this,pGetter,null).getPdfObject());
                         }else if(nodeName.equalsIgnoreCase("paragraph")){
 //                            items.add(new ReportParagraph(node,_fonts,this,pGetter));
                             itemsGPO.add(new ReportParagraph(node,_fonts,this,pGetter).getPdfObject());

@@ -31,11 +31,7 @@ public abstract class BaseReportObject {
     protected HashMap<String, ReportBaseFont> _fonts;
     protected PropertyGetter propertyGetter;
     protected BaseReportObject parent;
-    protected Report rep;
 
-    public void setRep(int n){
-        rep.setCurPage(n);
-    }
 
     protected void Load(Node node) {
         NamedNodeMap attrObj = node.getAttributes();
@@ -342,7 +338,7 @@ public abstract class BaseReportObject {
             } else {
                 switch (nodeName) {
                     case table:
-                        items.add(new ReportTable(item, fonts, pParent, pGetter));
+                        items.add(new ReportTable(item, fonts, pParent, pGetter,null));
                         break;
                     case paragraph:
                         items.add(new ReportParagraph(item, fonts, pParent, pGetter));

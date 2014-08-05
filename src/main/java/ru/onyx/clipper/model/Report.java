@@ -306,7 +306,7 @@ public class Report {
                 items.add(new ReportParagraph(repChilds.item(t), fonts, null, pGetter));
             }
             if (nodeName.equals(table)) {
-                items.add(new ReportTable(repChilds.item(t), fonts, null, pGetter));
+                items.add(new ReportTable(repChilds.item(t), fonts, null, pGetter,this));
             }
             if (nodeName.equals(repeatingrow)) {
                 items.add(new ReportRepeatingRow(repChilds.item(t), fonts, null, pGetter, _doc));
@@ -358,7 +358,6 @@ public class Report {
             HeaderEvent event = new HeaderEvent(this, _doc, pageFont);
             wr.setPageEvent(event);
         }
-        //BaseFont pageBF = BaseFont.createFont("/fonts/"+pageFontName+".ttf", BaseFont.IDENTITY_H, true); //font for page numbers
 
         _doc.open();
 
@@ -394,11 +393,6 @@ public class Report {
                 spaceLeft = ReportDocumentUtils.calcFreeSpace(item.getVerticalSize(), (Float) spaceLeft, _doc);
                 _doc.add(item.getPdfObject());
             }
-//            }else if(item instanceof ReportRepeatingTemplate){
-//                for(BaseReportObject reportRepeatingTemplateItem : item.items){
-//                    _doc.add(reportRepeatingTemplateItem.getPdfObject());
-//                }
-//            }
             else if(item instanceof ReportRepeatingTemplate){
                 for(Element reportRepeatingTemplateItem : item.itemsGPO){
                     _doc.add(reportRepeatingTemplateItem);
@@ -430,7 +424,6 @@ public class Report {
             HeaderEvent event = new HeaderEvent(this, _doc, pageFont);
             wr.setPageEvent(event);
         }
-        //BaseFont pageBF = BaseFont.createFont("/fonts/"+pageFontName+".ttf", BaseFont.IDENTITY_H, true); //font for page numbers
 
         _doc.open();
 
@@ -478,8 +471,11 @@ public class Report {
         PdfAction ac = PdfAction.gotoLocalPage(1, new
                 PdfDestination(PdfDestination.XYZ, 0, _doc.getPageSize().getHeight(), 1f), wr);
 
-        wr.setOpenAction(ac);
 
+        wr.setOpenAction(ac);
+        items.clear();
+
+        setCurPage(getCurPage()+1);
         ArrayList<Object> list = new ArrayList<>();
         list.add(byteArrayOutputStream);
         list.add(_doc);
@@ -489,15 +485,9 @@ public class Report {
     }
 
     public byte[] GetDocument(Document _doc, ByteArrayOutputStream byteArrayOutputStream, PdfWriter wr) throws DocumentException, ParseException, IOException {
+
         wr.setPageEvent(new PageIncrementEvent(this));
         wr.setRgbTransparencyBlending(true);
-
-//        if(pageHeader.equalsIgnoreCase("enabled")){
-//            Font pageFont = new Font(fonts.get(pageFontName).getCustomFont(pageFontWeight));
-//            HeaderEvent event = new HeaderEvent(this, _doc, pageFont);
-//            wr.setPageEvent(event);
-//        }
-        //BaseFont pageBF = BaseFont.createFont("/fonts/"+pageFontName+".ttf", BaseFont.IDENTITY_H, true); //font for page numbers
 
 
         for (BaseReportObject item : items) {
@@ -542,10 +532,6 @@ public class Report {
             else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
         }
 
-        PdfAction ac = PdfAction.gotoLocalPage(1, new
-                PdfDestination(PdfDestination.XYZ, 0, _doc.getPageSize().getHeight(), 1f), wr);
-
-        wr.setOpenAction(ac);
         _doc.close();
         wr.close();
         byteArrayOutputStream.close();
