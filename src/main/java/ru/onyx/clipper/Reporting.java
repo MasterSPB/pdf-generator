@@ -39,6 +39,7 @@ public class Reporting {
 
         Report rep1 = new Report();
 
+
         rep1.LoadMarkup(markups[0], fonts, dataSource[0]);
         ArrayList docTemp = rep1.GetDocument("");
 

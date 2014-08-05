@@ -31,12 +31,7 @@ public abstract class BaseReportObject {
     protected HashMap<String, ReportBaseFont> _fonts;
     protected PropertyGetter propertyGetter;
     protected BaseReportObject parent;
-    protected Report rep;
 
-    public void setRep(Report _rep, int n){
-        rep = _rep;
-        rep.setCurPage(n);
-    }
 
     protected void Load(Node node) {
         NamedNodeMap attrObj = node.getAttributes();

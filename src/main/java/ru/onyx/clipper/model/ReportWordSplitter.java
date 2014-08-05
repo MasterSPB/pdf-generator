@@ -144,6 +144,7 @@ public class ReportWordSplitter extends BaseReportObject {
                             param = zeros + parent.parent.getPageNumber();
                         }
                     }
+                    
                 }catch (NullPointerException npe1){
 
                 }

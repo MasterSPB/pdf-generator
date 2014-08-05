@@ -598,6 +598,7 @@ public class ReportRepeatingRow extends BaseReportObject {
         return tempFooter;
     }
 
+
     @Override
     public PdfPTable getPdfObject() throws DocumentException, ParseException, IOException {
         throw new NotImplementedException();

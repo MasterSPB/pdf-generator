@@ -58,7 +58,6 @@ public class ReportTable extends BaseReportObject {
         try{
             setPageNumber(rep.getCurPage());
         }catch (NullPointerException n){
-
         }
         LoadItems(node, fonts, this, pGetter);
 

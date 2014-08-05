@@ -358,7 +358,6 @@ public class Report {
             HeaderEvent event = new HeaderEvent(this, _doc, pageFont);
             wr.setPageEvent(event);
         }
-        //BaseFont pageBF = BaseFont.createFont("/fonts/"+pageFontName+".ttf", BaseFont.IDENTITY_H, true); //font for page numbers
 
         _doc.open();
 
@@ -394,11 +393,6 @@ public class Report {
                 spaceLeft = ReportDocumentUtils.calcFreeSpace(item.getVerticalSize(), (Float) spaceLeft, _doc);
                 _doc.add(item.getPdfObject());
             }
-//            }else if(item instanceof ReportRepeatingTemplate){
-//                for(BaseReportObject reportRepeatingTemplateItem : item.items){
-//                    _doc.add(reportRepeatingTemplateItem.getPdfObject());
-//                }
-//            }
             else if(item instanceof ReportRepeatingTemplate){
                 for(Element reportRepeatingTemplateItem : item.itemsGPO){
                     _doc.add(reportRepeatingTemplateItem);
@@ -430,7 +424,6 @@ public class Report {
             HeaderEvent event = new HeaderEvent(this, _doc, pageFont);
             wr.setPageEvent(event);
         }
-        //BaseFont pageBF = BaseFont.createFont("/fonts/"+pageFontName+".ttf", BaseFont.IDENTITY_H, true); //font for page numbers
 
         _doc.open();
 
@@ -495,13 +488,6 @@ public class Report {
 
         wr.setPageEvent(new PageIncrementEvent(this));
         wr.setRgbTransparencyBlending(true);
-
-//        if(pageHeader.equalsIgnoreCase("enabled")){
-//            Font pageFont = new Font(fonts.get(pageFontName).getCustomFont(pageFontWeight));
-//            HeaderEvent event = new HeaderEvent(this, _doc, pageFont);
-//            wr.setPageEvent(event);
-//        }
-        //BaseFont pageBF = BaseFont.createFont("/fonts/"+pageFontName+".ttf", BaseFont.IDENTITY_H, true); //font for page numbers
 
 
         for (BaseReportObject item : items) {

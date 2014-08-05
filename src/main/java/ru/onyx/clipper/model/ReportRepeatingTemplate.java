@@ -32,6 +32,7 @@ public class ReportRepeatingTemplate extends BaseReportObject{
         setPageNumber(x);
         String originalPageNameRT = getPageNameRT();
 
+
         if(getPageNameRT().length()>0){
             if(pGetter.GetPageCount(getPageNameRT())!=0) {
                 int n = pGetter.GetPageCount(getPageNameRT());
