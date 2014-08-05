@@ -125,10 +125,16 @@ public class ReportWordSplitter extends BaseReportObject {
                         String zeros="";
                         for(int z=0; z<getColumns()-1;z++){zeros+=0;}
                         param = zeros + parent.parent.parent.getPageNumber();
-                    } else {
+                    } else if(parent.parent.parent.getPageNumber()<100) {
                         String zeros="";
-                        for(int z=0; z<getColumns();z++){zeros+=0;}
+                        for(int z=0; z<getColumns()-2;z++){zeros+=0;}
                         param = zeros + parent.parent.parent.getPageNumber();
+                    }else if(parent.parent.parent.getPageNumber()<1000){
+                        String zeros="";
+                        for(int z=0; z<getColumns()-3;z++){zeros+=0;}
+                        param = zeros + parent.parent.parent.getPageNumber();
+                    }else{
+                        param = "ERROR";
                     }
                 }
             }catch (NullPointerException npe){
@@ -138,13 +144,19 @@ public class ReportWordSplitter extends BaseReportObject {
                             String zeros="";
                             for(int z=0; z<getColumns()-1;z++){zeros+=0;}
                             param = zeros + parent.parent.getPageNumber();
-                        } else {
+                        } else if(parent.parent.parent.getPageNumber()<100){
                             String zeros="";
-                            for(int z=0; z<getColumns();z++){zeros+=0;}
+                            for(int z=0; z<getColumns()-2;z++){zeros+=0;}
                             param = zeros + parent.parent.getPageNumber();
+                        }else if(parent.parent.parent.getPageNumber()<1000){
+                            String zeros="";
+                            for(int z=0; z<getColumns()-3;z++){zeros+=0;}
+                            param = zeros + parent.parent.getPageNumber();
+                        }else{
+                            param="ERROR";
                         }
                     }
-                    
+
                 }catch (NullPointerException npe1){
 
                 }
