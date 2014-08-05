@@ -42,7 +42,7 @@ public class ReportRepeatingTemplate extends BaseReportObject{
                         Node node = childsList.item(h);
                         if(nodeName.equalsIgnoreCase("table")){
 //                            items.add(new ReportTable(node,_fonts,this,pGetter));
-                            itemsGPO.add(new ReportTable(node,_fonts,this,pGetter).getPdfObject());
+                            itemsGPO.add(new ReportTable(node,_fonts,this,pGetter,null).getPdfObject());
                         }else if(nodeName.equalsIgnoreCase("paragraph")){
 //                            items.add(new ReportParagraph(node,_fonts,this,pGetter));
                             itemsGPO.add(new ReportParagraph(node,_fonts,this,pGetter).getPdfObject());

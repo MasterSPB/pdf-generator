@@ -117,13 +117,38 @@ public class ReportWordSplitter extends BaseReportObject {
            param = getDateProperty(mode,getPropertyName(),getDateFormat());
         }
 
-        if(getNumeratorRt()!=null && getNumeratorRt().equals("true") && parent.parent.parent.getPageNumber()!=0){
 
-            if(parent.parent.parent.getPageNumber()<10) {
-                param = "00000" + parent.parent.parent.getPageNumber();
-            }else{
-                param = "0000" + parent.parent.parent.getPageNumber();
+        if(getNumeratorRt()!=null && getNumeratorRt().equals("true")){
+            try {
+                if(parent.parent.parent.getPageNumber() !=0 && parent.parent.parent.getPageNumber() != null) {
+                    if (parent.parent.parent.getPageNumber() < 10) {
+                        String zeros="";
+                        for(int z=0; z<getColumns()-1;z++){zeros+=0;}
+                        param = zeros + parent.parent.parent.getPageNumber();
+                    } else {
+                        String zeros="";
+                        for(int z=0; z<getColumns();z++){zeros+=0;}
+                        param = zeros + parent.parent.parent.getPageNumber();
+                    }
+                }
+            }catch (NullPointerException npe){
+                try {
+                    if (parent.parent.getPageNumber() != 0 && parent.parent.getPageNumber() != null) {
+                        if (parent.parent.getPageNumber() < 10) {
+                            String zeros="";
+                            for(int z=0; z<getColumns()-1;z++){zeros+=0;}
+                            param = zeros + parent.parent.getPageNumber();
+                        } else {
+                            String zeros="";
+                            for(int z=0; z<getColumns();z++){zeros+=0;}
+                            param = zeros + parent.parent.getPageNumber();
+                        }
+                    }
+                }catch (NullPointerException npe1){
+
+                }
             }
+
         }
 
         if(param == null) param = "";

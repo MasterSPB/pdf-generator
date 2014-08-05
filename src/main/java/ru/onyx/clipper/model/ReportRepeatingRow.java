@@ -53,7 +53,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                     nodeName = headerChildList.item(j).getNodeName();
                     if(nodeName.equalsIgnoreCase("table"))
                         try {
-                            header = (new ReportTable(headerChildList.item(j), _fonts, this, propertyGetter)).getPdfObject();
+                            header = (new ReportTable(headerChildList.item(j), _fonts, this, propertyGetter,null)).getPdfObject();
                             ReportTableUtils.setExactWidthFromPercentage(header, _doc);
                         } catch (DocumentException e) {
                             e.printStackTrace();
@@ -69,7 +69,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                     nodeName = footerChildList.item(j).getNodeName();
                     if(nodeName.equalsIgnoreCase("table"))
                         try {
-                            ReportTable footerTable = new ReportTable(footerChildList.item(j), _fonts, this, propertyGetter);
+                            ReportTable footerTable = new ReportTable(footerChildList.item(j), _fonts, this, propertyGetter,null);
                             footer = footerTable.getPdfObject();
                             ReportTableUtils.setExactWidthFromPercentage(footer, _doc);
                             aggrMap = footerTable.getTableAggrProps();
@@ -87,7 +87,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                     nodeName = finalChildList.item(j).getNodeName();
                     if(nodeName.equalsIgnoreCase("table"))
                         try {
-                            ReportTable finalTable = new ReportTable(finalChildList.item(j), _fonts, this, propertyGetter);
+                            ReportTable finalTable = new ReportTable(finalChildList.item(j), _fonts, this, propertyGetter,null);
                             finalLine = finalTable.getPdfObject();
                             ReportTableUtils.setExactWidthFromPercentage(finalLine, _doc);
                         } catch (DocumentException e) {

@@ -49,12 +49,19 @@ public class ReportTable extends BaseReportObject {
         }
     }
 
-    public ReportTable(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException, IOException, DocumentException {
+    public ReportTable(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter, Report rep) throws ParseException, IOException, DocumentException {
         _fonts = fonts;
         parent = pParent;
         propertyGetter = pGetter;
+
         Load(node);
+        try{
+            setPageNumber(rep.getCurPage());
+        }catch (NullPointerException n){
+
+        }
         LoadItems(node, fonts, this, pGetter);
+
         if(pParent!= null && pParent.getPageNameRT() != null){
             setPageNameRT(pParent.getPageNameRT());
         }
@@ -65,6 +72,7 @@ public class ReportTable extends BaseReportObject {
         int totalCols = getColumns();
         int totalCells = items.size();
         int totalRows = totalCells/totalCols;
+
 
         PdfPTable table = new PdfPTable(this.columns);
         if(getTotalWidth() >0) table.setTotalWidth(getTotalWidth());

@@ -33,7 +33,8 @@ public abstract class BaseReportObject {
     protected BaseReportObject parent;
     protected Report rep;
 
-    public void setRep(int n){
+    public void setRep(Report _rep, int n){
+        rep = _rep;
         rep.setCurPage(n);
     }
 
@@ -342,7 +343,7 @@ public abstract class BaseReportObject {
             } else {
                 switch (nodeName) {
                     case table:
-                        items.add(new ReportTable(item, fonts, pParent, pGetter));
+                        items.add(new ReportTable(item, fonts, pParent, pGetter,null));
                         break;
                     case paragraph:
                         items.add(new ReportParagraph(item, fonts, pParent, pGetter));
