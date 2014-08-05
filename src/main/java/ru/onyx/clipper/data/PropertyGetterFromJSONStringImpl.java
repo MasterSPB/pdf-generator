@@ -40,16 +40,23 @@ public class PropertyGetterFromJSONStringImpl implements PropertyGetter{
             return null;
         } catch (PathNotFoundException e) {
             return null;
+        }catch (IllegalArgumentException iae){
+            return null;
         }
     }
 
     @Override
     public int GetPageCount(String pName) {
         int i = 0;
-        JSONArray ja =  JsonPath.read(jsonPlainString, pName);
-        if(ja!=null)
-            i = ja.size();
-        else i=0;
+        try {
+            JSONArray ja = JsonPath.read(jsonPlainString, pName);
+            if (ja != null)
+                i = ja.size();
+        }catch (NullPointerException n) {
+            return 0;
+        }catch (ClassCastException cce){
+            return -1;
+        }
         return i;
     }
 
