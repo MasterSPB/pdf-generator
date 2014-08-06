@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -33,10 +34,15 @@ public class PropertyGetterFromXMLFileImpl implements PropertyGetter {
 
             XPathExpression xPathExpr = xpath.compile(xPathString);
             return Integer.parseInt(xPathExpr.evaluate(doc));
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             e.printStackTrace();
             return 0;
+        }catch (ClassCastException cce){
+            return -1;
+        } catch (XPathExpressionException e) {
+            e.printStackTrace();
         }
+        return 0;
     }
 
     public PropertyGetterFromXMLFileImpl(String reportDataXmlPath) throws IOException, SAXException, ParserConfigurationException {
