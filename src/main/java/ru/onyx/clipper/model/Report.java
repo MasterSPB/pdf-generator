@@ -413,7 +413,7 @@ public class Report {
     }
 
 
-    public ArrayList GetDocument(String s) throws DocumentException, ParseException, IOException {
+    public ArrayList GetDocumentF() throws DocumentException, ParseException, IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PdfWriter wr = PdfWriter.getInstance(_doc, byteArrayOutputStream);
         wr.setPageEvent(new PageIncrementEvent(this));
@@ -484,7 +484,66 @@ public class Report {
         return list;
     }
 
-    public byte[] GetDocument(Document _doc, ByteArrayOutputStream byteArrayOutputStream, PdfWriter wr) throws DocumentException, ParseException, IOException {
+    public ArrayList GetDocumentM(Document _doc, ByteArrayOutputStream byteArrayOutputStream, PdfWriter wr) throws DocumentException, ParseException, IOException {
+
+        wr.setPageEvent(new PageIncrementEvent(this));
+        wr.setRgbTransparencyBlending(true);
+
+
+        for (BaseReportObject item : items) {
+
+            if (item instanceof ReportNewPage) {
+                _doc.newPage();
+                spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+            }
+
+            else if (item instanceof ReportRepeatingRow) {
+                for(Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable(spaceLeft, _doc))
+                {
+                    if(reportRepeatingRowItem==null){
+                        _doc.newPage();
+                        spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+                    }
+                    else if (reportRepeatingRowItem instanceof PdfPTable){
+                        ReportTableUtils.setExactWidthFromPercentage((PdfPTable) reportRepeatingRowItem, _doc);
+                        spaceLeft= ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize((PdfPTable) reportRepeatingRowItem), (Float) spaceLeft, _doc);
+                        _doc.add((Element) reportRepeatingRowItem);
+                    }
+                }
+            }
+
+            else if (item instanceof ReportTable) {
+                PdfPTable table = (PdfPTable) item.getPdfObject();
+                ReportTableUtils.setExactWidthFromPercentage(table, _doc);
+                spaceLeft= ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize(table), (Float) spaceLeft, _doc);
+                _doc.add(table);
+            }
+            else if (item instanceof ReportParagraph) {
+                spaceLeft = ReportDocumentUtils.calcFreeSpace(item.getVerticalSize(), (Float) spaceLeft, _doc);
+                _doc.add(item.getPdfObject());
+            }
+
+            else if(item instanceof ReportRepeatingTemplate){
+                for(Element reportRepeatingTemplateItem : item.itemsGPO){
+                    _doc.add(reportRepeatingTemplateItem);
+                }
+            }
+
+            else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
+        }
+
+        items.clear();
+
+        setCurPage(getCurPage()+1);
+        ArrayList<Object> list = new ArrayList<>();
+        list.add(byteArrayOutputStream);
+        list.add(_doc);
+        list.add(wr);
+
+        return list;
+    }
+
+    public byte[] GetDocumentE(Document _doc, ByteArrayOutputStream byteArrayOutputStream, PdfWriter wr) throws DocumentException, ParseException, IOException {
 
         wr.setPageEvent(new PageIncrementEvent(this));
         wr.setRgbTransparencyBlending(true);

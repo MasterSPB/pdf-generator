@@ -35,17 +35,31 @@ public class Reporting {
         return rep.GetDocument();
     }
 
-    public static byte[] CreateDocumentEx(String markups[], HashMap<String, byte[]> fonts, PropertyGetter dataSource[]) throws IOException, DocumentException, SAXException, XPathExpressionException, ParserConfigurationException, ParseException {
+    public static byte[] CreateDocumentEx(ArrayList<String> markup, HashMap<String, byte[]> fonts, PropertyGetter dataSource[]) throws IOException, DocumentException, SAXException, XPathExpressionException, ParserConfigurationException, ParseException {
 
-        Report rep1 = new Report();
+        Report rep = new Report();
 
+        if(markup.size() == 2){
 
-        rep1.LoadMarkup(markups[0], fonts, dataSource[0]);
-        ArrayList docTemp = rep1.GetDocument("");
+            rep.LoadMarkup(markup.get(0), fonts, dataSource[0]);
+            ArrayList docTemp = rep.GetDocumentF();
+            rep.LoadMarkup(markup.get(1),fonts, dataSource[1],(Document)docTemp.get(1));
 
-        rep1.LoadMarkup(markups[1],fonts, dataSource[1],(Document)docTemp.get(1));
+            return rep.GetDocumentE((Document)docTemp.get(1),(ByteArrayOutputStream)docTemp.get(0),(PdfWriter)docTemp.get(2));
 
-        return rep1.GetDocument((Document)docTemp.get(1),(ByteArrayOutputStream)docTemp.get(0),(PdfWriter)docTemp.get(2));
+        }else{
+            rep.LoadMarkup(markup.get(0), fonts, dataSource[0]);
+            ArrayList docTemp = rep.GetDocumentF();
+            for(int m=1; m < markup.size()-1; m++){
+                rep.LoadMarkup(markup.get(m),fonts, dataSource[m],(Document)docTemp.get(1));
+                docTemp = rep.GetDocumentM((Document)docTemp.get(1),(ByteArrayOutputStream)docTemp.get(0),(PdfWriter)docTemp.get(2));
+            }
+
+            rep.LoadMarkup(markup.get(markup.size()-1),fonts, dataSource[dataSource.length-1],(Document)docTemp.get(1));
+
+            return rep.GetDocumentE((Document)docTemp.get(1),(ByteArrayOutputStream)docTemp.get(0),(PdfWriter)docTemp.get(2));
+        }
+
     }
 
     public static void writeDocument(String pdfPath, Object rep) {
