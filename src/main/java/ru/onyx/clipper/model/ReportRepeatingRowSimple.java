@@ -38,8 +38,8 @@ public class ReportRepeatingRowSimple extends BaseReportObject{
 //        }
 
         if(getPageName().length() > 0) {
-            if(pGetter.GetPageCount(getPageName())!=0){
-                int n = pGetter.GetPageCount(getPageName());
+            int n = pGetter.GetPageCount(getPageName());
+            if(n>0){
                 for(int y=0;y<n;y++) {
                     for (int h = 0; h < childsList.getLength(); h++) {
                         nodeName = childsList.item(h).getNodeName();
@@ -89,6 +89,57 @@ public class ReportRepeatingRowSimple extends BaseReportObject{
                                 }
 
                             }
+                        }
+                    }
+                }
+            }else if(n == -1){
+                for (int h = 0; h < childsList.getLength(); h++) {
+                    nodeName = childsList.item(h).getNodeName();
+                    Node node = childsList.item(h);
+
+                    if (nodeName.equalsIgnoreCase("items")) {
+                        NodeList cells = node.getChildNodes();
+                        cellsRep = cells;
+                        ArrayList<BaseReportObject> itemsTemp = new ArrayList<BaseReportObject>();
+                        int cellCounter = 0;
+                        for (int i = 0; i < cells.getLength(); i++) {
+                            nodeName = cells.item(i).getNodeName();
+                            if (nodeName.equalsIgnoreCase("cell")) {
+                                NamedNodeMap attrObj = cells.item(i).getAttributes();
+                                String expression = parseAttribute(attrObj, "expression", null);
+                                if (expression != null && !expression.equals("")) {
+                                    String propName = parseAttribute(attrObj, "property", "");
+                                    String textCell = pGetter.GetProperty(getPageName()+ "." + propName);
+                                    SetAttribute(attrObj, "customtext", textCell);
+                                    if (expression.equalsIgnoreCase("eq")) {
+                                        String qi = parseAttribute(attrObj, "quartindex", "");
+                                        qi = pGetter.GetProperty(qi);
+                                        String ot = parseAttribute(attrObj, "optype", "");
+                                        String eo = parseAttribute(attrObj, "expoperand", "");
+                                        Pattern pat = ReportRegexUtils.getRegex(ot, eo, qi);
+                                        Matcher mat = pat.matcher(textCell);
+                                        if (mat.matches()) {
+                                            itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
+                                            cellCounter++;
+                                        } else {
+                                            break;
+                                        }
+                                    }
+                                } else {
+                                    String propName = parseAttribute(attrObj, "property", "");
+                                    String textCell = pGetter.GetProperty(getPageName() + "." + propName);
+                                    SetAttribute(attrObj, "customtext", textCell);
+                                    itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
+                                    cellCounter++;
+                                }
+                            }
+                            if (cellCounter == getColumns()) {
+                                for (int k = 0; k < itemsTemp.size(); k++) {
+                                    items.add(itemsTemp.get(k));
+                                }
+                                break;
+                            }
+
                         }
                     }
                 }
