@@ -20,13 +20,13 @@ public class ReportRegexUtils {
         }else if(regexp.equals("dateMonth")){
             if(!quartindex.equals(null)) {
 
-                if((Integer.parseInt(quartindex))==1){
+                if((Integer.parseInt(quartindex))==3){
                     op=Integer.parseInt(operand);
-                }else if((Integer.parseInt(quartindex))==2){
+                }else if((Integer.parseInt(quartindex))==6){
                     op=Integer.parseInt(operand)+3;
-                }else if((Integer.parseInt(quartindex))==3){
+                }else if((Integer.parseInt(quartindex))==9){
                     op=Integer.parseInt(operand)+6;
-                }else if((Integer.parseInt(quartindex))==4){
+                }else if((Integer.parseInt(quartindex))==12){
                     op=Integer.parseInt(operand)+9;
                 }
 
