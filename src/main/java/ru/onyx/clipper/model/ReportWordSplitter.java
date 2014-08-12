@@ -2,6 +2,7 @@ package ru.onyx.clipper.model;
 
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.*;
+import com.sun.jndi.cosnaming.ExceptionMapper;
 import org.w3c.dom.Node;
 import ru.onyx.clipper.data.PropertyGetter;
 
@@ -61,6 +62,30 @@ public class ReportWordSplitter extends BaseReportObject {
 
         if (getDateFormat() != null && getToDateFormat() != null) {
             param = ConvertPropertyToSpecificDateFormat(param);
+        }
+
+        if(getAddZero()!=null && !getAddZero().equalsIgnoreCase("false") && param!=null){
+            String zeros = "";
+            try {
+                if (Integer.parseInt(param) < 10) {
+                    for (int z = 0; z < getColumns()-1;z++){
+                        zeros += 0;
+                    }
+                    param = zeros + param;
+                }else if(Integer.parseInt(param) < 100){
+                    for (int z = 0; z < getColumns()-2;z++){
+                        zeros += 0;
+                    }
+                    param = zeros + param;
+                }else if(Integer.parseInt(param) < 1000){
+                    for (int z = 0; z < getColumns()-3;z++){
+                        zeros += 0;
+                    }
+                    param = zeros + param;
+                }
+            }catch (Exception ex){
+
+            }
         }
 
         if (param==null && getDefaultNullValue()!=null){
@@ -163,6 +188,8 @@ public class ReportWordSplitter extends BaseReportObject {
             }
 
         }
+
+
 
         if(param == null) param = "";
         String paramAlign = getWordAlign();

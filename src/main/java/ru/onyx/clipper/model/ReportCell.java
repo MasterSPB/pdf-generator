@@ -113,14 +113,15 @@ public class ReportCell extends BaseReportObject {
         if (getText() != null) celltext = getText();
 
 
-        if (getPropertyName() != null && customtext == null&& !celltext.isEmpty()) {
+        if (getPropertyName() != null && customtext == null && !celltext.isEmpty()) {
             celltext = propertyGetter.GetProperty(getPropertyName());
             if (celltext == null)
             {
                 NullF = getNullFont();
                 celltext = getDefaultNullValue();
             }
-            if(getPropertyExtract()!=null && (celltext!=null) ){
+
+            if(getPropertyExtract()!=null){
                 StringTokenizer st = new StringTokenizer(celltext,",.",true);
                 int extIndex = Integer.parseInt(getPropertyExtract());
                 ArrayList<String> extData= new ArrayList<>();
@@ -140,15 +141,17 @@ public class ReportCell extends BaseReportObject {
                         dataFlag=true;
                     }
                 }
-
-                celltext=extData.get(extIndex);
+                try {
+                    celltext = extData.get(extIndex);
+                }catch (IndexOutOfBoundsException iobe){}
             }
-            else celltext="";
+
 
             if (getDateFormat() != null && getToDateFormat() != null) {
                 celltext = ConvertPropertyToSpecificDateFormat(celltext);
             }
         }
+
 
         if(getPropertyName()!=null &&!getPropertyName().contains("$") && parent.getPageNameRT() != null){
             celltext = propertyGetter.GetProperty(parent.getPageNameRT()+getPropertyName());
