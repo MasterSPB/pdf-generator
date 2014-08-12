@@ -51,6 +51,7 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+            addZero = parseAttribute(attrObj, ADD_ZERO, "false");
             pageNumber = Integer.parseInt(parseAttribute(attrObj, PAGE_NUMBER, "0"));
             numeratorRT = parseAttribute(attrObj, NUMERATOR_RT, null);
             pageNameRT = parseAttribute(attrObj, PAGE_NAME_RT, null);
@@ -399,6 +400,7 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String ADD_ZERO = "addzero";
     protected static final String PAGE_NUMBER = "pagenumber";
     protected static final String NUMERATOR_RT = "numeratorrt";
     protected static final String PAGE_NAME_RT = "pagenamert";
@@ -537,6 +539,7 @@ public abstract class BaseReportObject {
     protected Integer charspacing;
     protected Integer minFreeSpaceAfter;
 
+    protected String addZero;
     protected String numeratorRT;
     protected String pageNameRT;
     protected String ifZero;
@@ -764,6 +767,13 @@ public abstract class BaseReportObject {
         else if (parent != null) return parent.getLeading();
 
         return -1f;
+    }
+
+    protected String getAddZero(){
+        if(addZero != null){
+            return addZero;
+        }
+        return "false";
     }
 
     protected String getNumeratorRt(){
