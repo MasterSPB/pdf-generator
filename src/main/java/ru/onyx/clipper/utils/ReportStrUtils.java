@@ -12,6 +12,8 @@ public class ReportStrUtils {
 
     public static String replaceDecSeparator(String inputString, String separator){
 
+        if(inputString.equals("")) return inputString;
+
         if(inputString!=null) {
             DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
             otherSymbols.setDecimalSeparator(separator.charAt(0));
@@ -19,7 +21,6 @@ public class ReportStrUtils {
             return df.format(Float.parseFloat(inputString));
         }
 
-        if(inputString.equals("")) return inputString;
 
         return null;
     }
