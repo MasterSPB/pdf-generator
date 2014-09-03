@@ -103,12 +103,12 @@ public class ReportChunk extends BaseReportObject {
             content = "Ошибка вычисления";
         }
 
-        if (getDelimiterAdd() != null && content != null) {
+        if (getDelimiterAdd() != null && content != null && !content.equals("")) {
             content = getDelimiterAdd() + content;
         }
 
         Font NullF = null;
-        if (content == null) {
+        if (content == null || content.equals("")) {
             content = getDefaultNullValue();
             NullF = getNullFont();
         }
