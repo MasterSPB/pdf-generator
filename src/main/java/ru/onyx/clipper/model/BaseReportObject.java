@@ -1309,6 +1309,12 @@ public abstract class BaseReportObject {
         return ret;
     }
 
+
+	/**
+	 * Конвертирует propertyValue в указанный в параметре format формат даты.
+	 * @param propertyValue строковое значение с датой.
+	 * @return отформатированное строковое значение с датой.
+	 */
     protected String ConvertPropertyToSpecificDateFormat(String propertyValue) {
 
         Date s = propertyGetter.GetPropertyStringAsDate(propertyValue, getDateFormat());
