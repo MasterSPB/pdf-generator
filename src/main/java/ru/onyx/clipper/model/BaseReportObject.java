@@ -51,6 +51,7 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+			extractDelimiter = parseAttribute(attrObj, EXTRACT_DELIMITER, null);
             addZero = parseAttribute(attrObj, ADD_ZERO, "false");
             pageNumber = Integer.parseInt(parseAttribute(attrObj, PAGE_NUMBER, "0"));
             numeratorRT = parseAttribute(attrObj, NUMERATOR_RT, null);
@@ -400,6 +401,7 @@ public abstract class BaseReportObject {
         return null;
     }
 
+	protected static final String EXTRACT_DELIMITER = "extractdelimiter";
     protected static final String ADD_ZERO = "addzero";
     protected static final String PAGE_NUMBER = "pagenumber";
     protected static final String NUMERATOR_RT = "numeratorrt";
@@ -539,6 +541,7 @@ public abstract class BaseReportObject {
     protected Integer charspacing;
     protected Integer minFreeSpaceAfter;
 
+	protected String extractDelimiter;
     protected String addZero;
     protected String numeratorRT;
     protected String pageNameRT;
@@ -768,6 +771,10 @@ public abstract class BaseReportObject {
 
         return -1f;
     }
+
+	protected String getExtractDelimiter(){
+		return extractDelimiter;
+	}
 
     protected String getAddZero(){
         if(addZero != null){
