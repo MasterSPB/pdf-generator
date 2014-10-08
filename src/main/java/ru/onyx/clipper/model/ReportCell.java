@@ -113,7 +113,7 @@ public class ReportCell extends BaseReportObject {
         if (getText() != null) celltext = getText();
 
 
-        if (getPropertyName() != null && customtext == null && !celltext.isEmpty()) {
+        if (getPropertyName() != null && customtext == null) {
             celltext = propertyGetter.GetProperty(getPropertyName());
             if (celltext == null)
             {
