@@ -122,19 +122,25 @@ public class ReportCell extends BaseReportObject {
             }
 
             if(getPropertyExtract()!=null){
-                StringTokenizer st = new StringTokenizer(celltext,",.",true);
+				String delimiters;
+				if(getExtractDelimiter() != null){
+					delimiters = getExtractDelimiter();
+				}else{
+					delimiters = ",.";
+				}
+                StringTokenizer st = new StringTokenizer(celltext,delimiters,true);
                 int extIndex = Integer.parseInt(getPropertyExtract());
                 ArrayList<String> extData= new ArrayList<>();
                 boolean dataFlag = false;
                 while(st.hasMoreTokens()){
                     String key = st.nextToken();
-                    if(key.equals(",")&&!dataFlag){
+                    if(key.equals(",") && !dataFlag){
                         extData.add("");
-                    }else if(key.equals(",")||key.equals(".")&&dataFlag){
+                    }else if(key.equals(",") || key.equals(".") && dataFlag){
                         dataFlag=false;
-                    }else if(key.equals(".")&&!dataFlag){
+                    }else if(key.equals(".")&& !dataFlag){
                         extData.add("");
-                    }else if(key.equals(".")&&dataFlag){
+                    }else if(key.equals(".")&& dataFlag){
                         dataFlag=false;
                     }else{
                         extData.add(key);
