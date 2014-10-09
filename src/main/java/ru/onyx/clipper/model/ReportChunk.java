@@ -133,7 +133,8 @@ public class ReportChunk extends BaseReportObject {
                     if (getStringformat().equals("tenth")) {
                         content = content.substring(content.indexOf(".") + 1);
                     } else {
-                        content = String.format(getStringformat(), Double.parseDouble(content));
+						Locale locale = new Locale("ru");
+                        content = String.format(locale, getStringformat(), Double.parseDouble(content));
                     }
                 }
             } catch (NumberFormatException e) {
