@@ -148,7 +148,13 @@ public class ReportCell extends BaseReportObject {
                     }
                 }
                 try {
-                    celltext = extData.get(extIndex);
+					if(extIndex <= extData.size()) {
+						celltext = extData.get(extIndex);
+					}else if(getDefaultNullValue()!= null){
+						celltext = defaultnullvalue;
+					}else{
+						celltext = "";
+					}
                 }catch (IndexOutOfBoundsException iobe){}
             }
 
