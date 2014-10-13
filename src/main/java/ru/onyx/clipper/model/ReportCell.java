@@ -148,7 +148,7 @@ public class ReportCell extends BaseReportObject {
                     }
                 }
                 try {
-					if(extIndex <= extData.size()) {
+					if(extIndex < extData.size()) {
 						celltext = extData.get(extIndex);
 					}else if(getDefaultNullValue()!= null){
 						celltext = defaultnullvalue;
@@ -160,8 +160,12 @@ public class ReportCell extends BaseReportObject {
 
 
             if (getDateFormat() != null && getToDateFormat() != null) {
-                celltext = ConvertPropertyToSpecificDateFormat(celltext);
-            }
+				try {
+					celltext = ConvertPropertyToSpecificDateFormat(celltext);
+				}catch (Exception e){
+					celltext = "Formatting failed";
+				}
+			}
         }
 
 
