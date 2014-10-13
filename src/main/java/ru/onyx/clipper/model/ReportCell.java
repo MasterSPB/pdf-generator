@@ -148,7 +148,7 @@ public class ReportCell extends BaseReportObject {
                     }
                 }
                 try {
-					if(extIndex <= extData.size()) {
+					if(extIndex < extData.size()) {
 						celltext = extData.get(extIndex);
 					}else if(getDefaultNullValue()!= null){
 						celltext = defaultnullvalue;
