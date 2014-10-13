@@ -160,8 +160,12 @@ public class ReportCell extends BaseReportObject {
 
 
             if (getDateFormat() != null && getToDateFormat() != null) {
-                celltext = ConvertPropertyToSpecificDateFormat(celltext);
-            }
+				try {
+					celltext = ConvertPropertyToSpecificDateFormat(celltext);
+				}catch (Exception e){
+					celltext = "Formatting failed";
+				}
+			}
         }
 
 
