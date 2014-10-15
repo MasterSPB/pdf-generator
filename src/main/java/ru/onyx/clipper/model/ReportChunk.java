@@ -107,6 +107,18 @@ public class ReportChunk extends BaseReportObject {
             content = getDelimiterAdd() + content;
         }
 
+		if(getIfZero()!=null){
+			try{
+				if(content.trim().equals("0,00") || content.trim().equals("0.00") || content.trim().equals("0")){
+					content = getIfZero();
+				}
+				if(content.equals("null")){
+					content = null;
+				}
+			}catch (Exception ne){
+			}
+		}
+
         Font NullF = null;
         if (content == null || content.equals("")) {
             content = getDefaultNullValue();
@@ -142,14 +154,7 @@ public class ReportChunk extends BaseReportObject {
             }
         }
 
-        if(getIfZero()!=null){
-            try{
-                if(content.trim().equals("0,00") || content.trim().equals("0.00")){
-                    content = getIfZero();
-                }
-            }catch (Exception ne){
-            }
-        }
+
 
         if (getNegativeEmbrace()) {
             content = ReportStrUtils.embraceNegativeValue(content);
