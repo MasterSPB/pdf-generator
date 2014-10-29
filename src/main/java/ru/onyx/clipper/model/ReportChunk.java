@@ -103,8 +103,17 @@ public class ReportChunk extends BaseReportObject {
             content = "Ошибка вычисления";
         }
 
+		if(getIsInitial().equals("true") && content != null && content != ""){
+			Character init = content.charAt(0);
+			content = init.toString().toUpperCase();
+		}
+
         if (getDelimiterAdd() != null && content != null && !content.equals("")) {
-            content = getDelimiterAdd() + content;
+			if(getDelimiterAfter().equals("true")){
+				content = content + getDelimiterAdd();
+			}else {
+				content = getDelimiterAdd() + content;
+			}
         }
 
 		if(getIfZero()!=null && content != null){
@@ -118,6 +127,8 @@ public class ReportChunk extends BaseReportObject {
 			}catch (Exception ne){
 			}
 		}
+
+
 
         Font NullF = null;
         if (content == null || content.equals("")) {
