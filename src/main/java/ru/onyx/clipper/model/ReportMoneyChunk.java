@@ -34,6 +34,10 @@ public class ReportMoneyChunk extends BaseReportObject {
             }
         }
 
+		if(content == null){
+			content = "";
+		}
+
         if (content.equalsIgnoreCase("true")) {
             content = "\uf0FE";
         }

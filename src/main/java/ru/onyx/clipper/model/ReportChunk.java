@@ -107,7 +107,7 @@ public class ReportChunk extends BaseReportObject {
             content = getDelimiterAdd() + content;
         }
 
-		if(getIfZero()!=null){
+		if(getIfZero()!=null && content != null){
 			try{
 				if(content.trim().equals("0,00") || content.trim().equals("0.00") || content.trim().equals("0")){
 					content = getIfZero();
