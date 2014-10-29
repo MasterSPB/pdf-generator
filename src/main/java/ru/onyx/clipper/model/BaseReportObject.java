@@ -51,6 +51,8 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+			delimiterAfter = parseAttribute(attrObj, DELIMITER_AFTER, "false");
+			isInitial = parseAttribute(attrObj, IS_INITIAL, "false");
 			extractDelimiter = parseAttribute(attrObj, EXTRACT_DELIMITER, null);
             addZero = parseAttribute(attrObj, ADD_ZERO, "false");
             pageNumber = Integer.parseInt(parseAttribute(attrObj, PAGE_NUMBER, "0"));
@@ -401,6 +403,8 @@ public abstract class BaseReportObject {
         return null;
     }
 
+	protected static final String DELIMITER_AFTER = "delimiterafter";
+	protected static final String IS_INITIAL = "isinitial";
 	protected static final String EXTRACT_DELIMITER = "extractdelimiter";
     protected static final String ADD_ZERO = "addzero";
     protected static final String PAGE_NUMBER = "pagenumber";
@@ -541,6 +545,8 @@ public abstract class BaseReportObject {
     protected Integer charspacing;
     protected Integer minFreeSpaceAfter;
 
+	protected String delimiterAfter;
+	protected String isInitial;
 	protected String extractDelimiter;
     protected String addZero;
     protected String numeratorRT;
@@ -771,6 +777,10 @@ public abstract class BaseReportObject {
 
         return -1f;
     }
+
+	protected String getDelimiterAfter(){return delimiterAfter;}
+
+	protected String getIsInitial(){return isInitial;}
 
 	protected String getExtractDelimiter(){
 		return extractDelimiter;
