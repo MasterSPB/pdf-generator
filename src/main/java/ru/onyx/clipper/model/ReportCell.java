@@ -173,7 +173,7 @@ public class ReportCell extends BaseReportObject {
 
         if (getStringformat() != null) {
             if (!celltext.equals("")) {
-                celltext = String.format(getStringformat(), Float.parseFloat(celltext));
+                celltext = String.format(getStringformat(), Double.parseDouble(celltext));
             }
         }
 
@@ -189,7 +189,7 @@ public class ReportCell extends BaseReportObject {
 
             if (getStringformat() != null && !celltext.equals("")) {
                 try {
-                    celltext = String.format(getStringformat(), Float.parseFloat(celltext));
+                    celltext = String.format(getStringformat(), Double.parseDouble(celltext));
                 }catch (NumberFormatException ne){
                     celltext = celltext;
                 }
