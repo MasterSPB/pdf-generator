@@ -123,6 +123,12 @@ public class Report {
         return pageNumType;
     }
 
+    public static int getLastTableRowCount() {return lastTableRowCount; }
+
+    public String getPageText() {
+        return pageText;
+    }
+
     private String repPageNumHPos;
     private String pageFontName;
     private String repPageNumVPos;
@@ -131,12 +137,9 @@ public class Report {
     private String pageSize;
     private String pageOrientation;
     private String lowerRunningTitle;
-
     private float spaceLeft;
 
-    public String getPageText() {
-        return pageText;
-    }
+    private static int lastTableRowCount = 0; // stores the number of rows of the last table, parsed in document
 
     private String pageText="";
 
@@ -381,6 +384,8 @@ public class Report {
                         _doc.add((Element) reportRepeatingRowItem);
                     }
                 }
+                // since this is a table and has multiple rows, fill variable with its row number
+                lastTableRowCount = ((ReportRepeatingRow) item).getTotalRows();
             }
 
             else if (item instanceof ReportTable) {
