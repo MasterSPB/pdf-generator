@@ -29,6 +29,8 @@ public class ReportRepeatingRow extends BaseReportObject {
     PdfPTable footer;
     PdfPTable finalLine;
 
+    private int totalRows = 0;
+
     Map aggrMap;
     public ReportRepeatingRow(Node tableNode,HashMap<String ,ReportBaseFont> fonts,BaseReportObject pParent,PropertyGetter pGetter, Document _doc) throws ParseException, DocumentException, IOException {
         _fonts = fonts;
@@ -327,7 +329,7 @@ public class ReportRepeatingRow extends BaseReportObject {
         int lastUsedRow = 0;
         int totalCols = getColumns();
         int totalCells = items.size();
-        int totalRows = totalCells/totalCols;
+        totalRows = totalCells/totalCols;
         int minFreeSpaceAfter = getMinFreeSpaceAfter();
         float curTableHeight = 0f;
         float cellHeight=0f;
@@ -656,5 +658,9 @@ public class ReportRepeatingRow extends BaseReportObject {
     @Override
     public PdfPTable getPdfObject() throws DocumentException, ParseException, IOException {
         throw new NotImplementedException();
+    }
+
+    public int getTotalRows() {
+        return totalRows;
     }
 }

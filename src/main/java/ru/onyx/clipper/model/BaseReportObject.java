@@ -32,7 +32,6 @@ public abstract class BaseReportObject {
     protected PropertyGetter propertyGetter;
     protected BaseReportObject parent;
 
-
     protected void Load(Node node) {
         NamedNodeMap attrObj = node.getAttributes();
         if (attrObj != null) {
@@ -51,6 +50,7 @@ public abstract class BaseReportObject {
                 widthcellspercentage = cellsPercs;
             }
 
+            lastTableRowCount = Boolean.parseBoolean(parseAttribute(attrObj, LAST_TABLE_ROW_COUNT, "false"));
 			delimiterAfter = parseAttribute(attrObj, DELIMITER_AFTER, "false");
 			isInitial = parseAttribute(attrObj, IS_INITIAL, "false");
 			extractDelimiter = parseAttribute(attrObj, EXTRACT_DELIMITER, null);
@@ -403,6 +403,7 @@ public abstract class BaseReportObject {
         return null;
     }
 
+    protected static final String LAST_TABLE_ROW_COUNT = "lasttablerowcount"; // if set to true, should fill item with last table's row count
 	protected static final String DELIMITER_AFTER = "delimiterafter";
 	protected static final String IS_INITIAL = "isinitial";
 	protected static final String EXTRACT_DELIMITER = "extractdelimiter";
@@ -604,6 +605,7 @@ public abstract class BaseReportObject {
     protected Boolean replicateFooter;
     protected Boolean negativeEmbrace;
     protected Boolean numerator;
+    protected boolean lastTableRowCount;
 
     protected float[] getScalePercent() {
         if (scalepercent == null) return null;
@@ -1130,6 +1132,13 @@ public abstract class BaseReportObject {
             return index;
 
         return "normal";
+    }
+
+    protected boolean getLastTableRowCount() {
+        if(lastTableRowCount) {
+            return true;
+        }
+        return false;
     }
 
     protected Boolean getNumerator() {

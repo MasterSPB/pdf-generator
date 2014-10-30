@@ -216,6 +216,10 @@ public class ReportCell extends BaseReportObject {
             celltext = "\uf0A8";
         }
 
+        if (getLastTableRowCount()) {
+            celltext = String.valueOf(Report.getLastTableRowCount());
+        }
+
         PdfPCell cell;
 
         if (getCellMode().equalsIgnoreCase("text")) {

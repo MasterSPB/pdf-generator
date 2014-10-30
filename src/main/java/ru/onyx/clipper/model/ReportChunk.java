@@ -22,15 +22,14 @@ import java.util.StringTokenizer;
  */
 public class ReportChunk extends BaseReportObject {
 
+    private String extraAttribute;
+
     public ReportChunk(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException, IOException, DocumentException {
         _fonts = fonts;
         parent = pParent;
         propertyGetter = pGetter;
         Load(node);
-
-
     }
-
 
     @Override
     public Element getPdfObject() {
@@ -175,6 +174,10 @@ public class ReportChunk extends BaseReportObject {
             content = ReportStrUtils.replaceDecSeparator(content, getDecimalSeparator());
         }
 
+        if (getLastTableRowCount()) {
+            content = String.valueOf(Report.getLastTableRowCount());
+        }
+
         Chunk ch = new Chunk(content);
 
         if (getChunkIndex().equals("upper")) {
@@ -200,6 +203,12 @@ public class ReportChunk extends BaseReportObject {
         return ch;
     }
 
+    public void setExtraAttribute(String _val){
+        extraAttribute = _val;
+    }
 
+    public String getExtraAttribute() {
+        return extraAttribute;
+    }
 }
 
