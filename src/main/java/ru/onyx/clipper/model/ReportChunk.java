@@ -115,7 +115,7 @@ public class ReportChunk extends BaseReportObject {
 			}
         }
 
-		if (getStringformat() != null && !content.isEmpty() && !content.equals("-")) {
+		if (getStringformat() != null && content!=null && !content.isEmpty() && !content.equals("-")) {
 			try {
 				if (getLocaleDel() != null && getLocaleDel().equals(".")) {
 					content = String.format(Locale.ENGLISH, getStringformat(), Double.parseDouble(content));
@@ -123,7 +123,7 @@ public class ReportChunk extends BaseReportObject {
 					if (getStringformat().equals("tenth")) {
 						content = content.substring(content.indexOf(".") + 1);
 					}else if(getStringformat().equals("integral")){
-						content = content.substring(0, content.indexOf("."));
+						content = String.format(new Locale("ru"), "%,6.0f", Double.parseDouble(content.substring(0, content.indexOf("."))));
 					}
 					else {
 						Locale locale = new Locale("ru");
@@ -137,7 +137,7 @@ public class ReportChunk extends BaseReportObject {
 
 		if(getIfZero()!=null && content != null){
 			try{
-				if(content.trim().equals("0,00") || content.trim().equals("0.00") || content.trim().equals("0")){
+				if(content.trim().equals("0,00") || content.trim().equals("0.00") || content.trim().equals("0")|| content.trim().equals("00")){
 					content = getIfZero();
 				}
 				if(content.equals("null")){
