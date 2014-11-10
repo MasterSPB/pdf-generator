@@ -115,6 +115,23 @@ public class ReportChunk extends BaseReportObject {
 			}
         }
 
+		if (getStringformat() != null && !content.isEmpty() && !content.equals("-")) {
+			try {
+				if (getLocaleDel() != null && getLocaleDel().equals(".")) {
+					content = String.format(Locale.ENGLISH, getStringformat(), Double.parseDouble(content));
+				} else {
+					if (getStringformat().equals("tenth")) {
+						content = content.substring(content.indexOf(".") + 1);
+					} else {
+						Locale locale = new Locale("ru");
+						content = String.format(locale, getStringformat(), Double.parseDouble(content));
+					}
+				}
+			} catch (NumberFormatException e) {
+				content = "";
+			}
+		}
+
 		if(getIfZero()!=null && content != null){
 			try{
 				if(content.trim().equals("0,00") || content.trim().equals("0.00") || content.trim().equals("0")){
@@ -145,23 +162,6 @@ public class ReportChunk extends BaseReportObject {
         if (getTextCase() != null) {
             if (getTextCase().equals("upper")) content = content.toUpperCase();
             if (getTextCase().equals("lower")) content = content.toLowerCase();
-        }
-
-        if (getStringformat() != null && !content.isEmpty() && !content.equals("-")) {
-            try {
-                if (getLocaleDel() != null && getLocaleDel().equals(".")) {
-                    content = String.format(Locale.ENGLISH, getStringformat(), Double.parseDouble(content));
-                } else {
-                    if (getStringformat().equals("tenth")) {
-                        content = content.substring(content.indexOf(".") + 1);
-                    } else {
-						Locale locale = new Locale("ru");
-                        content = String.format(locale, getStringformat(), Double.parseDouble(content));
-                    }
-                }
-            } catch (NumberFormatException e) {
-                content = "";
-            }
         }
 
 

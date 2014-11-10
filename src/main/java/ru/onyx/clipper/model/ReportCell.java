@@ -200,6 +200,18 @@ public class ReportCell extends BaseReportObject {
             }
         }
 
+		if(getIfZero()!=null){
+			try{
+				if(celltext.trim().equals("0,00") || celltext.trim().equals("0.00") || celltext.trim().equals("0")){
+					celltext = getIfZero();
+				}
+				if(celltext.equals("null")){
+					celltext = null;
+				}
+			}catch (Exception ne){
+			}
+		}
+
         if (getNegativeEmbrace()){
             celltext = ReportStrUtils.embraceNegativeValue(celltext);
         }
