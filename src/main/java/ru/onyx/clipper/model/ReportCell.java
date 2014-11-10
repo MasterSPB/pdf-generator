@@ -11,10 +11,7 @@ import ru.onyx.clipper.utils.ReportStrUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
  * User: Alex
@@ -171,11 +168,25 @@ public class ReportCell extends BaseReportObject {
             celltext = propertyGetter.GetProperty(parent.getPageNameRT()+getPropertyName());
         }
 
-        if (getStringformat() != null) {
-            if (!celltext.equals("")) {
-                celltext = String.format(getStringformat(), Double.parseDouble(celltext));
-            }
-        }
+		if (getStringformat() != null && celltext!=null && !celltext.isEmpty() && !celltext.equals("-")) {
+			try {
+				if (getLocaleDel() != null && getLocaleDel().equals(".")) {
+					celltext = String.format(Locale.ENGLISH, getStringformat(), Double.parseDouble(celltext));
+				} else {
+					if (getStringformat().equals("tenth")) {
+						celltext = celltext.substring(celltext.indexOf(".") + 1);
+					}else if(getStringformat().equals("integral")){
+						celltext = String.format(new Locale("ru"), "%,6.0f", Double.parseDouble(celltext.substring(0, celltext.indexOf("."))));
+					}
+					else {
+						Locale locale = new Locale("ru");
+						celltext = String.format(locale, getStringformat(), Double.parseDouble(celltext));
+					}
+				}
+			} catch (NumberFormatException e) {
+				celltext = "";
+			}
+		}
 
         if (getDecimalSeparator() != null) {
             celltext = ReportStrUtils.replaceDecSeparator(celltext, getDecimalSeparator());
