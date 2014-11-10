@@ -122,7 +122,10 @@ public class ReportChunk extends BaseReportObject {
 				} else {
 					if (getStringformat().equals("tenth")) {
 						content = content.substring(content.indexOf(".") + 1);
-					} else {
+					}else if(getStringformat().equals("integral")){
+						content = content.substring(0, content.indexOf("."));
+					}
+					else {
 						Locale locale = new Locale("ru");
 						content = String.format(locale, getStringformat(), Double.parseDouble(content));
 					}
