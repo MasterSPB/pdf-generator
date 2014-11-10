@@ -198,13 +198,25 @@ public class ReportCell extends BaseReportObject {
                 celltext = ConvertPropertyToSpecificDateFormat(customtext);
             }
 
-            if (getStringformat() != null && !celltext.equals("")) {
-                try {
-                    celltext = String.format(getStringformat(), Double.parseDouble(celltext));
-                }catch (NumberFormatException ne){
-                    celltext = celltext;
-                }
-            }
+			if (getStringformat() != null && celltext!=null && !celltext.isEmpty() && !celltext.equals("-")) {
+				try {
+					if (getLocaleDel() != null && getLocaleDel().equals(".")) {
+						celltext = String.format(Locale.ENGLISH, getStringformat(), Double.parseDouble(celltext));
+					} else {
+						if (getStringformat().equals("tenth")) {
+							celltext = celltext.substring(celltext.indexOf(".") + 1);
+						}else if(getStringformat().equals("integral")){
+							celltext = String.format(new Locale("ru"), "%,6.0f", Double.parseDouble(celltext.substring(0, celltext.indexOf("."))));
+						}
+						else {
+							Locale locale = new Locale("ru");
+							celltext = String.format(locale, getStringformat(), Double.parseDouble(celltext));
+						}
+					}
+				} catch (NumberFormatException e) {
+					celltext = "";
+				}
+			}
 
             if (getDecimalSeparator() != null) {
                 celltext = ReportStrUtils.replaceDecSeparator(celltext, getDecimalSeparator());
