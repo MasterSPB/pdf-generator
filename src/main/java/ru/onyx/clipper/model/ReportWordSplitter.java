@@ -56,7 +56,7 @@ public class ReportWordSplitter extends BaseReportObject {
 
         String param = propertyGetter.GetProperty(getPropertyName());
 
-        if(getPropertyName()!=null &&!getPropertyName().contains("$") && parent.parent.parent.getPageNameRT() != null){
+        if(getPropertyName()!=null && !getPropertyName().contains("$") && parent.parent.parent.getPageNameRT() != null){
             param = propertyGetter.GetProperty(parent.parent.parent.getPageNameRT()+getPropertyName());
         }
 
@@ -145,47 +145,46 @@ public class ReportWordSplitter extends BaseReportObject {
 
         if(getNumeratorRt()!=null && getNumeratorRt().equals("true")){
             try {
-                if(parent.parent.parent.getPageNumber() !=0 && parent.parent.parent.getPageNumber() != null) {
-                    if (parent.parent.parent.getPageNumber() < 10) {
+				Integer pageNumber = parent.parent.getPageNumber();
+                if(pageNumber !=null && pageNumber != 0) {
+                    if ( pageNumber < 10) {
                         String zeros="";
-                        for(int z=0; z<getColumns()-1;z++){zeros+=0;}
-                        param = zeros + parent.parent.parent.getPageNumber();
-                    } else if(parent.parent.parent.getPageNumber()<100) {
+                        for(int z = 0; z < getColumns()-1; z++){zeros+=0;}
+                        param = zeros + pageNumber;
+                    } else if(pageNumber < 100) {
                         String zeros="";
                         for(int z=0; z<getColumns()-2;z++){zeros+=0;}
-                        param = zeros + parent.parent.parent.getPageNumber();
-                    }else if(parent.parent.parent.getPageNumber()<1000){
+                        param = zeros + pageNumber;
+                    }else if(pageNumber < 1000){
                         String zeros="";
                         for(int z=0; z<getColumns()-3;z++){zeros+=0;}
-                        param = zeros + parent.parent.parent.getPageNumber();
+                        param = zeros + pageNumber;
                     }else{
                         param = "ERROR";
                     }
-                }
+                }else{
+					pageNumber = parent.parent.parent.getPageNumber();
+					if (pageNumber != null && pageNumber != 0) {
+						if (pageNumber < 10) {
+							String zeros="";
+							for(int z=0; z<getColumns()-1;z++){zeros+=0;}
+							param = zeros + pageNumber;
+						} else if(pageNumber < 100){
+							String zeros="";
+							for(int z=0; z<getColumns()-2;z++){zeros+=0;}
+							param = zeros + pageNumber;
+						}else if(pageNumber < 1000){
+							String zeros="";
+							for(int z=0; z<getColumns()-3;z++){zeros+=0;}
+							param = zeros + pageNumber;
+						}else{
+							param="ERROR";
+						}
+					}
+				}
             }catch (NullPointerException npe){
-                try {
-                    if (parent.parent.getPageNumber() != 0 && parent.parent.getPageNumber() != null) {
-                        if (parent.parent.getPageNumber() < 10) {
-                            String zeros="";
-                            for(int z=0; z<getColumns()-1;z++){zeros+=0;}
-                            param = zeros + parent.parent.getPageNumber();
-                        } else if(parent.parent.parent.getPageNumber()<100){
-                            String zeros="";
-                            for(int z=0; z<getColumns()-2;z++){zeros+=0;}
-                            param = zeros + parent.parent.getPageNumber();
-                        }else if(parent.parent.parent.getPageNumber()<1000){
-                            String zeros="";
-                            for(int z=0; z<getColumns()-3;z++){zeros+=0;}
-                            param = zeros + parent.parent.getPageNumber();
-                        }else{
-                            param="ERROR";
-                        }
-                    }
-
-                }catch (NullPointerException npe1){
-
-                }
-            }
+				param="ERROR";
+			}
 
         }
 
