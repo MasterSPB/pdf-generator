@@ -61,7 +61,6 @@ public class ReportRepeatingTemplate extends BaseReportObject{
                 }
             }
         }
-		rep.setCurPage(0);
     }
 
     @Override
