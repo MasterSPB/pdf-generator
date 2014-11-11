@@ -61,6 +61,7 @@ public class ReportRepeatingTemplate extends BaseReportObject{
                 }
             }
         }
+		setPageNumber(0);
     }
 
     @Override
