@@ -38,6 +38,7 @@ public class Reporting {
     public static byte[] CreateDocumentEx(ArrayList<String> markup, HashMap<String, byte[]> fonts, PropertyGetter dataSource[]) throws IOException, DocumentException, SAXException, XPathExpressionException, ParserConfigurationException, ParseException {
 
         Report rep = new Report();
+		rep.setCurPage(1);
 
         if(markup.size() == 2){
 
