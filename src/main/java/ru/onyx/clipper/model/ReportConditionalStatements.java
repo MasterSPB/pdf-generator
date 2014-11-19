@@ -49,6 +49,9 @@ public class ReportConditionalStatements {
                         conditionResult = true; //if we are checking tokens to be more
                     if (operands[1].equals("lt") && ((Double.parseDouble(operands[0]) < Double.parseDouble(operands[2]))))
                         conditionResult = true; //if we are checking tokens to be less
+                    if (operands[1].equals("LengthIs") && (operands[0].length() == Integer.parseInt(operands[2]))) {
+                        conditionResult = true; //if we are checking first token to be exact length as stated
+                    }
                 }
             }
 
