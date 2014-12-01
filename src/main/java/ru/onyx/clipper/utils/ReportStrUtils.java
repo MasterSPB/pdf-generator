@@ -25,7 +25,7 @@ public class ReportStrUtils {
 				DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
 				symbols.setDecimalSeparator(separator.charAt(0));
 				DecimalFormat df = new DecimalFormat("#.00", symbols);
-				return df.format(Float.parseFloat(inputString));
+				return df.format(Double.parseDouble(inputString));
 			}
         }
         return null;

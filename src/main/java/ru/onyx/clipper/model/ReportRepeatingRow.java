@@ -430,7 +430,6 @@ public class ReportRepeatingRow extends BaseReportObject {
                         setTableParams(table, _doc);
                         curTableHeight = 0;
                         spaceLeft = otherPageTblHeight;
-                        spaceLeft = otherPageTblHeight;
                     }
                 } else if (firstTblAdded && heightLeft > _doc.getPageSize().getHeight() - _doc.bottomMargin() - _doc.topMargin() - curTableHeight - table.getRows().size() * getBorderWidth() - headerHeight - footerHeight - minFreeSpaceAfter) {
 
