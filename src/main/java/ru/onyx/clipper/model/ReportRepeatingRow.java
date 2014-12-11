@@ -592,31 +592,26 @@ public class ReportRepeatingRow extends BaseReportObject {
             if(aggrMap.get(key).toString().toLowerCase().equals("sum")) {
                 for (int j = 0; j < aggrRowsCount; j++) {
                     PdfPCell[] cells = table.getRow(j).getCells();
-                    if(cells[key-1].getPhrase().getContent().toString().length()==0) {
+                    String cellContents = cells[key - 1].getPhrase().getContent().toString();
+                    if(cellContents.length()==0) {
                         aggrType[aggrResIndex] = "int";
-                        continue;
                     }
-                    else if(cells[key-1].getPhrase().getContent().toString().contains(".") || cells[key-1].getPhrase().getContent().toString().contains(",")) {
+                    else if(cellContents.contains(".") || cellContents.contains(",")) {
                         aggrType[aggrResIndex] = "float";
                         NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
                         try {
-                            Number number = format.parse(cells[key - 1].getPhrase().getContent().toString());
+                            Number number = format.parse(cellContents.trim());
                             aggrRes[aggrResIndex] += number.doubleValue();
                         } catch (ParseException e) {
                             aggrRes[aggrResIndex] += 0;
                         }
                     }
-                    /*else if(cells[key-1].getPhrase().getContent().toString().contains(",")) {
-                        aggrType[aggrResIndex]="float";
-                        //String my_new_str = cells[key - 1].getPhrase().getContent().toString().replaceAll(",",".");
-                        aggrRes[aggrResIndex] += Float.parseFloat(my_new_str);
-                    }*/
-                    else if(cells[key-1].getPhrase().getContent().toString().matches("[A-z][a-z]")) {
+                    else if(cellContents.matches("[A-z][a-z]")) {
 
                     }
                     else {
                         aggrType[aggrResIndex] = "int";
-                        aggrRes[aggrResIndex] += Float.parseFloat(cells[key - 1].getPhrase().getContent().toString());
+                        aggrRes[aggrResIndex] += Float.parseFloat(cellContents);
                     }
                 }
             }
