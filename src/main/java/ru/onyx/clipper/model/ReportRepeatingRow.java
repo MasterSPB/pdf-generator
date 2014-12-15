@@ -12,6 +12,7 @@ import ru.onyx.clipper.utils.ReportTableUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.NumberFormat;
 import java.util.*;
@@ -598,10 +599,11 @@ public class ReportRepeatingRow extends BaseReportObject {
                     }
                     else if(cellContents.contains(".") || cellContents.contains(",")) {
                         aggrType[aggrResIndex] = "float";
-                        Locale dLocale = new Locale.Builder().setLanguage("ru").setScript("Cyrl").build();
-                        NumberFormat format = NumberFormat.getInstance(dLocale);
+                        //Locale dLocale = new Locale.Builder().setLanguage("ru").setScript("Cyrl").build();
+                        //NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
                         try {
-                            Number number = format.parse(cellContents.trim());
+                            NumberFormat formatter = new DecimalFormat(cellsFormat[j]);
+                            Number number = formatter.parse(cellContents.trim());
                             aggrRes[aggrResIndex] += number.doubleValue();
                         } catch (ParseException e) {
                             aggrRes[aggrResIndex] += 0;
