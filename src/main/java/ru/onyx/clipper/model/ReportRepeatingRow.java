@@ -598,7 +598,8 @@ public class ReportRepeatingRow extends BaseReportObject {
                     }
                     else if(cellContents.contains(".") || cellContents.contains(",")) {
                         aggrType[aggrResIndex] = "float";
-                        NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
+                        Locale dLocale = new Locale.Builder().setLanguage("ru").setScript("Cyrl").build();
+                        NumberFormat format = NumberFormat.getInstance(dLocale);
                         try {
                             Number number = format.parse(cellContents.trim());
                             aggrRes[aggrResIndex] += number.doubleValue();
