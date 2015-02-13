@@ -37,7 +37,11 @@ public class ReportRepeatingTemplate extends BaseReportObject{
             if(pGetter.GetPageCount(getPageNameRT())!=0) {
                 int n = pGetter.GetPageCount(getPageNameRT());
                 for(int y=0;y<n;y++) {
-                    setPageNameRT(originalPageNameRT+ "[" + y + "].");
+					if(n > 1) {
+						setPageNameRT(originalPageNameRT + "[" + y + "].");
+					}else{
+						setPageNameRT(originalPageNameRT + ".");
+					}
                     for (int h = 0; h < childsList.getLength(); h++) {
                         nodeName = childsList.item(h).getNodeName();
                         Node node = childsList.item(h);

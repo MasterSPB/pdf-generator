@@ -55,10 +55,9 @@ public class ReportTable extends BaseReportObject {
         propertyGetter = pGetter;
 
         Load(node);
-        try{
-            setPageNumber(rep.getCurPage());
-        }catch (NullPointerException n){
-        }
+		if(rep != null) {
+			setPageNumber(rep.getCurPage());
+		}
         LoadItems(node, fonts, this, pGetter);
 
         if(pParent!= null && pParent.getPageNameRT() != null){
