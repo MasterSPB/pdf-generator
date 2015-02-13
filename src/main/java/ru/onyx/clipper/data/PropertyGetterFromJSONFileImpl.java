@@ -5,8 +5,6 @@ import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
 import net.minidev.json.JSONArray;
 
-import ru.onyx.clipper.data.PropertyGetter;
-
 import java.io.*;
 
 import java.text.DateFormat;
@@ -46,8 +44,17 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
         } catch (IOException e){
             e.printStackTrace();
         } catch (PathNotFoundException e2) {
+			if(jsonPath.contains("[0]")){
+				int firstBracketIndex = jsonPath.lastIndexOf("[");
+				int lastBracketIndex = jsonPath.lastIndexOf("]");
+				StringBuilder temp = new StringBuilder(jsonPath.substring(0,firstBracketIndex));
+				temp.append(jsonPath.substring(lastBracketIndex + 1, jsonPath.length()));
+				return GetProperty(temp.toString());
+			}
+			e2.printStackTrace();
             return null;
         }catch (IllegalArgumentException iae){
+			iae.printStackTrace();
             return null;
         }
         return null;
@@ -59,11 +66,17 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
     public int GetPageCount(String pName) {
         int i = 0;
         try{
-             JSONArray ja =  JsonPath.read(jsonFile, pName);
+            Object o =  JsonPath.read(jsonFile, pName);
+			if (o instanceof net.minidev.json.JSONObject){
+				return 1;
+			}
+			JSONArray ja= (JSONArray) o;
             i = ja.size();
         }catch (NullPointerException n) {
+			n.printStackTrace();
             return 0;
         }catch (ClassCastException cce){
+			cce.printStackTrace();
             return -1;
         }catch (IOException e){
             e.printStackTrace();

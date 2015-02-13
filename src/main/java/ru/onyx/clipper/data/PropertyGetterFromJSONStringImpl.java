@@ -39,8 +39,17 @@ public class PropertyGetterFromJSONStringImpl implements PropertyGetter{
             }
             return null;
         } catch (PathNotFoundException e) {
+			if(jsonPath.contains("[0]")){
+				int firstBracketIndex = jsonPath.lastIndexOf("[");
+				int lastBracketIndex = jsonPath.lastIndexOf("]");
+				StringBuilder temp = new StringBuilder(jsonPath.substring(0,firstBracketIndex));
+				temp.append(jsonPath.substring(lastBracketIndex + 1, jsonPath.length()));
+				return GetProperty(temp.toString());
+			}
+			e.printStackTrace();
             return null;
         }catch (IllegalArgumentException iae){
+			iae.printStackTrace();
             return null;
         }
     }
@@ -49,12 +58,17 @@ public class PropertyGetterFromJSONStringImpl implements PropertyGetter{
     public int GetPageCount(String pName) {
         int i = 0;
         try {
-            JSONArray ja = JsonPath.read(jsonPlainString, pName);
-            if (ja != null)
-                i = ja.size();
+			Object o =  JsonPath.read(jsonPlainString, pName);
+			if (o instanceof net.minidev.json.JSONObject){
+				return 1;
+			}
+			JSONArray ja= (JSONArray) o;
+			i = ja.size();
         }catch (NullPointerException n) {
+			n.printStackTrace();
             return 0;
         }catch (ClassCastException cce){
+			cce.printStackTrace();
             return -1;
         }
         return i;
@@ -79,7 +93,7 @@ public class PropertyGetterFromJSONStringImpl implements PropertyGetter{
         DateFormat df = new SimpleDateFormat(pDateFormat);
         if (propvalue == null) return null;
         if (propvalue.length() == 0) return null;
-        if (propvalue == "null") return null;
+        if (propvalue.equals("null")) return null;
         try {
             return df.parse(propvalue);
         } catch (ParseException e) {
@@ -94,6 +108,7 @@ public class PropertyGetterFromJSONStringImpl implements PropertyGetter{
             String fullName = folderName + "\\" + fileName + "." + fileType;
             return Image.getInstance(fullName);
         } catch (Exception e) {
+			e.printStackTrace();
             return null;
         }
     }
