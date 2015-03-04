@@ -610,7 +610,10 @@ public class ReportRepeatingRow extends BaseReportObject {
                         //NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
                         try {
                             NumberFormat formatter = new DecimalFormat(cellsFormat[j]);
-                            Number number = formatter.parse(cellContents.replace(" ",""));
+                            Number number = formatter.parse(cellContents.replace(" ", ""));
+                            System.out.println("Cellcontents:" + cellContents);
+                            System.out.println("Number representation:" + number);
+                            System.out.println("Number's double value (result)" + number.doubleValue());
                             aggrRes[aggrResIndex] += number.doubleValue();
                         } catch (ParseException e) {
                             aggrRes[aggrResIndex] += 0;
