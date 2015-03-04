@@ -609,9 +609,12 @@ public class ReportRepeatingRow extends BaseReportObject {
                         //Locale dLocale = new Locale.Builder().setLanguage("ru").setScript("Cyrl").build();
                         //NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
                         try {
+
+                            System.out.println("Cellcontents:" + cellContents);
+
                             NumberFormat formatter = new DecimalFormat(cellsFormat[j]);
                             Number number = formatter.parse(cellContents.replace(" ", ""));
-                            System.out.println("Cellcontents:" + cellContents);
+
                             System.out.println("Number representation:" + number);
                             System.out.println("Number's double value (result)" + number.doubleValue());
                             aggrRes[aggrResIndex] += number.doubleValue();
