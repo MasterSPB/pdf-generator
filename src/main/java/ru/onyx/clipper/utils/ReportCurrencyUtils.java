@@ -1,6 +1,7 @@
 package ru.onyx.clipper.utils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -51,6 +52,9 @@ import java.util.Collections;
          *
          */
         public String num2str(boolean stripkop) {
+            // round to two decimal places
+            amount = amount.setScale(2, RoundingMode.UP);
+
             String[][] kind = {
                     {"","один","два","три","четыре","пять","шесть","семь","восемь","девять"},
                     {"","одна","две","три","четыре","пять","шесть","семь","восемь","девять"},
@@ -69,6 +73,7 @@ import java.util.Collections;
             // get rubles and kops
             long rub = amount.longValue();
             String[] moi = amount.toString().split("\\.");
+
             long kop = Long.valueOf(moi[1]);
             if (!moi[1].substring( 0,1).equals("0") ){// begins not from zero
                 if (kop<10 )
