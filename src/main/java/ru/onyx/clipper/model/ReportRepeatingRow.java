@@ -614,7 +614,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                             System.out.println("Cellcontents:" + cellContents);
 
                             //DecimalFormat formatter = new DecimalFormat("###,###,###,###.##");
-                            cellContents = cellContents.replace(" ", "").replace(",",".");
+                            cellContents = cellContents.replaceAll(" ", "").replace(",",".");
                             System.out.println("Cellcontents after replace:" + cellContents);
                             //Number number = formatter.parse(cellContents);
                             double number = Double.parseDouble(cellContents);
