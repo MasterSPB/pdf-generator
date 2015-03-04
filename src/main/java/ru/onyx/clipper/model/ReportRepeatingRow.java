@@ -12,6 +12,7 @@ import ru.onyx.clipper.utils.ReportTableUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.NumberFormat;
@@ -612,14 +613,17 @@ public class ReportRepeatingRow extends BaseReportObject {
 
                             System.out.println("Cellcontents:" + cellContents);
 
-                            NumberFormat formatter = new DecimalFormat("###,###,###,###.##");
-                            Number number = formatter.parse(cellContents.replace(" ", "").replace(",","."));
+                            //DecimalFormat formatter = new DecimalFormat("###,###,###,###.##");
+                            cellContents = cellContents.replace(" ", "").replace(",",".");
+                            System.out.println("Cellcontents after replace:" + cellContents);
+                            //Number number = formatter.parse(cellContents);
+                            double number = Double.parseDouble(cellContents);
 
-                            System.out.println("Number representation:" + number);
-                            System.out.println("Number's double value (result)" + number.doubleValue());
-                            aggrRes[aggrResIndex] += number.doubleValue();
-                        } catch (ParseException e) {
+                            System.out.println("Double representation:" + number);
+                            aggrRes[aggrResIndex] += number;
+                        } catch (Exception e) {
                             aggrRes[aggrResIndex] += 0;
+                            e.printStackTrace();
                         }
                     }
                     else if(cellContents.matches("[A-z][a-z]")) {
