@@ -31,10 +31,12 @@ public class ReportConversionUtils {
         return new String(s.getBytes(encoding));
     }
 
-    public static void XMLtoJSON(String pathToXML, String pathToJSON){
+    public static void XMLtoJSON(String pathToXML, String pathToJSON, String encoding){
 
         try {
-            try(BufferedReader br = new BufferedReader(new FileReader(pathToXML))) {
+            FileInputStream fis = new FileInputStream(pathToXML);
+            InputStreamReader irs  = new InputStreamReader(fis, encoding);
+            try(BufferedReader br = new BufferedReader(irs)) {
                 StringBuilder sb = new StringBuilder();
                 String line = null;
 

@@ -26,9 +26,10 @@ import java.util.regex.Pattern;
  * Time: 18:12
  */
 public class ReportRepeatingRow extends BaseReportObject {
-    PdfPTable header;
-    PdfPTable footer;
-    PdfPTable finalLine;
+    private PdfPTable header;
+    private PdfPTable footer;
+    private PdfPTable finalLine;
+    private Locale locale;
 
     private int totalRows = 0;
 
@@ -39,6 +40,12 @@ public class ReportRepeatingRow extends BaseReportObject {
         propertyGetter = pGetter;
         String nodeName;
         Load(tableNode);
+
+        if (getAggrFunctionLocale() != null) {
+            locale = new Locale(getAggrFunctionLocale());
+        } else {
+            locale = new Locale("en");
+        }
 
         if(!getPageName().contains("$") && getPageNameRT() != null){
             setPageName(getPageNameRT()+getPageName());
@@ -630,7 +637,8 @@ public class ReportRepeatingRow extends BaseReportObject {
                 if (tempCells[k] != null) { //if columns are not blank (colspan is not used)
                     if (k == key - 1) { //if current column is aggr column
                         if(aggrType[aggrResIndex].equals("float")) {
-                            tempCells[k].setPhrase(new Phrase(String.valueOf(String.format(cellsFormat[k],aggrRes[aggrResIndex])), new Font(tempTableCells[k].getPhrase().getFont()))); //write aggr value with table's font
+                            Phrase phrase = new Phrase(String.valueOf(String.format(locale, cellsFormat[k], aggrRes[aggrResIndex])), new Font(tempTableCells[k].getPhrase().getFont())); //write aggr value with table's font and Russian locale
+                            tempCells[k].setPhrase(phrase);
                         }
                         if(aggrType[aggrResIndex].equals("int")) {
                             tempCells[k].setPhrase(new Phrase(String.valueOf((int) aggrRes[aggrResIndex]), new Font(tempTableCells[k].getPhrase().getFont()))); //write aggr value with table's font

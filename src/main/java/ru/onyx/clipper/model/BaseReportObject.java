@@ -130,6 +130,7 @@ public abstract class BaseReportObject {
             replicateHeader = Boolean.parseBoolean(parseAttribute(attrObj, REPLICATE_HEADER, "false"));
             replicateFooter = Boolean.parseBoolean(parseAttribute(attrObj, REPLICATE_FOOTER, "false"));
             decseparator = parseAttribute(attrObj, DECIMAL_SEPARATOR, null);
+            aggrFuncLocale = parseAttribute(attrObj, AGGR_FUNCTION_LOCALE, "en");
 
             paddingLeft = -1f;
             paddingRight = -1f;
@@ -499,6 +500,7 @@ public abstract class BaseReportObject {
     protected static final String SCALEABSOLUTE = "scaleabsolute";
     protected static final String BGIMAGE = "bgimage";
     protected static final String KEEPTOGETHER = "keeptogether";
+    protected static final String AGGR_FUNCTION_LOCALE = "aggrfunclocale"; // locale of aggregation row, used in ReportRepeatingRow. Default is "en". Initialized in constructor.
 
     protected Float reprowotherpageheight;
     protected Float spacingAfter;
@@ -594,6 +596,7 @@ public abstract class BaseReportObject {
     protected String propertyName;
     protected String cellMode;
     protected String pageName;
+    protected String aggrFuncLocale;
 
     protected ArrayList<BaseReportObject> items = new ArrayList<BaseReportObject>();
     protected ArrayList<Element> itemsGPO = new ArrayList<>();
@@ -1182,6 +1185,10 @@ public abstract class BaseReportObject {
     protected Boolean getReplicateFooter() {
         if(replicateFooter != null) return replicateFooter;
         return false;
+    }
+
+    protected String getAggrFunctionLocale() {
+        return aggrFuncLocale != null ? aggrFuncLocale : null;
     }
 
     protected String getCustomText() {
