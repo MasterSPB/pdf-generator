@@ -607,19 +607,10 @@ public class ReportRepeatingRow extends BaseReportObject {
                     }
                     else if(cellContents.contains(".") || cellContents.contains(",")) {
                         aggrType[aggrResIndex] = "float";
-                        //Locale dLocale = new Locale.Builder().setLanguage("ru").setScript("Cyrl").build();
-                        //NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
                         try {
-
-                            System.out.println("Cellcontents:" + cellContents);
-
-                            //DecimalFormat formatter = new DecimalFormat("###,###,###,###.##");
+                            // Unify representation to a "double-look"
                             cellContents = cellContents.replaceAll(" ", "").replace(",",".");
-                            System.out.println("Cellcontents after replace:" + cellContents);
-                            //Number number = formatter.parse(cellContents);
                             double number = Double.parseDouble(cellContents);
-
-                            System.out.println("Double representation:" + number);
                             aggrRes[aggrResIndex] += number;
                         } catch (Exception e) {
                             aggrRes[aggrResIndex] += 0;
