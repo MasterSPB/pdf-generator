@@ -613,7 +613,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                             System.out.println("Cellcontents:" + cellContents);
 
                             NumberFormat formatter = new DecimalFormat("###,###,###,###.##");
-                            Number number = formatter.parse(cellContents.replace(" ", ""));
+                            Number number = formatter.parse(cellContents.replace(" ", "").replace(",","."));
 
                             System.out.println("Number representation:" + number);
                             System.out.println("Number's double value (result)" + number.doubleValue());
