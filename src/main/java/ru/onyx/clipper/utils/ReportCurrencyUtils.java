@@ -53,7 +53,7 @@ import java.util.Collections;
          */
         public String num2str(boolean stripkop) {
             // round to two decimal places
-            amount = amount.setScale(2, RoundingMode.UP);
+            amount = amount.setScale(2, RoundingMode.FLOOR);
 
             String[][] kind = {
                     {"","один","два","три","четыре","пять","шесть","семь","восемь","девять"},
