@@ -1,6 +1,7 @@
 package ru.onyx.clipper.model;
 
 import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfChunk;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import org.w3c.dom.NamedNodeMap;
@@ -123,9 +124,33 @@ public class ReportRepeatingRow extends BaseReportObject {
                             ArrayList<BaseReportObject> itemsTemp = new ArrayList<BaseReportObject>();
                             int cellCounter = 0;
                             for (int i = 0; i < cells.getLength(); i++) {
+
                                 nodeName = cells.item(i).getNodeName();
+
+
                                 if (nodeName.equalsIgnoreCase("cell")) {
-                                    NamedNodeMap attrObj = cells.item(i).getAttributes();
+
+                                    NamedNodeMap attrObj = cells.item(i).getAttributes(); // get Cell attribute from item
+
+                                    if(attrObj.getLength() == 0) { // Если cell не имеет атрибутов то проверяем вложенные элементы и проверяем есть ли там chunk (вложенный в paragraph)
+
+                                        NodeList childNode = cells.item(i).getChildNodes();
+                                        for(int z = 0; z < childNode.getLength(); z++) {
+                                            String childNodeName = childNode.item(z).getNodeName();
+                                            if(childNodeName.equalsIgnoreCase("paragraph")) {
+                                                NodeList paragraphChideNode = childNode.item(z).getChildNodes();
+                                                for(int b = 0; b < paragraphChideNode.getLength(); b++) {
+                                                    if(paragraphChideNode.item(b).getNodeName().equalsIgnoreCase("chunk")) {
+                                                        attrObj = paragraphChideNode.item(b).getAttributes(); // Если мы нашли chunk, то берем его аттрибуты и устанавливаем с помощью метода SetAttribute
+                                                        String propName = parseAttribute(attrObj, "property", "");
+                                                        String textCell = pGetter.GetProperty(String.format("%s[%s].%s", getPageName(), y, propName));
+                                                        SetAttribute(attrObj, "customtext", textCell);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
                                     String expression = parseAttribute(attrObj, "expression", null);
                                     if (expression != null && !expression.equals("")) {
                                         String propName = parseAttribute(attrObj, "property", "");
@@ -147,6 +172,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                                         SetAttribute(attrObj, "customtext", textCell);
                                         itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
                                         cellCounter++;
+
                                     }
                                 }
                                 if (cellCounter == getColumns()) {
@@ -368,16 +394,22 @@ public class ReportRepeatingRow extends BaseReportObject {
                 } else cellsFormat[colNum] = items.get(colNum).getStringformat();
             }
 
+            ArrayList<PdfPCell> listPdfCell = new ArrayList<PdfPCell>();
+
             for (int i = 0; i < totalRows; i++) {
                 //row iteration
                 cellHeight = 0;
+
                 for (int j = 0; j < totalCols; j++) {               //column iteration
                     if (items.get(i * totalCols + j).getNumerator())
                         ((ReportCell) items.get(i * totalCols + j)).setText(String.valueOf(i + 1));
-                    PdfPCell obj = ((ReportCell) items.get(i * totalCols + j)).getPdfObject();
-                    table.addCell(obj);
+                    try {
+                        PdfPCell obj = ((ReportCell) items.get(i * totalCols + j)).getPdfObject();
+                        table.addCell(obj);
+                    } catch (ClassCastException ex) {
+                        //ex.printStackTrace();
+                    }
                 }
-
 
                 ReportTableUtils.setExactWidthFromPercentage(table, _doc);
                 curTableHeight = table.getTotalHeight();

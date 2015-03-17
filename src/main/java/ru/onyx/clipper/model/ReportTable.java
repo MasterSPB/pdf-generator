@@ -101,8 +101,12 @@ public class ReportTable extends BaseReportObject {
             if(item.getNumerator()) {
                 ((ReportCell) item).setText(String.valueOf(table.getRows().size()+1));
             }
-            PdfPCell obj = ((ReportCell) item).getPdfObject();
-            table.addCell(obj);
+            try {
+                PdfPCell obj = ((ReportCell) item).getPdfObject();
+                table.addCell(obj);
+            } catch (ClassCastException ex) {
+                ex.printStackTrace();
+            }
         }
 
         table.setComplete(true);
