@@ -24,11 +24,19 @@ public class ReportChunk extends BaseReportObject {
 
     private String extraAttribute;
 
+    public void setCustomText(String text) {
+        this.customtext = text;
+    }
+
     public ReportChunk(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException, IOException, DocumentException {
         _fonts = fonts;
         parent = pParent;
         propertyGetter = pGetter;
         Load(node);
+        LoadItems(node, fonts, this, pGetter);
+        if (pParent != null && pParent.getPageNameRT() != null) {
+            setPageNameRT(pParent.getPageNameRT());
+        }
     }
 
     @Override
@@ -40,7 +48,7 @@ public class ReportChunk extends BaseReportObject {
 
         if (this.text != null) content = this.text;
 
-        if (getPropertyName() != null && getPropertyName().length() > 0) {
+        if (getPropertyName() != null && getPropertyName().length() > 0 && customtext == null) {
             content = propertyGetter.GetProperty(getPropertyName());
 
             if (getDateFormat() != null && getToDateFormat() != null) {
@@ -134,6 +142,41 @@ public class ReportChunk extends BaseReportObject {
 				content = "";
 			}
 		}
+
+
+        // Some code to do
+        if (customtext != null) {
+            content = customtext;
+            if (getDateFormat() != null && getToDateFormat() != null) {
+                content = ConvertPropertyToSpecificDateFormat(customtext);
+            }
+
+            if (getStringformat() != null && content!=null && !content.isEmpty() && !content.equals("-")) {
+                try {
+                    if (getLocaleDel() != null && getLocaleDel().equals(".")) {
+                        content = String.format(Locale.ENGLISH, getStringformat(), Double.parseDouble(content));
+                    } else {
+                        if (getStringformat().equals("tenth")) {
+                            content = content.substring(content.indexOf(".") + 1);
+                        }else if(getStringformat().equals("integral")){
+                            content = String.format(new Locale("ru"), "%,6.0f", Double.parseDouble(content.substring(0, content.indexOf("."))));
+                        }
+                        else {
+                            Locale locale = new Locale("ru");
+                            content = String.format(locale, getStringformat(), Double.parseDouble(content));
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                    content = "";
+                }
+            }
+
+            if (getDecimalSeparator() != null) {
+                content = ReportStrUtils.replaceDecSeparator(content, getDecimalSeparator());
+            }
+        }
+
+
 
 		if(getIfZero()!=null && content != null){
 			try{

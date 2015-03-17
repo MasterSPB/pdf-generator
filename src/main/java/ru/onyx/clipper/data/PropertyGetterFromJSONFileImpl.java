@@ -70,7 +70,7 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
 			if (o instanceof net.minidev.json.JSONObject){
 				return 1;
 			}
-			JSONArray ja= (JSONArray) o;
+			JSONArray ja= (JSONArray) o; // throws ClassCastException when it is not JsonArray. returns -1. This part needs to be refactored.
             i = ja.size();
         }catch (NullPointerException n) {
 			n.printStackTrace();
