@@ -128,6 +128,14 @@ public class ReportConditionalStatements {
                 }
                 break;
             }
+            case "newsection": {
+                try{
+                    items.add(new ReportNewSection(ifStatementItems.item(t)));
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+                break;
+            }
             case "paragraph": {
                 try{
                     items.add(new ReportParagraph(ifStatementItems.item(t),fonts,null,pGetter));

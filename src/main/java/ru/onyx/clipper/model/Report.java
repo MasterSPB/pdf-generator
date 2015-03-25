@@ -61,6 +61,7 @@ public class Report {
     public static final String dateparagraph = "dateparagraph";
     public static final String wordsplitter = "wordsplitter";
     public static final String newpage = "newpage";
+    public static final String newsection = "newsection";
     public static final String chunk = "chunk";
     public static final String moneychunk = "moneychunk";
     public static final String phrase = "phrase";
@@ -79,6 +80,7 @@ public class Report {
     public static final String pageheader = "pageheader";
     public static final String pagetext = "pagetext";
     public static final String repeatingtemplate = "repeatingtemplate";
+
 
 
     public int getCurPage() {
@@ -163,7 +165,6 @@ public class Report {
 
     public void LoadMarkup(String xmlMarkup, HashMap<String, byte[]> pFontBodies, PropertyGetter pGetter) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, DocumentException, ParseException {
         fontBodies = pFontBodies;
-
         DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         InputSource is = new InputSource();
         is.setCharacterStream(new StringReader(xmlMarkup));
@@ -324,6 +325,10 @@ public class Report {
                 items.add(new ReportNewPage());
                 curPage++;
             }
+            if (nodeName.equals(newsection)) {
+                items.add(new ReportNewSection(repChilds.item(t)));
+                curPage++;
+            }
             if (nodeName.equals(ifcondition)) {
                 NodeList ifStatementChildren = repChilds.item(t).getChildNodes();
                 ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, logicalcondition, elsecondition, paragraph, items, fonts);
@@ -361,7 +366,6 @@ public class Report {
             HeaderEvent event = new HeaderEvent(this, _doc, pageFont);
             wr.setPageEvent(event);
         }
-
         _doc.open();
 
         for (BaseReportObject item : items) {
@@ -369,6 +373,9 @@ public class Report {
             if (item instanceof ReportNewPage) {
                 _doc.newPage();
                 spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+            }
+            else if (item instanceof ReportNewSection) {
+                insertNewSection((ReportNewSection) item);
             }
 
             else if (item instanceof ReportRepeatingRow) {
@@ -438,6 +445,9 @@ public class Report {
                 _doc.newPage();
                 spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
             }
+            else if (item instanceof ReportNewSection) {
+                insertNewSection((ReportNewSection)item);
+            }
 
             else if (item instanceof ReportRepeatingRow) {
                 for(Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable(spaceLeft, _doc))
@@ -501,6 +511,9 @@ public class Report {
                 _doc.newPage();
                 spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
             }
+            else if (item instanceof ReportNewSection) {
+                insertNewSection((ReportNewSection)item);
+            }
 
             else if (item instanceof ReportRepeatingRow) {
                 for(Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable(spaceLeft, _doc))
@@ -560,7 +573,9 @@ public class Report {
                 _doc.newPage();
                 spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
             }
-
+            else if (item instanceof ReportNewSection) {
+                insertNewSection((ReportNewSection)item);
+            }
             else if (item instanceof ReportRepeatingRow) {
                 for(Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable(spaceLeft, _doc))
                 {
@@ -641,6 +656,17 @@ public class Report {
                 }
             }
         }
+    }
+
+    protected void insertNewSection(ReportNewSection reportNewSection) {
+        setPageSize(reportNewSection.getPageSize(), reportNewSection.getPageOrientation());
+        marginLeft=reportNewSection.marginLeft;
+        marginRight=reportNewSection.marginRight;
+        marginTop=reportNewSection.marginTop;
+        marginBottom=reportNewSection.marginBottom;
+        _doc.setMargins(marginLeft, marginRight, marginTop, marginBottom);
+        _doc.newPage();
+        spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
     }
 
 
