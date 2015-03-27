@@ -22,10 +22,11 @@ import java.util.regex.Pattern;
 public class ReportRepeatingRowSimple extends BaseReportObject{
 
 
-    public ReportRepeatingRowSimple(Node tableNode,HashMap<String ,ReportBaseFont> fonts,BaseReportObject pParent,PropertyGetter pGetter) throws ParseException, DocumentException, IOException {
+    public ReportRepeatingRowSimple(Node tableNode,HashMap<String ,ReportBaseFont> fonts,BaseReportObject pParent,PropertyGetter pGetter,Report report) throws ParseException, DocumentException, IOException {
         _fonts = fonts;
         parent = pParent;
         propertyGetter = pGetter;
+        this.report=report;
         String nodeName;
         Load(tableNode);
         NodeList cellsRep=null;
@@ -67,7 +68,7 @@ public class ReportRepeatingRowSimple extends BaseReportObject{
                                             Pattern pat = ReportRegexUtils.getRegex(ot, eo, qi);
                                             Matcher mat = pat.matcher(textCell);
                                             if (mat.matches()) {
-                                                itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
+                                                itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter, report));
                                                 cellCounter++;
                                             } else {
                                                 break;
@@ -77,7 +78,7 @@ public class ReportRepeatingRowSimple extends BaseReportObject{
                                         String propName = parseAttribute(attrObj, "property", "");
                                         String textCell = pGetter.GetProperty(String.format("%s[%s].%s", getPageName(), y, propName));
                                         SetAttribute(attrObj, "customtext", textCell);
-                                        itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
+                                        itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter,report));
                                         cellCounter++;
                                     }
                                 }
@@ -119,7 +120,7 @@ public class ReportRepeatingRowSimple extends BaseReportObject{
                                         Pattern pat = ReportRegexUtils.getRegex(ot, eo, qi);
                                         Matcher mat = pat.matcher(textCell);
                                         if (mat.matches()) {
-                                            itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
+                                            itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter,report));
                                             cellCounter++;
                                         } else {
                                             break;
@@ -129,7 +130,7 @@ public class ReportRepeatingRowSimple extends BaseReportObject{
                                     String propName = parseAttribute(attrObj, "property", "");
                                     String textCell = pGetter.GetProperty(getPageName() + "." + propName);
                                     SetAttribute(attrObj, "customtext", textCell);
-                                    itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter));
+                                    itemsTemp.add(new ReportCell(cells.item(i), _fonts, this, pGetter,report));
                                     cellCounter++;
                                 }
                             }
@@ -159,7 +160,7 @@ public class ReportRepeatingRowSimple extends BaseReportObject{
                     if (nodeName.equalsIgnoreCase("cell")) {
                         NamedNodeMap attrObj = cellsRep.item(m).getAttributes();
                         String propName = parseAttribute(attrObj, "defaultnullvalue", "");
-                        ReportCell cellToAdd = new ReportCell(cellsRep.item(m), _fonts, this, pGetter);
+                        ReportCell cellToAdd = new ReportCell(cellsRep.item(m), _fonts, this, pGetter,report);
                         cellToAdd.setCustomText(propName);
                         items.add(cellToAdd);
                     }

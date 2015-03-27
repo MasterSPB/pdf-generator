@@ -31,6 +31,7 @@ public abstract class BaseReportObject {
     protected HashMap<String, ReportBaseFont> _fonts;
     protected PropertyGetter propertyGetter;
     protected BaseReportObject parent;
+    protected Report report;
 
     protected void Load(Node node) {
         NamedNodeMap attrObj = node.getAttributes();
@@ -353,22 +354,22 @@ public abstract class BaseReportObject {
                         items.add(new ReportTable(item, fonts, pParent, pGetter,null));
                         break;
                     case paragraph:
-                        items.add(new ReportParagraph(item, fonts, pParent, pGetter));
+                        items.add(new ReportParagraph(item, fonts, pParent, pGetter,report));
                         break;
                     case chunk:
-                        items.add(new ReportChunk(item, fonts, pParent, pGetter));
+                        items.add(new ReportChunk(item, fonts, pParent, pGetter,report));
                         break;
                     case moneychunk:
                         items.add(new ReportMoneyChunk(item, fonts, pParent, pGetter));
                         break;
                     case phrase:
-                        items.add(new ReportPhrase(item, fonts, pParent, pGetter));
+                        items.add(new ReportPhrase(item, fonts, pParent, pGetter,report));
                         break;
                     case cell:
-                        items.add(new ReportCell(item, fonts, pParent, pGetter));
+                        items.add(new ReportCell(item, fonts, pParent, pGetter,report));
                         break;
                     case repeatingrow:
-                        items.add(new ReportRepeatingRowSimple(item, fonts, pParent, pGetter));
+                        items.add(new ReportRepeatingRowSimple(item, fonts, pParent, pGetter,report));
                         break;
                     case wordsplitter:
                         items.add(new ReportWordSplitter(item, fonts, pParent, pGetter));
@@ -396,7 +397,7 @@ public abstract class BaseReportObject {
                         break;
                     case ifcondition:
                         NodeList ifStatementChildren = nodes.item(i).getChildNodes();
-                        ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, logicalcondition, elsecondition, paragraph, items, fonts);
+                        ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, logicalcondition, elsecondition, paragraph, items, fonts,report);
                 }
             }
         }

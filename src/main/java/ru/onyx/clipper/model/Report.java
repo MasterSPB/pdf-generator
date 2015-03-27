@@ -141,6 +141,11 @@ public class Report {
     private String lowerRunningTitle;
     private float spaceLeft;
 
+    //Added for @pagenumber parameter
+    private int pageNumber;
+
+    PdfTemplate totalPageCountTemplate;
+
     private static int lastTableRowCount = 0; // stores the number of rows of the last table, parsed in document
 
     private String pageText="";
@@ -307,13 +312,13 @@ public class Report {
             }
 
             if (nodeName.equals(paragraph)) {
-                items.add(new ReportParagraph(repChilds.item(t), fonts, null, pGetter));
+                items.add(new ReportParagraph(repChilds.item(t), fonts, null, pGetter, this));
             }
             if (nodeName.equals(table)) {
                 items.add(new ReportTable(repChilds.item(t), fonts, null, pGetter,this));
             }
             if (nodeName.equals(repeatingrow)) {
-                items.add(new ReportRepeatingRow(repChilds.item(t), fonts, null, pGetter, _doc));
+                items.add(new ReportRepeatingRow(repChilds.item(t), fonts, null, pGetter,this, _doc));
             }
             if (nodeName.equals(dateparagraph)) {
                 items.add(new ReportDate(repChilds.item(t), fonts, null, pGetter));
@@ -331,7 +336,7 @@ public class Report {
             }
             if (nodeName.equals(ifcondition)) {
                 NodeList ifStatementChildren = repChilds.item(t).getChildNodes();
-                ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, logicalcondition, elsecondition, paragraph, items, fonts);
+                ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, logicalcondition, elsecondition, paragraph, items, fonts, this);
             }
         }
     }
@@ -650,7 +655,13 @@ public class Report {
             nodeName = headerChildList.item(j).getNodeName();
             if (nodeName.equalsIgnoreCase("paragraph")) {
                 try {
-                    headerItems.add(new ReportParagraph(headerChildList.item(j), fonts, null, pGetter));
+                    headerItems.add(new ReportParagraph(headerChildList.item(j), fonts, null, pGetter,this));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            } else if (nodeName.equalsIgnoreCase("table")) {
+                try {
+                    headerItems.add(new ReportTable(headerChildList.item(j), fonts, null, pGetter,this));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -669,7 +680,21 @@ public class Report {
         spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
     }
 
+    public int getPageNumber() {
+        return pageNumber;
+    }
 
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
+    }
+
+    public PdfTemplate getTotalPageCountTemplate() {
+        return totalPageCountTemplate;
+    }
+
+    public void setTotalPageCountTemplate(PdfTemplate totalPageCountTemplate) {
+        this.totalPageCountTemplate = totalPageCountTemplate;
+    }
 
  /*   protected void setPageNumber(PdfWriter writer){
         //this method is obsolete, but still can be useful
