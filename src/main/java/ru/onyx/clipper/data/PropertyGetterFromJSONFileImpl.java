@@ -71,7 +71,8 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
 				return 1;
 			}
 			JSONArray ja= (JSONArray) o; // throws ClassCastException when it is not JsonArray. returns -1. This part needs to be refactored.
-            i = ja.size();
+            if (ja!=null)
+                i = ja.size();
         }catch (NullPointerException n) {
 			n.printStackTrace();
             return 0;

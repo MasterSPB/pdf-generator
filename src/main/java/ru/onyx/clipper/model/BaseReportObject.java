@@ -131,11 +131,18 @@ public abstract class BaseReportObject {
             replicateFooter = Boolean.parseBoolean(parseAttribute(attrObj, REPLICATE_FOOTER, "false"));
             decseparator = parseAttribute(attrObj, DECIMAL_SEPARATOR, null);
             aggrFuncLocale = parseAttribute(attrObj, AGGR_FUNCTION_LOCALE, "en");
+            marginLeft = Float.parseFloat(parseAttribute(attrObj, marginleft, margin_value));
+            marginTop = Float.parseFloat(parseAttribute(attrObj, margintop, margin_value));
+            marginRight = Float.parseFloat(parseAttribute(attrObj, marginright, margin_value));
+            marginBottom = Float.parseFloat(parseAttribute(attrObj, marginbottom, margin_value));
+            pageSize = parseAttribute(attrObj, pagesize, A4);
+            pageOrientation = parseAttribute(attrObj, orientation, portrait);
 
             paddingLeft = -1f;
             paddingRight = -1f;
             paddingBottom = -1f;
             paddingTop = -1f;
+
 
             String paddings = parseAttribute(attrObj, PADDINGS_ATT_NAME, "");
             float[] padsf = parsePaddings(paddings);
@@ -384,6 +391,9 @@ public abstract class BaseReportObject {
                     case newpage:
                         items.add(new ReportNewPage());
                         break;
+                    case newsection:
+                        items.add(new ReportNewSection(item));
+                        break;
                     case ifcondition:
                         NodeList ifStatementChildren = nodes.item(i).getChildNodes();
                         ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, logicalcondition, elsecondition, paragraph, items, fonts);
@@ -598,6 +608,7 @@ public abstract class BaseReportObject {
     protected String pageName;
     protected String aggrFuncLocale;
 
+
     protected ArrayList<BaseReportObject> items = new ArrayList<BaseReportObject>();
     protected ArrayList<Element> itemsGPO = new ArrayList<>();
 
@@ -609,6 +620,61 @@ public abstract class BaseReportObject {
     protected Boolean negativeEmbrace;
     protected Boolean numerator;
     protected boolean lastTableRowCount;
+    protected String pageSize;
+    protected String pageOrientation;
+
+    public String getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(String pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public String getPageOrientation() {
+        return pageOrientation;
+    }
+
+    public void setPageOrientation(String pageOrientation) {
+        this.pageOrientation = pageOrientation;
+    }
+
+    public float getMarginLeft() {
+        return marginLeft;
+    }
+
+    public void setMarginLeft(float marginLeft) {
+        this.marginLeft = marginLeft;
+    }
+
+    public float getMarginRight() {
+        return marginRight;
+    }
+
+    public void setMarginRight(float marginRight) {
+        this.marginRight = marginRight;
+    }
+
+    public float getMarginBottom() {
+        return marginBottom;
+    }
+
+    public void setMarginBottom(float marginBottom) {
+        this.marginBottom = marginBottom;
+    }
+
+    public float getMarginTop() {
+        return marginTop;
+    }
+
+    public void setMarginTop(float marginTop) {
+        this.marginTop = marginTop;
+    }
+
+    protected float marginLeft;
+    protected float marginRight;
+    protected float marginBottom;
+    protected float marginTop;
 
     protected float[] getScalePercent() {
         if (scalepercent == null) return null;
