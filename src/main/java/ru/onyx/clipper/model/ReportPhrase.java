@@ -17,11 +17,12 @@ import java.util.HashMap;
  */
 public class ReportPhrase extends BaseReportObject {
 
-    public ReportPhrase(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException, IOException, DocumentException {
+    public ReportPhrase(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter, Report report) throws ParseException, IOException, DocumentException {
 
         _fonts = fonts;
         parent = pParent;
         propertyGetter = pGetter;
+        this.report=report;
         Load(node);
         LoadItems(node, fonts, this, pGetter);
 

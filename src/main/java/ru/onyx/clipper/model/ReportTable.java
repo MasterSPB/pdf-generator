@@ -53,6 +53,7 @@ public class ReportTable extends BaseReportObject {
         _fonts = fonts;
         parent = pParent;
         propertyGetter = pGetter;
+        this.report=rep;
 
         Load(node);
 		if(rep != null) {

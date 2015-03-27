@@ -25,6 +25,7 @@ public class ReportRepeatingTemplate extends BaseReportObject{
     public ReportRepeatingTemplate(Node tableNode,HashMap<String ,ReportBaseFont> fonts,BaseReportObject pParent,PropertyGetter pGetter, Report rep) throws ParseException, DocumentException, IOException{
         _fonts = fonts;
         propertyGetter = pGetter;
+        this.report=rep;
         String nodeName;
         Load(tableNode);
         NodeList childsList = tableNode.getChildNodes();
@@ -50,7 +51,7 @@ public class ReportRepeatingTemplate extends BaseReportObject{
                             itemsGPO.add(new ReportTable(node,_fonts,this,pGetter,null).getPdfObject());
                         }else if(nodeName.equalsIgnoreCase("paragraph")){
 //                            items.add(new ReportParagraph(node,_fonts,this,pGetter));
-                            itemsGPO.add(new ReportParagraph(node,_fonts,this,pGetter).getPdfObject());
+                            itemsGPO.add(new ReportParagraph(node,_fonts,this,pGetter,report).getPdfObject());
                         }else if(nodeName.equalsIgnoreCase("repeatingrow")){
 //                            items.add(new ReportRepeatingRow(node,_fonts,this,pGetter));
                             itemsGPO.add(new ReportRepeatingRow(node,_fonts,this,pGetter).getPdfObject());
@@ -59,7 +60,7 @@ public class ReportRepeatingTemplate extends BaseReportObject{
                             setPageNumber(x);
                         }else if(nodeName.equalsIgnoreCase("ifcondition")){
                             NodeList ifStatementChildren = node.getChildNodes();
-                            ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, "condition", "else", "paragraph", items, _fonts);
+                            ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, "condition", "else", "paragraph", items, _fonts,report);
                         }
                     }
                 }
