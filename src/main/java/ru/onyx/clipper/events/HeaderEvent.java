@@ -25,6 +25,7 @@ public class HeaderEvent extends PdfPageEventHelper {
 
     Document _doc;
     static int curPage;
+    Report report;
 
     Font headerFont;
 
@@ -32,6 +33,7 @@ public class HeaderEvent extends PdfPageEventHelper {
 
     public HeaderEvent(Report rep, Document _document, Font headerFont) {
         _doc = _document;
+        report=rep;
         curPage = rep.getCurPage();
         pageNumHPos = rep.getRepPageNumHPos();
         pageNumVPos = rep.getRepPageNumVPos();
@@ -60,6 +62,7 @@ public class HeaderEvent extends PdfPageEventHelper {
      */
     public void onOpenDocument(PdfWriter writer, Document document) {
         total = writer.getDirectContent().createTemplate(30, 16);
+        report.setTotalPageCountTemplate(total);
     }
 
 
@@ -94,7 +97,8 @@ public class HeaderEvent extends PdfPageEventHelper {
      * @see com.itextpdf.text.pdf.PdfPageEventHelper#onEndPage(
      *      com.itextpdf.text.pdf.PdfWriter, com.itextpdf.text.Document)
      */
-    public void onEndPage(PdfWriter writer, Document document) {
+    public void onStartPage(PdfWriter writer, Document document) {
+        report.setPageNumber(writer.getCurrentPageNumber());
         int startPage=0;
         PdfPTable table = new PdfPTable(8); // a table for page part of the header
 

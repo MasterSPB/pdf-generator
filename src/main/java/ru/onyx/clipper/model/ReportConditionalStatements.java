@@ -15,7 +15,7 @@ import java.lang.String;
  */
 
 public class ReportConditionalStatements {
-    protected static void parseIfStatement(NodeList ifStatementItems, PropertyGetter pGetter, String logicalcondition, String elsecondition, String paragraph, List<BaseReportObject> items, HashMap<String, ReportBaseFont> fonts) throws IOException, DocumentException {
+    protected static void parseIfStatement(NodeList ifStatementItems, PropertyGetter pGetter, String logicalcondition, String elsecondition, String paragraph, List<BaseReportObject> items, HashMap<String, ReportBaseFont> fonts, Report report) throws IOException, DocumentException {
         String[] operands;
         boolean conditionResult=false;
 
@@ -56,21 +56,21 @@ public class ReportConditionalStatements {
             }
 
             if(conditionResult){
-                switchNodeName(nodeName,ifStatementItems,pGetter, items,fonts,t);
+                switchNodeName(nodeName,ifStatementItems,pGetter, items,fonts,t,report);
             }
 
             if (!conditionResult && nodeName.equals(elsecondition)){ //if condition is false, find else statement...
                 NodeList elseStatementItems = ifStatementItems.item(t).getChildNodes(); //...get its child nodes
                 for (int i=0; i < elseStatementItems.getLength(); i++){
                     nodeName = elseStatementItems.item(i).getNodeName();
-                    switchNodeName(nodeName,ifStatementItems,pGetter, items,fonts, t);
+                    switchNodeName(nodeName,ifStatementItems,pGetter, items,fonts, t,report);
                 }
             }
         }
 
     }
 
-    private static void switchNodeName(String nodeName, NodeList ifStatementItems, PropertyGetter pGetter, List<BaseReportObject> items, HashMap<String, ReportBaseFont> fonts, int t) throws IOException, DocumentException {
+    private static void switchNodeName(String nodeName, NodeList ifStatementItems, PropertyGetter pGetter, List<BaseReportObject> items, HashMap<String, ReportBaseFont> fonts, int t,Report report) throws IOException, DocumentException {
         switch (nodeName){
             case "date": {
                 try{
@@ -138,7 +138,7 @@ public class ReportConditionalStatements {
             }
             case "paragraph": {
                 try{
-                    items.add(new ReportParagraph(ifStatementItems.item(t),fonts,null,pGetter));
+                    items.add(new ReportParagraph(ifStatementItems.item(t),fonts,null,pGetter,report));
                 }catch (ParseException e){
                     e.printStackTrace();
                 }
@@ -146,7 +146,7 @@ public class ReportConditionalStatements {
             }
             case "phrase": {
                 try{
-                    items.add(new ReportPhrase(ifStatementItems.item(t),fonts,null,pGetter));
+                    items.add(new ReportPhrase(ifStatementItems.item(t),fonts,null,pGetter,report));
                 }catch (ParseException e){
                     e.printStackTrace();
                 }
@@ -154,7 +154,7 @@ public class ReportConditionalStatements {
             }
             case "repeatingrow": {
                 try{
-                    items.add(new ReportRepeatingRowSimple(ifStatementItems.item(t),fonts,null,pGetter));
+                    items.add(new ReportRepeatingRowSimple(ifStatementItems.item(t),fonts,null,pGetter,report));
                 }catch (ParseException e){
                     e.printStackTrace();
                 }catch (DocumentException de){
@@ -183,7 +183,7 @@ public class ReportConditionalStatements {
             }
             case "chunk": {
                 try{
-                    items.add(new ReportChunk(ifStatementItems.item(t),fonts,null,pGetter));
+                    items.add(new ReportChunk(ifStatementItems.item(t),fonts,null,pGetter,report));
                 }catch (ParseException e){
                     e.printStackTrace();
                 }
@@ -191,7 +191,7 @@ public class ReportConditionalStatements {
             }
             case "cell": {
                 try{
-                    items.add(new ReportCell(ifStatementItems.item(t),fonts,null,pGetter));
+                    items.add(new ReportCell(ifStatementItems.item(t),fonts,null,pGetter,report));
                 }catch (ParseException e){
                     e.printStackTrace();
                 }

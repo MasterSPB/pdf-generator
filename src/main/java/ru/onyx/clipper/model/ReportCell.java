@@ -40,7 +40,7 @@ public class ReportCell extends BaseReportObject {
 
 	//---------------------------------------------------
 
-	public ReportCell(float pfixedHeight, String text, int vtextalign, int htextalign, String pFontName, Float fontW, float borderwidth, float pleading, float[] paddings, Boolean usebPaddings, int[] bgColorp, int[] borderColorp, PropertyGetter pGetter, HashMap<String, ReportBaseFont> pFonts) {
+	public ReportCell(float pfixedHeight, String text, int vtextalign, int htextalign, String pFontName, Float fontW, float borderwidth, float pleading, float[] paddings, Boolean usebPaddings, int[] bgColorp, int[] borderColorp, PropertyGetter pGetter, HashMap<String, ReportBaseFont> pFonts, Report report) {
 		_fonts = pFonts;
 		propertyGetter = pGetter;
 		//First we unset all properties...
@@ -60,16 +60,17 @@ public class ReportCell extends BaseReportObject {
 		this._fonts = pFonts;
 		this.bgColor = Arrays.toString(bgColorp).replace("[", "").replace("]", "").replace(", ", ",");
 		this.borderColor = Arrays.toString(borderColorp).replace("[", "").replace("]", "").replace(", ", ",");
-
+        this.report=report;
 	}
 
 	/**
 	 * Main constructor
 	 */
-	public ReportCell(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException, IOException, DocumentException {
+	public ReportCell(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter, Report report) throws ParseException, IOException, DocumentException {
 		_fonts = fonts;
 		parent = pParent;
 		propertyGetter = pGetter;
+        this.report=report;
 		Load(node);
 		LoadItems(node, fonts, this, pGetter);
 		if (pParent != null && pParent.getPageNameRT() != null) {
@@ -167,6 +168,8 @@ public class ReportCell extends BaseReportObject {
 		if (getPropertyName() != null && !getPropertyName().contains("$") && parent.getPageNameRT() != null) {
 			celltext = propertyGetter.GetProperty(parent.getPageNameRT() + getPropertyName());
 		}
+
+
 
 		if (getStringformat() != null && celltext != null && !celltext.isEmpty() && !celltext.equals("-")) {
 			try {

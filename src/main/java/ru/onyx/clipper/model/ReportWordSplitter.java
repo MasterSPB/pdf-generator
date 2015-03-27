@@ -196,18 +196,18 @@ public class ReportWordSplitter extends BaseReportObject {
           paramMargin = getColumns() - param.length();
          }
          for(int y=0;y<getColumns();y++) {
-             ReportCell cell = new ReportCell(getMinimumHeight(),"",getVerticalTextAlignment(),getHorizontalTextAlignment(), getFontName(),getFontWeight(),getBorderWidth() ,getLeading() ,getPaddings(),getUseBorderPadding(),getBGColor(),getBorderColor(),pGetter,fonts);
+             ReportCell cell = new ReportCell(getMinimumHeight(),"",getVerticalTextAlignment(),getHorizontalTextAlignment(), getFontName(),getFontWeight(),getBorderWidth() ,getLeading() ,getPaddings(),getUseBorderPadding(),getBGColor(),getBorderColor(),pGetter,fonts,report);
 
              if(paramAlign.equals("right")) {
                  if(y >= paramMargin) {
                  String symbol = Character.toString(param.charAt(y-paramMargin));
-                 cell = new ReportCell(getMinimumHeight(),symbol,getVerticalTextAlignment(),getHorizontalTextAlignment(), getFontName(),getFontWeight(),getBorderWidth(),getLeading(),getPaddings(),getUseBorderPadding(),getBGColor(),getBorderColor(),pGetter,fonts);
+                 cell = new ReportCell(getMinimumHeight(),symbol,getVerticalTextAlignment(),getHorizontalTextAlignment(), getFontName(),getFontWeight(),getBorderWidth(),getLeading(),getPaddings(),getUseBorderPadding(),getBGColor(),getBorderColor(),pGetter,fonts,report);
                  }
              }
              if(paramAlign.equals("left")) {
                  if(y < param.length()) {
                  String symbol = Character.toString(param.charAt(y));
-                 cell = new ReportCell(getMinimumHeight(),symbol,getVerticalTextAlignment(),getHorizontalTextAlignment(), getFontName(),getFontWeight(),getBorderWidth(),getLeading(),getPaddings(),getUseBorderPadding(),getBGColor(),getBorderColor(),pGetter,fonts);
+                 cell = new ReportCell(getMinimumHeight(),symbol,getVerticalTextAlignment(),getHorizontalTextAlignment(), getFontName(),getFontWeight(),getBorderWidth(),getLeading(),getPaddings(),getUseBorderPadding(),getBGColor(),getBorderColor(),pGetter,fonts,report);
                  }
              }
 

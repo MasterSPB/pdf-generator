@@ -1,9 +1,6 @@
 package ru.onyx.clipper.model;
 
-import com.itextpdf.text.Chunk;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
+import com.itextpdf.text.*;
 import org.w3c.dom.Node;
 import ru.onyx.clipper.data.PropertyGetter;
 import ru.onyx.clipper.utils.ReportCalcUtils;
@@ -13,6 +10,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
@@ -28,10 +26,12 @@ public class ReportChunk extends BaseReportObject {
         this.customtext = text;
     }
 
-    public ReportChunk(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter) throws ParseException, IOException, DocumentException {
+    public ReportChunk(Node node, HashMap<String, ReportBaseFont> fonts, BaseReportObject pParent, PropertyGetter pGetter,Report report) throws ParseException, IOException, DocumentException {
         _fonts = fonts;
         parent = pParent;
         propertyGetter = pGetter;
+        this.report=report;
+
         Load(node);
         LoadItems(node, fonts, this, pGetter);
         if (pParent != null && pParent.getPageNameRT() != null) {
@@ -59,6 +59,35 @@ public class ReportChunk extends BaseReportObject {
 
         if(content==null && getPropertyName()!=null && !getPropertyName().contains("$") && parent.parent.parent.getPageNameRT()!=null){
             content = propertyGetter.GetProperty(parent.parent.parent.getPageNameRT()+getPropertyName());
+        }
+        if(content==null && getPropertyName()!=null && getPropertyName().contains("@") && report!=null){
+            if (getPropertyName().equals("@currentpage")) {
+                content=Integer.toString(report.getPageNumber());
+            } else if (getPropertyName().equals("@pagecount")) {
+                try {
+                    Chunk ch = new Chunk(Image.getInstance(report.getTotalPageCountTemplate()),0,0);
+
+                    if (getChunkIndex().equals("upper")) {
+                        ch.setTextRise(ch.getFont().getCalculatedSize() / 5);
+
+                    } else if (getChunkIndex().equals("lower")) {
+                        ch.setTextRise(-ch.getFont().getCalculatedSize() / 5);
+                    }
+
+                    Font f = getFont();
+
+
+                    int[] color = getTextColor();
+                    if (color != null) f.setColor(color[0], color[1], color[2]);
+
+                    if (getCharspacing() > 0) {
+                        ch.setCharacterSpacing(getCharspacing());
+                    }
+                    return ch;
+                } catch (BadElementException be) {
+                    be.printStackTrace();
+                }
+            }
         }
 
         try {
@@ -132,7 +161,10 @@ public class ReportChunk extends BaseReportObject {
 						content = content.substring(content.indexOf(".") + 1);
 					}else if(getStringformat().equals("integral")){
 						content = String.format(new Locale("ru"), "%,6.0f", Double.parseDouble(content.substring(0, content.indexOf("."))));
-					}
+					} else if (getStringformat().contains("d")) {
+                        Locale locale = new Locale("ru");
+                        content = String.format(locale, getStringformat(), Integer.parseInt(content));
+                    }
 					else {
 						Locale locale = new Locale("ru");
 						content = String.format(locale, getStringformat(), Double.parseDouble(content));
@@ -245,7 +277,6 @@ public class ReportChunk extends BaseReportObject {
         if (getCharspacing() > 0) {
             ch.setCharacterSpacing(getCharspacing());
         }
-
         return ch;
     }
 
