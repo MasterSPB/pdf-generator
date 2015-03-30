@@ -454,6 +454,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                     firstTblAdded = true;
                     onePaged = true;
                     drawTable(table, repeatingRowObjects, cellsFormat);
+                    if (finalLine != null) repeatingRowObjects.add(finalLine);
 
                 } else if (curTableHeight + headerHeight + footerHeight + cellHeight + table.getRows().size() * getBorderWidth() > spaceLeft && firstTblAdded) {
                     // if one of the limits has been found while trying to add NOT a first page
@@ -487,7 +488,7 @@ public class ReportRepeatingRow extends BaseReportObject {
                         drawTable(table, repeatingRowObjects, cellsFormat);
                         if (finalLine != null) repeatingRowObjects.add(finalLine);
                     }
-                } else if (i + 1 == totalRows) { //this means the time to add finalizer
+                } else if (i + 1 == totalRows ) { //this means the time to add finalizer
                     drawTable(table, repeatingRowObjects, cellsFormat);
                     if (finalLine != null) repeatingRowObjects.add(finalLine);
                 }
