@@ -27,7 +27,7 @@ public class ReportConditionalStatements {
 
                 if (ifStatementItems.item(t).getTextContent().contains(" ")) { //...and it has spaces (correct syntax)
                     operands = ifStatementItems.item(t).getTextContent().split(" "); //split it into tokens
-                    if (operands.length < 3) return; //if there is less than three tokens, it is not a correct statement
+  //                  if (operands.length < 3) return; //if there is less than three tokens, it is not a correct statement
                 } else return;//if there are no spaces, it is not a correct statement
 
                 for (int i = 0; i < operands.length; i = i + 2) { //check every second token beginning from first
@@ -35,7 +35,7 @@ public class ReportConditionalStatements {
                         operands[i] = pGetter.GetProperty(operands[i]);
                     }
                 }
-                if(operands[0]!=null&&operands[2]!=null) {
+                if(operands.length == 3 && operands[0]!=null && operands[2]!=null) {
                     if (operands[1].equals("eq") && operands[0].equals(operands[2]))
                         conditionResult = true; //if we are checking tokens to be equal
                     if (operands[1].equals("neq") && (operands[0] != null && operands[2] != null))
@@ -51,6 +51,12 @@ public class ReportConditionalStatements {
                         conditionResult = true; //if we are checking tokens to be less
                     if (operands[1].equals("LengthIs") && (operands[0].length() == Integer.parseInt(operands[2]))) {
                         conditionResult = true; //if we are checking first token to be exact length as stated
+                    }
+                } else if (operands.length == 2) {
+                    if (operands[1].equals("isNotNull") && operands[0]==null) {
+                        conditionResult = false;
+                    } else {
+                        conditionResult = true;
                     }
                 }
             }
@@ -154,7 +160,7 @@ public class ReportConditionalStatements {
             }
             case "repeatingrow": {
                 try{
-                    items.add(new ReportRepeatingRowSimple(ifStatementItems.item(t),fonts,null,pGetter,report));
+                    items.add(new ReportRepeatingRow(ifStatementItems.item(t),fonts,null,pGetter,report,report._doc));
                 }catch (ParseException e){
                     e.printStackTrace();
                 }catch (DocumentException de){
