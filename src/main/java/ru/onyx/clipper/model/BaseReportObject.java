@@ -25,6 +25,11 @@ import static ru.onyx.clipper.model.Report.*;
 public abstract class BaseReportObject {
 
     public static final String COMPOSITE = "composite";
+    public static HashMap<String, String> varMap = new HashMap<String, String>(2);
+
+    public static HashMap<String, String> getVarMap() {
+        return varMap;
+    }
 
     public abstract Element getPdfObject() throws DocumentException, ParseException, IOException;
 
@@ -67,7 +72,7 @@ public abstract class BaseReportObject {
             quartIndex = parseAttribute(attrObj,QUART_INDEX,"null");
             operandType = parseAttribute(attrObj,OPERAND_TYPE,"null");
             expressionOp = parseAttribute(attrObj,EXPRESSION_OPERAND,"null");
-            cellExpression=parseAttribute(attrObj,CELL_EXPRESSION,"null");
+            cellExpression=parseAttribute(attrObj, CELL_EXPRESSION, "null");
             numerator = Boolean.parseBoolean(parseAttribute(attrObj, LINE_NUMERATOR, "false"));
             minFreeSpaceAfter = Integer.parseInt(parseAttribute(attrObj, MIN_FREE_SPACE_AFTER, "0"));
             aggrCol = Integer.parseInt(parseAttribute(attrObj, AGGR_COL, "0"));
@@ -381,12 +386,18 @@ public abstract class BaseReportObject {
                     case image:
                         items.add(new ReportImage(item, fonts, pParent, pGetter));
                         break;
+                    case foreach:
+                        items.add(new ReportForEach(item, fonts, pParent, pGetter));
+                        break;
+                    case var:
+                        items.add(new ReportVar(item, fonts, pParent, pGetter));
+                        break;
                     case newpage:
                         items.add(new ReportNewPage());
                         break;
                     case ifcondition:
                         NodeList ifStatementChildren = nodes.item(i).getChildNodes();
-                        ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, logicalcondition, elsecondition, paragraph, items, fonts);
+                        ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, logicalcondition, elsecondition, paragraph, items, fonts, "");
                 }
             }
         }
@@ -1355,5 +1366,17 @@ public abstract class BaseReportObject {
         String format = getToDateFormat();
 
         return ReportDateUtils.getFormattedDate(defaultNullValue, s, format);
+    }
+
+    protected String getPropertyByTextContent(String textContent) {
+        String[] operands = textContent.split(" ");
+
+        for (int i = 0; i < operands.length; i = i + 2) {
+            if (!Character.toString(operands[i].charAt(0)).equals("$")
+                                && !Character.toString(operands[i].charAt(0)).equals("#")) {
+                return operands[i];
+            }
+        }
+        return "";
     }
 }

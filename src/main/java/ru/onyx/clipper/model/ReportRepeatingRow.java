@@ -127,7 +127,12 @@ public class ReportRepeatingRow extends BaseReportObject {
 
                                 nodeName = cells.item(i).getNodeName();
 
+                               if (nodeName.equalsIgnoreCase("foreach")) {
+                                    new ReportForEach(cells.item(i), _fonts, this, pGetter);
+                               }
 
+                               // String l = varMap.get("vat");
+                               // String l1 = varMap.get("id");
                                 if (nodeName.equalsIgnoreCase("cell")) {
 
                                     NamedNodeMap attrObj = cells.item(i).getAttributes(); // get Cell attribute from item
