@@ -58,6 +58,9 @@ public class ReportTable extends BaseReportObject {
 		if(rep != null) {
 			setPageNumber(rep.getCurPage());
 		}
+        if(!this.jsFunction.equals("")) {
+            eval(jsFunction, node, pGetter);
+        }
         LoadItems(node, fonts, this, pGetter);
 
         if(pParent!= null && pParent.getPageNameRT() != null){

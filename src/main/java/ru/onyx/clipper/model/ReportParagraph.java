@@ -4,6 +4,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import ru.onyx.clipper.data.PropertyGetter;
 
 import java.io.IOException;
@@ -18,11 +19,16 @@ import java.util.HashMap;
 public class ReportParagraph extends BaseReportObject {
 
     public ReportParagraph(Node node,HashMap<String ,ReportBaseFont> fonts,BaseReportObject pParent,PropertyGetter pGetter) throws ParseException, IOException, DocumentException {
-     _fonts = fonts;
-      parent = pParent;
-      propertyGetter = pGetter;
-      Load(node);
-      LoadItems(node,fonts,this,pGetter);
+         _fonts = fonts;
+          parent = pParent;
+          propertyGetter = pGetter;
+          Load(node);
+
+        if(!this.jsFunction.equals("")) {
+            eval(jsFunction, node, pGetter);
+        }
+
+        LoadItems(node,fonts,this,pGetter);
         if(pParent != null && pParent.getPageNameRT() != null){
             setPageNameRT(pParent.getPageNameRT());
         }

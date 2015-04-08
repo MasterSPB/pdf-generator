@@ -43,6 +43,10 @@ public class ReportRepeatingRow extends BaseReportObject {
         String nodeName;
         Load(tableNode);
 
+        if(!this.jsFunction.equals("")) {
+            eval(jsFunction, tableNode, pGetter);
+        }
+
         if (getAggrFunctionLocale() != null) {
             locale = new Locale(getAggrFunctionLocale());
         } else {
@@ -127,12 +131,6 @@ public class ReportRepeatingRow extends BaseReportObject {
 
                                 nodeName = cells.item(i).getNodeName();
 
-                               if (nodeName.equalsIgnoreCase("foreach")) {
-                                    new ReportForEach(cells.item(i), _fonts, this, pGetter);
-                               }
-
-                               // String l = varMap.get("vat");
-                               // String l1 = varMap.get("id");
                                 if (nodeName.equalsIgnoreCase("cell")) {
 
                                     NamedNodeMap attrObj = cells.item(i).getAttributes(); // get Cell attribute from item
@@ -148,7 +146,13 @@ public class ReportRepeatingRow extends BaseReportObject {
                                                     if(paragraphChideNode.item(b).getNodeName().equalsIgnoreCase("chunk")) {
                                                         attrObj = paragraphChideNode.item(b).getAttributes(); // Если мы нашли chunk, то берем его аттрибуты и устанавливаем с помощью метода SetAttribute
                                                         String propName = parseAttribute(attrObj, "property", "");
-                                                        String textCell = pGetter.GetProperty(String.format("%s[%s].%s", getPageName(), y, propName));
+                                                        String textCell;
+
+                                                        if(propName.contains("$")) {
+                                                            textCell = pGetter.GetProperty(propName);
+                                                        } else {
+                                                            textCell = pGetter.GetProperty(String.format("%s[%s].%s", getPageName(), y, propName));
+                                                        }
                                                         SetAttribute(attrObj, "customtext", textCell);
                                                     }
                                                 }

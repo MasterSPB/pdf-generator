@@ -15,7 +15,7 @@ import java.lang.String;
  */
 
 public class ReportConditionalStatements {
-    protected static void parseIfStatement(NodeList ifStatementItems, PropertyGetter pGetter, String logicalcondition, String elsecondition, String paragraph, List<BaseReportObject> items, HashMap<String, ReportBaseFont> fonts, String textValue) throws IOException, DocumentException {
+    protected static void parseIfStatement(NodeList ifStatementItems, PropertyGetter pGetter, String logicalcondition, String elsecondition, String paragraph, List<BaseReportObject> items, HashMap<String, ReportBaseFont> fonts) throws IOException, DocumentException {
         String[] operands;
         boolean conditionResult=false;
 
@@ -33,14 +33,6 @@ public class ReportConditionalStatements {
                 for (int i = 0; i < operands.length; i = i + 2) { //check every second token beginning from first
                     if (Character.toString(operands[i].charAt(0)).equals("$")) { //if it begins from "$" symbol, it needs to be overwritten by it's json value
                         operands[i] = pGetter.GetProperty(operands[i]);
-                    } else if(Character.toString(operands[i].charAt(0)).equals("#")) {
-                        String var = operands[i].substring(1, operands[i].length());
-                        HashMap<String, String> varMap = BaseReportObject.getVarMap();
-                        if(varMap.get(var) != null) {
-                            operands[i] = varMap.get(var);
-                        }
-                    } else {
-                        operands[i] = textValue;
                     }
                 }
                 if(operands[0]!=null&&operands[2]!=null) {
@@ -83,14 +75,6 @@ public class ReportConditionalStatements {
             case "date": {
                 try{
                     items.add(new ReportDate(ifStatementItems.item(t),fonts,null,pGetter));
-                }catch (ParseException e){
-                    e.printStackTrace();
-                }
-                break;
-            }
-            case "var": {
-                try{
-                    new ReportVar(ifStatementItems.item(t), fonts, null, pGetter);
                 }catch (ParseException e){
                     e.printStackTrace();
                 }

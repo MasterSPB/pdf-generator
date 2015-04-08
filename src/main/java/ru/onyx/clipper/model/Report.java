@@ -79,9 +79,6 @@ public class Report {
     public static final String pageheader = "pageheader";
     public static final String pagetext = "pagetext";
     public static final String repeatingtemplate = "repeatingtemplate";
-    public static final String foreach = "foreach";
-    public static final String var = "var";
-
 
     public int getCurPage() {
         return curPage;
@@ -322,19 +319,13 @@ public class Report {
             if (nodeName.equals(wordsplitter)) {
                 items.add(new ReportWordSplitter(repChilds.item(t), fonts, null, pGetter));
             }
-            if (nodeName.equals(foreach)) {
-                items.add(new ReportForEach(repChilds.item(t), fonts, null, pGetter));
-            }
-            if (nodeName.equals(var)) {
-                items.add(new ReportVar(repChilds.item(t), fonts, null, pGetter));
-            }
             if (nodeName.equals(newpage)) {
                 items.add(new ReportNewPage());
                 curPage++;
             }
             if (nodeName.equals(ifcondition)) {
                 NodeList ifStatementChildren = repChilds.item(t).getChildNodes();
-                ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, logicalcondition, elsecondition, paragraph, items, fonts, "");
+                ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, logicalcondition, elsecondition, paragraph, items, fonts);
             }
         }
     }

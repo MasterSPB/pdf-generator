@@ -59,7 +59,7 @@ public class ReportRepeatingTemplate extends BaseReportObject{
                             setPageNumber(x);
                         }else if(nodeName.equalsIgnoreCase("ifcondition")){
                             NodeList ifStatementChildren = node.getChildNodes();
-                            ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, "condition", "else", "paragraph", items, _fonts, "");
+                            ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, "condition", "else", "paragraph", items, _fonts);
                         }
                     }
                 }

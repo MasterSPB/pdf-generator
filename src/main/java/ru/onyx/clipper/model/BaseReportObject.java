@@ -9,6 +9,10 @@ import org.w3c.dom.NodeList;
 import ru.onyx.clipper.data.PropertyGetter;
 import ru.onyx.clipper.utils.ReportDateUtils;
 
+import javax.script.ScriptContext;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -36,6 +40,7 @@ public abstract class BaseReportObject {
     protected HashMap<String, ReportBaseFont> _fonts;
     protected PropertyGetter propertyGetter;
     protected BaseReportObject parent;
+    protected static ScriptEngine engine;
 
     protected void Load(Node node) {
         NamedNodeMap attrObj = node.getAttributes();
@@ -136,6 +141,12 @@ public abstract class BaseReportObject {
             replicateFooter = Boolean.parseBoolean(parseAttribute(attrObj, REPLICATE_FOOTER, "false"));
             decseparator = parseAttribute(attrObj, DECIMAL_SEPARATOR, null);
             aggrFuncLocale = parseAttribute(attrObj, AGGR_FUNCTION_LOCALE, "en");
+
+            jsFunction = parseAttribute(attrObj, JS_FUNCTION, "");
+            jsResult = parseAttribute(attrObj, JS_FUNCTION_RESULT, "");
+            getEngine();
+
+
 
             paddingLeft = -1f;
             paddingRight = -1f;
@@ -386,18 +397,12 @@ public abstract class BaseReportObject {
                     case image:
                         items.add(new ReportImage(item, fonts, pParent, pGetter));
                         break;
-                    case foreach:
-                        items.add(new ReportForEach(item, fonts, pParent, pGetter));
-                        break;
-                    case var:
-                        items.add(new ReportVar(item, fonts, pParent, pGetter));
-                        break;
                     case newpage:
                         items.add(new ReportNewPage());
                         break;
                     case ifcondition:
                         NodeList ifStatementChildren = nodes.item(i).getChildNodes();
-                        ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, logicalcondition, elsecondition, paragraph, items, fonts, "");
+                        ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, logicalcondition, elsecondition, paragraph, items, fonts);
                 }
             }
         }
@@ -512,6 +517,8 @@ public abstract class BaseReportObject {
     protected static final String BGIMAGE = "bgimage";
     protected static final String KEEPTOGETHER = "keeptogether";
     protected static final String AGGR_FUNCTION_LOCALE = "aggrfunclocale"; // locale of aggregation row, used in ReportRepeatingRow. Default is "en". Initialized in constructor.
+    protected static final String JS_FUNCTION = "js";
+    protected static final String JS_FUNCTION_RESULT = "jsResult";
 
     protected Float reprowotherpageheight;
     protected Float spacingAfter;
@@ -608,6 +615,8 @@ public abstract class BaseReportObject {
     protected String cellMode;
     protected String pageName;
     protected String aggrFuncLocale;
+    protected String jsFunction;
+    protected String jsResult;
 
     protected ArrayList<BaseReportObject> items = new ArrayList<BaseReportObject>();
     protected ArrayList<Element> itemsGPO = new ArrayList<>();
@@ -1379,4 +1388,46 @@ public abstract class BaseReportObject {
         }
         return "";
     }
+
+    private void getEngine() {
+        if(this.engine == null) {
+            ScriptEngineManager factory = new ScriptEngineManager();
+            // create a JavaScript engine
+            engine = factory.getEngineByName("JavaScript");
+        }
+    }
+
+
+    private void jsInit(Node node, PropertyGetter pGetter) {
+        engine.put("node", node);
+        engine.put("pGetter", pGetter);
+    }
+
+
+    public Object eval(String script, Node node, PropertyGetter pGetter) {
+        jsInit(node, pGetter);
+
+        if (engine == null) {
+            getEngine();
+        }
+
+        Object result = null;
+
+        if(!"".equals(script) && script != null) {
+            String scriptToEvaluate = String.format("function run() { %n %s %n }; run();", script).replace(" lt ", "<").replace(" gt ", ">").replace(" and ", " && ");
+            try {
+                result = engine.eval(scriptToEvaluate);
+            } catch (ScriptException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(result != null) {
+            this.customtext = result.toString();
+        }
+
+        return result;
+    }
+
+
 }
