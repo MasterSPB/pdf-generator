@@ -17,13 +17,17 @@ import java.util.HashMap;
  */
 public class ReportParagraph extends BaseReportObject {
 
-    public ReportParagraph(Node node,HashMap<String ,ReportBaseFont> fonts,BaseReportObject pParent,PropertyGetter pGetter,Report report) throws ParseException, IOException, DocumentException {
-     _fonts = fonts;
-      parent = pParent;
-      propertyGetter = pGetter;
-      this.report=report;
-      Load(node);
-      LoadItems(node,fonts,this,pGetter);
+    public ReportParagraph(Node node,HashMap<String ,ReportBaseFont> fonts,BaseReportObject pParent,PropertyGetter pGetter, Report report) throws ParseException, IOException, DocumentException {
+         _fonts = fonts;
+          parent = pParent;
+          propertyGetter = pGetter;
+          this.report=report;
+          Load(node);
+        if(!this.jsFunction.equals("")) {
+            eval(jsFunction, node, pGetter);
+        }
+
+        LoadItems(node,fonts,this,pGetter);
         if(pParent != null && pParent.getPageNameRT() != null){
             setPageNameRT(pParent.getPageNameRT());
         }

@@ -72,8 +72,14 @@ public class ReportCell extends BaseReportObject {
 		propertyGetter = pGetter;
         this.report=report;
 		Load(node);
-		LoadItems(node, fonts, this, pGetter);
-		if (pParent != null && pParent.getPageNameRT() != null) {
+
+        if(!this.jsFunction.equals("")) {
+           eval(jsFunction, node, pGetter);
+        }
+
+        LoadItems(node, fonts, this, pGetter);
+
+        if (pParent != null && pParent.getPageNameRT() != null) {
 			setPageNameRT(pParent.getPageNameRT());
 		}
 

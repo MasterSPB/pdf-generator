@@ -9,6 +9,10 @@ import org.w3c.dom.NodeList;
 import ru.onyx.clipper.pdfgenerator.data.PropertyGetter;
 import ru.onyx.clipper.pdfgenerator.utils.ReportDateUtils;
 
+import javax.script.ScriptContext;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -23,6 +27,11 @@ import java.util.HashMap;
 public abstract class BaseReportObject {
 
     public static final String COMPOSITE = "composite";
+    public static HashMap<String, String> varMap = new HashMap<String, String>(2);
+
+    public static HashMap<String, String> getVarMap() {
+        return varMap;
+    }
 
     public abstract Element getPdfObject() throws DocumentException, ParseException, IOException;
 
@@ -30,6 +39,7 @@ public abstract class BaseReportObject {
     protected PropertyGetter propertyGetter;
     protected BaseReportObject parent;
     protected Report report;
+    protected static ScriptEngine engine;
 
     protected void Load(Node node) {
         NamedNodeMap attrObj = node.getAttributes();
@@ -66,7 +76,7 @@ public abstract class BaseReportObject {
             quartIndex = parseAttribute(attrObj,QUART_INDEX,"null");
             operandType = parseAttribute(attrObj,OPERAND_TYPE,"null");
             expressionOp = parseAttribute(attrObj,EXPRESSION_OPERAND,"null");
-            cellExpression=parseAttribute(attrObj,CELL_EXPRESSION,"null");
+            cellExpression=parseAttribute(attrObj, CELL_EXPRESSION, "null");
             numerator = Boolean.parseBoolean(parseAttribute(attrObj, LINE_NUMERATOR, "false"));
             minFreeSpaceAfter = Integer.parseInt(parseAttribute(attrObj, MIN_FREE_SPACE_AFTER, "0"));
             aggrCol = Integer.parseInt(parseAttribute(attrObj, AGGR_COL, "0"));
@@ -136,6 +146,12 @@ public abstract class BaseReportObject {
             marginBottom = Float.parseFloat(parseAttribute(attrObj, Report.marginbottom, Report.margin_value));
             pageSize = parseAttribute(attrObj, Report.pagesize, Report.A4);
             pageOrientation = parseAttribute(attrObj, Report.orientation, Report.portrait);
+
+            jsFunction = parseAttribute(attrObj, JS_FUNCTION, "");
+            jsResult = parseAttribute(attrObj, JS_FUNCTION_RESULT, "");
+            getEngine();
+
+
 
             paddingLeft = -1f;
             paddingRight = -1f;
@@ -510,6 +526,8 @@ public abstract class BaseReportObject {
     protected static final String BGIMAGE = "bgimage";
     protected static final String KEEPTOGETHER = "keeptogether";
     protected static final String AGGR_FUNCTION_LOCALE = "aggrfunclocale"; // locale of aggregation row, used in ReportRepeatingRow. Default is "en". Initialized in constructor.
+    protected static final String JS_FUNCTION = "js";
+    protected static final String JS_FUNCTION_RESULT = "jsResult";
 
     protected Float reprowotherpageheight;
     protected Float spacingAfter;
@@ -606,6 +624,8 @@ public abstract class BaseReportObject {
     protected String cellMode;
     protected String pageName;
     protected String aggrFuncLocale;
+    protected String jsFunction;
+    protected String jsResult;
 
 
     protected ArrayList<BaseReportObject> items = new ArrayList<BaseReportObject>();
@@ -1421,4 +1441,58 @@ public abstract class BaseReportObject {
 
         return ReportDateUtils.getFormattedDate(defaultNullValue, s, format);
     }
+
+    protected String getPropertyByTextContent(String textContent) {
+        String[] operands = textContent.split(" ");
+
+        for (int i = 0; i < operands.length; i = i + 2) {
+            if (!Character.toString(operands[i].charAt(0)).equals("$")
+                                && !Character.toString(operands[i].charAt(0)).equals("#")) {
+                return operands[i];
+            }
+        }
+        return "";
+    }
+
+    private void getEngine() {
+        if(this.engine == null) {
+            ScriptEngineManager factory = new ScriptEngineManager();
+            // create a JavaScript engine
+            engine = factory.getEngineByName("JavaScript");
+        }
+    }
+
+
+    private void jsInit(Node node, PropertyGetter pGetter) {
+        engine.put("node", node);
+        engine.put("pGetter", pGetter);
+    }
+
+
+    public Object eval(String script, Node node, PropertyGetter pGetter) {
+        jsInit(node, pGetter);
+
+        if (engine == null) {
+            getEngine();
+        }
+
+        Object result = null;
+
+        if(!"".equals(script) && script != null) {
+            String scriptToEvaluate = String.format("function run() { %n %s %n }; run();", script).replace(" lt ", "<").replace(" gt ", ">").replace(" and ", " && ");
+            try {
+                result = engine.eval(scriptToEvaluate);
+            } catch (ScriptException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(result != null) {
+            this.customtext = result.toString();
+        }
+
+        return result;
+    }
+
+
 }

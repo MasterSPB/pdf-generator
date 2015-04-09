@@ -82,7 +82,6 @@ public class Report {
     public static final String repeatingtemplate = "repeatingtemplate";
 
 
-
     public int getCurPage() {
         return curPage;
     }
