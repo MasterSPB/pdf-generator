@@ -41,17 +41,27 @@ public class ReportRepeatingTemplate extends BaseReportObject{
                         nodeName = childsList.item(h).getNodeName();
                         Node node = childsList.item(h);
                         if(nodeName.equalsIgnoreCase("table")){
-//                            items.add(new ReportTable(node,_fonts,this,pGetter));
-                            itemsGPO.add(new ReportTable(node,_fonts,this,pGetter,null).getPdfObject());
+                            items.add(new ReportTable(node,_fonts,this,pGetter,rep));
+//                            itemsGPO.add(new ReportTable(node,_fonts,this,pGetter,null).getPdfObject());
                         }else if(nodeName.equalsIgnoreCase("paragraph")){
-//                            items.add(new ReportParagraph(node,_fonts,this,pGetter));
-                            itemsGPO.add(new ReportParagraph(node,_fonts,this,pGetter,report).getPdfObject());
+                            items.add(new ReportParagraph(node,_fonts,this,pGetter,rep));
+//                            itemsGPO.add(new ReportParagraph(node,_fonts,this,pGetter,report).getPdfObject());
                         }else if(nodeName.equalsIgnoreCase("repeatingrow")){
-//                            items.add(new ReportRepeatingRow(node,_fonts,this,pGetter));
-                            itemsGPO.add(new ReportRepeatingRow(node,_fonts,this,pGetter).getPdfObject());
+                            items.add(new ReportRepeatingRow(node,_fonts,this,pGetter));
+//                            itemsGPO.add(new ReportRepeatingRow(node,_fonts,this,pGetter).getPdfObject());
+                        }else if(nodeName.equalsIgnoreCase("repeatingrowbalanced")){
+                            SetAttribute(node.getAttributes(), PAGE_NAME_RT, getPageNameRT());
+                            ReportRepeatingRowBalanced reportItem=new ReportRepeatingRowBalanced(node,_fonts,this,pGetter,rep,rep._doc);
+                            items.add(reportItem);
                         }else if(nodeName.equalsIgnoreCase("newpage")){
-                            x++;
-                            setPageNumber(x);
+                            items.add(new ReportNewPage());
+//                            x++;
+//                            setPageNumber(x);
+                        }else if(nodeName.equalsIgnoreCase("repeatingtemplate")){
+                            ReportRepeatingTemplate reportItem=new ReportRepeatingTemplate(node,_fonts,this,pGetter,rep);
+                            reportItem.setPageNameRT(getPageNameRT()+reportItem.getPageNameRT());
+                            items.add(reportItem);
+//
                         }else if(nodeName.equalsIgnoreCase("ifcondition")){
                             NodeList ifStatementChildren = node.getChildNodes();
                             ReportConditionalStatements.parseIfStatement(ifStatementChildren, pGetter, "condition", "else", "paragraph", items, _fonts,report);

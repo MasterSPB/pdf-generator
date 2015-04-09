@@ -629,7 +629,11 @@ public abstract class BaseReportObject {
 
 
     protected ArrayList<BaseReportObject> items = new ArrayList<BaseReportObject>();
-    protected ArrayList<Element> itemsGPO = new ArrayList<>();
+
+    public ArrayList<BaseReportObject> getItems() {
+        return items;
+    }
+    // protected ArrayList<Element> itemsGPO = new ArrayList<>();
 
     protected Boolean useBorderPadding;
     protected Boolean stopInherit;

@@ -72,7 +72,7 @@ public class Report {
     public static final String image = "image";
     public static final String pagefont = "pagefont";
     public static final String header = "header";
-    public static final String lowerrunningtitle="lowerrunningtitle";
+    public static final String lowerrunningtitle = "lowerrunningtitle";
     public static final String ifcondition = "if";
     public static final String elsecondition = "else";
     public static final String logicalcondition = "condition";
@@ -80,17 +80,17 @@ public class Report {
     public static final String pageheader = "pageheader";
     public static final String pagetext = "pagetext";
     public static final String repeatingtemplate = "repeatingtemplate";
-
+    public static final String repeatingrowbalanced = "repeatingrowbalanced";
 
     public int getCurPage() {
         return curPage;
     }
 
-    public void setCurPage(int _curPage){
+    public void setCurPage(int _curPage) {
         curPage = _curPage;
     }
 
-    private static int curPage=1;
+    private static int curPage = 1;
     private static int pageFontWeight;
 
     private float marginLeft;
@@ -124,7 +124,9 @@ public class Report {
         return pageNumType;
     }
 
-    public static int getLastTableRowCount() {return lastTableRowCount; }
+    public static int getLastTableRowCount() {
+        return lastTableRowCount;
+    }
 
     public String getPageText() {
         return pageText;
@@ -147,7 +149,7 @@ public class Report {
 
     private static int lastTableRowCount = 0; // stores the number of rows of the last table, parsed in document
 
-    private String pageText="";
+    private String pageText = "";
 
     Document _doc = new Document();
 
@@ -189,7 +191,7 @@ public class Report {
 
         setPageSize(pageSize, pageOrientation);
         _doc.setMargins(marginLeft, marginRight, marginTop, marginBottom);
-        spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+        spaceLeft = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
 
         XPathExpression exprRepParagraph = xpath.compile("reportDefinition/report/items/*");
         NodeList repChilds = (NodeList) exprRepParagraph.evaluate(xmlDoc, XPathConstants.NODESET);
@@ -220,7 +222,7 @@ public class Report {
 
         setPageSize(pageSize, pageOrientation);
         _doc.setMargins(marginLeft, marginRight, marginTop, marginBottom);
-        spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+        spaceLeft = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
 
         XPathExpression exprRepParagraph = xpath.compile("reportDefinition/report/items/*");
         NodeList repChilds = (NodeList) exprRepParagraph.evaluate(xmlDoc, XPathConstants.NODESET);
@@ -234,14 +236,14 @@ public class Report {
         marginRight = Float.parseFloat(parseAttribute(attrs, marginright, margin_value));
         marginBottom = Float.parseFloat(parseAttribute(attrs, marginbottom, margin_value));
 
-        pageFontName = parseAttribute(attrs,Report.pagefont, "arial");
+        pageFontName = parseAttribute(attrs, Report.pagefont, "arial");
         repPageNumHPos = parseAttribute(attrs, Report.pagenumhpos, "center");
         repPageNumVPos = parseAttribute(attrs, Report.pagenumvpos, "bottom");
         pageFontWeight = Integer.parseInt(parseAttribute(attrs, pagefontweight, "10"));
         pageNumType = parseAttribute(attrs, Report.pagenumtype, "blank");
         pageHeader = parseAttribute(attrs, Report.pageheader, "disabled");
         pageText = parseAttribute(attrs, Report.pagetext, "");
-        lowerRunningTitle = parseAttribute(attrs,Report.lowerrunningtitle, "disabled");
+        lowerRunningTitle = parseAttribute(attrs, Report.lowerrunningtitle, "disabled");
 
         pageSize = parseAttribute(attrs, pagesize, A4);
         pageOrientation = parseAttribute(attrs, orientation, portrait);
@@ -301,12 +303,12 @@ public class Report {
                 NodeList lowerRunningTitleChildList = repChilds.item(t).getChildNodes();
             }
 
-            if (nodeName.equals(header)){
+            if (nodeName.equals(header)) {
                 NodeList headerChildList = repChilds.item(t).getChildNodes();
                 parseHeader(headerChildList, pGetter);
             }
 
-            if (nodeName.equals(repeatingtemplate)){
+            if (nodeName.equals(repeatingtemplate)) {
                 items.add(new ReportRepeatingTemplate(repChilds.item(t), fonts, null, pGetter, this));
             }
 
@@ -314,10 +316,10 @@ public class Report {
                 items.add(new ReportParagraph(repChilds.item(t), fonts, null, pGetter, this));
             }
             if (nodeName.equals(table)) {
-                items.add(new ReportTable(repChilds.item(t), fonts, null, pGetter,this));
+                items.add(new ReportTable(repChilds.item(t), fonts, null, pGetter, this));
             }
             if (nodeName.equals(repeatingrow)) {
-                items.add(new ReportRepeatingRow(repChilds.item(t), fonts, null, pGetter,this, _doc));
+                items.add(new ReportRepeatingRow(repChilds.item(t), fonts, null, pGetter, this, _doc));
             }
             if (nodeName.equals(dateparagraph)) {
                 items.add(new ReportDate(repChilds.item(t), fonts, null, pGetter));
@@ -332,6 +334,9 @@ public class Report {
             if (nodeName.equals(newsection)) {
                 items.add(new ReportNewSection(repChilds.item(t)));
                 curPage++;
+            }
+            if (nodeName.equals(repeatingrowbalanced)) {
+                items.add(new ReportRepeatingRowBalanced(repChilds.item(t), fonts, null, pGetter, this, _doc));
             }
             if (nodeName.equals(ifcondition)) {
                 NodeList ifStatementChildren = repChilds.item(t).getChildNodes();
@@ -365,7 +370,7 @@ public class Report {
         wr.setPageEvent(new PageIncrementEvent(this));
         wr.setRgbTransparencyBlending(true);
 
-        if(pageHeader.equalsIgnoreCase("enabled")){
+        if (pageHeader.equalsIgnoreCase("enabled")) {
             Font pageFont = new Font(fonts.get(pageFontName).getCustomFont(pageFontWeight));
             HeaderEvent event = new HeaderEvent(this, _doc, pageFont);
             wr.setPageEvent(event);
@@ -376,46 +381,37 @@ public class Report {
 
             if (item instanceof ReportNewPage) {
                 _doc.newPage();
-                spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
-            }
-            else if (item instanceof ReportNewSection) {
+                spaceLeft = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+            } else if (item instanceof ReportNewSection) {
                 insertNewSection((ReportNewSection) item);
-            }
-
-            else if (item instanceof ReportRepeatingRow) {
-                for(Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable(spaceLeft, _doc))
-                {
-                    if(reportRepeatingRowItem==null){
+            } else if (item instanceof ReportRepeatingRow) {
+                for (Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable(spaceLeft, _doc)) {
+                    if (reportRepeatingRowItem == null) {
                         _doc.newPage();
-                        spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
-                    }
-                    else if (reportRepeatingRowItem instanceof PdfPTable){
+                        spaceLeft = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+                    } else if (reportRepeatingRowItem instanceof PdfPTable) {
                         ReportTableUtils.setExactWidthFromPercentage((PdfPTable) reportRepeatingRowItem, _doc);
-                        spaceLeft= ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize((PdfPTable) reportRepeatingRowItem), (Float) spaceLeft, _doc);
+                        spaceLeft = ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize((PdfPTable) reportRepeatingRowItem), (Float) spaceLeft, _doc);
                         _doc.add((Element) reportRepeatingRowItem);
                     }
                 }
                 // since this is a table and has multiple rows, fill variable with its row number
                 lastTableRowCount = ((ReportRepeatingRow) item).getTotalRows();
-            }
-
-            else if (item instanceof ReportTable) {
+            } else if (item instanceof ReportRepeatingRowBalanced) {
+                _doc.add(((ReportRepeatingRowBalanced) item).getPdfTable(spaceLeft, _doc));
+                // since this is a table and has multiple rows, fill variable with its row number
+                lastTableRowCount = ((ReportRepeatingRowBalanced) item).getTotalRows();
+            } else if (item instanceof ReportTable) {
                 PdfPTable table = (PdfPTable) item.getPdfObject();
                 ReportTableUtils.setExactWidthFromPercentage(table, _doc);
-                spaceLeft= ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize(table), (Float) spaceLeft, _doc);
+                spaceLeft = ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize(table), (Float) spaceLeft, _doc);
                 _doc.add(table);
-            }
-            else if (item instanceof ReportParagraph) {
+            } else if (item instanceof ReportParagraph) {
                 spaceLeft = ReportDocumentUtils.calcFreeSpace(item.getVerticalSize(), (Float) spaceLeft, _doc);
                 _doc.add(item.getPdfObject());
-            }
-            else if(item instanceof ReportRepeatingTemplate){
-                for(Element reportRepeatingTemplateItem : item.itemsGPO){
-                    _doc.add(reportRepeatingTemplateItem);
-                }
-            }
-
-            else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
+            } else if (item instanceof ReportRepeatingTemplate) {
+                loadTemplate((ReportRepeatingTemplate) item);
+            } else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
         }
 
         PdfAction ac = PdfAction.gotoLocalPage(1, new
@@ -435,7 +431,7 @@ public class Report {
         wr.setPageEvent(new PageIncrementEvent(this));
         wr.setRgbTransparencyBlending(true);
 
-        if(pageHeader.equalsIgnoreCase("enabled")){
+        if (pageHeader.equalsIgnoreCase("enabled")) {
             Font pageFont = new Font(fonts.get(pageFontName).getCustomFont(pageFontWeight));
             HeaderEvent event = new HeaderEvent(this, _doc, pageFont);
             wr.setPageEvent(event);
@@ -447,44 +443,33 @@ public class Report {
 
             if (item instanceof ReportNewPage) {
                 _doc.newPage();
-                spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
-            }
-            else if (item instanceof ReportNewSection) {
-                insertNewSection((ReportNewSection)item);
-            }
-
-            else if (item instanceof ReportRepeatingRow) {
-                for(Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable(spaceLeft, _doc))
-                {
-                    if(reportRepeatingRowItem==null){
+                spaceLeft = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+            } else if (item instanceof ReportNewSection) {
+                insertNewSection((ReportNewSection) item);
+            } else if (item instanceof ReportRepeatingRow) {
+                for (Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable(spaceLeft, _doc)) {
+                    if (reportRepeatingRowItem == null) {
                         _doc.newPage();
-                        spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
-                    }
-                    else if (reportRepeatingRowItem instanceof PdfPTable){
+                        spaceLeft = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+                    } else if (reportRepeatingRowItem instanceof PdfPTable) {
                         ReportTableUtils.setExactWidthFromPercentage((PdfPTable) reportRepeatingRowItem, _doc);
-                        spaceLeft= ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize((PdfPTable) reportRepeatingRowItem), (Float) spaceLeft, _doc);
+                        spaceLeft = ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize((PdfPTable) reportRepeatingRowItem), (Float) spaceLeft, _doc);
                         _doc.add((Element) reportRepeatingRowItem);
                     }
                 }
-            }
-
-            else if (item instanceof ReportTable) {
+            } else if (item instanceof ReportRepeatingRowBalanced) {
+                _doc.add(((ReportRepeatingRowBalanced) item).getPdfTable(spaceLeft, _doc));
+            } else if (item instanceof ReportTable) {
                 PdfPTable table = (PdfPTable) item.getPdfObject();
                 ReportTableUtils.setExactWidthFromPercentage(table, _doc);
-                spaceLeft= ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize(table), (Float) spaceLeft, _doc);
+                spaceLeft = ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize(table), (Float) spaceLeft, _doc);
                 _doc.add(table);
-            }
-            else if (item instanceof ReportParagraph) {
+            } else if (item instanceof ReportParagraph) {
                 spaceLeft = ReportDocumentUtils.calcFreeSpace(item.getVerticalSize(), (Float) spaceLeft, _doc);
                 _doc.add(item.getPdfObject());
-            }
-            else if(item instanceof ReportRepeatingTemplate){
-                for(Element reportRepeatingTemplateItem : item.itemsGPO){
-                    _doc.add(reportRepeatingTemplateItem);
-                }
-            }
-
-            else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
+            } else if (item instanceof ReportRepeatingTemplate) {
+                loadTemplate((ReportRepeatingTemplate) item);
+            } else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
         }
 
         PdfAction ac = PdfAction.gotoLocalPage(1, new
@@ -494,7 +479,7 @@ public class Report {
         wr.setOpenAction(ac);
         items.clear();
 
-        setCurPage(getCurPage()+1);
+        setCurPage(getCurPage() + 1);
         ArrayList<Object> list = new ArrayList<>();
         list.add(byteArrayOutputStream);
         list.add(_doc);
@@ -513,50 +498,38 @@ public class Report {
 
             if (item instanceof ReportNewPage) {
                 _doc.newPage();
-                spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
-            }
-            else if (item instanceof ReportNewSection) {
-                insertNewSection((ReportNewSection)item);
-            }
-
-            else if (item instanceof ReportRepeatingRow) {
-                for(Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable(spaceLeft, _doc))
-                {
-                    if(reportRepeatingRowItem==null){
+                spaceLeft = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+            } else if (item instanceof ReportNewSection) {
+                insertNewSection((ReportNewSection) item);
+            } else if (item instanceof ReportRepeatingRow) {
+                for (Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable(spaceLeft, _doc)) {
+                    if (reportRepeatingRowItem == null) {
                         _doc.newPage();
-                        spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
-                    }
-                    else if (reportRepeatingRowItem instanceof PdfPTable){
+                        spaceLeft = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+                    } else if (reportRepeatingRowItem instanceof PdfPTable) {
                         ReportTableUtils.setExactWidthFromPercentage((PdfPTable) reportRepeatingRowItem, _doc);
-                        spaceLeft= ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize((PdfPTable) reportRepeatingRowItem), (Float) spaceLeft, _doc);
+                        spaceLeft = ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize((PdfPTable) reportRepeatingRowItem), (Float) spaceLeft, _doc);
                         _doc.add((Element) reportRepeatingRowItem);
                     }
                 }
-            }
-
-            else if (item instanceof ReportTable) {
+            } else if (item instanceof ReportRepeatingRowBalanced) {
+                _doc.add(((ReportRepeatingRowBalanced) item).getPdfTable(spaceLeft, _doc));
+            } else if (item instanceof ReportTable) {
                 PdfPTable table = (PdfPTable) item.getPdfObject();
                 ReportTableUtils.setExactWidthFromPercentage(table, _doc);
-                spaceLeft= ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize(table), (Float) spaceLeft, _doc);
+                spaceLeft = ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize(table), (Float) spaceLeft, _doc);
                 _doc.add(table);
-            }
-            else if (item instanceof ReportParagraph) {
+            } else if (item instanceof ReportParagraph) {
                 spaceLeft = ReportDocumentUtils.calcFreeSpace(item.getVerticalSize(), (Float) spaceLeft, _doc);
                 _doc.add(item.getPdfObject());
-            }
-
-            else if(item instanceof ReportRepeatingTemplate){
-                for(Element reportRepeatingTemplateItem : item.itemsGPO){
-                    _doc.add(reportRepeatingTemplateItem);
-                }
-            }
-
-            else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
+            } else if (item instanceof ReportRepeatingTemplate) {
+                loadTemplate((ReportRepeatingTemplate) item);
+            } else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
         }
 
         items.clear();
 
-        setCurPage(getCurPage()+1);
+        setCurPage(getCurPage() + 1);
         ArrayList<Object> list = new ArrayList<>();
         list.add(byteArrayOutputStream);
         list.add(_doc);
@@ -575,44 +548,33 @@ public class Report {
 
             if (item instanceof ReportNewPage) {
                 _doc.newPage();
-                spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
-            }
-            else if (item instanceof ReportNewSection) {
-                insertNewSection((ReportNewSection)item);
-            }
-            else if (item instanceof ReportRepeatingRow) {
-                for(Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable(spaceLeft, _doc))
-                {
-                    if(reportRepeatingRowItem==null){
+                spaceLeft = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+            } else if (item instanceof ReportNewSection) {
+                insertNewSection((ReportNewSection) item);
+            } else if (item instanceof ReportRepeatingRow) {
+                for (Object reportRepeatingRowItem : ((ReportRepeatingRow) item).getPdfTable(spaceLeft, _doc)) {
+                    if (reportRepeatingRowItem == null) {
                         _doc.newPage();
-                        spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
-                    }
-                    else if (reportRepeatingRowItem instanceof PdfPTable){
+                        spaceLeft = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+                    } else if (reportRepeatingRowItem instanceof PdfPTable) {
                         ReportTableUtils.setExactWidthFromPercentage((PdfPTable) reportRepeatingRowItem, _doc);
-                        spaceLeft= ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize((PdfPTable) reportRepeatingRowItem), (Float) spaceLeft, _doc);
+                        spaceLeft = ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize((PdfPTable) reportRepeatingRowItem), (Float) spaceLeft, _doc);
                         _doc.add((Element) reportRepeatingRowItem);
                     }
                 }
-            }
-
-            else if (item instanceof ReportTable) {
+            } else if (item instanceof ReportRepeatingRowBalanced) {
+                _doc.add(((ReportRepeatingRowBalanced) item).getPdfTable(spaceLeft, _doc));
+            } else if (item instanceof ReportTable) {
                 PdfPTable table = (PdfPTable) item.getPdfObject();
                 ReportTableUtils.setExactWidthFromPercentage(table, _doc);
-                spaceLeft= ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize(table), (Float) spaceLeft, _doc);
+                spaceLeft = ReportDocumentUtils.calcFreeSpace(ReportTableUtils.getTableVerticalSize(table), (Float) spaceLeft, _doc);
                 _doc.add(table);
-            }
-            else if (item instanceof ReportParagraph) {
+            } else if (item instanceof ReportParagraph) {
                 spaceLeft = ReportDocumentUtils.calcFreeSpace(item.getVerticalSize(), (Float) spaceLeft, _doc);
                 _doc.add(item.getPdfObject());
-            }
-
-            else if(item instanceof ReportRepeatingTemplate){
-                for(Element reportRepeatingTemplateItem : item.itemsGPO){
-                    _doc.add(reportRepeatingTemplateItem);
-                }
-            }
-
-            else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
+            } else if (item instanceof ReportRepeatingTemplate) {
+                loadTemplate((ReportRepeatingTemplate) item);
+            } else if (item.getPdfObject() != null) _doc.add(item.getPdfObject());
         }
 
         _doc.close();
@@ -622,12 +584,12 @@ public class Report {
     }
 
 
-    protected void drawHeader(PdfWriter writer, ArrayList<BaseReportObject> headerItems){
-    // draws header inside margins
+    protected void drawHeader(PdfWriter writer, ArrayList<BaseReportObject> headerItems) {
+        // draws header inside margins
         ColumnText ct = new ColumnText(writer.getDirectContent());
-        ct.setSimpleColumn(_doc.leftMargin(),_doc.topMargin(), _doc.getPageSize().getWidth() - _doc.rightMargin(),_doc.getPageSize().getHeight() * 0.99f);
+        ct.setSimpleColumn(_doc.leftMargin(), _doc.topMargin(), _doc.getPageSize().getWidth() - _doc.rightMargin(), _doc.getPageSize().getHeight() * 0.99f);
 
-        for (BaseReportObject headerItem : headerItems){
+        for (BaseReportObject headerItem : headerItems) {
             try {
                 ct.addElement(headerItem.getPdfObject());
             } catch (DocumentException e) {
@@ -654,13 +616,13 @@ public class Report {
             nodeName = headerChildList.item(j).getNodeName();
             if (nodeName.equalsIgnoreCase("paragraph")) {
                 try {
-                    headerItems.add(new ReportParagraph(headerChildList.item(j), fonts, null, pGetter,this));
+                    headerItems.add(new ReportParagraph(headerChildList.item(j), fonts, null, pGetter, this));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
             } else if (nodeName.equalsIgnoreCase("table")) {
                 try {
-                    headerItems.add(new ReportTable(headerChildList.item(j), fonts, null, pGetter,this));
+                    headerItems.add(new ReportTable(headerChildList.item(j), fonts, null, pGetter, this));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -670,13 +632,31 @@ public class Report {
 
     protected void insertNewSection(ReportNewSection reportNewSection) {
         setPageSize(reportNewSection.getPageSize(), reportNewSection.getPageOrientation());
-        marginLeft=reportNewSection.marginLeft;
-        marginRight=reportNewSection.marginRight;
-        marginTop=reportNewSection.marginTop;
-        marginBottom=reportNewSection.marginBottom;
+        marginLeft = reportNewSection.marginLeft;
+        marginRight = reportNewSection.marginRight;
+        marginTop = reportNewSection.marginTop;
+        marginBottom = reportNewSection.marginBottom;
         _doc.setMargins(marginLeft, marginRight, marginTop, marginBottom);
         _doc.newPage();
-        spaceLeft  = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+        spaceLeft = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+    }
+
+    protected void loadTemplate(ReportRepeatingTemplate reportRepeatingTemplate) throws DocumentException, ParseException, IOException {
+        for (BaseReportObject reportRepeatingTemplateItem : reportRepeatingTemplate.getItems()) {
+            if (reportRepeatingTemplateItem instanceof ReportNewPage) {
+                _doc.newPage();
+                spaceLeft = _doc.getPageSize().getHeight() - _doc.topMargin() - _doc.bottomMargin();
+            } else if (reportRepeatingTemplateItem instanceof ReportRepeatingTemplate) {
+                loadTemplate((ReportRepeatingTemplate) reportRepeatingTemplateItem);
+            } else if (reportRepeatingTemplateItem instanceof ReportRepeatingRowBalanced) {
+                PdfPTable combo_table = new PdfPTable(3);
+                combo_table.setWidthPercentage(104);
+                PdfPTable pdfTable = ((ReportRepeatingRowBalanced) reportRepeatingTemplateItem).getPdfTable(spaceLeft, _doc);
+                _doc.add(pdfTable);
+            } else {
+                _doc.add(reportRepeatingTemplateItem.getPdfObject());
+            }
+        }
     }
 
     public int getPageNumber() {
