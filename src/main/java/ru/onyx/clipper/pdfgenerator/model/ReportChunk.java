@@ -143,7 +143,7 @@ public class ReportChunk extends BaseReportObject {
             content = "Ошибка вычисления";
         }
 
-		if(getIsInitial().equals("true") && content != null && content != ""){
+		if(getIsInitial().equals("true") && content != null && !content.equals("")){
 			Character init = content.charAt(0);
 			content = init.toString().toUpperCase();
 		}
