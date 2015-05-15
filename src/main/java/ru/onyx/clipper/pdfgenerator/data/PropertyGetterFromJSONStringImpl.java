@@ -19,8 +19,6 @@ import java.util.Date;
  */
 public class PropertyGetterFromJSONStringImpl implements PropertyGetter{
 
-    private static final Logger logger= LoggerFactory.getLogger(PropertyGetterFromJSONFileImpl.class);
-
     private String jsonPlainString;
 
     public PropertyGetterFromJSONStringImpl(String jsonPlainString) {
@@ -47,7 +45,7 @@ public class PropertyGetterFromJSONStringImpl implements PropertyGetter{
 				temp.append(jsonPath.substring(lastBracketIndex + 1, jsonPath.length()));
 				return GetProperty(temp.toString());
 			} else {
-                logger.debug(e.getMessage());
+                System.out.print(e.getMessage());
             }
             return null;
         }catch (IllegalArgumentException iae){

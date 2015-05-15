@@ -21,9 +21,6 @@ import org.slf4j.LoggerFactory;
  */
 public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
 
-    private static final Logger logger= LoggerFactory.getLogger(PropertyGetterFromJSONFileImpl.class);
-
-
     private File jsonFile;
 
     public PropertyGetterFromJSONFileImpl(String path) {
@@ -56,7 +53,7 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
 				temp.append(jsonPath.substring(lastBracketIndex + 1, jsonPath.length()));
 				return GetProperty(temp.toString());
 			} else {
-                logger.debug(e2.getMessage());
+                System.out.print(e2.getMessage());
             }
             return null;
         }catch (IllegalArgumentException iae){
