@@ -4,6 +4,8 @@ import com.itextpdf.text.Image;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
 import net.minidev.json.JSONArray;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -16,6 +18,9 @@ import java.util.Date;
  * Created by anton on 03.04.14.
  */
 public class PropertyGetterFromJSONStringImpl implements PropertyGetter{
+
+    private static final Logger logger= LoggerFactory.getLogger(PropertyGetterFromJSONFileImpl.class);
+
     private String jsonPlainString;
 
     public PropertyGetterFromJSONStringImpl(String jsonPlainString) {
@@ -42,7 +47,7 @@ public class PropertyGetterFromJSONStringImpl implements PropertyGetter{
 				temp.append(jsonPath.substring(lastBracketIndex + 1, jsonPath.length()));
 				return GetProperty(temp.toString());
 			} else {
-                e.printStackTrace();
+                logger.debug(e.getMessage());
             }
             return null;
         }catch (IllegalArgumentException iae){

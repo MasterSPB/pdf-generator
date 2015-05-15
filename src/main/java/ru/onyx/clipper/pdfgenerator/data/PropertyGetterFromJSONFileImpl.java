@@ -12,17 +12,22 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
  * Created by anton on 03.04.14.
  */
 public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
+
+    private static final Logger logger= LoggerFactory.getLogger(PropertyGetterFromJSONFileImpl.class);
+
+
     private File jsonFile;
 
     public PropertyGetterFromJSONFileImpl(String path) {
         jsonFile = new File(path);
-       // System.out.println(GetPageCount("$.test2.p1"));
     }
 
     public PropertyGetterFromJSONFileImpl(File jsonFile1) {
@@ -51,7 +56,7 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
 				temp.append(jsonPath.substring(lastBracketIndex + 1, jsonPath.length()));
 				return GetProperty(temp.toString());
 			} else {
-                e2.printStackTrace();
+                logger.debug(e2.getMessage());
             }
             return null;
         }catch (IllegalArgumentException iae){
