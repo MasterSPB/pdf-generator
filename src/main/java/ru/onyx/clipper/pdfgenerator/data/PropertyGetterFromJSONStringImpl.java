@@ -36,13 +36,14 @@ public class PropertyGetterFromJSONStringImpl implements PropertyGetter{
             return null;
         } catch (PathNotFoundException e) {
 			if(jsonPath.contains("[0]")){
-				int firstBracketIndex = jsonPath.lastIndexOf("[");
-				int lastBracketIndex = jsonPath.lastIndexOf("]");
+				int firstBracketIndex = jsonPath.lastIndexOf("[0");
+				int lastBracketIndex = jsonPath.lastIndexOf("0]")+1;
 				StringBuilder temp = new StringBuilder(jsonPath.substring(0,firstBracketIndex));
 				temp.append(jsonPath.substring(lastBracketIndex + 1, jsonPath.length()));
 				return GetProperty(temp.toString());
-			}
-			e.printStackTrace();
+			} else {
+                e.printStackTrace();
+            }
             return null;
         }catch (IllegalArgumentException iae){
 			iae.printStackTrace();

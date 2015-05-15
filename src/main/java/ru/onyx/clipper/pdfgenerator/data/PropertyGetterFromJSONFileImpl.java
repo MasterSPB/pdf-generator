@@ -50,8 +50,9 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
 				StringBuilder temp = new StringBuilder(jsonPath.substring(0,firstBracketIndex));
 				temp.append(jsonPath.substring(lastBracketIndex + 1, jsonPath.length()));
 				return GetProperty(temp.toString());
-			}
-			e2.printStackTrace();
+			} else {
+                e2.printStackTrace();
+            }
             return null;
         }catch (IllegalArgumentException iae){
 			iae.printStackTrace();
