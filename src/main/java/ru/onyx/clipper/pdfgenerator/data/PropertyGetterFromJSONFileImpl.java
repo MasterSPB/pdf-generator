@@ -10,16 +10,17 @@ import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import org.slf4j.Logger;
 
 import java.util.Date;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**
  * Created by anton on 03.04.14.
  */
 public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
+
+    private  Logger logger;
 
     private File jsonFile;
 
@@ -53,7 +54,7 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
 				temp.append(jsonPath.substring(lastBracketIndex + 1, jsonPath.length()));
 				return GetProperty(temp.toString());
 			} else {
-                System.out.print(e2.getMessage());
+                log(e2.getMessage());
             }
             return null;
         }catch (IllegalArgumentException iae){
@@ -125,5 +126,17 @@ public class PropertyGetterFromJSONFileImpl implements PropertyGetter{
         } catch (Exception e) {
             return null;
         }
+    }
+
+    void log(String message) {
+        if (logger != null) logger.debug(message);
+    }
+
+    public Logger getLogger() {
+        return logger;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
     }
 }
