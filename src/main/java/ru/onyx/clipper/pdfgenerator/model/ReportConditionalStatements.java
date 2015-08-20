@@ -181,7 +181,7 @@ public class ReportConditionalStatements {
             }
             case "wordsplitter": {
                 try{
-                    items.add(new ReportWordSplitter(ifStatementItems.item(t),fonts,null,pGetter));
+                    items.add(new ReportWordSplitter(ifStatementItems.item(t),fonts,null,pGetter,report));
                 }catch (ParseException e){
                     e.printStackTrace();
                 }

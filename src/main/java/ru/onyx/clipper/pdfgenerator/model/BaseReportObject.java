@@ -386,7 +386,7 @@ public abstract class BaseReportObject {
                         items.add(new ReportRepeatingRowSimple(item, fonts, pParent, pGetter,report));
                         break;
                     case Report.wordsplitter:
-                        items.add(new ReportWordSplitter(item, fonts, pParent, pGetter));
+                        items.add(new ReportWordSplitter(item, fonts, pParent, pGetter, report));
                         break;
                     case Report.dateparagraph:
                         items.add(new ReportDate(item, fonts, pParent, pGetter));

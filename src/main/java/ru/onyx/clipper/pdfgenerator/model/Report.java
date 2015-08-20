@@ -325,7 +325,7 @@ public class Report {
                 items.add(new ReportDate(repChilds.item(t), fonts, null, pGetter));
             }
             if (nodeName.equals(wordsplitter)) {
-                items.add(new ReportWordSplitter(repChilds.item(t), fonts, null, pGetter));
+                items.add(new ReportWordSplitter(repChilds.item(t), fonts, null, pGetter, this));
             }
             if (nodeName.equals(newpage)) {
                 items.add(new ReportNewPage());
