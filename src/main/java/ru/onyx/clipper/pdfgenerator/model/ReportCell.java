@@ -228,6 +228,11 @@ public class ReportCell extends BaseReportObject {
 			if (getDecimalSeparator() != null) {
 				celltext = ReportStrUtils.replaceDecSeparator(celltext, getDecimalSeparator());
 			}
+
+			if (celltext == null || celltext.isEmpty()) {
+				NullF = getNullFont();
+				celltext = getDefaultNullValue();
+			}
 		}
 
 		if (getIfZero() != null && celltext != null) {
