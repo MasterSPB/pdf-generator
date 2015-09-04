@@ -9,7 +9,6 @@ import org.w3c.dom.NodeList;
 import ru.onyx.clipper.pdfgenerator.data.PropertyGetter;
 import ru.onyx.clipper.pdfgenerator.utils.ReportDateUtils;
 
-import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -617,6 +616,7 @@ public abstract class BaseReportObject {
     protected String dateFormat;
     protected String propertyMode;
     protected String customtext;
+    protected String listNumerate;
     protected String wordalign;
     protected String text;
     protected String fontName;
