@@ -236,7 +236,7 @@ public class ReportCell extends BaseReportObject {
 		}
 
 		if (getIfZero() != null && celltext != null) {
-			if (celltext.trim().equals("0,00") || celltext.trim().equals("0.00") || celltext.trim().equals("0")) {
+			if (celltext.trim().equals("0,000") || celltext.trim().equals("0,00") || celltext.trim().equals("0.00") || celltext.trim().equals("0")) {
 				celltext = getIfZero();
 			}
 			if (celltext.equals("null")) {
