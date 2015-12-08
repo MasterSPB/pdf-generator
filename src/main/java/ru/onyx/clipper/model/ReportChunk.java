@@ -212,7 +212,7 @@ public class ReportChunk extends BaseReportObject {
 
 		if(getIfZero()!=null && content != null){
 			try{
-				if(content.trim().equals("0,00") || content.trim().equals("0.00") || content.trim().equals("0")|| content.trim().equals("00")){
+				if(content.trim().equals("0,000") || content.trim().equals("0,00") || content.trim().equals("0.00") || content.trim().equals("0")|| content.trim().equals("00")){
 					content = getIfZero();
 				}
 				if(content.equals("null")){
